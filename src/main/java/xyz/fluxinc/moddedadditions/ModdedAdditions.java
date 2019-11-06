@@ -1,9 +1,9 @@
 package xyz.fluxinc.moddedadditions;
 
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.fluxinc.moddedadditions.controllers.MagnetInstanceController;
+import xyz.fluxinc.moddedadditions.listeners.AnvilListener;
 import xyz.fluxinc.moddedadditions.listeners.MagnetListener;
 import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
 
@@ -21,6 +21,11 @@ public final class ModdedAdditions extends JavaPlugin {
             Register Crafting Additions
          */
         getServer().getPluginManager().registerEvents(new CustomRecipeUtils(this), this);
+
+        /*
+            Register Colored Anvil Names
+         */
+        getServer().getPluginManager().registerEvents(new AnvilListener(), this);
 
         /*
             Setup Magnet Related Tasks
