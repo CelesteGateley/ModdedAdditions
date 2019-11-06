@@ -1,7 +1,5 @@
 package xyz.fluxinc.moddedadditions.listeners;
 
-import com.sun.istack.internal.Nullable;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -12,7 +10,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.ArrayList;
@@ -43,7 +40,9 @@ public class HammerListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         if (!verifyHammer(event.getPlayer().getInventory().getItemInMainHand())) { return; }
         if (!playerBlockFaceMap.containsKey(event.getPlayer())) { return; }
-        int x = event.getBlock().getX(); int y = event.getBlock().getY(); int z = event.getBlock().getZ();
+        int x = event.getBlock().getX();
+        int y = event.getBlock().getY();
+        int z = event.getBlock().getZ();
         World world = event.getBlock().getWorld();
         List<Block> extraBlocks = new ArrayList<>();
         switch (playerBlockFaceMap.get(event.getPlayer())) {
