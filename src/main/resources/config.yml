@@ -1,0 +1,20 @@
+#####################################################
+#             Config for Modded Additions
+#   Here all configurations will be found for this
+#          plugin and all available modules
+#####################################################
+
+version: 1
+
+#####################################################
+#             Config for Crop Harvesting
+#####################################################
+
+# Should VeinMineMode be active (Default: false)
+ch-veinmine: false
+
+# Maximum VeinMine radius (Default: 8) (Larger numbers will cause lag spikes)
+ch-vmradius: 8
+
+# Should players have an empty hand (Default: true)
+ch-emptyhand: true
