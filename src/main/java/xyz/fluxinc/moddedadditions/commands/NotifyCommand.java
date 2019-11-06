@@ -9,11 +9,11 @@ import org.bukkit.entity.Player;
 
 import static org.bukkit.Bukkit.getServer;
 
-public class PingCommand implements CommandExecutor {
+public class NotifyCommand implements CommandExecutor {
 
     private LanguageManager languageManager;
 
-    public PingCommand(LanguageManager languageManager) { this.languageManager = languageManager; }
+    public NotifyCommand(LanguageManager languageManager) { this.languageManager = languageManager; }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

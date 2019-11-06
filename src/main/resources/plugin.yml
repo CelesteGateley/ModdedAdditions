@@ -2,6 +2,9 @@ name: ModdedAdditions
 version: ${project.version}
 main: xyz.fluxinc.moddedadditions.ModdedAdditions
 api-version: 1.13
-#depend: [FluxCore]
+depend: [FluxCore]
 authors: [CelesteMagisteel]
 description: Adds some cool tools/features that aren't in vanilla
+commands:
+  notify:
+    usage: notify <name>

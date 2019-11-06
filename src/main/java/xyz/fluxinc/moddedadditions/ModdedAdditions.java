@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import xyz.fluxinc.fluxcore.FluxCore;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
-import xyz.fluxinc.moddedadditions.commands.PingCommand;
+import xyz.fluxinc.moddedadditions.commands.NotifyCommand;
 import xyz.fluxinc.moddedadditions.controllers.MagnetInstanceController;
 import xyz.fluxinc.moddedadditions.listeners.AnvilListener;
 import xyz.fluxinc.moddedadditions.listeners.CropHarvestListener;
@@ -38,7 +38,7 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // Register Ping Listener and Command
         getServer().getPluginManager().registerEvents(new PingListener(), this);
-        getCommand("ping").setExecutor(new PingCommand(languageManager));
+        getCommand("notify").setExecutor(new NotifyCommand(languageManager));
 
         // Register Crafting Additions
         getServer().getPluginManager().registerEvents(new CustomRecipeUtils(this), this);
