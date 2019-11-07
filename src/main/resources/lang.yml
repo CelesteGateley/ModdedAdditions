@@ -1,0 +1,13 @@
+##################################################
+#           Universal Language File              #
+#       for SapphireHollow Modded Additions      #
+##################################################
+
+# Global Plugin Prefix
+prefix: "&7[&9SH Additions&7]"
+
+# Notification Keys
+nf-onlineUserNotFound: "&4No user by that name is logged in!"
+nf-invalidUsageNotify: "&4Invalid Command Usage! Correct Usage: &c/notify <player>"
+nf-notifyTarget: "&9You have been pinged by %sender%"
+nf-notifySender: "&9Successfully sent ping to %target%"
