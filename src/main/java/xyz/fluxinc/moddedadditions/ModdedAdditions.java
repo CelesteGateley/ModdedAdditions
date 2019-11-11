@@ -25,12 +25,15 @@ public final class ModdedAdditions extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        // Register Core Plugin
+        fluxCore = (FluxCore)getServer().getPluginManager().getPlugin("FluxCore");
+        if (fluxCore == null) { getLogger().severe("FluxCore not initialised, disabling!"); getServer().getPluginManager().disablePlugin(this); return; }
+
         // Register Language and Configuration Managers
         languageManager = new LanguageManager<>(this, "lang.yml");
         configurationManager = new ConfigurationManager<>(this, "config.yml");
 
         // Register Core Utilities
-        fluxCore = (FluxCore)getServer().getPluginManager().getPlugin("FluxCore");
         blockAccessController = fluxCore.getBlockAccessController();
 
         // Register Crop Harvesting
