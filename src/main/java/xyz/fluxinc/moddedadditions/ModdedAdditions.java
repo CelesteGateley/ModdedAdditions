@@ -37,7 +37,7 @@ public final class ModdedAdditions extends JavaPlugin {
         blockAccessController = fluxCore.getBlockAccessController();
 
         // Register Crop Harvesting
-        getServer().getPluginManager().registerEvents(new CropHarvestListener(this), this);
+        getServer().getPluginManager().registerEvents(new CropHarvestListener(this, configurationManager.getConfig().getInt("ch-vmblocks")), this);
 
         // Register Ping Listener and Command
         getServer().getPluginManager().registerEvents(new PingListener(), this);

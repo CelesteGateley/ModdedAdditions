@@ -13,8 +13,8 @@ version: 1
 # Should VeinMineMode be active (Default: false)
 ch-veinmine: false
 
-# Maximum VeinMine radius (Default: 8) (Larger numbers will cause lag spikes)
-ch-vmradius: 8
+# Maximum VeinMine Blocks (Default: 128) (Larger numbers will cause lag spikes)
+ch-vmblocks: 128
 
 # Should players have an empty hand (Default: true)
 ch-emptyhand: true

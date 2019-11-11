@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions.listeners;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
@@ -15,16 +14,26 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-import static java.lang.Math.abs;
+import static xyz.fluxinc.fluxcore.utils.BlockUtils.getVMBlockList;
 
 public class CropHarvestListener implements Listener {
 
     private ModdedAdditions instance;
+    private int blockLimit;
 
-    public CropHarvestListener(ModdedAdditions pluginInstance) {
-        this.instance = pluginInstance;
+    private static List<Material> crops;
+    static {
+        crops = new ArrayList<>();
+        crops.add(Material.BEETROOTS);
+        crops.add(Material.CARROTS);
+        crops.add(Material.POTATOES);
+        crops.add(Material.NETHER_WART);
+        crops.add(Material.WHEAT);
     }
+
+    public CropHarvestListener(ModdedAdditions pluginInstance, int blockLimit) { this.instance = pluginInstance; this.blockLimit = blockLimit; }
 
     // When a Player right clicks on a block, run this
     @EventHandler
@@ -33,22 +42,25 @@ public class CropHarvestListener implements Listener {
         if (event.getClickedBlock() == null || event.getAction() != Action.RIGHT_CLICK_BLOCK) { return; }
         // If they don't have an empty hand, exit
         if (event.getItem() != null && instance.getConfig().getBoolean("emptyhand")) { return; }
+        // Is the block a valid crop?
+        if (crops.contains(event.getMaterial())) { return; }
         // Should it veinmine
         boolean veinminer = instance.getConfig().getBoolean("veinmine") && event.getPlayer().isSneaking();
-        // Get information about the block they clicked on
 
+        // Get information about the block they clicked on
         BlockData data = event.getClickedBlock().getBlockData();
 
         // If the block can be aged (therefore is a crop), run the below code
         if (data instanceof Ageable) {
 
-            ArrayList<Block> blocks;
+            List<Block> blocks;
             // Get VeinMine list
-            if (veinminer) { blocks = getBlockList(event.getPlayer(), event.getClickedBlock(), instance.getConfig().getInt("vmradius")); }
+            if (veinminer) { blocks = getVMBlockList(event.getClickedBlock(), this.blockLimit); }
             // Get single block
-            else { blocks = getBlockList(event.getPlayer(), event.getClickedBlock(), 0); }
+            else { blocks = new ArrayList<>(); blocks.add(event.getClickedBlock()); }
 
             for (Block b : blocks) {
+                if (!verifyBlock(event.getPlayer(), b)) { continue; }
                 Ageable age = (Ageable) b.getBlockData();
                 Collection<ItemStack> drops = b.getDrops();
                 age.setAge(0);
@@ -60,25 +72,11 @@ public class CropHarvestListener implements Listener {
         }
     }
 
-    private boolean verifyBlock(Player player, Block block, Material expectedBlock) {
+    private boolean verifyBlock(Player player, Block block) {
         return block != null && (block.getBlockData() instanceof Ageable)
                 && ((Ageable) block.getBlockData()).getAge() == ((Ageable) block.getBlockData()).getMaximumAge()
-                && block.getType() == expectedBlock
                 && instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), true)
                 && instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), false);
-    }
-
-    private ArrayList<Block> getBlockList(Player player, Block startingBlock, int distanceModifier) {
-        ArrayList<Block> blockList = new ArrayList<>();
-        distanceModifier = abs(distanceModifier);
-        for (int x = distanceModifier * -1; x <= distanceModifier; x++) {
-            for (int z = distanceModifier * -1; z <= distanceModifier; z++) {
-                Location newLoc = new Location(startingBlock.getWorld(), startingBlock.getX() + x, startingBlock.getY(), startingBlock.getZ() + z);
-                Block b = newLoc.getBlock();
-                if (verifyBlock(player, b, startingBlock.getType())) { blockList.add(b); }
-            }
-        }
-        return blockList;
     }
 
 }
