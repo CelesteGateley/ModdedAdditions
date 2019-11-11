@@ -35,15 +35,9 @@ public class CropHarvestListener implements Listener {
 
     public CropHarvestListener(ModdedAdditions pluginInstance, int blockLimit) { this.instance = pluginInstance; this.blockLimit = blockLimit; }
 
-    // When a Player right clicks on a block, run this
     @EventHandler
-    public void interactEvent(PlayerInteractEvent event) {
-        // If right
-        if (event.getClickedBlock() == null || event.getAction() != Action.RIGHT_CLICK_BLOCK) { return; }
-        // If they don't have an empty hand, exit
-        if (event.getItem() != null && instance.getConfig().getBoolean("emptyhand")) { return; }
-        // Is the block a valid crop?
-        if (crops.contains(event.getMaterial())) { return; }
+    public void cropInteractEvent(PlayerInteractEvent event) {
+        if (!verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem())) { return; }
         // Should it veinmine
         boolean veinminer = instance.getConfig().getBoolean("veinmine") && event.getPlayer().isSneaking();
 
@@ -52,13 +46,11 @@ public class CropHarvestListener implements Listener {
 
         // If the block can be aged (therefore is a crop), run the below code
         if (data instanceof Ageable) {
-
             List<Block> blocks;
             // Get VeinMine list
             if (veinminer) { blocks = getVMBlockList(event.getClickedBlock(), this.blockLimit); }
             // Get single block
             else { blocks = new ArrayList<>(); blocks.add(event.getClickedBlock()); }
-
             for (Block b : blocks) {
                 if (!verifyBlock(event.getPlayer(), b)) { continue; }
                 Ageable age = (Ageable) b.getBlockData();
@@ -70,6 +62,13 @@ public class CropHarvestListener implements Listener {
                 }
             }
         }
+    }
+
+    private boolean verifyEvent(Block clickedBlock, Action action, ItemStack item) {
+        return clickedBlock != null
+                && action == Action.RIGHT_CLICK_BLOCK
+                && (item != null && instance.getConfig().getBoolean("ch-emptyhand"))
+                && crops.contains(clickedBlock.getType());
     }
 
     private boolean verifyBlock(Player player, Block block) {
