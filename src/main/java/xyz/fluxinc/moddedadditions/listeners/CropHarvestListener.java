@@ -10,12 +10,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import xyz.fluxinc.fluxcore.utils.BlockUtils;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static xyz.fluxinc.fluxcore.utils.BlockUtils.getDirectionalBlockList;
 import static xyz.fluxinc.fluxcore.utils.BlockUtils.getVMBlockList;
 
 public class CropHarvestListener implements Listener {
@@ -31,13 +33,23 @@ public class CropHarvestListener implements Listener {
         crops.add(Material.POTATOES);
         crops.add(Material.NETHER_WART);
         crops.add(Material.WHEAT);
+        crops.add(Material.COCOA);
     }
+
+    private static List<Material> tallCrops;
+    static {
+        tallCrops = new ArrayList<>();
+        tallCrops.add(Material.BAMBOO);
+        tallCrops.add(Material.CACTUS);
+        tallCrops.add(Material.SUGAR_CANE);
+    }
+
 
     public CropHarvestListener(ModdedAdditions pluginInstance, int blockLimit) { this.instance = pluginInstance; this.blockLimit = blockLimit; }
 
     @EventHandler
     public void cropInteractEvent(PlayerInteractEvent event) {
-        if (!verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem())) { return; }
+        if (!verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem()) && crops.contains(event.getClickedBlock().getType())) { return; }
         // Should it veinmine
         boolean veinminer = instance.getConfig().getBoolean("veinmine") && event.getPlayer().isSneaking();
 
@@ -64,11 +76,23 @@ public class CropHarvestListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void tallCropHandler(PlayerInteractEvent event) {
+        if (verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem())) { return; }
+        if (tallCrops.contains(event.getMaterial())) { return; }
+        List<Block> blockList = getDirectionalBlockList(event.getClickedBlock(), BlockUtils.UP_DIRECTION);
+        blockList.remove(0);
+        for (Block block : blockList) {
+            if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), false)) { continue; }
+            block.breakNaturally();
+        }
+    }
+
+
     private boolean verifyEvent(Block clickedBlock, Action action, ItemStack item) {
         return clickedBlock != null
                 && action == Action.RIGHT_CLICK_BLOCK
-                && (item != null && instance.getConfig().getBoolean("ch-emptyhand"))
-                && crops.contains(clickedBlock.getType());
+                && (item != null && instance.getConfig().getBoolean("ch-emptyhand"));
     }
 
     private boolean verifyBlock(Player player, Block block) {
