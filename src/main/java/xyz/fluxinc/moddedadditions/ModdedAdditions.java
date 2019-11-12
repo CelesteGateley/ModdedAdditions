@@ -61,6 +61,8 @@ public final class ModdedAdditions extends JavaPlugin {
 
     public MagnetInstanceController getMagnetInstanceController() { return magnetInstanceController;}
 
+    public FluxCore getCoreInstance() { return fluxCore; }
+
     public LanguageManager getLanguageManager() { return this.languageManager; }
 
     public ConfigurationManager getConfigurationManager() { return this.configurationManager; }
