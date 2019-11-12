@@ -1,0 +1,38 @@
+pickaxe:
+  - ANDESITE
+  - DIORITE
+  - GRANITE
+  - COAL_ORE
+  - IRON_ORE
+  - LAPIS_ORE
+  - GOLD_ORE
+  - REDSTONE_ORE
+  - EMERALD_ORE
+  - DIAMOND_ORE
+  - NETHER_QUARTZ_ORE
+  - GLOWSTONE
+
+axe:
+  - OAK_LOG
+  - BIRCH_LOG
+  - SPRUCE_LOG
+  - JUNGLE_LOG
+  - ACACIA_LOG
+  - DARK_OAK_LOG
+
+shovel:
+  - GRAVEL
+  - PODZOL
+  - COARSE_DIRT
+
+hoe: []
+
+shears: []
+
+hand:
+  - OAK_LEAVES
+  - BIRCH_LEAVES
+  - SPRUCE_LEAVES
+  - JUNGLE_LEAVES
+  - ACACIA_LEAVES
+  - DARK_OAK_LEAVES
