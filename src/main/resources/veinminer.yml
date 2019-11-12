@@ -1,3 +1,5 @@
+max-blocks: 128
+
 pickaxe:
   - ANDESITE
   - DIORITE

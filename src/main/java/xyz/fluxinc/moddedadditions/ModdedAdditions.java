@@ -7,10 +7,8 @@ import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.NotifyCommand;
 import xyz.fluxinc.moddedadditions.controllers.MagnetInstanceController;
-import xyz.fluxinc.moddedadditions.listeners.AnvilListener;
-import xyz.fluxinc.moddedadditions.listeners.CropHarvestListener;
-import xyz.fluxinc.moddedadditions.listeners.MagnetListener;
-import xyz.fluxinc.moddedadditions.listeners.PingListener;
+import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
+import xyz.fluxinc.moddedadditions.listeners.*;
 import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
 
 import xyz.fluxinc.fluxcore.configuration.LanguageManager;
@@ -22,6 +20,7 @@ public final class ModdedAdditions extends JavaPlugin {
     private ConfigurationManager<ModdedAdditions> configurationManager;
     private FluxCore fluxCore;
     private BlockAccessController blockAccessController;
+    private VeinMinerController veinMinerController;
 
     @Override
     public void onEnable() {
@@ -52,6 +51,10 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup Magnet Related Tasks
         magnetInstanceController = new MagnetInstanceController(this, getServer().getScheduler());
         getServer().getPluginManager().registerEvents(new MagnetListener(this), this);
+
+        // Setup VeinMiner Related Tasks
+        veinMinerController = new VeinMinerController(this);
+        getServer().getPluginManager().registerEvents(new VeinMinerListener(this), this);
     }
 
     @Override
@@ -70,4 +73,5 @@ public final class ModdedAdditions extends JavaPlugin {
     public BlockAccessController getBlockAccessController() { return this.blockAccessController; }
 
 
+    public VeinMinerController getVeinMinerController() { return this.veinMinerController; }
 }

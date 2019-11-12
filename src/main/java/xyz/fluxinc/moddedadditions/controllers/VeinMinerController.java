@@ -145,4 +145,8 @@ public class VeinMinerController {
             Bukkit.getServer().getPluginManager().disablePlugin(this.instance);
         }
     }
+
+    public int getMaxBlocks() {
+        return vmConfiguration.getInt("max-blocks");
+    }
 }
