@@ -21,7 +21,7 @@ public class VeinMinerController {
     private List<Material> hoeBlocks;
     private List<Material> shearsBlocks;
     private List<Material> handBlocks;
-    private static final String CONFIG_NAME = "areatool.yml";
+    private static final String CONFIG_NAME = "veinminer.yml";
     private static final String PICKAXE_CONFIG_KEY = "pickaxe";
     private static final String AXE_CONFIG_KEY = "axe";
     private static final String SHOVEL_CONFIG_KEY = "shovel";
