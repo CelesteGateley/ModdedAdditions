@@ -79,7 +79,7 @@ public class CropHarvestListener implements Listener {
 
     @EventHandler
     public void tallCropHandler(PlayerInteractEvent event) {
-        if (verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem())) { return; }
+        if (!verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem())) { return; }
         if (tallCrops.contains(event.getMaterial())) { return; }
         List<Block> blockList = getDirectionalBlockList(event.getClickedBlock(), Direction.UP);
         blockList.remove(0);
@@ -92,6 +92,7 @@ public class CropHarvestListener implements Listener {
 
     private boolean verifyEvent(Block clickedBlock, Action action, ItemStack item) {
         return clickedBlock != null
+                && clickedBlock.getType() != Material.AIR
                 && action == Action.RIGHT_CLICK_BLOCK
                 && (item != null && instance.getConfig().getBoolean("ch-emptyhand"));
     }
