@@ -24,6 +24,7 @@ public class CustomRecipeUtils implements Listener {
 
     public CustomRecipeUtils(ModdedAdditions instance) {
         recipeKeys = new ArrayList<>();
+        this.instance = instance;
 
         SLAB_TO_BLOCK.forEach((slab, block) -> {
             NamespacedKey nsKey = new NamespacedKey(this.instance, slab.toString() + "_BACK_CONVERSION");
