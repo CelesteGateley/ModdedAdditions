@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
@@ -65,6 +66,7 @@ public class CropHarvestListener implements Listener {
             if (veinminer) { blocks = getVMBlockList(event.getClickedBlock(), this.blockLimit); }
             // Get single block
             else { blocks = new ArrayList<>(); blocks.add(event.getClickedBlock()); }
+            Bukkit.getLogger().fine("Blocks Found: " + blocks.size());
             for (Block b : blocks) {
                 if (!verifyBlock(event.getPlayer(), b)) { continue; }
                 Ageable age = (Ageable) b.getBlockData();

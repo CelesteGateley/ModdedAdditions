@@ -1,5 +1,5 @@
 name: ModdedAdditions
-version: ${project.version}
+version: ${full.project.version}
 main: xyz.fluxinc.moddedadditions.ModdedAdditions
 api-version: 1.13
 depend: [FluxCore]
