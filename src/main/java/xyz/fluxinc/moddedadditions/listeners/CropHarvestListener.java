@@ -66,7 +66,6 @@ public class CropHarvestListener implements Listener {
             if (veinminer) { blocks = getVMBlockList(event.getClickedBlock(), this.blockLimit); }
             // Get single block
             else { blocks = new ArrayList<>(); blocks.add(event.getClickedBlock()); }
-            Bukkit.getLogger().fine("Blocks Found: " + blocks.size());
             for (Block b : blocks) {
                 if (!verifyBlock(event.getPlayer(), b)) { continue; }
                 Ageable age = (Ageable) b.getBlockData();
@@ -102,9 +101,9 @@ public class CropHarvestListener implements Listener {
 
     private boolean verifyBlock(Player player, Block block) {
         return block != null && (block.getBlockData() instanceof Ageable)
-                && ((Ageable) block.getBlockData()).getAge() == ((Ageable) block.getBlockData()).getMaximumAge()
-                && instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), true)
-                && instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), false);
+                && ((Ageable) block.getBlockData()).getAge() == ((Ageable) block.getBlockData()).getMaximumAge();
+                //&& instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), true)
+                //&& instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), false);
     }
 
 }
