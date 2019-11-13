@@ -67,7 +67,8 @@ public class CropHarvestListener implements Listener {
             // Get single block
             else { blocks = new ArrayList<>(); blocks.add(event.getClickedBlock()); }
             for (Block b : blocks) {
-                if (!verifyBlock(event.getPlayer(), b)) { continue; }
+                Bukkit.getLogger().warning(b.getLocation().toString());
+                if (!verifyBlock(event.getPlayer(), b)) { Bukkit.getLogger().severe("Verify Block Failed"); continue; }
                 Ageable age = (Ageable) b.getBlockData();
                 Collection<ItemStack> drops = b.getDrops();
                 age.setAge(0);
@@ -101,9 +102,9 @@ public class CropHarvestListener implements Listener {
 
     private boolean verifyBlock(Player player, Block block) {
         return block != null && (block.getBlockData() instanceof Ageable)
-                && ((Ageable) block.getBlockData()).getAge() == ((Ageable) block.getBlockData()).getMaximumAge();
-                //&& instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), true)
-                //&& instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), false);
+                && ((Ageable) block.getBlockData()).getAge() == ((Ageable) block.getBlockData()).getMaximumAge()
+                && instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), true)
+                && instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), false);
     }
 
 }
