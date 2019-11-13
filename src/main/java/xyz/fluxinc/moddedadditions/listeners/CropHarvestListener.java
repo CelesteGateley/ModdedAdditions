@@ -11,7 +11,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.fluxcore.enums.Direction;
-import xyz.fluxinc.fluxcore.utils.BlockUtils;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ import java.util.List;
 import static xyz.fluxinc.fluxcore.utils.BlockUtils.getDirectionalBlockList;
 import static xyz.fluxinc.fluxcore.utils.BlockUtils.getVMBlockList;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class CropHarvestListener implements Listener {
 
     private ModdedAdditions instance;
@@ -50,9 +50,10 @@ public class CropHarvestListener implements Listener {
 
     @EventHandler
     public void cropInteractEvent(PlayerInteractEvent event) {
-        if (!verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem()) && crops.contains(event.getClickedBlock().getType())) { return; }
+        if (!verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem())) { return; }
+        if (!crops.contains(event.getClickedBlock().getType())) { return; }
         // Should it veinmine
-        boolean veinminer = instance.getConfig().getBoolean("veinmine") && event.getPlayer().isSneaking();
+        boolean veinminer = instance.getConfig().getBoolean("ch-veinmine") && event.getPlayer().isSneaking();
 
         // Get information about the block they clicked on
         BlockData data = event.getClickedBlock().getBlockData();
@@ -94,7 +95,7 @@ public class CropHarvestListener implements Listener {
         return clickedBlock != null
                 && clickedBlock.getType() != Material.AIR
                 && action == Action.RIGHT_CLICK_BLOCK
-                && (item != null && instance.getConfig().getBoolean("ch-emptyhand"));
+                && !(item != null && instance.getConfig().getBoolean("ch-emptyhand"));
     }
 
     private boolean verifyBlock(Player player, Block block) {
