@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import xyz.fluxinc.fluxcore.enums.Direction;
 import xyz.fluxinc.fluxcore.utils.BlockUtils;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
@@ -80,7 +81,7 @@ public class CropHarvestListener implements Listener {
     public void tallCropHandler(PlayerInteractEvent event) {
         if (verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem())) { return; }
         if (tallCrops.contains(event.getMaterial())) { return; }
-        List<Block> blockList = getDirectionalBlockList(event.getClickedBlock(), BlockUtils.UP_DIRECTION);
+        List<Block> blockList = getDirectionalBlockList(event.getClickedBlock(), Direction.UP);
         blockList.remove(0);
         for (Block block : blockList) {
             if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), false)) { continue; }
