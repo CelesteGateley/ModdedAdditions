@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions.utils;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
@@ -15,6 +16,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import static org.bukkit.Bukkit.getServer;
+import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.storage.AdditionalRecipeStorage.*;
 
 public class CustomRecipeUtils implements Listener {
@@ -60,6 +62,18 @@ public class CustomRecipeUtils implements Listener {
                     200);
             getServer().addRecipe(smeltingRecipe);
         });
+
+        makeHammers();
+
+        NamespacedKey magnetKey = new NamespacedKey(this.instance, "MAGNET");
+        recipeKeys.add(magnetKey);
+        ShapedRecipe magnetRecipe = new ShapedRecipe(magnetKey, this.instance.getMagnetUtils().getNewMagnet());
+        magnetRecipe.shape("REL", "IEI", "III");
+        magnetRecipe.setIngredient('R', Material.REDSTONE_BLOCK);
+        magnetRecipe.setIngredient('E', Material.EMERALD_BLOCK);
+        magnetRecipe.setIngredient('I', Material.IRON_BLOCK);
+        magnetRecipe.setIngredient('L', Material.LAPIS_BLOCK);
+        getServer().addRecipe(magnetRecipe);
     }
 
     @EventHandler
@@ -79,5 +93,53 @@ public class CustomRecipeUtils implements Listener {
                 getServer().addRecipe(dyeToBlock);
             }
         });
+    }
+
+    private void makeHammers() {
+        NamespacedKey nsKey = new NamespacedKey(this.instance, "WOODEN_HAMMER");
+        recipeKeys.add(nsKey);
+        ItemStack woodenHammer = addLore(new ItemStack(Material.WOODEN_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
+        ShapedRecipe hammerRecipe = new ShapedRecipe(nsKey, woodenHammer);
+        hammerRecipe.shape("PPP", " S ", " S ");
+        hammerRecipe.setIngredient('S', Material.STICK);
+        hammerRecipe.setIngredient('P', Material.WOODEN_PICKAXE);
+        getServer().addRecipe(hammerRecipe);
+
+        nsKey = new NamespacedKey(this.instance, "STONE_HAMMER");
+        recipeKeys.add(nsKey);
+        ItemStack stoneHammer = addLore(new ItemStack(Material.STONE_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
+        hammerRecipe = new ShapedRecipe(nsKey, stoneHammer);
+        hammerRecipe.shape("PPP", " S ", " S ");
+        hammerRecipe.setIngredient('S', Material.STICK);
+        hammerRecipe.setIngredient('P', Material.STONE_PICKAXE);
+        getServer().addRecipe(hammerRecipe);
+
+        nsKey = new NamespacedKey(this.instance, "IRON_HAMMER");
+        recipeKeys.add(nsKey);
+        ItemStack ironHammer = addLore(new ItemStack(Material.IRON_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
+        hammerRecipe = new ShapedRecipe(nsKey, ironHammer);
+        hammerRecipe.shape("PPP", " S ", " S ");
+        hammerRecipe.setIngredient('S', Material.STICK);
+        hammerRecipe.setIngredient('P', Material.IRON_PICKAXE);
+        getServer().addRecipe(hammerRecipe);
+
+        nsKey = new NamespacedKey(this.instance, "GOLDEN_HAMMER");
+        recipeKeys.add(nsKey);
+        ItemStack goldHammer = addLore(new ItemStack(Material.GOLDEN_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
+        hammerRecipe = new ShapedRecipe(nsKey, goldHammer);
+        hammerRecipe.shape("PPP", " S ", " S ");
+        hammerRecipe.setIngredient('S', Material.STICK);
+        hammerRecipe.setIngredient('P', Material.GOLDEN_PICKAXE);
+        getServer().addRecipe(hammerRecipe);
+
+        nsKey = new NamespacedKey(this.instance, "DIAMOND_HAMMER");
+        recipeKeys.add(nsKey);
+        ItemStack diamondHammer = addLore(new ItemStack(Material.DIAMOND_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
+        hammerRecipe = new ShapedRecipe(nsKey, diamondHammer);
+        hammerRecipe.shape("PPP", " S ", " S ");
+        hammerRecipe.setIngredient('S', Material.STICK);
+        hammerRecipe.setIngredient('P', Material.DIAMOND_PICKAXE);
+        getServer().addRecipe(hammerRecipe);
+
     }
 }
