@@ -51,8 +51,8 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new AnvilListener(), this);
 
         // Setup Magnet Related Tasks
-        magnetInstanceController = new MagnetInstanceController(this, getServer().getScheduler());
         magnetUtils = new MagnetUtils(ChatColor.translateAlternateColorCodes('&', languageManager.getConfig().getString("mi-magnet")));
+        magnetInstanceController = new MagnetInstanceController(this, getServer().getScheduler());
         getServer().getPluginManager().registerEvents(new MagnetListener(this), this);
 
         // Setup VeinMiner Related Tasks
