@@ -58,6 +58,9 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup VeinMiner Related Tasks
         veinMinerController = new VeinMinerController(this);
         getServer().getPluginManager().registerEvents(new VeinMinerListener(this), this);
+
+        // Setup Hammer Related Tasks
+        getServer().getPluginManager().registerEvents(new HammerListener(this, languageManager.getConfig().getString("mi-hammer")), this);
     }
 
     @Override
