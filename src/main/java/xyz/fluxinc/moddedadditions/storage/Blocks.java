@@ -9,7 +9,7 @@ public class Blocks {
 
     public static List<Material> HAMMER_EXCEPTIONS;
     static {
+        HAMMER_EXCEPTIONS = new ArrayList<>();
         HAMMER_EXCEPTIONS.add(Material.GLASS);
-
     }
 }
