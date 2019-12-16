@@ -22,10 +22,14 @@ import static xyz.fluxinc.moddedadditions.storage.Tools.pickaxes;
 public class HammerListener implements Listener {
 
     private ModdedAdditions instance;
-    private List<String> lore;
+    private String lore;
     private Map<Player, BlockFace> playerBlockFaceMap;
 
-    public HammerListener(ModdedAdditions instance, List<String> lore) { this.instance = instance; this.lore = lore; playerBlockFaceMap = new HashMap<>(); }
+    public HammerListener(ModdedAdditions instance, String lore) {
+        this.instance = instance;
+        this.lore = lore;
+        playerBlockFaceMap = new HashMap<>();
+    }
 
     @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent event) {
@@ -65,6 +69,6 @@ public class HammerListener implements Listener {
     }
 
     private boolean verifyHammer(ItemStack tool) {
-        return pickaxes.contains(tool.getType()) && tool.getItemMeta() != null && tool.getItemMeta().getLore() == lore;
+        return pickaxes.contains(tool.getType()) && tool.getItemMeta() != null && tool.getItemMeta().getLore().contains(lore);
     }
 }
