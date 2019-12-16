@@ -65,6 +65,9 @@ public class HammerListener implements Listener {
             default:
                 break;
         }
+        for (Block block : extraBlocks) {
+            block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
+        }
 
     }
 
