@@ -1,17 +1,18 @@
 package xyz.fluxinc.moddedadditions;
 
+import org.bukkit.ChatColor;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.fluxinc.fluxcore.FluxCore;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
+import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.NotifyCommand;
 import xyz.fluxinc.moddedadditions.controllers.MagnetInstanceController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
 import xyz.fluxinc.moddedadditions.listeners.*;
 import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
-
-import xyz.fluxinc.fluxcore.configuration.LanguageManager;
+import xyz.fluxinc.moddedadditions.utils.MagnetUtils;
 
 public final class ModdedAdditions extends JavaPlugin {
 
@@ -21,6 +22,7 @@ public final class ModdedAdditions extends JavaPlugin {
     private FluxCore fluxCore;
     private BlockAccessController blockAccessController;
     private VeinMinerController veinMinerController;
+    private MagnetUtils magnetUtils;
 
     @Override
     public void onEnable() {
@@ -50,6 +52,7 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // Setup Magnet Related Tasks
         magnetInstanceController = new MagnetInstanceController(this, getServer().getScheduler());
+        magnetUtils = new MagnetUtils(ChatColor.translateAlternateColorCodes('&', languageManager.getConfig().getString("mi-magnet")));
         getServer().getPluginManager().registerEvents(new MagnetListener(this), this);
 
         // Setup VeinMiner Related Tasks
@@ -72,6 +75,7 @@ public final class ModdedAdditions extends JavaPlugin {
 
     public BlockAccessController getBlockAccessController() { return this.blockAccessController; }
 
-
     public VeinMinerController getVeinMinerController() { return this.veinMinerController; }
+
+    public MagnetUtils getMagnetUtils() { return magnetUtils; }
 }

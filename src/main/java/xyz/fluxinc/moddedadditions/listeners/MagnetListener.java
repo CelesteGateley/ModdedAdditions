@@ -11,15 +11,16 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
-
-import static xyz.fluxinc.moddedadditions.utils.MagnetUtils.isMagnet;
+import xyz.fluxinc.moddedadditions.utils.MagnetUtils;
 
 public class MagnetListener implements Listener {
 
     private ModdedAdditions instance;
+    private MagnetUtils magnetUtils;
 
     public MagnetListener(ModdedAdditions instance) {
         this.instance = instance;
+        this.magnetUtils = instance.getMagnetUtils();
     }
 
     @EventHandler
@@ -49,7 +50,7 @@ public class MagnetListener implements Listener {
     private void registerEvent(Player player) {
         boolean hasMagnet = false;
         if (player.getInventory().contains(Material.COMPASS)) {
-            for (ItemStack iStack : player.getInventory().getContents()) { if (isMagnet(iStack)) { hasMagnet = true; break; }}
+            for (ItemStack iStack : player.getInventory().getContents()) { if (magnetUtils.isMagnet(iStack)) { hasMagnet = true; break; }}
         }
         if (hasMagnet) { instance.getMagnetInstanceController().registerVacuumInstance(player); }
         else { instance.getMagnetInstanceController().deregisterVacuumInstance(player); }

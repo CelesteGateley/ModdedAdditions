@@ -11,3 +11,7 @@ nf-onlineUserNotFound: "&4No user by that name is logged in!"
 nf-invalidUsageNotify: "&4Invalid Command Usage! Correct Usage: &c/notify <player>"
 nf-notifyTarget: "&9You have been pinged by %sender%"
 nf-notifySender: "&9Successfully sent ping to %target%"
+
+# Modded Item Lore
+mi-magnet: "&9A Magnet to draw items towards you!"
+mi-hammer: "&9A Hammer to mine a 3x3 area!"
