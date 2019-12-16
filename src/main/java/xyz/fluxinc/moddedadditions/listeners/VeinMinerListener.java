@@ -13,7 +13,6 @@ import xyz.fluxinc.fluxcore.utils.BlockUtils;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static xyz.fluxinc.moddedadditions.storage.Tools.*;
