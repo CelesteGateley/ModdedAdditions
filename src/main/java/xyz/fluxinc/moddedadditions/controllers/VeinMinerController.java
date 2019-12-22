@@ -39,6 +39,9 @@ public class VeinMinerController {
         hoeBlocks = processArray(vmConfiguration.getStringList(HOE_CONFIG_KEY));
         shearsBlocks = processArray(vmConfiguration.getStringList(SHEARS_CONFIG_KEY));
         handBlocks = processArray(vmConfiguration.getStringList(HAND_CONFIG_KEY));
+        for (Material mat : pickaxeBlocks) {
+            Bukkit.getServer().getLogger().fine("" + mat);
+        }
     }
 
     private List<Material> processArray(List<String> configArray) {
@@ -149,4 +152,6 @@ public class VeinMinerController {
     public int getMaxBlocks() {
         return vmConfiguration.getInt("max-blocks");
     }
+
+    public boolean getAllowInCreative() { return vmConfiguration.getBoolean("allow-in-creative"); }
 }

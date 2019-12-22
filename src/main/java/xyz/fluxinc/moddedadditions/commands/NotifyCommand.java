@@ -24,8 +24,8 @@ public class NotifyCommand implements CommandExecutor {
         Player target = getServer().getPlayer(args[0]);
         if (target != null) {
             target.playSound(target.getLocation(), Sound.BLOCK_BELL_USE, 50, 1);
-            sender.sendMessage(languageManager.generateMessage("nf-dingSender", getReplaceArray((Player)sender, target)));
-            target.sendMessage(languageManager.generateMessage("nf-dingTarget", getReplaceArray((Player)sender, target)));
+            sender.sendMessage(languageManager.generateMessage("nf-notifySender", getReplaceArray((Player)sender, target)));
+            target.sendMessage(languageManager.generateMessage("nf-notifyTarget", getReplaceArray((Player)sender, target)));
             return true;
         } else {
             sender.sendMessage(languageManager.generateMessage("userNotFound"));

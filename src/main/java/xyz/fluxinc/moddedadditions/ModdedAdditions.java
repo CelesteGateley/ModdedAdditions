@@ -8,6 +8,7 @@ import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.NotifyCommand;
+import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
 import xyz.fluxinc.moddedadditions.controllers.MagnetInstanceController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
 import xyz.fluxinc.moddedadditions.listeners.*;
@@ -22,6 +23,7 @@ public final class ModdedAdditions extends JavaPlugin {
     private FluxCore fluxCore;
     private BlockAccessController blockAccessController;
     private VeinMinerController veinMinerController;
+    private AreaToolController areaToolController;
     private MagnetUtils magnetUtils;
 
     @Override
@@ -50,23 +52,23 @@ public final class ModdedAdditions extends JavaPlugin {
         // Register Colored Anvil Names
         getServer().getPluginManager().registerEvents(new AnvilListener(), this);
 
-        // Setup Magnet Related Tasks
-        magnetUtils = new MagnetUtils(ChatColor.translateAlternateColorCodes('&', languageManager.getConfig().getString("mi-magnet")));
-        magnetInstanceController = new MagnetInstanceController(this, getServer().getScheduler());
-        getServer().getPluginManager().registerEvents(new MagnetListener(this), this);
-
         // Setup VeinMiner Related Tasks
         veinMinerController = new VeinMinerController(this);
         getServer().getPluginManager().registerEvents(new VeinMinerListener(this), this);
 
         // Setup Hammer Related Tasks
+        areaToolController = new AreaToolController(this);
         getServer().getPluginManager().registerEvents(new HammerListener(this, languageManager.getConfig().getString("mi-hammer")), this);
+
+        // Setup Magnet Related Tasks
+        magnetUtils = new MagnetUtils(ChatColor.translateAlternateColorCodes('&', languageManager.getConfig().getString("mi-magnet")));
+        magnetInstanceController = new MagnetInstanceController(this, getServer().getScheduler());
+        getServer().getPluginManager().registerEvents(new MagnetListener(this), this);
+        getLogger().warning("Finished Initialization");
     }
 
     @Override
-    public void onDisable() {
-        HandlerList.unregisterAll(this);
-    }
+    public void onDisable() { }
 
     public MagnetInstanceController getMagnetInstanceController() { return magnetInstanceController;}
 
@@ -81,4 +83,6 @@ public final class ModdedAdditions extends JavaPlugin {
     public VeinMinerController getVeinMinerController() { return this.veinMinerController; }
 
     public MagnetUtils getMagnetUtils() { return magnetUtils; }
+
+    public AreaToolController getAreaToolController() { return areaToolController; }
 }

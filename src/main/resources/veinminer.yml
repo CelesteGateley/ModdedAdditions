@@ -1,4 +1,5 @@
 max-blocks: 128
+allow-in-creative: false
 
 pickaxe:
   - ANDESITE

@@ -5,6 +5,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.runnables.MagnetRunnable;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MagnetInstanceController {
@@ -16,6 +17,7 @@ public class MagnetInstanceController {
     public MagnetInstanceController(ModdedAdditions instance, BukkitScheduler taskScheduler) {
         this.taskScheduler = taskScheduler;
         this.instance = instance;
+        vacuumInstances = new HashMap<>();
     }
 
     public boolean hasVacuumInstance(Player player) {

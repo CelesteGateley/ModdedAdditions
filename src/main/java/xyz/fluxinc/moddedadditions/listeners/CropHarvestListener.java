@@ -67,8 +67,7 @@ public class CropHarvestListener implements Listener {
             // Get single block
             else { blocks = new ArrayList<>(); blocks.add(event.getClickedBlock()); }
             for (Block b : blocks) {
-                Bukkit.getLogger().warning(b.getLocation().toString());
-                if (!verifyBlock(event.getPlayer(), b)) { Bukkit.getLogger().severe("Verify Block Failed"); continue; }
+                if (!verifyBlock(event.getPlayer(), b)) { continue; }
                 Ageable age = (Ageable) b.getBlockData();
                 Collection<ItemStack> drops = b.getDrops();
                 age.setAge(0);

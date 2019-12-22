@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.ArrayList;
@@ -67,7 +68,12 @@ public class CustomRecipeUtils implements Listener {
 
         NamespacedKey magnetKey = new NamespacedKey(this.instance, "MAGNET");
         recipeKeys.add(magnetKey);
-        ShapedRecipe magnetRecipe = new ShapedRecipe(magnetKey, this.instance.getMagnetUtils().getNewMagnet());
+        ItemStack magnet = new ItemStack(Material.COMPASS);
+        magnet = addLore(magnet, ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-magnet")));
+        ItemMeta itemMeta = magnet.getItemMeta();
+        itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&9Item &cMagnet"));
+
+        ShapedRecipe magnetRecipe = new ShapedRecipe(magnetKey, magnet);
         magnetRecipe.shape("REL", "IEI", "III");
         magnetRecipe.setIngredient('R', Material.REDSTONE_BLOCK);
         magnetRecipe.setIngredient('E', Material.EMERALD_BLOCK);
@@ -99,6 +105,9 @@ public class CustomRecipeUtils implements Listener {
         NamespacedKey nsKey = new NamespacedKey(this.instance, "WOODEN_HAMMER");
         recipeKeys.add(nsKey);
         ItemStack woodenHammer = addLore(new ItemStack(Material.WOODEN_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
+        ItemMeta iMeta = woodenHammer.getItemMeta();
+        iMeta.setDisplayName("Wooden Hammer");
+        woodenHammer.setItemMeta(iMeta);
         ShapedRecipe hammerRecipe = new ShapedRecipe(nsKey, woodenHammer);
         hammerRecipe.shape("PPP", " S ", " S ");
         hammerRecipe.setIngredient('S', Material.STICK);
@@ -108,6 +117,9 @@ public class CustomRecipeUtils implements Listener {
         nsKey = new NamespacedKey(this.instance, "STONE_HAMMER");
         recipeKeys.add(nsKey);
         ItemStack stoneHammer = addLore(new ItemStack(Material.STONE_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
+        iMeta = stoneHammer.getItemMeta();
+        iMeta.setDisplayName("Stone Hammer");
+        woodenHammer.setItemMeta(iMeta);
         hammerRecipe = new ShapedRecipe(nsKey, stoneHammer);
         hammerRecipe.shape("PPP", " S ", " S ");
         hammerRecipe.setIngredient('S', Material.STICK);
@@ -117,6 +129,9 @@ public class CustomRecipeUtils implements Listener {
         nsKey = new NamespacedKey(this.instance, "IRON_HAMMER");
         recipeKeys.add(nsKey);
         ItemStack ironHammer = addLore(new ItemStack(Material.IRON_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
+        iMeta = ironHammer.getItemMeta();
+        iMeta.setDisplayName("Iron Hammer");
+        woodenHammer.setItemMeta(iMeta);
         hammerRecipe = new ShapedRecipe(nsKey, ironHammer);
         hammerRecipe.shape("PPP", " S ", " S ");
         hammerRecipe.setIngredient('S', Material.STICK);
@@ -126,6 +141,9 @@ public class CustomRecipeUtils implements Listener {
         nsKey = new NamespacedKey(this.instance, "GOLDEN_HAMMER");
         recipeKeys.add(nsKey);
         ItemStack goldHammer = addLore(new ItemStack(Material.GOLDEN_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
+        iMeta = goldHammer.getItemMeta();
+        iMeta.setDisplayName("Golden Hammer");
+        woodenHammer.setItemMeta(iMeta);
         hammerRecipe = new ShapedRecipe(nsKey, goldHammer);
         hammerRecipe.shape("PPP", " S ", " S ");
         hammerRecipe.setIngredient('S', Material.STICK);
@@ -135,6 +153,9 @@ public class CustomRecipeUtils implements Listener {
         nsKey = new NamespacedKey(this.instance, "DIAMOND_HAMMER");
         recipeKeys.add(nsKey);
         ItemStack diamondHammer = addLore(new ItemStack(Material.DIAMOND_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
+        iMeta = diamondHammer.getItemMeta();
+        iMeta.setDisplayName("Diamond Hammer");
+        woodenHammer.setItemMeta(iMeta);
         hammerRecipe = new ShapedRecipe(nsKey, diamondHammer);
         hammerRecipe.shape("PPP", " S ", " S ");
         hammerRecipe.setIngredient('S', Material.STICK);
