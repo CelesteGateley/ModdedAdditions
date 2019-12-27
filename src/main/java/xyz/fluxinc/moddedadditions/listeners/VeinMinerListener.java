@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
+import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 import xyz.fluxinc.fluxcore.utils.BlockUtils;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
@@ -26,10 +27,12 @@ public class VeinMinerListener implements Listener {
 
     private BlockAccessController accessController;
     private VeinMinerController vmController;
+    private CoreProtectLogger coreProtectLogger;
 
     public VeinMinerListener(ModdedAdditions instance) {
         this.accessController = instance.getBlockAccessController();
         this.vmController = instance.getVeinMinerController();
+        this.coreProtectLogger = instance.getCoreInstance().getCoreProtectLogger();
     }
 
     @EventHandler
@@ -74,6 +77,7 @@ public class VeinMinerListener implements Listener {
                     blocksBroken += 1;
                 }
                 b.breakNaturally(tool);
+                coreProtectLogger.logBlockBreak(player, b);
             }
         }
         ItemMeta toolMeta = toolUsed.getItemMeta();
@@ -90,6 +94,7 @@ public class VeinMinerListener implements Listener {
         for (Block b : blockList) {
             if (accessController.checkBreakPlace(player, block.getLocation(), false)) {
                 b.breakNaturally();
+                coreProtectLogger.logBlockBreak(player, b);
             }
         }
     }

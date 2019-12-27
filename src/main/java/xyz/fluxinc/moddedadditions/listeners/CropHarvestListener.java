@@ -68,10 +68,12 @@ public class CropHarvestListener implements Listener {
             else { blocks = new ArrayList<>(); blocks.add(event.getClickedBlock()); }
             for (Block b : blocks) {
                 if (!verifyBlock(event.getPlayer(), b)) { continue; }
+                instance.getCoreInstance().getCoreProtectLogger().logBlockBreak(event.getPlayer(), b);
                 Ageable age = (Ageable) b.getBlockData();
                 Collection<ItemStack> drops = b.getDrops();
                 age.setAge(0);
                 b.setBlockData(age);
+                instance.getCoreInstance().getCoreProtectLogger().logBlockPlace(event.getPlayer(), b);
                 for (ItemStack i : drops) {
                     event.getClickedBlock().getWorld().dropItemNaturally(event.getClickedBlock().getLocation(), i);
                 }

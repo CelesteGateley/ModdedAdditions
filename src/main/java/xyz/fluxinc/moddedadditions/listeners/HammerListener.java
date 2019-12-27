@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
 
@@ -25,6 +26,7 @@ import static xyz.fluxinc.moddedadditions.storage.Tools.pickaxes;
 
 public class HammerListener implements Listener {
 
+    private CoreProtectLogger coreProtectLogger;
     private ModdedAdditions instance;
     private String lore;
     private AreaToolController areaToolController;
@@ -35,6 +37,7 @@ public class HammerListener implements Listener {
         this.areaToolController = instance.getAreaToolController();
         this.lore = ChatColor.translateAlternateColorCodes('&', lore);
         playerBlockFaceMap = new HashMap<>();
+        this.coreProtectLogger = instance.getCoreInstance().getCoreProtectLogger();
     }
 
     @EventHandler
@@ -80,6 +83,7 @@ public class HammerListener implements Listener {
             if (!areaToolController.checkHammer(block.getType())) { continue; }
             if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true)) { continue; }
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
+            coreProtectLogger.logBlockBreak(event.getPlayer(), block);
         }
         takeDurability(event.getPlayer().getInventory().getItemInMainHand());
 
