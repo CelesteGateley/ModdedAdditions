@@ -75,6 +75,7 @@ public class HammerListener implements Listener {
                 break;
         }
         for (Block block : extraBlocks) {
+            if (block.getLocation() == event.getBlock().getLocation()) { continue; }
             if (block.getType() == Material.OBSIDIAN && !breakObsidian) { continue; }
             if (!areaToolController.checkHammer(block.getType())) { continue; }
             if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true)) { continue; }
