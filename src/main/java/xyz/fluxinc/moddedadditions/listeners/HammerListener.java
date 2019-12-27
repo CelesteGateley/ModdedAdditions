@@ -52,6 +52,7 @@ public class HammerListener implements Listener {
         if (!areaToolController.checkHammer(event.getBlock().getType())) { return; }
         if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), event.getBlock().getLocation(), true)) { return; }
         if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) { return; }
+        boolean breakObsidian = event.getBlock().getType() == Material.OBSIDIAN;
         int x = event.getBlock().getX();
         int y = event.getBlock().getY();
         int z = event.getBlock().getZ();
@@ -74,7 +75,7 @@ public class HammerListener implements Listener {
                 break;
         }
         for (Block block : extraBlocks) {
-            if (block.getType() == Material.OBSIDIAN && event.getBlock().getType() != Material.OBSIDIAN) { continue; }
+            if (block.getType() == Material.OBSIDIAN && !breakObsidian) { continue; }
             if (!areaToolController.checkHammer(block.getType())) { continue; }
             if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true)) { continue; }
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
