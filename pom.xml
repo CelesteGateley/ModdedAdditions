@@ -6,7 +6,7 @@
 
     <groupId>xyz.fluxinc</groupId>
     <artifactId>ModdedAdditions</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>ModdedAdditions</name>
@@ -102,13 +102,13 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.14.4-R0.1-SNAPSHOT</version>
+            <version>1.15.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.CelesteMagisteel</groupId>
             <artifactId>FluxCore</artifactId>
-            <version>v1.0.6</version>
+            <version>v1.0.7</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

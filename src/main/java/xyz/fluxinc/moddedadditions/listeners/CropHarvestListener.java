@@ -12,6 +12,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.fluxcore.enums.Direction;
+import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.ArrayList;
@@ -68,12 +69,12 @@ public class CropHarvestListener implements Listener {
             else { blocks = new ArrayList<>(); blocks.add(event.getClickedBlock()); }
             for (Block b : blocks) {
                 if (!verifyBlock(event.getPlayer(), b)) { continue; }
-                instance.getCoreInstance().getCoreProtectLogger().logBlockBreak(event.getPlayer(), b);
+                CoreProtectLogger.logBlockBreak(event.getPlayer(), b);
                 Ageable age = (Ageable) b.getBlockData();
                 Collection<ItemStack> drops = b.getDrops();
                 age.setAge(0);
                 b.setBlockData(age);
-                instance.getCoreInstance().getCoreProtectLogger().logBlockPlace(event.getPlayer(), b);
+                CoreProtectLogger.logBlockPlace(event.getPlayer(), b);
                 for (ItemStack i : drops) {
                     event.getClickedBlock().getWorld().dropItemNaturally(event.getClickedBlock().getLocation(), i);
                 }
@@ -81,7 +82,7 @@ public class CropHarvestListener implements Listener {
         }
     }
 
-    @EventHandler
+    //@EventHandler
     public void tallCropHandler(PlayerInteractEvent event) {
         if (!verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem())) { return; }
         if (tallCrops.contains(event.getMaterial())) { return; }
@@ -89,6 +90,7 @@ public class CropHarvestListener implements Listener {
         blockList.remove(0);
         for (Block block : blockList) {
             if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), false)) { continue; }
+            CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
             block.breakNaturally();
         }
     }

@@ -27,12 +27,10 @@ public class VeinMinerListener implements Listener {
 
     private BlockAccessController accessController;
     private VeinMinerController vmController;
-    private CoreProtectLogger coreProtectLogger;
 
     public VeinMinerListener(ModdedAdditions instance) {
         this.accessController = instance.getBlockAccessController();
         this.vmController = instance.getVeinMinerController();
-        this.coreProtectLogger = instance.getCoreInstance().getCoreProtectLogger();
     }
 
     @EventHandler
@@ -76,8 +74,8 @@ public class VeinMinerListener implements Listener {
                     toolUsed.setItemMeta((ItemMeta) damageable);
                     blocksBroken += 1;
                 }
+                CoreProtectLogger.logBlockBreak(player, b);
                 b.breakNaturally(tool);
-                coreProtectLogger.logBlockBreak(player, b);
             }
         }
         ItemMeta toolMeta = toolUsed.getItemMeta();
@@ -93,8 +91,8 @@ public class VeinMinerListener implements Listener {
         blockList.remove(0);
         for (Block b : blockList) {
             if (accessController.checkBreakPlace(player, block.getLocation(), false)) {
+                CoreProtectLogger.logBlockBreak(player, b);
                 b.breakNaturally();
-                coreProtectLogger.logBlockBreak(player, b);
             }
         }
     }
