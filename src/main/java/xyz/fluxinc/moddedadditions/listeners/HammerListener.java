@@ -26,7 +26,6 @@ import static xyz.fluxinc.moddedadditions.storage.Tools.pickaxes;
 
 public class HammerListener implements Listener {
 
-    private CoreProtectLogger coreProtectLogger;
     private ModdedAdditions instance;
     private String lore;
     private AreaToolController areaToolController;
@@ -37,7 +36,6 @@ public class HammerListener implements Listener {
         this.areaToolController = instance.getAreaToolController();
         this.lore = ChatColor.translateAlternateColorCodes('&', lore);
         playerBlockFaceMap = new HashMap<>();
-        this.coreProtectLogger = instance.getCoreInstance().getCoreProtectLogger();
     }
 
     @EventHandler
@@ -50,17 +48,21 @@ public class HammerListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        // Verify that the tool is a hammer, and that the player has a known block face
         if (!verifyHammer(event.getPlayer().getInventory().getItemInMainHand())) { return; }
         if (!playerBlockFaceMap.containsKey(event.getPlayer())) { return; }
         if (!areaToolController.checkHammer(event.getBlock().getType())) { return; }
+        // Check the player has access to the block and is in survival mode
         if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), event.getBlock().getLocation(), true)) { return; }
         if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) { return; }
+        // Obsidian checking
         boolean breakObsidian = event.getBlock().getType() == Material.OBSIDIAN;
-        int x = event.getBlock().getX();
-        int y = event.getBlock().getY();
-        int z = event.getBlock().getZ();
+        // Extract the X Y Z coordinates and world for easy access
+        int x = event.getBlock().getX(); int y = event.getBlock().getY(); int z = event.getBlock().getZ();
         World world = event.getBlock().getWorld();
+        // Create a list for the extra blocks
         List<Block> extraBlocks = new ArrayList<>();
+        // Switch to get the surrounding blocks based on the block face
         switch (playerBlockFaceMap.get(event.getPlayer())) {
             case UP:
             case DOWN:
@@ -77,14 +79,20 @@ public class HammerListener implements Listener {
             default:
                 break;
         }
+        // Iterate through the extra blocks
         for (Block block : extraBlocks) {
+            // If it is the initial block, ignore
             if (block.getLocation() == event.getBlock().getLocation()) { continue; }
+            // If the initial block is not obsidian and the block is, ignore
             if (block.getType() == Material.OBSIDIAN && !breakObsidian) { continue; }
+            // If the block is not a hammer material or you do not have access to it, ignore
             if (!areaToolController.checkHammer(block.getType())) { continue; }
             if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true)) { continue; }
+            // Log the block as broken, then break it
+            CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
-            coreProtectLogger.logBlockBreak(event.getPlayer(), block);
         }
+        // Take the durability from the tool
         takeDurability(event.getPlayer().getInventory().getItemInMainHand());
 
     }
