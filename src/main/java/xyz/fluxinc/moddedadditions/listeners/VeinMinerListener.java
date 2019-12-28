@@ -38,6 +38,7 @@ public class VeinMinerListener implements Listener {
         if (!event.getPlayer().isSneaking()) return;
         if (event.getPlayer().getGameMode() == GameMode.CREATIVE && !vmController.getAllowInCreative()) return;
         if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), event.getBlock().getType())) return;
+        if (vmController.isToggled(event.getPlayer())) { return; }
 
         ItemStack mainHandItem = event.getPlayer().getInventory().getItemInMainHand();
         Material toolMat = mainHandItem.getType();

@@ -7,6 +7,7 @@ import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.NotifyCommand;
+import xyz.fluxinc.moddedadditions.commands.VeinMinerCommand;
 import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
 import xyz.fluxinc.moddedadditions.controllers.MagnetInstanceController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
@@ -65,6 +66,7 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup VeinMiner Related Tasks
         veinMinerController = new VeinMinerController(this);
         getServer().getPluginManager().registerEvents(new VeinMinerListener(this), this);
+        getCommand("veinminer").setExecutor(new VeinMinerCommand(veinMinerController, languageManager));
 
         // Setup Hammer/Excavator Related Tasks
         areaToolController = new AreaToolController(this);
