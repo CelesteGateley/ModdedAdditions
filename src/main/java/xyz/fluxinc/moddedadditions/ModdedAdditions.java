@@ -10,11 +10,13 @@ import xyz.fluxinc.moddedadditions.commands.NotifyCommand;
 import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
 import xyz.fluxinc.moddedadditions.controllers.MagnetInstanceController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
-import xyz.fluxinc.moddedadditions.listeners.*;
+import xyz.fluxinc.moddedadditions.listeners.BookSignListener;
+import xyz.fluxinc.moddedadditions.listeners.CropHarvestListener;
+import xyz.fluxinc.moddedadditions.listeners.VeinMinerListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.PingListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.MagnetListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
-import xyz.fluxinc.moddedadditions.listeners.customitem.MagnetListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
 import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
 import xyz.fluxinc.moddedadditions.utils.MagnetUtils;
@@ -33,8 +35,12 @@ public final class ModdedAdditions extends JavaPlugin {
     @Override
     public void onEnable() {
         // Register Core Plugin
-        fluxCore = (FluxCore)getServer().getPluginManager().getPlugin("FluxCore");
-        if (fluxCore == null) { getLogger().severe("FluxCore not initialised, disabling!"); getServer().getPluginManager().disablePlugin(this); return; }
+        fluxCore = (FluxCore) getServer().getPluginManager().getPlugin("FluxCore");
+        if (fluxCore == null) {
+            getLogger().severe("FluxCore not initialised, disabling!");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         // Register Language and Configuration Managers
         languageManager = new LanguageManager<>(this, "lang.yml");
@@ -76,21 +82,38 @@ public final class ModdedAdditions extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() { }
+    public void onDisable() {
+    }
 
-    public MagnetInstanceController getMagnetInstanceController() { return magnetInstanceController;}
+    public MagnetInstanceController getMagnetInstanceController() {
+        return magnetInstanceController;
+    }
 
-    public FluxCore getCoreInstance() { return fluxCore; }
+    public FluxCore getCoreInstance() {
+        return fluxCore;
+    }
 
-    public LanguageManager getLanguageManager() { return this.languageManager; }
+    public LanguageManager getLanguageManager() {
+        return this.languageManager;
+    }
 
-    public ConfigurationManager getConfigurationManager() { return this.configurationManager; }
+    public ConfigurationManager getConfigurationManager() {
+        return this.configurationManager;
+    }
 
-    public BlockAccessController getBlockAccessController() { return this.blockAccessController; }
+    public BlockAccessController getBlockAccessController() {
+        return this.blockAccessController;
+    }
 
-    public VeinMinerController getVeinMinerController() { return this.veinMinerController; }
+    public VeinMinerController getVeinMinerController() {
+        return this.veinMinerController;
+    }
 
-    public MagnetUtils getMagnetUtils() { return magnetUtils; }
+    public MagnetUtils getMagnetUtils() {
+        return magnetUtils;
+    }
 
-    public AreaToolController getAreaToolController() { return areaToolController; }
+    public AreaToolController getAreaToolController() {
+        return areaToolController;
+    }
 }

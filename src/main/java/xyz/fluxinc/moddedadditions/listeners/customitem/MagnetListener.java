@@ -30,7 +30,9 @@ public class MagnetListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPickupEvent(EntityPickupItemEvent event) {
-        if (event.getEntity().getType() != EntityType.PLAYER) { return; }
+        if (event.getEntity().getType() != EntityType.PLAYER) {
+            return;
+        }
         Player player = (Player) event.getEntity();
         instance.getServer().getScheduler().runTaskLater(instance, () -> registerEvent(player), 10L);
     }
@@ -45,10 +47,16 @@ public class MagnetListener implements Listener {
         boolean hasMagnet = false;
         if (player.getInventory().contains(Material.COMPASS)) {
             for (ItemStack iStack : player.getInventory().getContents()) {
-                if (magnetUtils.isMagnet(iStack)) { hasMagnet = true; break; }
+                if (magnetUtils.isMagnet(iStack)) {
+                    hasMagnet = true;
+                    break;
+                }
             }
         }
-        if (hasMagnet) { instance.getMagnetInstanceController().registerVacuumInstance(player); }
-        else { instance.getMagnetInstanceController().deregisterVacuumInstance(player); }
+        if (hasMagnet) {
+            instance.getMagnetInstanceController().registerVacuumInstance(player);
+        } else {
+            instance.getMagnetInstanceController().deregisterVacuumInstance(player);
+        }
     }
 }

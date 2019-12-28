@@ -21,7 +21,9 @@ public class AnvilListener implements Listener {
                 && event.getSlotType() == InventoryType.SlotType.RESULT
                 && event.getWhoClicked().hasPermission("moddedadditions.coloranvil.use")) {
             ItemMeta meta = Objects.requireNonNull(event.getCurrentItem()).getItemMeta();
-            if (meta == null) { return; }
+            if (meta == null) {
+                return;
+            }
             String oldName = meta.getDisplayName();
             if (oldName.contains("&")) {
                 String newName = ChatColor.translateAlternateColorCodes('&', oldName);
@@ -33,10 +35,14 @@ public class AnvilListener implements Listener {
 
     @EventHandler
     public void onAddAnvilItem(PrepareAnvilEvent event) {
-        if (event.getInventory().getRenameText() == null || event.getResult() == null) { return; }
+        if (event.getInventory().getRenameText() == null || event.getResult() == null) {
+            return;
+        }
         String renText = event.getInventory().getRenameText().replace('§', '&');
         ItemMeta meta = event.getResult().getItemMeta();
-        if (meta == null) { return; }
+        if (meta == null) {
+            return;
+        }
         meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', renText));
         ItemStack iS = event.getResult();
         iS.setItemMeta(meta);

@@ -33,5 +33,7 @@ public class MagnetUtils {
                 && item.getItemMeta().getLore().contains(lore);
     }
 
-    public ItemStack getNewMagnet() { return templateMagnet; }
+    public ItemStack getNewMagnet() {
+        return templateMagnet;
+    }
 }

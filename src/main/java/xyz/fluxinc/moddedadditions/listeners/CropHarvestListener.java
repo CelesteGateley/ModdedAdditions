@@ -28,6 +28,7 @@ public class CropHarvestListener implements Listener {
     private int blockLimit;
 
     private static List<Material> crops;
+
     static {
         crops = new ArrayList<>();
         crops.add(Material.BEETROOTS);
@@ -39,6 +40,7 @@ public class CropHarvestListener implements Listener {
     }
 
     private static List<Material> tallCrops;
+
     static {
         tallCrops = new ArrayList<>();
         tallCrops.add(Material.BAMBOO);
@@ -47,12 +49,19 @@ public class CropHarvestListener implements Listener {
     }
 
 
-    public CropHarvestListener(ModdedAdditions pluginInstance, int blockLimit) { this.instance = pluginInstance; this.blockLimit = blockLimit; }
+    public CropHarvestListener(ModdedAdditions pluginInstance, int blockLimit) {
+        this.instance = pluginInstance;
+        this.blockLimit = blockLimit;
+    }
 
     @EventHandler
     public void cropInteractEvent(PlayerInteractEvent event) {
-        if (!verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem())) { return; }
-        if (!crops.contains(event.getClickedBlock().getType())) { return; }
+        if (!verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem())) {
+            return;
+        }
+        if (!crops.contains(event.getClickedBlock().getType())) {
+            return;
+        }
         // Should it veinmine
         boolean veinminer = instance.getConfig().getBoolean("ch-veinmine") && event.getPlayer().isSneaking();
 
@@ -63,11 +72,18 @@ public class CropHarvestListener implements Listener {
         if (data instanceof Ageable) {
             List<Block> blocks;
             // Get VeinMine list
-            if (veinminer) { blocks = getVMBlockList(event.getClickedBlock(), this.blockLimit); }
+            if (veinminer) {
+                blocks = getVMBlockList(event.getClickedBlock(), this.blockLimit);
+            }
             // Get single block
-            else { blocks = new ArrayList<>(); blocks.add(event.getClickedBlock()); }
+            else {
+                blocks = new ArrayList<>();
+                blocks.add(event.getClickedBlock());
+            }
             for (Block b : blocks) {
-                if (!verifyBlock(event.getPlayer(), b)) { continue; }
+                if (!verifyBlock(event.getPlayer(), b)) {
+                    continue;
+                }
                 CoreProtectLogger.logBlockBreak(event.getPlayer(), b);
                 Ageable age = (Ageable) b.getBlockData();
                 Collection<ItemStack> drops = b.getDrops();
@@ -83,12 +99,18 @@ public class CropHarvestListener implements Listener {
 
     //@EventHandler
     public void tallCropHandler(PlayerInteractEvent event) {
-        if (!verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem())) { return; }
-        if (tallCrops.contains(event.getMaterial())) { return; }
+        if (!verifyEvent(event.getClickedBlock(), event.getAction(), event.getItem())) {
+            return;
+        }
+        if (tallCrops.contains(event.getMaterial())) {
+            return;
+        }
         List<Block> blockList = getDirectionalBlockList(event.getClickedBlock(), Direction.UP);
         blockList.remove(0);
         for (Block block : blockList) {
-            if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), false)) { continue; }
+            if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), false)) {
+                continue;
+            }
             CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
             block.breakNaturally();
         }

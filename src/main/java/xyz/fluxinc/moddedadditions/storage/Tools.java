@@ -11,6 +11,7 @@ public class Tools {
     public static List<Material> axes;
     public static List<Material> shovels;
     public static List<Material> hoes;
+
     static {
         pickaxes = new ArrayList<>();
         pickaxes.add(Material.WOODEN_PICKAXE);

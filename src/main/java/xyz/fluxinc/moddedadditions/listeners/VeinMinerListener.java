@@ -34,8 +34,12 @@ public class VeinMinerListener implements Listener {
 
     @EventHandler
     public void blockBreakListener(BlockBreakEvent event) {
-        if (!event.getPlayer().isSneaking()) { return; }
-        if (event.getPlayer().getGameMode() == GameMode.CREATIVE && !vmController.getAllowInCreative()) { return; }
+        if (!event.getPlayer().isSneaking()) {
+            return;
+        }
+        if (event.getPlayer().getGameMode() == GameMode.CREATIVE && !vmController.getAllowInCreative()) {
+            return;
+        }
         ItemStack mainHandItem = event.getPlayer().getInventory().getItemInMainHand();
         Material toolMat = mainHandItem.getType();
         if (toolMat == Material.SHEARS && vmController.checkShears(event.getBlock().getType())) {
@@ -68,7 +72,9 @@ public class VeinMinerListener implements Listener {
                 iMeta = toolUsed.getItemMeta();
                 if (iMeta != null) {
                     Damageable damageable = (Damageable) iMeta;
-                    if (damageable.getDamage() + 1 > toolUsed.getType().getMaxDurability()) { break; }
+                    if (damageable.getDamage() + 1 > toolUsed.getType().getMaxDurability()) {
+                        break;
+                    }
                     damageable.setDamage(damageable.getDamage() + 1);
                     toolUsed.setItemMeta((ItemMeta) damageable);
                     blocksBroken += 1;
@@ -98,11 +104,13 @@ public class VeinMinerListener implements Listener {
 
     private int getToolDamage(ItemStack tool, int blocksBroken) {
         Random random = new Random();
-        double chance = (100D / (getUnbreakingLevel(tool)+1));
+        double chance = (100D / (getUnbreakingLevel(tool) + 1));
         int counter = 0;
         for (int i = 0; i < blocksBroken; i++) {
             double rand = random.nextInt(99) + 1;
-            if (rand >= chance) { continue; }
+            if (rand >= chance) {
+                continue;
+            }
             counter++;
         }
         return counter;
@@ -110,7 +118,9 @@ public class VeinMinerListener implements Listener {
 
     private int getUnbreakingLevel(ItemStack tool) {
         ItemMeta itemMeta = tool.getItemMeta();
-        if (itemMeta == null) { return 0; }
+        if (itemMeta == null) {
+            return 0;
+        }
         return itemMeta.getEnchantLevel(Enchantment.DURABILITY);
     }
 

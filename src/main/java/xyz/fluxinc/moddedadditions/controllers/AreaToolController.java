@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static org.bukkit.block.BlockFace.*;
+import static xyz.fluxinc.fluxcore.utils.BlockUtils.convertStringToMaterial;
 
 public class AreaToolController {
 
@@ -35,22 +35,17 @@ public class AreaToolController {
     public AreaToolController(ModdedAdditions instance) {
         this.instance = instance;
         areaToolConfiguration = new ConfigurationManager<>(this.instance, CONFIG_NAME).getConfig();
-        hammerBlocks = processArray(areaToolConfiguration.getStringList(HAMMER_CONFIG_KEY));
-        excavatorBlocks = processArray(areaToolConfiguration.getStringList(EXCAVATOR_CONFIG_KEY));
+        hammerBlocks = convertStringToMaterial(areaToolConfiguration.getStringList(HAMMER_CONFIG_KEY));
+        excavatorBlocks = convertStringToMaterial(areaToolConfiguration.getStringList(EXCAVATOR_CONFIG_KEY));
     }
 
-    private List<Material> processArray(List<String> configArray) {
-        List<Material> materials = new ArrayList<>();
-        for (String str : configArray) {
-            Material mat = Material.getMaterial(str);
-            if (mat != null) { materials.add(mat); }
-        }
-        return materials;
+    public boolean checkHammer(Material material) {
+        return hammerBlocks.contains(material);
     }
 
-    public boolean checkHammer(Material material) { return hammerBlocks.contains(material); }
-
-    public boolean checkExcavator(Material material) { return excavatorBlocks.contains(material); }
+    public boolean checkExcavator(Material material) {
+        return excavatorBlocks.contains(material);
+    }
 
     public void addHammerBlock(Material material) {
         hammerBlocks.add(material);
@@ -80,14 +75,16 @@ public class AreaToolController {
         try {
             areaToolConfiguration.save(CONFIG_NAME);
         } catch (IOException e) {
-            Bukkit.getLogger().severe("An error occurred whilst saving " + CONFIG_NAME +": " + e.getMessage());
+            Bukkit.getLogger().severe("An error occurred whilst saving " + CONFIG_NAME + ": " + e.getMessage());
             Bukkit.getServer().getPluginManager().disablePlugin(this.instance);
         }
     }
 
     public static List<Block> getBlockList(Block startingBlock, BlockFace face) {
         // Extract the X Y Z coordinates and world for easy access
-        int x = startingBlock.getX(); int y = startingBlock.getY(); int z = startingBlock.getZ();
+        int x = startingBlock.getX();
+        int y = startingBlock.getY();
+        int z = startingBlock.getZ();
         World world = startingBlock.getWorld();
         // Create a list for the extra blocks
         List<Block> extraBlocks = new ArrayList<>();
@@ -96,15 +93,27 @@ public class AreaToolController {
         switch (face) {
             case UP:
             case DOWN:
-                for (int xMod = -1; xMod < 2; xMod++) { for (int zMod = -1; zMod < 2; zMod++) { extraBlocks.add(world.getBlockAt(x+xMod, y, z+zMod)); }}
+                for (int xMod = -1; xMod < 2; xMod++) {
+                    for (int zMod = -1; zMod < 2; zMod++) {
+                        extraBlocks.add(world.getBlockAt(x + xMod, y, z + zMod));
+                    }
+                }
                 break;
             case EAST:
             case WEST:
-                for (int yMod = -1; yMod < 2; yMod++) { for (int zMod = -1; zMod < 2; zMod++) { extraBlocks.add(world.getBlockAt(x, y+yMod, z+zMod)); }}
+                for (int yMod = -1; yMod < 2; yMod++) {
+                    for (int zMod = -1; zMod < 2; zMod++) {
+                        extraBlocks.add(world.getBlockAt(x, y + yMod, z + zMod));
+                    }
+                }
                 break;
             case NORTH:
             case SOUTH:
-                for (int yMod = -1; yMod < 2; yMod++) { for (int xMod = -1; xMod < 2; xMod++) { extraBlocks.add(world.getBlockAt(x+xMod, y+yMod, z)); }}
+                for (int yMod = -1; yMod < 2; yMod++) {
+                    for (int xMod = -1; xMod < 2; xMod++) {
+                        extraBlocks.add(world.getBlockAt(x + xMod, y + yMod, z));
+                    }
+                }
                 break;
             default:
                 break;
@@ -114,15 +123,20 @@ public class AreaToolController {
 
     public static void takeDurability(Player player, ItemStack tool) {
         Random random = new Random();
-        double chance = (100D / (getUnbreakingLevel(tool)+1));
+        double chance = (100D / (getUnbreakingLevel(tool) + 1));
         ItemMeta iMeta = tool.getItemMeta();
         if (iMeta instanceof Damageable) {
             Damageable damageable = (Damageable) iMeta;
             for (int i = 0; i < 3; i++) {
                 double rand = random.nextInt(99) + 1;
-                if (rand >= chance) { continue; }
-                damageable.setDamage(damageable.getDamage()+1);
-                if (damageable.getDamage() > tool.getType().getMaxDurability()) { player.getInventory().remove(tool); return; }
+                if (rand >= chance) {
+                    continue;
+                }
+                damageable.setDamage(damageable.getDamage() + 1);
+                if (damageable.getDamage() > tool.getType().getMaxDurability()) {
+                    player.getInventory().remove(tool);
+                    return;
+                }
             }
             tool.setItemMeta((ItemMeta) damageable);
         }
@@ -130,7 +144,11 @@ public class AreaToolController {
 
     private static int getUnbreakingLevel(ItemStack tool) {
         ItemMeta itemMeta = tool.getItemMeta();
-        if (itemMeta == null) { return 0; }
+        if (itemMeta == null) {
+            return 0;
+        }
         return itemMeta.getEnchantLevel(Enchantment.DURABILITY);
     }
+
+
 }

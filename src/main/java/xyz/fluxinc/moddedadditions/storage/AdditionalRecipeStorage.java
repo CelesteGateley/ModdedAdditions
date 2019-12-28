@@ -12,6 +12,7 @@ public class AdditionalRecipeStorage {
      * Value 2: Full Block
      */
     public static HashMap<Material, Material> SLAB_TO_BLOCK;
+
     static {
         SLAB_TO_BLOCK = new HashMap<>();
         SLAB_TO_BLOCK.put(Material.OAK_SLAB, Material.OAK_PLANKS);
@@ -51,12 +52,14 @@ public class AdditionalRecipeStorage {
     }
 
     public static HashMap<Material, Material> FURNACE_RECIPE;
+
     static {
         FURNACE_RECIPE = new HashMap<>();
         FURNACE_RECIPE.put(Material.ROTTEN_FLESH, Material.LEATHER);
     }
 
     public static ArrayList<Material> STAINED_GLASS;
+
     static {
         STAINED_GLASS = new ArrayList<>();
         STAINED_GLASS.add(Material.RED_STAINED_GLASS);
@@ -78,6 +81,7 @@ public class AdditionalRecipeStorage {
     }
 
     public static ArrayList<Material> STAINED_GLASS_PANE;
+
     static {
         STAINED_GLASS_PANE = new ArrayList<>();
         STAINED_GLASS_PANE.add(Material.RED_STAINED_GLASS_PANE);
@@ -99,6 +103,7 @@ public class AdditionalRecipeStorage {
     }
 
     public static ArrayList<Material> TERRACOTTA;
+
     static {
         TERRACOTTA = new ArrayList<>();
         TERRACOTTA.add(Material.RED_TERRACOTTA);
@@ -120,6 +125,7 @@ public class AdditionalRecipeStorage {
     }
 
     public static ArrayList<Material> GLAZED_TERRACOTTA;
+
     static {
         GLAZED_TERRACOTTA = new ArrayList<>();
         GLAZED_TERRACOTTA.add(Material.RED_GLAZED_TERRACOTTA);
@@ -141,6 +147,7 @@ public class AdditionalRecipeStorage {
     }
 
     public static ArrayList<Material> CONCRETE;
+
     static {
         CONCRETE = new ArrayList<>();
         CONCRETE.add(Material.RED_CONCRETE);
@@ -162,6 +169,7 @@ public class AdditionalRecipeStorage {
     }
 
     public static ArrayList<Material> CONCRETE_POWDER;
+
     static {
         CONCRETE_POWDER = new ArrayList<>();
         CONCRETE_POWDER.add(Material.RED_CONCRETE_POWDER);
@@ -183,6 +191,7 @@ public class AdditionalRecipeStorage {
     }
 
     public static HashMap<Material, Material> STAINED_GLASS_TO_DYE;
+
     static {
         STAINED_GLASS_TO_DYE = new HashMap<>();
         STAINED_GLASS_TO_DYE.put(Material.RED_STAINED_GLASS, Material.RED_DYE);
@@ -204,6 +213,7 @@ public class AdditionalRecipeStorage {
     }
 
     public static HashMap<Material, Material> STAINED_GLASS_PANE_TO_DYE;
+
     static {
         STAINED_GLASS_PANE_TO_DYE = new HashMap<>();
         STAINED_GLASS_PANE_TO_DYE.put(Material.RED_STAINED_GLASS_PANE, Material.RED_DYE);
@@ -225,6 +235,7 @@ public class AdditionalRecipeStorage {
     }
 
     public static HashMap<Material, Material> TERRACOTTA_TO_DYE;
+
     static {
         TERRACOTTA_TO_DYE = new HashMap<>();
         TERRACOTTA_TO_DYE.put(Material.RED_TERRACOTTA, Material.RED_DYE);
@@ -246,6 +257,7 @@ public class AdditionalRecipeStorage {
     }
 
     public static HashMap<Material, Material> GLAZED_TERRACOTTA_TO_DYE;
+
     static {
         GLAZED_TERRACOTTA_TO_DYE = new HashMap<>();
         GLAZED_TERRACOTTA_TO_DYE.put(Material.RED_GLAZED_TERRACOTTA, Material.RED_DYE);
@@ -267,6 +279,7 @@ public class AdditionalRecipeStorage {
     }
 
     public static HashMap<Material, Material> CONCRETE_TO_DYE;
+
     static {
         CONCRETE_TO_DYE = new HashMap<>();
         CONCRETE_TO_DYE.put(Material.RED_CONCRETE, Material.RED_DYE);
@@ -288,6 +301,7 @@ public class AdditionalRecipeStorage {
     }
 
     public static HashMap<Material, Material> CONCRETE_POWDER_TO_DYE;
+
     static {
         CONCRETE_POWDER_TO_DYE = new HashMap<>();
         CONCRETE_POWDER_TO_DYE.put(Material.RED_CONCRETE_POWDER, Material.RED_DYE);

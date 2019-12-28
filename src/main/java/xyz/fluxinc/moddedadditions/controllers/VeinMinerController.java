@@ -7,8 +7,9 @@ import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+
+import static xyz.fluxinc.fluxcore.utils.BlockUtils.convertStringToMaterial;
 
 @SuppressWarnings("unused")
 public class VeinMinerController {
@@ -33,39 +34,40 @@ public class VeinMinerController {
     public VeinMinerController(ModdedAdditions instance) {
         this.instance = instance;
         vmConfiguration = new ConfigurationManager<>(this.instance, CONFIG_NAME).getConfig();
-        pickaxeBlocks = processArray(vmConfiguration.getStringList(PICKAXE_CONFIG_KEY));
-        axeBlocks = processArray(vmConfiguration.getStringList(AXE_CONFIG_KEY));
-        shovelBlocks = processArray(vmConfiguration.getStringList(SHOVEL_CONFIG_KEY));
-        hoeBlocks = processArray(vmConfiguration.getStringList(HOE_CONFIG_KEY));
-        shearsBlocks = processArray(vmConfiguration.getStringList(SHEARS_CONFIG_KEY));
-        handBlocks = processArray(vmConfiguration.getStringList(HAND_CONFIG_KEY));
+        pickaxeBlocks = convertStringToMaterial(vmConfiguration.getStringList(PICKAXE_CONFIG_KEY));
+        axeBlocks = convertStringToMaterial(vmConfiguration.getStringList(AXE_CONFIG_KEY));
+        shovelBlocks = convertStringToMaterial(vmConfiguration.getStringList(SHOVEL_CONFIG_KEY));
+        hoeBlocks = convertStringToMaterial(vmConfiguration.getStringList(HOE_CONFIG_KEY));
+        shearsBlocks = convertStringToMaterial(vmConfiguration.getStringList(SHEARS_CONFIG_KEY));
+        handBlocks = convertStringToMaterial(vmConfiguration.getStringList(HAND_CONFIG_KEY));
         for (Material mat : pickaxeBlocks) {
             Bukkit.getServer().getLogger().fine("" + mat);
         }
     }
 
-    private List<Material> processArray(List<String> configArray) {
-        List<Material> materials = new ArrayList<>();
-        for (String str : configArray) {
-            Material mat = Material.getMaterial(str);
-            if (mat != null) {
-                materials.add(mat);
-            }
-        }
-        return materials;
+    public boolean checkPickaxe(Material material) {
+        return pickaxeBlocks.contains(material);
     }
 
-    public boolean checkPickaxe(Material material) { return pickaxeBlocks.contains(material); }
+    public boolean checkAxe(Material material) {
+        return axeBlocks.contains(material);
+    }
 
-    public boolean checkAxe(Material material) { return axeBlocks.contains(material); }
+    public boolean checkShovel(Material material) {
+        return shovelBlocks.contains(material);
+    }
 
-    public boolean checkShovel(Material material) { return shovelBlocks.contains(material); }
+    public boolean checkHoe(Material material) {
+        return hoeBlocks.contains(material);
+    }
 
-    public boolean checkHoe(Material material) { return hoeBlocks.contains(material); }
+    public boolean checkShears(Material material) {
+        return shearsBlocks.contains(material);
+    }
 
-    public boolean checkShears(Material material) { return shearsBlocks.contains(material); }
-
-    public boolean checkHand(Material material) { return handBlocks.contains(material); }
+    public boolean checkHand(Material material) {
+        return handBlocks.contains(material);
+    }
 
     public void addPickaxeBlock(Material material) {
         pickaxeBlocks.add(material);
@@ -98,7 +100,7 @@ public class VeinMinerController {
     }
 
     public void addHandBlock(Material material) {
-       handBlocks.add(material);
+        handBlocks.add(material);
         vmConfiguration.set(HAND_CONFIG_KEY, handBlocks.toArray());
         saveConfiguration();
     }
@@ -153,5 +155,7 @@ public class VeinMinerController {
         return vmConfiguration.getInt("max-blocks");
     }
 
-    public boolean getAllowInCreative() { return vmConfiguration.getBoolean("allow-in-creative"); }
+    public boolean getAllowInCreative() {
+        return vmConfiguration.getBoolean("allow-in-creative");
+    }
 }

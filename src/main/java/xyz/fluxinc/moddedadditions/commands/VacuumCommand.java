@@ -9,7 +9,9 @@ public class VacuumCommand implements CommandExecutor {
 
     private MagnetInstanceController magnetInstanceController;
 
-    public VacuumCommand(MagnetInstanceController magnetInstanceController) { this.magnetInstanceController = magnetInstanceController; }
+    public VacuumCommand(MagnetInstanceController magnetInstanceController) {
+        this.magnetInstanceController = magnetInstanceController;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
