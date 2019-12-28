@@ -69,20 +69,14 @@ public class HammerListener implements Listener {
         // Iterate through the extra blocks
         for (Block block : extraBlocks) {
             // If it is the initial block, ignore
-            if (block.getLocation() == event.getBlock().getLocation()) {
-                continue;
-            }
+            if (block.getLocation() == event.getBlock().getLocation()) continue;
             // If the initial block is not obsidian and the block is, ignore
-            if (block.getType() == Material.OBSIDIAN && !breakObsidian) {
-                continue;
-            }
+            if (block.getType() == Material.OBSIDIAN && !breakObsidian) continue;
             // If the block is not a hammer material or you do not have access to it, ignore
-            if (!areaToolController.checkHammer(block.getType())) {
-                continue;
-            }
-            if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true)) {
-                continue;
-            }
+            if (!areaToolController.checkHammer(block.getType())) continue;
+            if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true)) continue;
+            // If the block is not mineable by the tool, ignore
+            if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), event.getBlock().getType())) continue;
             // Log the block as broken, then break it
             CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());

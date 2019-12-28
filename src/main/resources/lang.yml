@@ -16,3 +16,10 @@ nf-notifySender: "&9Successfully sent ping to %target%"
 mi-magnet: "&9A Magnet to draw items towards you!"
 mi-hammer: "&9A Hammer to mine a 3x3 area!"
 mi-excavator: "&9A Excavator to dig a 3x3 area!"
+
+# Command Keys
+vm-invalidTool: "&9Unrecognized tool category %tool%"
+vm-blockAdded: "&9Block %block% added to category %tool%"
+vm-blockRemoved: "&9Block %block% removed from category %tool%"
+vm-configReloaded: "&9Block lists have been reloaded from the configuration"
+vm-configSaved: "&9The current block list has been saved to the configuration"
