@@ -1,4 +1,4 @@
-package xyz.fluxinc.moddedadditions.listeners;
+package xyz.fluxinc.moddedadditions.listeners.customitem.areatool;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -94,7 +94,6 @@ public class HammerListener implements Listener {
         }
         // Take the durability from the tool
         takeDurability(event.getPlayer().getInventory().getItemInMainHand());
-
     }
 
     private boolean verifyHammer(ItemStack tool) {

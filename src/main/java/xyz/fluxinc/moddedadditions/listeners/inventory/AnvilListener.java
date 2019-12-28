@@ -1,4 +1,4 @@
-package xyz.fluxinc.moddedadditions.listeners;
+package xyz.fluxinc.moddedadditions.listeners.inventory;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;

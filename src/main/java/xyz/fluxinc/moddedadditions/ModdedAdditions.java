@@ -1,7 +1,6 @@
 package xyz.fluxinc.moddedadditions;
 
 import org.bukkit.ChatColor;
-import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.fluxinc.fluxcore.FluxCore;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
@@ -12,6 +11,11 @@ import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
 import xyz.fluxinc.moddedadditions.controllers.MagnetInstanceController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
 import xyz.fluxinc.moddedadditions.listeners.*;
+import xyz.fluxinc.moddedadditions.listeners.chat.PingListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.MagnetListener;
+import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
 import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
 import xyz.fluxinc.moddedadditions.utils.MagnetUtils;
 

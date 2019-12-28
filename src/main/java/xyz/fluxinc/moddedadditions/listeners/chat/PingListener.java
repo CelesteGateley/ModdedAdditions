@@ -1,4 +1,4 @@
-package xyz.fluxinc.moddedadditions.listeners;
+package xyz.fluxinc.moddedadditions.listeners.chat;
 
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

@@ -1,4 +1,4 @@
-package xyz.fluxinc.moddedadditions.listeners;
+package xyz.fluxinc.moddedadditions.listeners.customitem;
 
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
