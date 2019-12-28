@@ -56,9 +56,11 @@ public final class ModdedAdditions extends JavaPlugin {
         veinMinerController = new VeinMinerController(this);
         getServer().getPluginManager().registerEvents(new VeinMinerListener(this), this);
 
-        // Setup Hammer Related Tasks
+        // Setup Hammer/Excavator Related Tasks
         areaToolController = new AreaToolController(this);
         getServer().getPluginManager().registerEvents(new HammerListener(this, languageManager.getConfig().getString("mi-hammer")), this);
+        getServer().getPluginManager().registerEvents(new ExcavatorListener(this, languageManager.getConfig().getString("mi-excavator")), this);
+
 
         // Setup Magnet Related Tasks
         magnetUtils = new MagnetUtils(ChatColor.translateAlternateColorCodes('&', languageManager.getConfig().getString("mi-magnet")));
