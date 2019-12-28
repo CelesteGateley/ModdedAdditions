@@ -70,7 +70,9 @@ public final class ModdedAdditions extends JavaPlugin {
         magnetUtils = new MagnetUtils(ChatColor.translateAlternateColorCodes('&', languageManager.getConfig().getString("mi-magnet")));
         magnetInstanceController = new MagnetInstanceController(this, getServer().getScheduler());
         getServer().getPluginManager().registerEvents(new MagnetListener(this), this);
-        getLogger().warning("Finished Initialization");
+
+        // Setup Book Handling
+        getServer().getPluginManager().registerEvents(new BookSignListener(), this);
     }
 
     @Override
