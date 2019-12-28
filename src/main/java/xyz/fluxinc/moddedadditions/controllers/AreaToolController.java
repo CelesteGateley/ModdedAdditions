@@ -6,12 +6,18 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static org.bukkit.block.BlockFace.*;
 
@@ -103,8 +109,28 @@ public class AreaToolController {
             default:
                 break;
         }
-
         return extraBlocks;
+    }
 
+    public static void takeDurability(Player player, ItemStack tool) {
+        Random random = new Random();
+        double chance = (100D / (getUnbreakingLevel(tool)+1));
+        ItemMeta iMeta = tool.getItemMeta();
+        if (iMeta instanceof Damageable) {
+            Damageable damageable = (Damageable) iMeta;
+            for (int i = 0; i < 3; i++) {
+                double rand = random.nextInt(99) + 1;
+                if (rand >= chance) { continue; }
+                damageable.setDamage(damageable.getDamage()+1);
+                if (damageable.getDamage() > tool.getType().getMaxDurability()) { player.getInventory().remove(tool); return; }
+            }
+            tool.setItemMeta((ItemMeta) damageable);
+        }
+    }
+
+    private static int getUnbreakingLevel(ItemStack tool) {
+        ItemMeta itemMeta = tool.getItemMeta();
+        if (itemMeta == null) { return 0; }
+        return itemMeta.getEnchantLevel(Enchantment.DURABILITY);
     }
 }

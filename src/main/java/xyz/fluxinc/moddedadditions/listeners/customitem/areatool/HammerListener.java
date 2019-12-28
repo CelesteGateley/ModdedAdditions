@@ -1,9 +1,6 @@
 package xyz.fluxinc.moddedadditions.listeners.customitem.areatool;
 
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
@@ -22,6 +19,7 @@ import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
 
 import java.util.*;
 
+import static xyz.fluxinc.moddedadditions.controllers.AreaToolController.takeDurability;
 import static xyz.fluxinc.moddedadditions.storage.Tools.pickaxes;
 
 public class HammerListener implements Listener {
@@ -75,7 +73,7 @@ public class HammerListener implements Listener {
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
         }
         // Take the durability from the tool
-        takeDurability(event.getPlayer().getInventory().getItemInMainHand());
+        takeDurability(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand());
     }
 
     private boolean verifyHammer(ItemStack tool) {
@@ -85,24 +83,5 @@ public class HammerListener implements Listener {
                 && tool.getItemMeta().getLore().contains(lore);
     }
 
-    private void takeDurability(ItemStack tool) {
-        Random random = new Random();
-        double chance = (100D / (getUnbreakingLevel(tool)+1));
-        ItemMeta iMeta = tool.getItemMeta();
-        if (iMeta instanceof Damageable) {
-            Damageable damageable = (Damageable) iMeta;
-            for (int i = 0; i < 3; i++) {
-                double rand = random.nextInt(99) + 1;
-                if (rand >= chance) { continue; }
-                damageable.setDamage(damageable.getDamage()+1);
-            }
-            tool.setItemMeta((ItemMeta) damageable);
-        }
-    }
 
-    private int getUnbreakingLevel(ItemStack tool) {
-        ItemMeta itemMeta = tool.getItemMeta();
-        if (itemMeta == null) { return 0; }
-        return itemMeta.getEnchantLevel(Enchantment.DURABILITY);
-    }
 }
