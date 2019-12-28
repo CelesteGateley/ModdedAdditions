@@ -76,7 +76,7 @@ public class HammerListener implements Listener {
             if (!areaToolController.checkHammer(block.getType())) continue;
             if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true)) continue;
             // If the block is not mineable by the tool, ignore
-            if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), event.getBlock().getType())) continue;
+            if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), block.getType())) continue;
             // Log the block as broken, then break it
             CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
