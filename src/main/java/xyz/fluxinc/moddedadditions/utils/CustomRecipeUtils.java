@@ -74,6 +74,7 @@ public class CustomRecipeUtils implements Listener {
         magnet = addLore(magnet, ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-magnet")));
         ItemMeta itemMeta = magnet.getItemMeta();
         itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&9Item &cMagnet"));
+        magnet.setItemMeta(itemMeta);
 
         ShapedRecipe magnetRecipe = new ShapedRecipe(magnetKey, magnet);
         magnetRecipe.shape("REL", "IEI", "III");
