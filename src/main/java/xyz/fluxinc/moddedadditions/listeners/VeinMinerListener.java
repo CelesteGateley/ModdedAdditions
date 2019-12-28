@@ -20,6 +20,7 @@ import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
 import java.util.List;
 import java.util.Random;
 
+import static xyz.fluxinc.fluxcore.utils.MineabilityUtils.verifyBlockMining;
 import static xyz.fluxinc.moddedadditions.storage.Tools.*;
 
 public class VeinMinerListener implements Listener {
@@ -34,12 +35,10 @@ public class VeinMinerListener implements Listener {
 
     @EventHandler
     public void blockBreakListener(BlockBreakEvent event) {
-        if (!event.getPlayer().isSneaking()) {
-            return;
-        }
-        if (event.getPlayer().getGameMode() == GameMode.CREATIVE && !vmController.getAllowInCreative()) {
-            return;
-        }
+        if (!event.getPlayer().isSneaking()) return;
+        if (event.getPlayer().getGameMode() == GameMode.CREATIVE && !vmController.getAllowInCreative()) return;
+        if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), event.getBlock().getType())) return;
+
         ItemStack mainHandItem = event.getPlayer().getInventory().getItemInMainHand();
         Material toolMat = mainHandItem.getType();
         if (toolMat == Material.SHEARS && vmController.checkShears(event.getBlock().getType())) {

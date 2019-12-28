@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static xyz.fluxinc.fluxcore.utils.MineabilityUtils.verifyBlockMining;
 import static xyz.fluxinc.moddedadditions.controllers.AreaToolController.takeDurability;
 import static xyz.fluxinc.moddedadditions.storage.Tools.pickaxes;
 
@@ -52,22 +53,13 @@ public class HammerListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         // Verify that the tool is a hammer, and that the player has a known block face
-        if (!verifyHammer(event.getPlayer().getInventory().getItemInMainHand())) {
-            return;
-        }
-        if (!playerBlockFaceMap.containsKey(event.getPlayer())) {
-            return;
-        }
-        if (!areaToolController.checkHammer(event.getBlock().getType())) {
-            return;
-        }
+        if (!verifyHammer(event.getPlayer().getInventory().getItemInMainHand())) return;
+        if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), event.getBlock().getType())) return;
+        if (!playerBlockFaceMap.containsKey(event.getPlayer())) return;
+        if (!areaToolController.checkHammer(event.getBlock().getType())) return;
         // Check the player has access to the block and is in survival mode
-        if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), event.getBlock().getLocation(), true)) {
-            return;
-        }
-        if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) {
-            return;
-        }
+        if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), event.getBlock().getLocation(), true)) return;
+        if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) return;
         // Obsidian checking
         boolean breakObsidian = event.getBlock().getType() == Material.OBSIDIAN;
 
