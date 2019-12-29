@@ -25,6 +25,10 @@ public class AreaToolCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
+        if (arguments.length < 1) {
+            sendNoSubCommand(commandSender);
+            return true;
+        }
         switch (arguments[0].toLowerCase()) {
             case "add":
                 // Check if the sender has permission
@@ -107,8 +111,9 @@ public class AreaToolCommand implements CommandExecutor {
                 commandSender.sendMessage(languageManager.generateMessage("vm-configSaved"));
                 return true;
             default:
+                sendUnknownSubCommand(commandSender, arguments[0]);
+                return true;
         }
-        return false;
     }
 
     private void sendPermissionDenied(CommandSender sender) {
@@ -157,5 +162,9 @@ public class AreaToolCommand implements CommandExecutor {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("comand", subcommand);
         sender.sendMessage(languageManager.generateMessage("vm-unknownSubCommand", messageArgs));
+    }
+
+    private void sendNoSubCommand(CommandSender sender) {
+        sender.sendMessage(languageManager.generateMessage("at-noSubCommand"));
     }
 }

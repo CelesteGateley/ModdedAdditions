@@ -23,6 +23,8 @@ mi-excavator: "&9A Excavator to dig a 3x3 area!"
 
 # Command Keys
 vm-unknownSubCommand: "&9Unrecognised sub-command: %command%"
+vm-noSubCommand: "&9You must provide a sub-command: add / remove / toggle / save / reload"
+at-noSubCommand: "&9You must provide a sub-command: add / remove /  save / reload"
 
 vm-invalidTool: "&9Unrecognized tool category: %tool%"
 vm-noToolProvided: "&9A tool category must be provided"
