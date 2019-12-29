@@ -9,6 +9,7 @@ prefix: "&7[&9SH Additions&7]"
 # Permission Denied
 permissionDenied: "&9Error, you do not have permission to use this command!"
 mustBePlayer: "&9Only a player may execute this command!"
+configurationReloaded: "&9The configuration has been reloaded!"
 
 # Notification Keys
 nf-onlineUserNotFound: "&4No user by that name is logged in!"
@@ -24,7 +25,8 @@ mi-excavator: "&9A Excavator to dig a 3x3 area!"
 # Command Keys
 vm-unknownSubCommand: "&9Unrecognised sub-command: %command%"
 vm-noSubCommand: "&9You must provide a sub-command: add / remove / toggle / save / reload"
-at-noSubCommand: "&9You must provide a sub-command: add / remove /  save / reload"
+at-noSubCommand: "&9You must provide a sub-command: add / remove / save / reload"
+ma-noSubCommand: "&9You must provide a sub-command: reload"
 
 vm-invalidTool: "&9Unrecognized tool category: %tool%"
 vm-noToolProvided: "&9A tool category must be provided"

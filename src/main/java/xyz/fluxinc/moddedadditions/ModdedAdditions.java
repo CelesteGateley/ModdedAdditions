@@ -7,6 +7,7 @@ import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.AreaToolCommand;
+import xyz.fluxinc.moddedadditions.commands.ModdedAdditionsCommand;
 import xyz.fluxinc.moddedadditions.commands.NotifyCommand;
 import xyz.fluxinc.moddedadditions.commands.VeinMinerCommand;
 import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
@@ -47,6 +48,7 @@ public final class ModdedAdditions extends JavaPlugin {
         // Register Language and Configuration Managers
         languageManager = new LanguageManager<>(this, "lang.yml");
         configurationManager = new ConfigurationManager<>(this, "config.yml");
+        getCommand("moddedadditions").setExecutor(new ModdedAdditionsCommand(this));
 
         // Register Core Utilities
         blockAccessController = fluxCore.getBlockAccessController();
@@ -75,7 +77,6 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ExcavatorListener(this, languageManager.getConfig().getString("mi-excavator")), this);
         getCommand("areatool").setExecutor(new AreaToolCommand(areaToolController, languageManager));
 
-
         // Setup Magnet Related Tasks
         magnetUtils = new MagnetUtils(ChatColor.translateAlternateColorCodes('&', languageManager.getConfig().getString("mi-magnet")));
         magnetInstanceController = new MagnetInstanceController(this, getServer().getScheduler());
@@ -87,6 +88,13 @@ public final class ModdedAdditions extends JavaPlugin {
 
     @Override
     public void onDisable() {
+    }
+
+    public void reloadConfiguration() {
+        languageManager = new LanguageManager<>(this, "lang.yml");
+        configurationManager = new ConfigurationManager<>(this, "config.yml");
+        veinMinerController.loadFromConfiguration();
+        areaToolController.loadFromConfiguration();
     }
 
     public MagnetInstanceController getMagnetInstanceController() {
