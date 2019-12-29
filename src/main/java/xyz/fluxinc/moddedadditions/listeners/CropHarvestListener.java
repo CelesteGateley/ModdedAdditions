@@ -63,7 +63,7 @@ public class CropHarvestListener implements Listener {
             return;
         }
         // Should it veinmine
-        boolean veinminer = instance.getConfig().getBoolean("ch-veinmine") && event.getPlayer().isSneaking();
+        boolean veinminer = instance.getConfigurationManager().getConfig().getBoolean("ch-veinmine") && event.getPlayer().isSneaking();
 
         // Get information about the block they clicked on
         BlockData data = event.getClickedBlock().getBlockData();
