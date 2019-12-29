@@ -6,6 +6,7 @@ import xyz.fluxinc.fluxcore.FluxCore;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
+import xyz.fluxinc.moddedadditions.commands.AreaToolCommand;
 import xyz.fluxinc.moddedadditions.commands.NotifyCommand;
 import xyz.fluxinc.moddedadditions.commands.VeinMinerCommand;
 import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
@@ -72,6 +73,7 @@ public final class ModdedAdditions extends JavaPlugin {
         areaToolController = new AreaToolController(this);
         getServer().getPluginManager().registerEvents(new HammerListener(this, languageManager.getConfig().getString("mi-hammer")), this);
         getServer().getPluginManager().registerEvents(new ExcavatorListener(this, languageManager.getConfig().getString("mi-excavator")), this);
+        getCommand("areatool").setExecutor(new AreaToolCommand(areaToolController, languageManager));
 
 
         // Setup Magnet Related Tasks

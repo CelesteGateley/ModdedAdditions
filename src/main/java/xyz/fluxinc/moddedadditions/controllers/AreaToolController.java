@@ -35,8 +35,7 @@ public class AreaToolController {
     public AreaToolController(ModdedAdditions instance) {
         this.instance = instance;
         areaToolConfiguration = new ConfigurationManager<>(this.instance, CONFIG_NAME).getConfig();
-        hammerBlocks = convertStringToMaterial(areaToolConfiguration.getStringList(HAMMER_CONFIG_KEY));
-        excavatorBlocks = convertStringToMaterial(areaToolConfiguration.getStringList(EXCAVATOR_CONFIG_KEY));
+        loadFromConfiguration();
     }
 
     public boolean checkHammer(Material material) {
@@ -71,7 +70,7 @@ public class AreaToolController {
         saveConfiguration();
     }
 
-    private void saveConfiguration() {
+    public void saveConfiguration() {
         try {
             areaToolConfiguration.save(CONFIG_NAME);
         } catch (IOException e) {
@@ -151,4 +150,8 @@ public class AreaToolController {
     }
 
 
+    public void loadFromConfiguration() {
+        hammerBlocks = convertStringToMaterial(areaToolConfiguration.getStringList(HAMMER_CONFIG_KEY));
+        excavatorBlocks = convertStringToMaterial(areaToolConfiguration.getStringList(EXCAVATOR_CONFIG_KEY));
+    }
 }

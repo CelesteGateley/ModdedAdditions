@@ -6,19 +6,20 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import xyz.fluxinc.fluxcore.configuration.LanguageManager;
+import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class VeinMinerCommand implements CommandExecutor {
+public class AreaToolCommand implements CommandExecutor {
 
-    private VeinMinerController veinMinerController;
+    private AreaToolController areaToolController;
     private LanguageManager languageManager;
 
 
-    public VeinMinerCommand(VeinMinerController veinMinerController, LanguageManager languageFile) {
-        this.veinMinerController = veinMinerController;
+    public AreaToolCommand(AreaToolController areaToolController, LanguageManager languageFile) {
+        this.areaToolController = areaToolController;
         this.languageManager = languageFile;
     }
 
@@ -27,7 +28,7 @@ public class VeinMinerCommand implements CommandExecutor {
         switch (arguments[0].toLowerCase()) {
             case "add":
                 // Check if the sender has permission
-                if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.veinminer.add")) {
+                if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.areatool.add")) {
                     sendPermissionDenied(commandSender);
                     return true;
                 }
@@ -45,23 +46,11 @@ public class VeinMinerCommand implements CommandExecutor {
                 }
 
                 switch (arguments[1].toLowerCase()) {
-                    case "pickaxe":
-                        veinMinerController.addPickaxeBlock(block);
+                    case "hammer":
+                        areaToolController.addHammerBlock(block);
                         break;
-                    case "axe":
-                        veinMinerController.addAxeBlock(block);
-                        break;
-                    case "shovel":
-                        veinMinerController.addShovelBlock(block);
-                        break;
-                    case "hoe":
-                        veinMinerController.addHoeBlock(block);
-                        break;
-                    case "shears":
-                        veinMinerController.addShearsBlock(block);
-                        break;
-                    case "hand":
-                        veinMinerController.addHandBlock(block);
+                    case "excavator":
+                        areaToolController.addExcavatorBlock(block);
                         break;
                     default:
                         sendInvalidTool(commandSender, arguments[1]);
@@ -71,7 +60,7 @@ public class VeinMinerCommand implements CommandExecutor {
                 return true;
             case "remove":
                 // Check if the sender has permission
-                if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.veinminer.remove")) {
+                if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.areatool.remove")) {
                     sendPermissionDenied(commandSender);
                     return true;
                 }
@@ -89,23 +78,11 @@ public class VeinMinerCommand implements CommandExecutor {
                 }
 
                 switch (arguments[1].toLowerCase()) {
-                    case "pickaxe":
-                        veinMinerController.removePickaxeBlock(removeBlock);
+                    case "hammer":
+                        areaToolController.addHammerBlock(removeBlock);
                         break;
-                    case "axe":
-                        veinMinerController.removeAxeBlock(removeBlock);
-                        break;
-                    case "shovel":
-                        veinMinerController.removeShovelBlock(removeBlock);
-                        break;
-                    case "hoe":
-                        veinMinerController.removeHoeBlock(removeBlock);
-                        break;
-                    case "shears":
-                        veinMinerController.removeShearsBlock(removeBlock);
-                        break;
-                    case "hand":
-                        veinMinerController.removeHandBlock(removeBlock);
+                    case "excavator":
+                        areaToolController.addExcavatorBlock(removeBlock);
                         break;
                     default:
                         sendInvalidTool(commandSender, arguments[1]);
@@ -113,31 +90,20 @@ public class VeinMinerCommand implements CommandExecutor {
                 }
                 sendBlockRemoved(commandSender, arguments[2], arguments[1]);
                 return true;
-            case "toggle":
-                if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
-                if (commandSender.hasPermission("moddedadditions.veinminer.toggle")) { sendPermissionDenied(commandSender); return true; }
-                Player player = (Player) commandSender;
-                veinMinerController.toggleVeinMiner(player);
-                if (veinMinerController.isToggled(player)) {
-                    commandSender.sendMessage(languageManager.generateMessage("vm-toggleOff"));
-                } else {
-                    commandSender.sendMessage(languageManager.generateMessage("vm-toggleOn"));
-                }
-                return true;
             case "reload":
-                if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.veinminer.reload")) {
+                if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.areatool.reload")) {
                     sendPermissionDenied(commandSender);
                     return true;
                 }
-                veinMinerController.loadFromConfiguration();
+                areaToolController.loadFromConfiguration();
                 commandSender.sendMessage(languageManager.generateMessage("vm-configReloaded"));
                 return true;
             case "save":
-                if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.veinminer.save")) {
+                if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.areatool.save")) {
                     sendPermissionDenied(commandSender);
                     return true;
                 }
-                veinMinerController.saveConfiguration();
+                areaToolController.saveConfiguration();
                 commandSender.sendMessage(languageManager.generateMessage("vm-configSaved"));
                 return true;
             default:

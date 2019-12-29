@@ -11,3 +11,60 @@ commands:
   veinminer:
     usage: veinminer <add/remove/save/reload> [tool] [block]
     aliases: [vm, veinm, vminer]
+  areatool:
+      usage: areatool <add/remove/save/reload> [tool] [block]
+      aliases: [at, areat, atool]
+  moddedadditions:
+    usage: moddedadditions reload
+    aliases: [ma, moddeda, madditions, madd, modadd]
+permissions:
+  moddedadditions.*:
+    description: Grants all permissions from the plugin
+    children:
+      moddedadditions.areatool.*: true
+      moddedadditions.veinminer.*: true
+      moddedadditions.reload: true
+  moddedadditions.areatool.*:
+    description: Grants all permissions for modifying areatools
+    children:
+      moddedadditions.areatool.add: true
+      moddedadditions.areatool.remove: true
+      moddedadditions.areatool.save: true
+      moddedadditions.areatool.reload: true
+  moddedadditions.veinminer.*:
+    description: Grants all permissions for modifying veinminer
+    children:
+      moddedadditions.veinminer.add: true
+      moddedadditions.veinminer.remove: true
+      moddedadditions.veinminer.save: true
+      moddedadditions.veinminer.reload: true
+  moddedadditions.veinminer.add:
+    description: Add blocks to the veinminer list
+    default: op
+  moddedadditions.veinminer.remove:
+    description: Add blocks to the veinminer list
+    default: op
+  moddedadditions.veinminer.save:
+    description: Add blocks to the veinminer list
+    default: op
+  moddedadditions.veinminer.reload:
+    description: Add blocks to the veinminer list
+    default: op
+  moddedadditions.areatool.add:
+    description: Add blocks to the areatool list
+    default: op
+  moddedadditions.areatool.remove:
+    description: Add blocks to the areatool list
+    default: op
+  moddedadditions.areatool.save:
+    description: Add blocks to the areatool list
+    default: op
+  moddedadditions.areatool.reload:
+    description: Add blocks to the areatool list
+    default: op
+  moddedadditions.reload:
+    description: Reload the configurations and language file
+    default: op
+  moddedadditions.veinminer.toggle:
+    description: Toggle veinminer for yourself
+    default: true
