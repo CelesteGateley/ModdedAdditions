@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.w3c.dom.Text;
 import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 
 import net.md_5.bungee.api.chat.TextComponent;
@@ -26,6 +27,7 @@ public class VoteDayCommand implements CommandExecutor {
 
     public VoteDayCommand(ModdedAdditions instance, LanguageManager languageManager, World world) {
         this.languageManager = languageManager;
+        this.dayWorld = world;
         this.instance = instance;
     }
 
@@ -35,22 +37,33 @@ public class VoteDayCommand implements CommandExecutor {
         if (arguments.length < 1) {
             initiateVote();
             if (commandSender instanceof Player) { activeVote.votedPlayers.add((Player) commandSender); }
+            checkVote();
+            return true;
         }
         if (activeVote == null) { commandSender.sendMessage(languageManager.generateMessage("dv-noVoteActive")); return true; }
+        if (commandSender instanceof Player && activeVote.votedPlayers.contains(commandSender)) {
+            commandSender.sendMessage(languageManager.generateMessage("dv-alreadyVoted"));
+            return true;
+        }
         switch (arguments[0].toLowerCase()) {
             case "yes":
                 activeVote.yesVotes++;
                 if (commandSender instanceof Player) { activeVote.votedPlayers.add((Player) commandSender); }
                 checkVote();
+                return true;
             case "no":
-
+                activeVote.noVotes++;
+                if (commandSender instanceof Player) { activeVote.votedPlayers.add((Player) commandSender); }
+                checkVote();
+                return true;
+            default:
+                commandSender.sendMessage(languageManager.generateMessage("dv-unknownOption"));
         }
         return true;
     }
 
     private void initiateVote() {
         activeVote = new DayVote();
-        activeVote.yesVotes++;
         TextComponent mainComponent = getVoteComponent();
         for (Player player : instance.getServer().getOnlinePlayers()) { player.spigot().sendMessage(mainComponent); }
         taskId = instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, () -> {
@@ -78,14 +91,14 @@ public class VoteDayCommand implements CommandExecutor {
         String message = languageManager.generateMessage("dv-dayVote");
         String[] messageArr = message.split("\\$");
         TextComponent mainComponent = new TextComponent(messageArr[0]);
-        TextComponent yesComponent = new TextComponent(ChatColor.translateAlternateColorCodes('&', languageManager.getKey("dv-voteYes")));
-        TextComponent noComponent = new TextComponent(ChatColor.translateAlternateColorCodes('&', languageManager.getKey("dv-voteNo")));
+        TextComponent yesComponent = new TextComponent(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', languageManager.getKey("dv-voteYes"))));
+        TextComponent noComponent = new TextComponent(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', languageManager.getKey("dv-voteNo"))));
 
-        yesComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/voteday yes"));
-        noComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/voteday no"));
+        yesComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/dayvote yes"));
+        noComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/dayvote no"));
 
         mainComponent.addExtra(yesComponent);
-        mainComponent.addExtra(messageArr[1]);
+        mainComponent.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', messageArr[1]))));
         mainComponent.addExtra(noComponent);
         return mainComponent;
     }
