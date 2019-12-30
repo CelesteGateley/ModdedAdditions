@@ -35,8 +35,8 @@ public class VoteDayCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
         if (arguments.length < 1) {
+            if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) { commandSender.sendMessage(languageManager.generateMessage("dv-alreadyDay")); return true; }
             initiateVote();
-            if (commandSender instanceof Player) { activeVote.votedPlayers.add((Player) commandSender); }
             checkVote();
             return true;
         }
@@ -50,10 +50,12 @@ public class VoteDayCommand implements CommandExecutor {
                 activeVote.yesVotes++;
                 if (commandSender instanceof Player) { activeVote.votedPlayers.add((Player) commandSender); }
                 checkVote();
+                commandSender.sendMessage(languageManager.generateMessage("dv-voteRegistered"));
                 return true;
             case "no":
                 activeVote.noVotes++;
                 if (commandSender instanceof Player) { activeVote.votedPlayers.add((Player) commandSender); }
+                commandSender.sendMessage(languageManager.generateMessage("dv-voteRegistered"));
                 checkVote();
                 return true;
             default:
@@ -72,7 +74,7 @@ public class VoteDayCommand implements CommandExecutor {
                 for (Player player : instance.getServer().getOnlinePlayers()) { player.sendMessage(languageManager.generateMessage("dv-voteCancelled")); }
                 if (taskId != -1) { instance.getServer().getScheduler().cancelTask(taskId); }
             }
-        }, 1000L, 1000L);
+        }, 100L, 100L);
     }
 
     private void checkVote() {
@@ -80,11 +82,14 @@ public class VoteDayCommand implements CommandExecutor {
         if (activeVote.yesVotes >= playerCount/2L && (playerCount < 2 || activeVote.yesVotes >= 2)) {
             dayWorld.setTime(1000);
             for (Player player : instance.getServer().getOnlinePlayers()) { player.sendMessage(languageManager.generateMessage("dv-voteSuccessful")); }
-        } else if (activeVote.noVotes >= playerCount/2L) {
+            activeVote = null;
+            if (taskId != -1) { instance.getServer().getScheduler().cancelTask(taskId); }
+        } else if (activeVote.noVotes >= playerCount/2L ) {
             for (Player player : instance.getServer().getOnlinePlayers()) { player.sendMessage(languageManager.generateMessage("dv-voteFailed")); }
+            activeVote = null;
+            if (taskId != -1) { instance.getServer().getScheduler().cancelTask(taskId); }
         }
-        activeVote = null;
-        if (taskId != -1) { instance.getServer().getScheduler().cancelTask(taskId); }
+
     }
 
     private TextComponent getVoteComponent() {

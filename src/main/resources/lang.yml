@@ -44,7 +44,7 @@ vm-toggleOn: "&9You have enabled VeinMiner for yourself"
 vm-toggleOff: "&9You have disabled VeinMienr for yourself"
 
 # VoteDay Keys
-dv-dayVote: "&bDo you want day? Please select $ &bor $"
+dv-dayVote: "&bDo you want day? Please click $ &bor $"
 dv-voteYes: "&7[&aYES&7]"
 dv-voteNo: "&7[&cNO&7]"
 dv-voteRegistered: "&bVote accepted!"
@@ -54,3 +54,4 @@ dv-voteCancelled: "&bNot enough votes received before daytime. Cancelling"
 dv-alreadyVoted: "&cYou have already voted"
 dv-unknownOption: "&cUnknown Option. Please vote yes or no"
 dv-noVoteActive: "&cNo vote is currently active"
+dv-alreadyDay: "&cIt is already day!"
