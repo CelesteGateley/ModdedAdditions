@@ -119,7 +119,7 @@ public class VeinMinerCommand implements CommandExecutor {
                 return true;
             case "toggle":
                 if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
-                if (commandSender.hasPermission("moddedadditions.veinminer.toggle")) { sendPermissionDenied(commandSender); return true; }
+                if (!commandSender.hasPermission("moddedadditions.veinminer.toggle")) { sendPermissionDenied(commandSender); return true; }
                 Player player = (Player) commandSender;
                 veinMinerController.toggleVeinMiner(player);
                 if (veinMinerController.isToggled(player)) {
