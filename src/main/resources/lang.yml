@@ -42,3 +42,15 @@ vm-configSaved: "&9The current block list has been saved to the configuration"
 
 vm-toggleOn: "&9You have enabled VeinMiner for yourself"
 vm-toggleOff: "&9You have disabled VeinMienr for yourself"
+
+# VoteDay Keys
+dv-dayVote: "&9A day vote was requested! Please select $ &9or $"
+dv-voteYes: "&7[&aYES&7]"
+dv-voteNo: "&7[&cNO&7]"
+dv-voteRegistered: "&9Vote accepted!"
+dv-voteSuccessful: "&9A day vote has been passed!"
+dv-voteFailed: "&9Too many players voted against day, so the vote has not passed"
+dv-voteCancelled: "&9Not enough votes received before daytime. Cancelling"
+dv-alreadyVoted: "&9You have already voted"
+dv-unknownOption: "&9Unknown Option. Please vote yes or no"
+dv-noVoteActive: "&9No vote is currently active"

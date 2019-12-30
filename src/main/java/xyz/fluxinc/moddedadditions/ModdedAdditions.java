@@ -1,15 +1,14 @@
 package xyz.fluxinc.moddedadditions;
 
+import jdk.internal.jline.internal.Log;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.fluxinc.fluxcore.FluxCore;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
-import xyz.fluxinc.moddedadditions.commands.AreaToolCommand;
-import xyz.fluxinc.moddedadditions.commands.ModdedAdditionsCommand;
-import xyz.fluxinc.moddedadditions.commands.NotifyCommand;
-import xyz.fluxinc.moddedadditions.commands.VeinMinerCommand;
+import xyz.fluxinc.moddedadditions.commands.*;
 import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
 import xyz.fluxinc.moddedadditions.controllers.MagnetInstanceController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
@@ -84,6 +83,14 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // Setup Book Handling
         getServer().getPluginManager().registerEvents(new BookSignListener(), this);
+
+        // Setup DayVote Command
+        String worldName = configurationManager.getConfig().getString("dv-dayWorld");
+        if (worldName != null && getServer().getWorld(worldName) != null) {
+            getCommand("dayvote").setExecutor(new VoteDayCommand(this, this.languageManager, getServer().getWorld(worldName)));
+        } else {
+            getLogger().warning("No or invalid world defined for DayVote. It will not be enabled");
+        }
     }
 
     @Override

@@ -18,3 +18,6 @@ ch-vmblocks: 128
 
 # Should players have an empty hand (Default: true)
 ch-emptyhand: true
+
+# Which world should be used
+dv-dayWorld: "world"

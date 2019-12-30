@@ -17,6 +17,9 @@ commands:
   moddedadditions:
     usage: moddedadditions reload
     aliases: [ma, moddeda, madditions, madd, modadd]
+  dayvote:
+    usage: dayvote <yes/no>
+    aliases: [dv]
 permissions:
   moddedadditions.*:
     description: Grants all permissions from the plugin
