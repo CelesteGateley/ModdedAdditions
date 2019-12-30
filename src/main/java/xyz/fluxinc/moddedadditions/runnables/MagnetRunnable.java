@@ -10,6 +10,7 @@ import java.util.Collection;
 
 public class MagnetRunnable implements Runnable {
 
+    private static final int DEFAULT_RADIUS = 8;
     private Player player;
     private int xRadius;
     private int yRadius;
@@ -17,9 +18,9 @@ public class MagnetRunnable implements Runnable {
 
     public MagnetRunnable(Player player) {
         this.player = player;
-        this.xRadius = 16;
-        this.yRadius = 16;
-        this.zRadius = 16;
+        this.xRadius = DEFAULT_RADIUS;
+        this.yRadius = DEFAULT_RADIUS;
+        this.zRadius = DEFAULT_RADIUS;
     }
 
     public MagnetRunnable(Player player, int radius) {
