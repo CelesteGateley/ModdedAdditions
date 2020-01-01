@@ -13,12 +13,8 @@ public class BookSignListener implements Listener {
 
     @EventHandler
     public void onBookSignEvent(PlayerEditBookEvent event) {
-        if (!event.isSigning()) {
-            return;
-        }
-        if (!event.getPlayer().hasPermission("moddedadditions.books.color")) {
-            return;
-        }
+        if (!event.isSigning()) { return; }
+        if (!event.getPlayer().hasPermission("moddedadditions.books.color")) { return; }
 
         BookMeta bookMeta = event.getNewBookMeta();
         List<String> newPages = new ArrayList<>();
