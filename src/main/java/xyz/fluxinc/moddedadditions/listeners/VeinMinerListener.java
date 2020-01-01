@@ -64,7 +64,7 @@ public class VeinMinerListener implements Listener {
             iMeta.setLore(null);
             tool.setItemMeta(iMeta);
         }
-        List<Block> blockList = BlockUtils.getVMBlockList(block, vmController.getMaxBlocks());
+        List<Block> blockList = BlockUtils.getVMBlockList(block, vmController.getMaxBlocks(), true);
         blockList.remove(0);
         int blocksBroken = 0;
         for (Block b : blockList) {
