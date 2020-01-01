@@ -1,22 +1,21 @@
 package xyz.fluxinc.moddedadditions;
 
-import jdk.internal.jline.internal.Log;
 import org.bukkit.ChatColor;
-import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.fluxinc.fluxcore.FluxCore;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.configuration.LanguageManager;
+import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.*;
 import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
 import xyz.fluxinc.moddedadditions.controllers.MagnetInstanceController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
+import xyz.fluxinc.moddedadditions.executors.MagnetExecutor;
 import xyz.fluxinc.moddedadditions.listeners.BookSignListener;
 import xyz.fluxinc.moddedadditions.listeners.CropHarvestListener;
 import xyz.fluxinc.moddedadditions.listeners.VeinMinerListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.PingListener;
-import xyz.fluxinc.moddedadditions.listeners.customitem.MagnetListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
@@ -79,7 +78,7 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup Magnet Related Tasks
         magnetUtils = new MagnetUtils(ChatColor.translateAlternateColorCodes('&', languageManager.getConfig().getString("mi-magnet")));
         magnetInstanceController = new MagnetInstanceController(this, getServer().getScheduler());
-        getServer().getPluginManager().registerEvents(new MagnetListener(this), this);
+        getServer().getPluginManager().registerEvents(new InventoryChecker(this, new MagnetExecutor(this, magnetUtils)), this);
 
         // Setup Book Handling
         getServer().getPluginManager().registerEvents(new BookSignListener(), this);
