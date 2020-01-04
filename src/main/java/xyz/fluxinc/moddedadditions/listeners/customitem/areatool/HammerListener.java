@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 import static xyz.fluxinc.fluxcore.utils.MineabilityUtils.verifyBlockMining;
-import static xyz.fluxinc.moddedadditions.controllers.AreaToolController.takeDurability;
-import static xyz.fluxinc.moddedadditions.storage.Tools.pickaxes;
+import static xyz.fluxinc.fluxcore.utils.ToolUtils.pickaxes;
+import static xyz.fluxinc.fluxcore.utils.ToolUtils.takeDurability;
 
 public class HammerListener implements Listener {
 
@@ -80,7 +80,7 @@ public class HammerListener implements Listener {
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
         }
         // Take the durability from the tool
-        takeDurability(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand());
+        takeDurability(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand(), 3);
     }
 
     private boolean verifyHammer(ItemStack tool) {

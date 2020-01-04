@@ -111,34 +111,9 @@ public class AreaToolController {
         return extraBlocks;
     }
 
-    public static void takeDurability(Player player, ItemStack tool) {
-        Random random = new Random();
-        double chance = (100D / (getUnbreakingLevel(tool) + 1));
-        ItemMeta iMeta = tool.getItemMeta();
-        if (iMeta instanceof Damageable) {
-            Damageable damageable = (Damageable) iMeta;
-            for (int i = 0; i < 3; i++) {
-                double rand = random.nextInt(99) + 1;
-                if (rand >= chance) {
-                    continue;
-                }
-                damageable.setDamage(damageable.getDamage() + 1);
-                if (damageable.getDamage() > tool.getType().getMaxDurability()) {
-                    player.getInventory().remove(tool);
-                    return;
-                }
-            }
-            tool.setItemMeta((ItemMeta) damageable);
-        }
-    }
+    public List<Material> getHammerList() { return this.hammerBlocks; }
 
-    private static int getUnbreakingLevel(ItemStack tool) {
-        ItemMeta itemMeta = tool.getItemMeta();
-        if (itemMeta == null) {
-            return 0;
-        }
-        return itemMeta.getEnchantLevel(Enchantment.DURABILITY);
-    }
+    public List<Material> getExcavatorList() { return this.excavatorBlocks; }
 
     public void saveConfiguration() {
         try {

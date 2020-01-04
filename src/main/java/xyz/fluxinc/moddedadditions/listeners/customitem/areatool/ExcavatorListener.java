@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static xyz.fluxinc.moddedadditions.controllers.AreaToolController.takeDurability;
-import static xyz.fluxinc.moddedadditions.storage.Tools.shovels;
+import static xyz.fluxinc.fluxcore.utils.ToolUtils.shovels;
+import static xyz.fluxinc.fluxcore.utils.ToolUtils.takeDurability;
 
 public class ExcavatorListener implements Listener {
 
@@ -87,7 +87,7 @@ public class ExcavatorListener implements Listener {
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
         }
         // Take the durability from the tool
-        takeDurability(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand());
+        takeDurability(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand(), 3);
 
     }
 

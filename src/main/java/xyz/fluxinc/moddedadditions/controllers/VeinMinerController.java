@@ -35,9 +35,6 @@ public class VeinMinerController {
     private static final String SHEARS_CONFIG_KEY = "shears";
     private static final String HAND_CONFIG_KEY = "hand";
 
-
-
-
     public VeinMinerController(ModdedAdditions instance) {
         this.instance = instance;
         vmConfiguration = new ConfigurationManager<>(this.instance, CONFIG_NAME).getConfig();
