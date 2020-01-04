@@ -59,12 +59,14 @@ public class VeinMinerListener implements Listener {
         }
         List<Block> blockList = BlockUtils.getVMBlockList(block, instance.getVeinMinerController().getMaxBlocks(), true);
         blockList.remove(0);
+        int remainingDurability = getRemainingDurability(toolUsed);
         int blocksBroken = 0;
         for (Block b : blockList) {
             if (instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), false)) {
                 blocksBroken++;
                 CoreProtectLogger.logBlockBreak(player, b);
                 b.breakNaturally(tool);
+                if (remainingDurability - blocksBroken < 1) { break; }
             }
         }
         takeDurability(player, toolUsed, blocksBroken);
