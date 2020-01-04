@@ -26,12 +26,10 @@ public class ExcavatorListener implements Listener {
 
     private ModdedAdditions instance;
     private String lore;
-    private AreaToolController areaToolController;
     private Map<Player, BlockFace> playerBlockFaceMap;
 
     public ExcavatorListener(ModdedAdditions instance, String lore) {
         this.instance = instance;
-        this.areaToolController = instance.getAreaToolController();
         this.lore = ChatColor.translateAlternateColorCodes('&', lore);
         playerBlockFaceMap = new HashMap<>();
     }
@@ -57,7 +55,7 @@ public class ExcavatorListener implements Listener {
         if (!playerBlockFaceMap.containsKey(event.getPlayer())) {
             return;
         }
-        if (!areaToolController.checkExcavator(event.getBlock().getType())) {
+        if (!instance.getAreaToolController().checkExcavator(event.getBlock().getType())) {
             return;
         }
         // Check the player has access to the block and is in survival mode
@@ -78,7 +76,7 @@ public class ExcavatorListener implements Listener {
                 continue;
             }
             // If the block is not a Excavator material or you do not have access to it, ignore
-            if (!areaToolController.checkExcavator(block.getType())) {
+            if (!instance.getAreaToolController().checkExcavator(block.getType())) {
                 continue;
             }
             if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true)) {

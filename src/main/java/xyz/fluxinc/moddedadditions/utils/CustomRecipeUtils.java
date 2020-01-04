@@ -86,11 +86,6 @@ public class CustomRecipeUtils implements Listener {
         getServer().addRecipe(magnetRecipe);
     }
 
-    @EventHandler
-    public void updateKnowledgeBook(PlayerJoinEvent player) {
-        player.getPlayer().discoverRecipes(recipeKeys);
-    }
-
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
         dyeMap.forEach((block, dye) -> {
             for (Material originBlock : blockList) {
@@ -242,6 +237,10 @@ public class CustomRecipeUtils implements Listener {
         excavatorRecipe.setIngredient('S', Material.STICK);
         excavatorRecipe.setIngredient('P', Material.DIAMOND_SHOVEL);
         getServer().addRecipe(excavatorRecipe);
+    }
 
+    @EventHandler
+    public void updateKnowledgeBook(PlayerJoinEvent player) {
+        player.getPlayer().discoverRecipes(recipeKeys);
     }
 }

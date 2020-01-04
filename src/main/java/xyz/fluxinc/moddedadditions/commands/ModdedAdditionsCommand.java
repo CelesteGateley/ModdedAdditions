@@ -4,7 +4,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.HashMap;
@@ -13,12 +12,10 @@ import java.util.Map;
 @SuppressWarnings("SwitchStatementWithTooFewBranches")
 public class ModdedAdditionsCommand implements CommandExecutor {
 
-    private LanguageManager languageManager;
     private ModdedAdditions instance;
 
     public ModdedAdditionsCommand(ModdedAdditions instance) {
         this.instance = instance;
-        this.languageManager = instance.getLanguageManager();
     }
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
@@ -30,7 +27,7 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                     return true;
                 }
                 instance.reloadConfiguration();
-                commandSender.sendMessage(languageManager.generateMessage("configurationReloaded"));
+                commandSender.sendMessage(instance.getLanguageManager().generateMessage("configurationReloaded"));
                 return true;
             default:
                 sendUnknownSubCommand(commandSender, arguments[0]);
@@ -39,16 +36,16 @@ public class ModdedAdditionsCommand implements CommandExecutor {
     }
 
     private void sendNoSubCommand(CommandSender sender) {
-        sender.sendMessage(languageManager.generateMessage("vm-noSubCommand"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-noSubCommand"));
     }
 
     private void sendUnknownSubCommand(CommandSender sender, String subcommand) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("comand", subcommand);
-        sender.sendMessage(languageManager.generateMessage("vm-unknownSubCommand", messageArgs));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-unknownSubCommand", messageArgs));
     }
 
     private void sendPermissionDenied(CommandSender sender) {
-        sender.sendMessage(languageManager.generateMessage("permissionDenied"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("permissionDenied"));
     }
 }

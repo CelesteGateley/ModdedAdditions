@@ -41,6 +41,9 @@ permissions:
       moddedadditions.veinminer.remove: true
       moddedadditions.veinminer.save: true
       moddedadditions.veinminer.reload: true
+  moddedadditions.books.color:
+    description: Allows you to use color codes in books
+    default: op
   moddedadditions.veinminer.add:
     description: Add blocks to the veinminer list
     default: op
@@ -67,6 +70,9 @@ permissions:
     default: op
   moddedadditions.reload:
     description: Reload the configurations and language file
+    default: op
+  moddedadditions.coloranvil.use:
+    description: Allows you to color item names in an anvil
     default: op
   moddedadditions.veinminer.toggle:
     description: Toggle veinminer for yourself

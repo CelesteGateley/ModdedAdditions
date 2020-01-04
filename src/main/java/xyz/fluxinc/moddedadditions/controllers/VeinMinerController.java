@@ -18,12 +18,15 @@ public class VeinMinerController {
 
     private ModdedAdditions instance;
     private YamlConfiguration vmConfiguration;
+
     private List<Material> pickaxeBlocks;
     private List<Material> axeBlocks;
     private List<Material> shovelBlocks;
     private List<Material> hoeBlocks;
     private List<Material> shearsBlocks;
     private List<Material> handBlocks;
+    private List<Player> toggledPlayers;
+
     private static final String CONFIG_NAME = "veinminer.yml";
     private static final String PICKAXE_CONFIG_KEY = "pickaxe";
     private static final String AXE_CONFIG_KEY = "axe";
@@ -32,7 +35,7 @@ public class VeinMinerController {
     private static final String SHEARS_CONFIG_KEY = "shears";
     private static final String HAND_CONFIG_KEY = "hand";
 
-    private List<Player> toggledPlayers;
+
 
 
     public VeinMinerController(ModdedAdditions instance) {
@@ -40,15 +43,6 @@ public class VeinMinerController {
         vmConfiguration = new ConfigurationManager<>(this.instance, CONFIG_NAME).getConfig();
         loadFromConfiguration();
         toggledPlayers = new ArrayList<>();
-    }
-
-    public void loadFromConfiguration() {
-        pickaxeBlocks = convertStringToMaterial(vmConfiguration.getStringList(PICKAXE_CONFIG_KEY));
-        axeBlocks = convertStringToMaterial(vmConfiguration.getStringList(AXE_CONFIG_KEY));
-        shovelBlocks = convertStringToMaterial(vmConfiguration.getStringList(SHOVEL_CONFIG_KEY));
-        hoeBlocks = convertStringToMaterial(vmConfiguration.getStringList(HOE_CONFIG_KEY));
-        shearsBlocks = convertStringToMaterial(vmConfiguration.getStringList(SHEARS_CONFIG_KEY));
-        handBlocks = convertStringToMaterial(vmConfiguration.getStringList(HAND_CONFIG_KEY));
     }
 
     public boolean checkPickaxe(Material material) {
@@ -147,15 +141,6 @@ public class VeinMinerController {
         saveConfiguration();
     }
 
-    public void saveConfiguration() {
-        try {
-            vmConfiguration.save(CONFIG_NAME);
-        } catch (IOException e) {
-            Bukkit.getLogger().severe("An error occurred whilst saving " + CONFIG_NAME + ": " + e.getMessage());
-            Bukkit.getServer().getPluginManager().disablePlugin(this.instance);
-        }
-    }
-
     public boolean isToggled(Player player) {
         return toggledPlayers.contains(player);
     }
@@ -174,5 +159,23 @@ public class VeinMinerController {
 
     public boolean getAllowInCreative() {
         return vmConfiguration.getBoolean("allow-in-creative");
+    }
+
+    public void saveConfiguration() {
+        try {
+            vmConfiguration.save(CONFIG_NAME);
+        } catch (IOException e) {
+            Bukkit.getLogger().severe("An error occurred whilst saving " + CONFIG_NAME + ": " + e.getMessage());
+            Bukkit.getServer().getPluginManager().disablePlugin(this.instance);
+        }
+    }
+
+    public void loadFromConfiguration() {
+        pickaxeBlocks = convertStringToMaterial(vmConfiguration.getStringList(PICKAXE_CONFIG_KEY));
+        axeBlocks = convertStringToMaterial(vmConfiguration.getStringList(AXE_CONFIG_KEY));
+        shovelBlocks = convertStringToMaterial(vmConfiguration.getStringList(SHOVEL_CONFIG_KEY));
+        hoeBlocks = convertStringToMaterial(vmConfiguration.getStringList(HOE_CONFIG_KEY));
+        shearsBlocks = convertStringToMaterial(vmConfiguration.getStringList(SHEARS_CONFIG_KEY));
+        handBlocks = convertStringToMaterial(vmConfiguration.getStringList(HAND_CONFIG_KEY));
     }
 }

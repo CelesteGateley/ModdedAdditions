@@ -5,21 +5,19 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import xyz.fluxinc.fluxcore.configuration.LanguageManager;
-import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
+import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class VeinMinerCommand implements CommandExecutor {
 
-    private VeinMinerController veinMinerController;
-    private LanguageManager languageManager;
+    private ModdedAdditions instance;
 
 
-    public VeinMinerCommand(VeinMinerController veinMinerController, LanguageManager languageFile) {
-        this.veinMinerController = veinMinerController;
-        this.languageManager = languageFile;
+    public VeinMinerCommand(ModdedAdditions instance) {
+        this.instance = instance;
+
     }
 
     @Override
@@ -50,22 +48,22 @@ public class VeinMinerCommand implements CommandExecutor {
 
                 switch (arguments[1].toLowerCase()) {
                     case "pickaxe":
-                        veinMinerController.addPickaxeBlock(block);
+                        instance.getVeinMinerController().addPickaxeBlock(block);
                         break;
                     case "axe":
-                        veinMinerController.addAxeBlock(block);
+                        instance.getVeinMinerController().addAxeBlock(block);
                         break;
                     case "shovel":
-                        veinMinerController.addShovelBlock(block);
+                        instance.getVeinMinerController().addShovelBlock(block);
                         break;
                     case "hoe":
-                        veinMinerController.addHoeBlock(block);
+                        instance.getVeinMinerController().addHoeBlock(block);
                         break;
                     case "shears":
-                        veinMinerController.addShearsBlock(block);
+                        instance.getVeinMinerController().addShearsBlock(block);
                         break;
                     case "hand":
-                        veinMinerController.addHandBlock(block);
+                        instance.getVeinMinerController().addHandBlock(block);
                         break;
                     default:
                         sendInvalidTool(commandSender, arguments[1]);
@@ -94,22 +92,22 @@ public class VeinMinerCommand implements CommandExecutor {
 
                 switch (arguments[1].toLowerCase()) {
                     case "pickaxe":
-                        veinMinerController.removePickaxeBlock(removeBlock);
+                        instance.getVeinMinerController().removePickaxeBlock(removeBlock);
                         break;
                     case "axe":
-                        veinMinerController.removeAxeBlock(removeBlock);
+                        instance.getVeinMinerController().removeAxeBlock(removeBlock);
                         break;
                     case "shovel":
-                        veinMinerController.removeShovelBlock(removeBlock);
+                        instance.getVeinMinerController().removeShovelBlock(removeBlock);
                         break;
                     case "hoe":
-                        veinMinerController.removeHoeBlock(removeBlock);
+                        instance.getVeinMinerController().removeHoeBlock(removeBlock);
                         break;
                     case "shears":
-                        veinMinerController.removeShearsBlock(removeBlock);
+                        instance.getVeinMinerController().removeShearsBlock(removeBlock);
                         break;
                     case "hand":
-                        veinMinerController.removeHandBlock(removeBlock);
+                        instance.getVeinMinerController().removeHandBlock(removeBlock);
                         break;
                     default:
                         sendInvalidTool(commandSender, arguments[1]);
@@ -121,11 +119,11 @@ public class VeinMinerCommand implements CommandExecutor {
                 if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
                 if (!commandSender.hasPermission("moddedadditions.veinminer.toggle")) { sendPermissionDenied(commandSender); return true; }
                 Player player = (Player) commandSender;
-                veinMinerController.toggleVeinMiner(player);
-                if (veinMinerController.isToggled(player)) {
-                    commandSender.sendMessage(languageManager.generateMessage("vm-toggleOff"));
+                instance.getVeinMinerController().toggleVeinMiner(player);
+                if (instance.getVeinMinerController().isToggled(player)) {
+                    commandSender.sendMessage(instance.getLanguageManager().generateMessage("vm-toggleOff"));
                 } else {
-                    commandSender.sendMessage(languageManager.generateMessage("vm-toggleOn"));
+                    commandSender.sendMessage(instance.getLanguageManager().generateMessage("vm-toggleOn"));
                 }
                 return true;
             case "reload":
@@ -133,16 +131,16 @@ public class VeinMinerCommand implements CommandExecutor {
                     sendPermissionDenied(commandSender);
                     return true;
                 }
-                veinMinerController.loadFromConfiguration();
-                commandSender.sendMessage(languageManager.generateMessage("vm-configReloaded"));
+                instance.getVeinMinerController().loadFromConfiguration();
+                commandSender.sendMessage(instance.getLanguageManager().generateMessage("vm-configReloaded"));
                 return true;
             case "save":
                 if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.veinminer.save")) {
                     sendPermissionDenied(commandSender);
                     return true;
                 }
-                veinMinerController.saveConfiguration();
-                commandSender.sendMessage(languageManager.generateMessage("vm-configSaved"));
+                instance.getVeinMinerController().saveConfiguration();
+                commandSender.sendMessage(instance.getLanguageManager().generateMessage("vm-configSaved"));
                 return true;
             default:
                 sendUnknownSubCommand(commandSender, arguments[0]);
@@ -151,54 +149,54 @@ public class VeinMinerCommand implements CommandExecutor {
     }
 
     private void sendPermissionDenied(CommandSender sender) {
-        sender.sendMessage(languageManager.generateMessage("permissionDenied"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("permissionDenied"));
     }
 
     private void sendInvalidTool(CommandSender sender, String tool) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("tool", tool);
-        sender.sendMessage(languageManager.generateMessage("vm-invalidTool", messageArgs));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-invalidTool", messageArgs));
     }
 
     private void sendInvalidBlock(CommandSender sender, String block) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("block", block);
-        sender.sendMessage(languageManager.generateMessage("vm-invalidBlock", messageArgs));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-invalidBlock", messageArgs));
     }
 
     private void sendNoToolProvided(CommandSender sender) {
-        sender.sendMessage(languageManager.generateMessage("vm-noToolProvided"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-noToolProvided"));
     }
 
     private void sendNoBlockProvided(CommandSender sender) {
-        sender.sendMessage(languageManager.generateMessage("vm-noBlockProvided"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-noBlockProvided"));
     }
 
     private void sendBlockAdded(CommandSender sender, String material, String tool) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("tool", tool);
         messageArgs.put("block", material);
-        sender.sendMessage(languageManager.generateMessage("vm-blockAdded", messageArgs));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-blockAdded", messageArgs));
     }
 
     private void sendBlockRemoved(CommandSender sender, String material, String tool) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("tool", tool);
         messageArgs.put("block", material);
-        sender.sendMessage(languageManager.generateMessage("vm-blockRemoved", messageArgs));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-blockRemoved", messageArgs));
     }
 
     private void sendMustBePlayer(CommandSender sender) {
-        sender.sendMessage(languageManager.generateMessage("mustBePlayer"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("mustBePlayer"));
     }
 
     private void sendNoSubCommand(CommandSender sender) {
-        sender.sendMessage(languageManager.generateMessage("vm-noSubCommand"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-noSubCommand"));
     }
 
     private void sendUnknownSubCommand(CommandSender sender, String subcommand) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("comand", subcommand);
-        sender.sendMessage(languageManager.generateMessage("vm-unknownSubCommand", messageArgs));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-unknownSubCommand", messageArgs));
     }
 }

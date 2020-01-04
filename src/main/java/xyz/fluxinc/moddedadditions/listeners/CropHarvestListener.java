@@ -48,7 +48,6 @@ public class CropHarvestListener implements Listener {
         tallCrops.add(Material.SUGAR_CANE);
     }
 
-
     public CropHarvestListener(ModdedAdditions pluginInstance, int blockLimit) {
         this.instance = pluginInstance;
         this.blockLimit = blockLimit;
@@ -63,7 +62,7 @@ public class CropHarvestListener implements Listener {
             return;
         }
         // Should it veinmine
-        boolean veinminer = instance.getConfigurationManager().getConfig().getBoolean("ch-veinmine") && event.getPlayer().isSneaking();
+        boolean veinminer = instance.getConfigurationManager().getBoolean("ch-veinmine") && event.getPlayer().isSneaking();
 
         // Get information about the block they clicked on
         BlockData data = event.getClickedBlock().getBlockData();
@@ -121,7 +120,7 @@ public class CropHarvestListener implements Listener {
         return clickedBlock != null
                 && clickedBlock.getType() != Material.AIR
                 && action == Action.RIGHT_CLICK_BLOCK
-                && !(item != null && instance.getConfig().getBoolean("ch-emptyhand"));
+                && !(item != null && instance.getConfigurationManager().getBoolean("ch-emptyhand"));
     }
 
     private boolean verifyBlock(Player player, Block block) {

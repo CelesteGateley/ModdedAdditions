@@ -5,23 +5,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import xyz.fluxinc.fluxcore.configuration.LanguageManager;
-import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
-import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
+import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class AreaToolCommand implements CommandExecutor {
 
-    private AreaToolController areaToolController;
-    private LanguageManager languageManager;
+    private ModdedAdditions instance;
 
 
-    public AreaToolCommand(AreaToolController areaToolController, LanguageManager languageFile) {
-        this.areaToolController = areaToolController;
-        this.languageManager = languageFile;
-    }
+    public AreaToolCommand(ModdedAdditions instance) { this.instance = instance; }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
@@ -51,10 +45,10 @@ public class AreaToolCommand implements CommandExecutor {
 
                 switch (arguments[1].toLowerCase()) {
                     case "hammer":
-                        areaToolController.addHammerBlock(block);
+                        instance.getAreaToolController().addHammerBlock(block);
                         break;
                     case "excavator":
-                        areaToolController.addExcavatorBlock(block);
+                        instance.getAreaToolController().addExcavatorBlock(block);
                         break;
                     default:
                         sendInvalidTool(commandSender, arguments[1]);
@@ -83,10 +77,10 @@ public class AreaToolCommand implements CommandExecutor {
 
                 switch (arguments[1].toLowerCase()) {
                     case "hammer":
-                        areaToolController.addHammerBlock(removeBlock);
+                        instance.getAreaToolController().removeHammerBlock(removeBlock);
                         break;
                     case "excavator":
-                        areaToolController.addExcavatorBlock(removeBlock);
+                        instance.getAreaToolController().removeExcavatorBlock(removeBlock);
                         break;
                     default:
                         sendInvalidTool(commandSender, arguments[1]);
@@ -99,16 +93,16 @@ public class AreaToolCommand implements CommandExecutor {
                     sendPermissionDenied(commandSender);
                     return true;
                 }
-                areaToolController.loadFromConfiguration();
-                commandSender.sendMessage(languageManager.generateMessage("vm-configReloaded"));
+                instance.getAreaToolController().loadFromConfiguration();
+                commandSender.sendMessage(instance.getLanguageManager().generateMessage("vm-configReloaded"));
                 return true;
             case "save":
                 if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.areatool.save")) {
                     sendPermissionDenied(commandSender);
                     return true;
                 }
-                areaToolController.saveConfiguration();
-                commandSender.sendMessage(languageManager.generateMessage("vm-configSaved"));
+                instance.getAreaToolController().saveConfiguration();
+                commandSender.sendMessage(instance.getLanguageManager().generateMessage("vm-configSaved"));
                 return true;
             default:
                 sendUnknownSubCommand(commandSender, arguments[0]);
@@ -117,54 +111,54 @@ public class AreaToolCommand implements CommandExecutor {
     }
 
     private void sendPermissionDenied(CommandSender sender) {
-        sender.sendMessage(languageManager.generateMessage("permissionDenied"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("permissionDenied"));
     }
 
     private void sendInvalidTool(CommandSender sender, String tool) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("tool", tool);
-        sender.sendMessage(languageManager.generateMessage("vm-invalidTool", messageArgs));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-invalidTool", messageArgs));
     }
 
     private void sendInvalidBlock(CommandSender sender, String block) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("block", block);
-        sender.sendMessage(languageManager.generateMessage("vm-invalidBlock", messageArgs));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-invalidBlock", messageArgs));
     }
 
     private void sendNoToolProvided(CommandSender sender) {
-        sender.sendMessage(languageManager.generateMessage("vm-noToolProvided"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-noToolProvided"));
     }
 
     private void sendNoBlockProvided(CommandSender sender) {
-        sender.sendMessage(languageManager.generateMessage("vm-noBlockProvided"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-noBlockProvided"));
     }
 
     private void sendBlockAdded(CommandSender sender, String material, String tool) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("tool", tool);
         messageArgs.put("block", material);
-        sender.sendMessage(languageManager.generateMessage("vm-blockAdded", messageArgs));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-blockAdded", messageArgs));
     }
 
     private void sendBlockRemoved(CommandSender sender, String material, String tool) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("tool", tool);
         messageArgs.put("block", material);
-        sender.sendMessage(languageManager.generateMessage("vm-blockRemoved", messageArgs));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-blockRemoved", messageArgs));
     }
 
     private void sendMustBePlayer(CommandSender sender) {
-        sender.sendMessage(languageManager.generateMessage("mustBePlayer"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("mustBePlayer"));
     }
 
     private void sendUnknownSubCommand(CommandSender sender, String subcommand) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("comand", subcommand);
-        sender.sendMessage(languageManager.generateMessage("vm-unknownSubCommand", messageArgs));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-unknownSubCommand", messageArgs));
     }
 
     private void sendNoSubCommand(CommandSender sender) {
-        sender.sendMessage(languageManager.generateMessage("at-noSubCommand"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("at-noSubCommand"));
     }
 }

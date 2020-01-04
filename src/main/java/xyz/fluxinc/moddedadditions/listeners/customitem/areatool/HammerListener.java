@@ -28,12 +28,10 @@ public class HammerListener implements Listener {
 
     private ModdedAdditions instance;
     private String lore;
-    private AreaToolController areaToolController;
     private Map<Player, BlockFace> playerBlockFaceMap;
 
     public HammerListener(ModdedAdditions instance, String lore) {
         this.instance = instance;
-        this.areaToolController = instance.getAreaToolController();
         this.lore = ChatColor.translateAlternateColorCodes('&', lore);
         playerBlockFaceMap = new HashMap<>();
     }
@@ -56,7 +54,7 @@ public class HammerListener implements Listener {
         if (!verifyHammer(event.getPlayer().getInventory().getItemInMainHand())) return;
         if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), event.getBlock().getType())) return;
         if (!playerBlockFaceMap.containsKey(event.getPlayer())) return;
-        if (!areaToolController.checkHammer(event.getBlock().getType())) return;
+        if (!instance.getAreaToolController().checkHammer(event.getBlock().getType())) return;
         // Check the player has access to the block and is in survival mode
         if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), event.getBlock().getLocation(), true)) return;
         if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) return;
@@ -73,7 +71,7 @@ public class HammerListener implements Listener {
             // If the initial block is not obsidian and the block is, ignore
             if (block.getType() == Material.OBSIDIAN && !breakObsidian) continue;
             // If the block is not a hammer material or you do not have access to it, ignore
-            if (!areaToolController.checkHammer(block.getType())) continue;
+            if (!instance.getAreaToolController().checkHammer(block.getType())) continue;
             if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true)) continue;
             // If the block is not mineable by the tool, ignore
             if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), block.getType())) continue;

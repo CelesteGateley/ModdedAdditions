@@ -14,9 +14,9 @@ public class MagnetInstanceController {
     private ModdedAdditions instance;
     private Map<Player, Integer> vacuumInstances;
 
-    public MagnetInstanceController(ModdedAdditions instance, BukkitScheduler taskScheduler) {
-        this.taskScheduler = taskScheduler;
+    public MagnetInstanceController(ModdedAdditions instance) {
         this.instance = instance;
+        this.taskScheduler = instance.getServer().getScheduler();
         vacuumInstances = new HashMap<>();
     }
 

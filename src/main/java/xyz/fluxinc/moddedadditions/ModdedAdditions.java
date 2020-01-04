@@ -56,7 +56,7 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // Register Ping Listener and Command
         getServer().getPluginManager().registerEvents(new PingListener(), this);
-        getCommand("notify").setExecutor(new NotifyCommand(languageManager));
+        getCommand("notify").setExecutor(new NotifyCommand(this));
 
         // Register Crafting Additions
         getServer().getPluginManager().registerEvents(new CustomRecipeUtils(this), this);
@@ -67,18 +67,18 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup VeinMiner Related Tasks
         veinMinerController = new VeinMinerController(this);
         getServer().getPluginManager().registerEvents(new VeinMinerListener(this), this);
-        getCommand("veinminer").setExecutor(new VeinMinerCommand(veinMinerController, languageManager));
+        getCommand("veinminer").setExecutor(new VeinMinerCommand(this));
 
         // Setup Hammer/Excavator Related Tasks
         areaToolController = new AreaToolController(this);
         getServer().getPluginManager().registerEvents(new HammerListener(this, languageManager.getConfig().getString("mi-hammer")), this);
         getServer().getPluginManager().registerEvents(new ExcavatorListener(this, languageManager.getConfig().getString("mi-excavator")), this);
-        getCommand("areatool").setExecutor(new AreaToolCommand(areaToolController, languageManager));
+        getCommand("areatool").setExecutor(new AreaToolCommand(this));
 
         // Setup Magnet Related Tasks
         magnetUtils = new MagnetUtils(ChatColor.translateAlternateColorCodes('&', languageManager.getConfig().getString("mi-magnet")));
-        magnetInstanceController = new MagnetInstanceController(this, getServer().getScheduler());
-        getServer().getPluginManager().registerEvents(new InventoryChecker(this, new MagnetExecutor(this, magnetUtils)), this);
+        magnetInstanceController = new MagnetInstanceController(this);
+        getServer().getPluginManager().registerEvents(new InventoryChecker(this, new MagnetExecutor(this)), this);
 
         // Setup Book Handling
         getServer().getPluginManager().registerEvents(new BookSignListener(), this);
@@ -86,7 +86,7 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup DayVote Command
         String worldName = configurationManager.getConfig().getString("dv-dayWorld");
         if (worldName != null && getServer().getWorld(worldName) != null) {
-            getCommand("dayvote").setExecutor(new VoteDayCommand(this, this.languageManager, getServer().getWorld(worldName)));
+            getCommand("dayvote").setExecutor(new VoteDayCommand(this, getServer().getWorld(worldName)));
         } else {
             getLogger().warning("No or invalid world defined for DayVote. It will not be enabled");
         }

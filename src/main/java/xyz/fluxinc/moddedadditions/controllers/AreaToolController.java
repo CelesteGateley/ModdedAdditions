@@ -70,15 +70,6 @@ public class AreaToolController {
         saveConfiguration();
     }
 
-    public void saveConfiguration() {
-        try {
-            areaToolConfiguration.save(CONFIG_NAME);
-        } catch (IOException e) {
-            Bukkit.getLogger().severe("An error occurred whilst saving " + CONFIG_NAME + ": " + e.getMessage());
-            Bukkit.getServer().getPluginManager().disablePlugin(this.instance);
-        }
-    }
-
     public static List<Block> getBlockList(Block startingBlock, BlockFace face) {
         // Extract the X Y Z coordinates and world for easy access
         int x = startingBlock.getX();
@@ -149,6 +140,14 @@ public class AreaToolController {
         return itemMeta.getEnchantLevel(Enchantment.DURABILITY);
     }
 
+    public void saveConfiguration() {
+        try {
+            areaToolConfiguration.save(CONFIG_NAME);
+        } catch (IOException e) {
+            Bukkit.getLogger().severe("An error occurred whilst saving " + CONFIG_NAME + ": " + e.getMessage());
+            Bukkit.getServer().getPluginManager().disablePlugin(this.instance);
+        }
+    }
 
     public void loadFromConfiguration() {
         hammerBlocks = convertStringToMaterial(areaToolConfiguration.getStringList(HAMMER_CONFIG_KEY));
