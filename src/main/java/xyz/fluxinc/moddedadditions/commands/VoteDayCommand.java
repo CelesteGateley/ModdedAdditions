@@ -32,6 +32,7 @@ public class VoteDayCommand implements CommandExecutor {
         if (arguments.length < 1) {
             if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) { commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-alreadyDay")); return true; }
             initiateVote();
+            if (commandSender instanceof Player) { activeVote.votedPlayers.add((Player) commandSender); activeVote.yesVotes++; }
             checkVote();
             return true;
         }
@@ -64,7 +65,7 @@ public class VoteDayCommand implements CommandExecutor {
         TextComponent mainComponent = getVoteComponent();
         for (Player player : instance.getServer().getOnlinePlayers()) { player.spigot().sendMessage(mainComponent); }
         taskId = instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, () -> {
-            if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) {
+            if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000 && activeVote != null) {
                 activeVote = null;
                 for (Player player : instance.getServer().getOnlinePlayers()) { player.sendMessage(instance.getLanguageManager().generateMessage("dv-voteCancelled")); }
                 if (taskId != -1) { instance.getServer().getScheduler().cancelTask(taskId); }

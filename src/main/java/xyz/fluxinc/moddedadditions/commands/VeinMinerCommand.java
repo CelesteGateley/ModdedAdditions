@@ -14,7 +14,6 @@ public class VeinMinerCommand implements CommandExecutor {
 
     private ModdedAdditions instance;
 
-
     public VeinMinerCommand(ModdedAdditions instance) {
         this.instance = instance;
 
