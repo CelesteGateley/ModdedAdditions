@@ -63,7 +63,7 @@ public class HammerListener implements Listener {
 
         // Get Extra Blocks
         List<Block> extraBlocks = AreaToolController.getBlockList(event.getBlock(), playerBlockFaceMap.get(event.getPlayer()));
-
+        int blocksBroken = 0;
         // Iterate through the extra blocks
         for (Block block : extraBlocks) {
             // If it is the initial block, ignore
@@ -78,9 +78,10 @@ public class HammerListener implements Listener {
             // Log the block as broken, then break it
             CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
+            blocksBroken++;
         }
         // Take the durability from the tool
-        takeDurability(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand(), 3);
+        takeDurability(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand(), Math.floorDiv(blocksBroken, 3));
     }
 
     private boolean verifyHammer(ItemStack tool) {

@@ -49,45 +49,30 @@ public class ExcavatorListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         // Verify that the tool is a Excavator, and that the player has a known block face
-        if (!verifyExcavator(event.getPlayer().getInventory().getItemInMainHand())) {
-            return;
-        }
-        if (!playerBlockFaceMap.containsKey(event.getPlayer())) {
-            return;
-        }
-        if (!instance.getAreaToolController().checkExcavator(event.getBlock().getType())) {
-            return;
-        }
+        if (!verifyExcavator(event.getPlayer().getInventory().getItemInMainHand())) { return; }
+        if (!playerBlockFaceMap.containsKey(event.getPlayer())) { return; }
+        if (!instance.getAreaToolController().checkExcavator(event.getBlock().getType())) { return; }
         // Check the player has access to the block and is in survival mode
-        if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), event.getBlock().getLocation(), true)) {
-            return;
-        }
-        if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) {
-            return;
-        }
+        if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), event.getBlock().getLocation(), true)) { return; }
+        if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) { return; }
 
         // Get Extra Blocks
         List<Block> extraBlocks = AreaToolController.getBlockList(event.getBlock(), playerBlockFaceMap.get(event.getPlayer()));
-
+        int blocksBroken = 0;
         // Iterate through the extra blocks
         for (Block block : extraBlocks) {
             // If it is the initial block, ignore
-            if (block.getLocation() == event.getBlock().getLocation()) {
-                continue;
-            }
+            if (block.getLocation() == event.getBlock().getLocation()) continue;
             // If the block is not a Excavator material or you do not have access to it, ignore
-            if (!instance.getAreaToolController().checkExcavator(block.getType())) {
-                continue;
-            }
-            if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true)) {
-                continue;
-            }
+            if (!instance.getAreaToolController().checkExcavator(block.getType())) continue;
+            if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true)) continue;
             // Log the block as broken, then break it
             CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
+            blocksBroken++;
         }
         // Take the durability from the tool
-        takeDurability(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand(), 3);
+        takeDurability(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand(), Math.floorDiv(blocksBroken, 3));
 
     }
 
