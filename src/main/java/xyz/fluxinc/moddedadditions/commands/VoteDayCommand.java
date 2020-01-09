@@ -9,6 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerBedEnterEvent;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.ArrayList;
@@ -58,6 +60,13 @@ public class VoteDayCommand implements CommandExecutor {
                 commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-unknownOption"));
         }
         return true;
+    }
+
+    @EventHandler
+    public void onSleepEvent(PlayerBedEnterEvent event) {
+        if (activeVote == null) { initiateVote(); }
+        activeVote.yesVotes++;
+        activeVote.votedPlayers.add(event.getPlayer());
     }
 
     private void initiateVote() {
