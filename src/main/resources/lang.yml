@@ -18,6 +18,7 @@ nf-notifyTarget: "&9You have been pinged by %sender%"
 nf-notifySender: "&9Successfully sent ping to %target%"
 
 # Modded Item Lore
+mi-lightsaber: "&9A violent weapon, for a less civilised age!"
 mi-magnet: "&9A Magnet to draw items towards you!"
 mi-hammer: "&9A Hammer to mine a 3x3 area!"
 mi-excavator: "&9A Excavator to dig a 3x3 area!"

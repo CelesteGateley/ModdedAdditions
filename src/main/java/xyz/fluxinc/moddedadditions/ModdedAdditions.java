@@ -14,6 +14,7 @@ import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
 import xyz.fluxinc.moddedadditions.executors.MagnetExecutor;
 import xyz.fluxinc.moddedadditions.listeners.BookSignListener;
 import xyz.fluxinc.moddedadditions.listeners.CropHarvestListener;
+import xyz.fluxinc.moddedadditions.listeners.DamageListener;
 import xyz.fluxinc.moddedadditions.listeners.VeinMinerListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.PingListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
@@ -92,6 +93,9 @@ public final class ModdedAdditions extends JavaPlugin {
         } else {
             getLogger().warning("No or invalid world defined for DayVote. It will not be enabled");
         }
+
+        // Tell Player Damage Dealt
+        //getServer().getPluginManager().registerEvents(new DamageListener(), this);
     }
 
     @Override
