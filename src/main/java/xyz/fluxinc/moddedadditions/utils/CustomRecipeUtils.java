@@ -3,9 +3,13 @@ package xyz.fluxinc.moddedadditions.utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -15,6 +19,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.UUID;
 
 import static org.bukkit.Bukkit.getServer;
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
@@ -84,6 +89,8 @@ public class CustomRecipeUtils implements Listener {
         magnetRecipe.setIngredient('I', Material.IRON_BLOCK);
         magnetRecipe.setIngredient('L', Material.LAPIS_BLOCK);
         getServer().addRecipe(magnetRecipe);
+
+        addLightsaber();
     }
 
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
@@ -237,6 +244,32 @@ public class CustomRecipeUtils implements Listener {
         excavatorRecipe.setIngredient('S', Material.STICK);
         excavatorRecipe.setIngredient('P', Material.DIAMOND_SHOVEL);
         getServer().addRecipe(excavatorRecipe);
+    }
+
+    /*
+        Create Lightsaber ItemStack
+        Set attack damage to 15
+        Set name to lightsaber
+        Add recipe
+     */
+
+    public void addLightsaber() {
+        NamespacedKey lightSaberKey = new NamespacedKey(this.instance, "LIGHTSABER");
+        recipeKeys.add(lightSaberKey);
+        ItemStack lightSaber = new ItemStack(Material.DIAMOND_SWORD);
+        lightSaber = addLore(lightSaber, ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-lightsaber")));
+        ItemMeta itemMeta = lightSaber.getItemMeta();
+        itemMeta.setDisplayName(ChatColor.WHITE + "Lightsaber");
+        itemMeta.addEnchant(Enchantment.FIRE_ASPECT, 1, false);
+        itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "Attack_damage", 13, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        lightSaber.setItemMeta(itemMeta);
+
+        ShapedRecipe lightSaberRecipe = new ShapedRecipe(lightSaberKey, lightSaber);
+        lightSaberRecipe.shape("IGI", "ICI", "III");
+        lightSaberRecipe.setIngredient('G', Material.GLASS_PANE);
+        lightSaberRecipe.setIngredient('I', Material.IRON_BLOCK);
+        lightSaberRecipe.setIngredient('C', Material.END_CRYSTAL);
+        getServer().addRecipe(lightSaberRecipe);
     }
 
     @EventHandler
