@@ -10,13 +10,14 @@ import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoteDayCommand implements CommandExecutor {
+public class VoteDayCommand implements CommandExecutor, Listener {
 
     private ModdedAdditions instance;
     private DayVote activeVote = null;

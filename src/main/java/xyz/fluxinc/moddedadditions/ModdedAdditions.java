@@ -86,7 +86,9 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup DayVote Command
         String worldName = configurationManager.getConfig().getString("dv-dayWorld");
         if (worldName != null && getServer().getWorld(worldName) != null) {
-            getCommand("dayvote").setExecutor(new VoteDayCommand(this, getServer().getWorld(worldName)));
+            VoteDayCommand voteDayCommand = new VoteDayCommand(this, getServer().getWorld(worldName));
+            getCommand("voteday").setExecutor(voteDayCommand);
+            getServer().getPluginManager().registerEvents(voteDayCommand, this);
         } else {
             getLogger().warning("No or invalid world defined for DayVote. It will not be enabled");
         }
