@@ -14,9 +14,10 @@ import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
 import xyz.fluxinc.moddedadditions.executors.MagnetExecutor;
 import xyz.fluxinc.moddedadditions.listeners.BookSignListener;
 import xyz.fluxinc.moddedadditions.listeners.CropHarvestListener;
-import xyz.fluxinc.moddedadditions.listeners.DamageListener;
 import xyz.fluxinc.moddedadditions.listeners.VeinMinerListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.LightSaberAttackListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.PingListener;
+import xyz.fluxinc.moddedadditions.listeners.chat.ResponseListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
@@ -96,6 +97,8 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // Tell Player Damage Dealt
         //getServer().getPluginManager().registerEvents(new DamageListener(), this);
+        getServer().getPluginManager().registerEvents(new ResponseListener(this), this);
+        getServer().getPluginManager().registerEvents(new LightSaberAttackListener(this), this);
     }
 
     @Override
