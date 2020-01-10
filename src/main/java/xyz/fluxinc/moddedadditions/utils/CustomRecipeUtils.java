@@ -29,7 +29,15 @@ public class CustomRecipeUtils implements Listener {
 
     private Collection<NamespacedKey> recipeKeys;
     private ModdedAdditions instance;
-    private static final String clearCode = "\u00A7f";
+
+    /*
+     * Furnace Recipe takes 5 Arguments:
+     * NamespacedKey (Unique Identifier)
+     * Result (ItemStack)
+     * Source (Material)
+     * XP Granted (0.15 for Charcoal, 0.2 for Cactus, 0.35 for meats)
+     * Cooking Time (200 ticks by default)
+     */
 
     public CustomRecipeUtils(ModdedAdditions instance) {
         recipeKeys = new ArrayList<>();
@@ -51,15 +59,6 @@ public class CustomRecipeUtils implements Listener {
         processDyes(CONCRETE_TO_DYE, CONCRETE);
         processDyes(CONCRETE_POWDER_TO_DYE, CONCRETE_POWDER);
 
-
-        /*
-         * Furnace Recipe takes 5 Arguments:
-         * NamespacedKey (Unique Identifier)
-         * Result (ItemStack)
-         * Source (Material)
-         * XP Granted (0.15 for Charcoal, 0.2 for Cactus, 0.35 for meats)
-         * Cooking Time (200 ticks by default)
-         */
         FURNACE_RECIPE.forEach((material, result) -> {
             FurnaceRecipe smeltingRecipe = new FurnaceRecipe(
                     new NamespacedKey(this.instance, material.toString() + "_TO_" + result.toString()),
@@ -76,13 +75,8 @@ public class CustomRecipeUtils implements Listener {
 
         NamespacedKey magnetKey = new NamespacedKey(this.instance, "MAGNET");
         recipeKeys.add(magnetKey);
-        ItemStack magnet = new ItemStack(Material.COMPASS);
-        magnet = addLore(magnet, ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-magnet")));
-        ItemMeta itemMeta = magnet.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&bItem &cMagnet"));
-        magnet.setItemMeta(itemMeta);
 
-        ShapedRecipe magnetRecipe = new ShapedRecipe(magnetKey, magnet);
+        ShapedRecipe magnetRecipe = new ShapedRecipe(magnetKey, instance.getMagnetController().generateNewMagnet());
         magnetRecipe.shape("REL", "IEI", "III");
         magnetRecipe.setIngredient('R', Material.REDSTONE_BLOCK);
         magnetRecipe.setIngredient('E', Material.EMERALD_BLOCK);
@@ -109,19 +103,10 @@ public class CustomRecipeUtils implements Listener {
 
     private void makeHammers() {
         ShapedRecipe hammerRecipe;
-        ItemStack woodenHammer;
-        ItemStack stoneHammer;
-        ItemStack ironHammer;
-        ItemStack goldHammer;
-        ItemStack diamondHammer;
 
         NamespacedKey nsKey = new NamespacedKey(this.instance, "WOODEN_HAMMER");
         recipeKeys.add(nsKey);
-        woodenHammer = addLore(new ItemStack(Material.WOODEN_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
-        ItemMeta iMeta = woodenHammer.getItemMeta();
-        iMeta.setDisplayName(clearCode + "Wooden Hammer");
-        woodenHammer.setItemMeta(iMeta);
-        hammerRecipe = new ShapedRecipe(nsKey, woodenHammer);
+        hammerRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(ToolLevel.WOODEN));
         hammerRecipe.shape("PPP", " S ", " S ");
         hammerRecipe.setIngredient('S', Material.STICK);
         hammerRecipe.setIngredient('P', Material.WOODEN_PICKAXE);
@@ -129,11 +114,7 @@ public class CustomRecipeUtils implements Listener {
 
         nsKey = new NamespacedKey(this.instance, "STONE_HAMMER");
         recipeKeys.add(nsKey);
-        stoneHammer = addLore(new ItemStack(Material.STONE_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
-        iMeta = stoneHammer.getItemMeta();
-        iMeta.setDisplayName(clearCode + "Stone Hammer");
-        stoneHammer.setItemMeta(iMeta);
-        hammerRecipe = new ShapedRecipe(nsKey, stoneHammer);
+        hammerRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(ToolLevel.STONE));
         hammerRecipe.shape("PPP", " S ", " S ");
         hammerRecipe.setIngredient('S', Material.STICK);
         hammerRecipe.setIngredient('P', Material.STONE_PICKAXE);
@@ -141,11 +122,7 @@ public class CustomRecipeUtils implements Listener {
 
         nsKey = new NamespacedKey(this.instance, "IRON_HAMMER");
         recipeKeys.add(nsKey);
-        ironHammer = addLore(new ItemStack(Material.IRON_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
-        iMeta = ironHammer.getItemMeta();
-        iMeta.setDisplayName(clearCode + "Iron Hammer");
-        ironHammer.setItemMeta(iMeta);
-        hammerRecipe = new ShapedRecipe(nsKey, ironHammer);
+        hammerRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(ToolLevel.IRON));
         hammerRecipe.shape("PPP", " S ", " S ");
         hammerRecipe.setIngredient('S', Material.STICK);
         hammerRecipe.setIngredient('P', Material.IRON_PICKAXE);
@@ -153,11 +130,7 @@ public class CustomRecipeUtils implements Listener {
 
         nsKey = new NamespacedKey(this.instance, "GOLDEN_HAMMER");
         recipeKeys.add(nsKey);
-        goldHammer = addLore(new ItemStack(Material.GOLDEN_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
-        iMeta = goldHammer.getItemMeta();
-        iMeta.setDisplayName(clearCode + "Golden Hammer");
-        goldHammer.setItemMeta(iMeta);
-        hammerRecipe = new ShapedRecipe(nsKey, goldHammer);
+        hammerRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(ToolLevel.GOLD));
         hammerRecipe.shape("PPP", " S ", " S ");
         hammerRecipe.setIngredient('S', Material.STICK);
         hammerRecipe.setIngredient('P', Material.GOLDEN_PICKAXE);
@@ -165,11 +138,7 @@ public class CustomRecipeUtils implements Listener {
 
         nsKey = new NamespacedKey(this.instance, "DIAMOND_HAMMER");
         recipeKeys.add(nsKey);
-        diamondHammer = addLore(new ItemStack(Material.DIAMOND_PICKAXE), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-hammer")));
-        iMeta = diamondHammer.getItemMeta();
-        iMeta.setDisplayName(clearCode + "Diamond Hammer");
-        diamondHammer.setItemMeta(iMeta);
-        hammerRecipe = new ShapedRecipe(nsKey, diamondHammer);
+        hammerRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(ToolLevel.DIAMOND));
         hammerRecipe.shape("PPP", " S ", " S ");
         hammerRecipe.setIngredient('S', Material.STICK);
         hammerRecipe.setIngredient('P', Material.DIAMOND_PICKAXE);
@@ -179,19 +148,10 @@ public class CustomRecipeUtils implements Listener {
 
     private void makeExcavators() {
         ShapedRecipe excavatorRecipe;
-        ItemStack woodenExcavator;
-        ItemStack stoneExcavator;
-        ItemStack ironExcavator;
-        ItemStack goldExcavator;
-        ItemStack diamondExcavator;
 
         NamespacedKey nsKey = new NamespacedKey(this.instance, "WOODEN_EXCAVATOR");
         recipeKeys.add(nsKey);
-        woodenExcavator = addLore(new ItemStack(Material.WOODEN_SHOVEL), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-excavator")));
-        ItemMeta iMeta = woodenExcavator.getItemMeta();
-        iMeta.setDisplayName(clearCode + "Wooden Excavator");
-        woodenExcavator.setItemMeta(iMeta);
-        excavatorRecipe = new ShapedRecipe(nsKey, woodenExcavator);
+        excavatorRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN));
         excavatorRecipe.shape("PPP", " S ", " S ");
         excavatorRecipe.setIngredient('S', Material.STICK);
         excavatorRecipe.setIngredient('P', Material.WOODEN_SHOVEL);
@@ -199,11 +159,7 @@ public class CustomRecipeUtils implements Listener {
 
         nsKey = new NamespacedKey(this.instance, "STONE_EXCAVATOR");
         recipeKeys.add(nsKey);
-        stoneExcavator = addLore(new ItemStack(Material.STONE_SHOVEL), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-excavator")));
-        iMeta = stoneExcavator.getItemMeta();
-        iMeta.setDisplayName(clearCode + "Stone Excavator");
-        stoneExcavator.setItemMeta(iMeta);
-        excavatorRecipe = new ShapedRecipe(nsKey, stoneExcavator);
+        excavatorRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN));
         excavatorRecipe.shape("PPP", " S ", " S ");
         excavatorRecipe.setIngredient('S', Material.STICK);
         excavatorRecipe.setIngredient('P', Material.STONE_SHOVEL);
@@ -211,11 +167,7 @@ public class CustomRecipeUtils implements Listener {
 
         nsKey = new NamespacedKey(this.instance, "IRON_EXCAVATOR");
         recipeKeys.add(nsKey);
-        ironExcavator = addLore(new ItemStack(Material.IRON_SHOVEL), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-excavator")));
-        iMeta = ironExcavator.getItemMeta();
-        iMeta.setDisplayName(clearCode + "Iron Excavator");
-        ironExcavator.setItemMeta(iMeta);
-        excavatorRecipe = new ShapedRecipe(nsKey, ironExcavator);
+        excavatorRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN));
         excavatorRecipe.shape("PPP", " S ", " S ");
         excavatorRecipe.setIngredient('S', Material.STICK);
         excavatorRecipe.setIngredient('P', Material.IRON_SHOVEL);
@@ -223,11 +175,7 @@ public class CustomRecipeUtils implements Listener {
 
         nsKey = new NamespacedKey(this.instance, "GOLDEN_EXCAVATOR");
         recipeKeys.add(nsKey);
-        goldExcavator = addLore(new ItemStack(Material.GOLDEN_SHOVEL), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-excavator")));
-        iMeta = goldExcavator.getItemMeta();
-        iMeta.setDisplayName(clearCode + "Golden Excavator");
-        goldExcavator.setItemMeta(iMeta);
-        excavatorRecipe = new ShapedRecipe(nsKey, goldExcavator);
+        excavatorRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN));
         excavatorRecipe.shape("PPP", " S ", " S ");
         excavatorRecipe.setIngredient('S', Material.STICK);
         excavatorRecipe.setIngredient('P', Material.GOLDEN_SHOVEL);
@@ -235,23 +183,12 @@ public class CustomRecipeUtils implements Listener {
 
         nsKey = new NamespacedKey(this.instance, "DIAMOND_EXCAVATOR");
         recipeKeys.add(nsKey);
-        diamondExcavator = addLore(new ItemStack(Material.DIAMOND_SHOVEL), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-excavator")));
-        iMeta = diamondExcavator.getItemMeta();
-        iMeta.setDisplayName(clearCode + "Diamond Excavator");
-        diamondExcavator.setItemMeta(iMeta);
-        excavatorRecipe = new ShapedRecipe(nsKey, diamondExcavator);
+        excavatorRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN));
         excavatorRecipe.shape("PPP", " S ", " S ");
         excavatorRecipe.setIngredient('S', Material.STICK);
         excavatorRecipe.setIngredient('P', Material.DIAMOND_SHOVEL);
         getServer().addRecipe(excavatorRecipe);
     }
-
-    /*
-        Create Lightsaber ItemStack
-        Set attack damage to 15
-        Set name to lightsaber
-        Add recipe
-     */
 
     public void addLightsaber() {
         NamespacedKey lightSaberKey = new NamespacedKey(this.instance, "LIGHTSABER");

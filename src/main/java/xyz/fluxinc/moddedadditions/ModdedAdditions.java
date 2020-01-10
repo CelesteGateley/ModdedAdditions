@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions;
 
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.fluxinc.fluxcore.FluxCore;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
@@ -9,31 +8,31 @@ import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.*;
 import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
-import xyz.fluxinc.moddedadditions.controllers.MagnetInstanceController;
+import xyz.fluxinc.moddedadditions.controllers.MagnetController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
 import xyz.fluxinc.moddedadditions.executors.MagnetExecutor;
 import xyz.fluxinc.moddedadditions.listeners.BookSignListener;
 import xyz.fluxinc.moddedadditions.listeners.CropHarvestListener;
 import xyz.fluxinc.moddedadditions.listeners.VeinMinerListener;
-import xyz.fluxinc.moddedadditions.listeners.customitem.LightSaberAttackListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.PingListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.ResponseListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.LightSaberAttackListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
 import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
-import xyz.fluxinc.moddedadditions.utils.MagnetUtils;
 
 public final class ModdedAdditions extends JavaPlugin {
 
-    private MagnetInstanceController magnetInstanceController;
+    public static final int KEY_BASE = 40960000;
+
+    private MagnetController magnetController;
     private LanguageManager<ModdedAdditions> languageManager;
     private ConfigurationManager<ModdedAdditions> configurationManager;
     private FluxCore fluxCore;
     private BlockAccessController blockAccessController;
     private VeinMinerController veinMinerController;
     private AreaToolController areaToolController;
-    private MagnetUtils magnetUtils;
 
     @Override
     public void onEnable() {
@@ -60,9 +59,6 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PingListener(), this);
         getCommand("notify").setExecutor(new NotifyCommand(this));
 
-        // Register Crafting Additions
-        getServer().getPluginManager().registerEvents(new CustomRecipeUtils(this), this);
-
         // Register Colored Anvil Names
         getServer().getPluginManager().registerEvents(new AnvilListener(), this);
 
@@ -78,8 +74,7 @@ public final class ModdedAdditions extends JavaPlugin {
         getCommand("areatool").setExecutor(new AreaToolCommand(this));
 
         // Setup Magnet Related Tasks
-        magnetUtils = new MagnetUtils(ChatColor.translateAlternateColorCodes('&', languageManager.getConfig().getString("mi-magnet")));
-        magnetInstanceController = new MagnetInstanceController(this);
+        magnetController = new MagnetController(this);
         getServer().getPluginManager().registerEvents(new InventoryChecker(this, new MagnetExecutor(this)), this);
 
         // Setup Book Handling
@@ -95,9 +90,12 @@ public final class ModdedAdditions extends JavaPlugin {
             getLogger().warning("No or invalid world defined for DayVote. It will not be enabled");
         }
 
+        // Register Crafting Additions (Must Be Last)
+        getServer().getPluginManager().registerEvents(new CustomRecipeUtils(this), this);
+
         // Tell Player Damage Dealt
         //getServer().getPluginManager().registerEvents(new DamageListener(), this);
-        getServer().getPluginManager().registerEvents(new ResponseListener(this), this);
+        getServer().getPluginManager().registerEvents(new ResponseListener(), this);
         getServer().getPluginManager().registerEvents(new LightSaberAttackListener(this), this);
     }
 
@@ -112,8 +110,8 @@ public final class ModdedAdditions extends JavaPlugin {
         areaToolController.loadFromConfiguration();
     }
 
-    public MagnetInstanceController getMagnetInstanceController() {
-        return magnetInstanceController;
+    public MagnetController getMagnetController() {
+        return magnetController;
     }
 
     public FluxCore getCoreInstance() {
@@ -134,10 +132,6 @@ public final class ModdedAdditions extends JavaPlugin {
 
     public VeinMinerController getVeinMinerController() {
         return this.veinMinerController;
-    }
-
-    public MagnetUtils getMagnetUtils() {
-        return magnetUtils;
     }
 
     public AreaToolController getAreaToolController() {

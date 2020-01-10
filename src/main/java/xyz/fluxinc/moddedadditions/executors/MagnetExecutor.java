@@ -15,16 +15,16 @@ public class MagnetExecutor extends CheckExecutor {
     }
 
     @Override
-    public boolean verifyItemStack(ItemStack itemStack) { return instance.getMagnetUtils().isMagnet(itemStack); }
+    public boolean verifyItemStack(ItemStack itemStack) { return instance.getMagnetController().isMagnet(itemStack); }
 
     @Override
-    public Material getMaterial() { return Material.COMPASS; }
+    public Material getMaterial() { return instance.getMagnetController().getMagnetMaterial(); }
 
     @Override
-    public void executeIfTrue(Player player) { instance.getMagnetInstanceController().registerVacuumInstance(player); }
+    public void executeIfTrue(Player player) { instance.getMagnetController().registerVacuumInstance(player); }
 
     @Override
-    public void executeIfFalse(Player player) { instance.getMagnetInstanceController().deregisterVacuumInstance(player); }
+    public void executeIfFalse(Player player) { instance.getMagnetController().deregisterVacuumInstance(player); }
 
     @Override
     public void removeOnLeave(Player player) { executeIfFalse(player); }

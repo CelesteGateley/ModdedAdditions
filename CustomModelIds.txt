@@ -1,0 +1,57 @@
+*** AREA TOOLS ***
+
+** HAMMER **
+
+Wooden:     1011
+Stone:      1012
+Iron:       1013
+Gold:       1014
+Diamond:    1015
+
+** EXCAVATOR **
+
+Wooden:     1021
+Stone:      1022
+Iron:       1023
+Gold:       1024
+Diamond:    1025
+
+** MULTIAXE **
+
+Wooden:     1031
+Stone:      1032
+Iron:       1033
+Gold:       1034
+Diamond:    1035
+
+** MULTIHOE **
+
+Wooden:     1041
+Stone:      1042
+Iron:       1043
+Gold:       1044
+Diamond:    1045
+
+*** STAR WARS ***
+
+** KYBER CRYSTALS **
+
+Blue:       2011
+Green:      2012
+Purple:     2013
+Red:        2014
+Yellow:     2015
+Orange:     2016
+White:      2017
+Black:      2018
+
+** LIGHT SABERS **
+
+Blue:       2021
+Green:      2022
+Purple:     2023
+Red:        2024
+Yellow:     2025
+Orange:     2026
+White:      2027
+Black:      2028

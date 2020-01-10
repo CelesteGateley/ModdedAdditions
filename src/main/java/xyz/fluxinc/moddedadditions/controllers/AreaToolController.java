@@ -1,27 +1,29 @@
 package xyz.fluxinc.moddedadditions.controllers;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.utils.ToolLevel;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static xyz.fluxinc.fluxcore.utils.BlockUtils.convertStringToMaterial;
+import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 
 public class AreaToolController {
+
+    private static final int AT_KEY_BASE = 1000;
 
     private ModdedAdditions instance;
     private YamlConfiguration areaToolConfiguration;
@@ -109,6 +111,46 @@ public class AreaToolController {
                 break;
         }
         return extraBlocks;
+    }
+
+    public ItemStack generateHammer(ToolLevel level) {
+        Material toolMaterial;
+        int modelId;
+        switch (level) {
+            case STONE:   toolMaterial = Material.STONE_PICKAXE;   modelId = 2; break;
+            case IRON:    toolMaterial = Material.IRON_PICKAXE;    modelId = 3; break;
+            case GOLD:    toolMaterial = Material.GOLDEN_PICKAXE;  modelId = 4; break;
+            case DIAMOND: toolMaterial = Material.DIAMOND_PICKAXE; modelId = 5; break;
+            default:      toolMaterial = Material.WOODEN_PICKAXE;  modelId = 1; break;
+        }
+        modelId = KEY_BASE + AT_KEY_BASE + 10 + modelId;
+        ItemStack itemStack = addLore(new ItemStack(toolMaterial), instance.getLanguageManager().getFormattedString("mi-hammer"));
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(ChatColor.RESET + ToolLevel.getName(level) + " Hammer");
+        itemMeta.setCustomModelData(modelId);
+        itemStack.setItemMeta(itemMeta);
+
+        return itemStack;
+    }
+
+    public ItemStack generateExcavator(ToolLevel level) {
+        Material toolMaterial;
+        int modelId;
+        switch (level) {
+            case STONE:   toolMaterial = Material.STONE_SHOVEL;   modelId = 2; break;
+            case IRON:    toolMaterial = Material.IRON_SHOVEL;    modelId = 3; break;
+            case GOLD:    toolMaterial = Material.GOLDEN_SHOVEL;  modelId = 4; break;
+            case DIAMOND: toolMaterial = Material.DIAMOND_SHOVEL; modelId = 5; break;
+            default:      toolMaterial = Material.WOODEN_SHOVEL;  modelId = 1; break;
+        }
+        modelId = KEY_BASE + AT_KEY_BASE + 20 + modelId;
+        ItemStack itemStack = addLore(new ItemStack(toolMaterial), instance.getLanguageManager().getFormattedString("mi-excavator"));
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(ChatColor.RESET + ToolLevel.getName(level) + " Hammer");
+        itemMeta.setCustomModelData(modelId);
+        itemStack.setItemMeta(itemMeta);
+
+        return itemStack;
     }
 
     public List<Material> getHammerList() { return this.hammerBlocks; }
