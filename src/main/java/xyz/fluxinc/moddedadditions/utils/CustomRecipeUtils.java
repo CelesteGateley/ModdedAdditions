@@ -14,6 +14,7 @@ import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.ArrayList;
@@ -194,7 +195,7 @@ public class CustomRecipeUtils implements Listener {
         NamespacedKey lightSaberKey = new NamespacedKey(this.instance, "LIGHTSABER");
         recipeKeys.add(lightSaberKey);
         ItemStack lightSaber = new ItemStack(Material.DIAMOND_SWORD);
-        lightSaber = addLore(lightSaber, ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getConfig().getString("mi-lightsaber")));
+        lightSaber = addLore(lightSaber, ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getFormattedString("mi-lightsaber")));
         ItemMeta itemMeta = lightSaber.getItemMeta();
         itemMeta.setDisplayName(ChatColor.WHITE + "Lightsaber");
         itemMeta.addEnchant(Enchantment.FIRE_ASPECT, 1, false);

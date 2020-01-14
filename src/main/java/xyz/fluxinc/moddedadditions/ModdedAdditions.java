@@ -53,7 +53,7 @@ public final class ModdedAdditions extends JavaPlugin {
         blockAccessController = fluxCore.getBlockAccessController();
 
         // Register Crop Harvesting
-        getServer().getPluginManager().registerEvents(new CropHarvestListener(this, configurationManager.getConfig().getInt("ch-vmblocks")), this);
+        getServer().getPluginManager().registerEvents(new CropHarvestListener(this, configurationManager.getInt("ch-vmblocks")), this);
 
         // Register Ping Listener and Command
         getServer().getPluginManager().registerEvents(new PingListener(), this);
@@ -69,8 +69,8 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // Setup Hammer/Excavator Related Tasks
         areaToolController = new AreaToolController(this);
-        getServer().getPluginManager().registerEvents(new HammerListener(this, languageManager.getConfig().getString("mi-hammer")), this);
-        getServer().getPluginManager().registerEvents(new ExcavatorListener(this, languageManager.getConfig().getString("mi-excavator")), this);
+        getServer().getPluginManager().registerEvents(new HammerListener(this, languageManager.getString("mi-hammer")), this);
+        getServer().getPluginManager().registerEvents(new ExcavatorListener(this, languageManager.getString("mi-excavator")), this);
         getCommand("areatool").setExecutor(new AreaToolCommand(this));
 
         // Setup Magnet Related Tasks
@@ -81,7 +81,7 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BookSignListener(), this);
 
         // Setup DayVote Command
-        String worldName = configurationManager.getConfig().getString("dv-dayWorld");
+        String worldName = configurationManager.getString("dv-dayWorld");
         if (worldName != null && getServer().getWorld(worldName) != null) {
             VoteDayCommand voteDayCommand = new VoteDayCommand(this, getServer().getWorld(worldName));
             getCommand("voteday").setExecutor(voteDayCommand);

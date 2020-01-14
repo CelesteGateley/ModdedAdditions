@@ -50,25 +50,25 @@ public class AreaToolController {
 
     public void addHammerBlock(Material material) {
         hammerBlocks.add(material);
-        areaToolConfiguration.set(HAMMER_CONFIG_KEY, fromMaterialToString(hammerBlocks).toArray());
+        areaToolConfiguration.set(HAMMER_CONFIG_KEY, hammerBlocks.toArray());
         saveConfiguration();
     }
 
     public void removeHammerBlock(Material material) {
         hammerBlocks.remove(material);
-        areaToolConfiguration.set(HAMMER_CONFIG_KEY, fromMaterialToString(hammerBlocks).toArray());
+        areaToolConfiguration.set(HAMMER_CONFIG_KEY, hammerBlocks.toArray());
         saveConfiguration();
     }
 
     public void addExcavatorBlock(Material material) {
         excavatorBlocks.add(material);
-        areaToolConfiguration.set(EXCAVATOR_CONFIG_KEY, fromMaterialToString(excavatorBlocks).toArray());
+        areaToolConfiguration.set(EXCAVATOR_CONFIG_KEY, excavatorBlocks.toArray());
         saveConfiguration();
     }
 
     public void removeExcavatorBlock(Material material) {
         excavatorBlocks.remove(material);
-        areaToolConfiguration.set(EXCAVATOR_CONFIG_KEY, fromMaterialToString(excavatorBlocks).toArray());
+        areaToolConfiguration.set(EXCAVATOR_CONFIG_KEY, excavatorBlocks.toArray());
         saveConfiguration();
     }
 
@@ -170,11 +170,4 @@ public class AreaToolController {
         hammerBlocks = convertStringToMaterial(areaToolConfiguration.getStringList(HAMMER_CONFIG_KEY));
         excavatorBlocks = convertStringToMaterial(areaToolConfiguration.getStringList(EXCAVATOR_CONFIG_KEY));
     }
-
-    private List<String> fromMaterialToString(List<Material> materials) {
-        List<String> strings = new ArrayList<>();
-        for (Material material : materials) { strings.add(material.name()); }
-        return strings;
-    }
-
 }
