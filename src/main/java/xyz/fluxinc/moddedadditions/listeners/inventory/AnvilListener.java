@@ -33,7 +33,7 @@ public class AnvilListener implements Listener {
         }
     }
 
-    @EventHandler
+    //@EventHandler
     public void onAddAnvilItem(PrepareAnvilEvent event) {
         if (event.getInventory().getRenameText() == null || event.getResult() == null) {
             return;
