@@ -23,7 +23,7 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 
 public class AreaToolController {
 
-    private static final int AT_KEY_BASE = 1000;
+    public static final int AT_KEY_BASE = 1000;
 
     private ModdedAdditions instance;
     private YamlConfiguration areaToolConfiguration;
@@ -137,11 +137,11 @@ public class AreaToolController {
         Material toolMaterial;
         int modelId;
         switch (level) {
-            case STONE:   toolMaterial = Material.STONE_SHOVEL;   modelId = 2; break;
-            case IRON:    toolMaterial = Material.IRON_SHOVEL;    modelId = 3; break;
-            case GOLD:    toolMaterial = Material.GOLDEN_SHOVEL;  modelId = 4; break;
-            case DIAMOND: toolMaterial = Material.DIAMOND_SHOVEL; modelId = 5; break;
-            default:      toolMaterial = Material.WOODEN_SHOVEL;  modelId = 1; break;
+            case STONE:   toolMaterial = Material.STONE_SHOVEL;   modelId = 12; break;
+            case IRON:    toolMaterial = Material.IRON_SHOVEL;    modelId = 13; break;
+            case GOLD:    toolMaterial = Material.GOLDEN_SHOVEL;  modelId = 14; break;
+            case DIAMOND: toolMaterial = Material.DIAMOND_SHOVEL; modelId = 15; break;
+            default:      toolMaterial = Material.WOODEN_SHOVEL;  modelId = 11; break;
         }
         modelId = KEY_BASE + AT_KEY_BASE + 20 + modelId;
         ItemStack itemStack = addLore(new ItemStack(toolMaterial), instance.getLanguageManager().getFormattedString("mi-excavator"));
