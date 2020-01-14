@@ -154,7 +154,7 @@ public class AreaToolCommand implements CommandExecutor {
 
     private void sendUnknownSubCommand(CommandSender sender, String subcommand) {
         Map<String, String> messageArgs = new HashMap<>();
-        messageArgs.put("comand", subcommand);
+        messageArgs.put("command", subcommand);
         sender.sendMessage(instance.getLanguageManager().generateMessage("vm-unknownSubCommand", messageArgs));
     }
 
