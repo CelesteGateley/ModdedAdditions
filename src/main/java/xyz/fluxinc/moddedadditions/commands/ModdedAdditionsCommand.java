@@ -4,12 +4,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings("SwitchStatementWithTooFewBranches")
 public class ModdedAdditionsCommand implements CommandExecutor {
 
     private ModdedAdditions instance;
@@ -21,6 +21,27 @@ public class ModdedAdditionsCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
         if (arguments.length < 1) { sendNoSubCommand(commandSender); return true; }
         switch (arguments[0].toLowerCase()) {
+            case "give":
+                if (arguments.length < 2) { sendNoItemProvided(commandSender); return true; }
+                if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
+                if (arguments[1].equals("magnet")) { giveItem(commandSender, "magnet", "", (Player) commandSender); }
+                else {
+                    if (arguments.length < 3) { sendNoTypeProvided(commandSender); }
+                    giveItem(commandSender, arguments[1], arguments[2], (Player) commandSender);
+                }
+                return true;
+            case "giveother":
+                if (arguments.length < 2) { sendNoPlayerProvided(commandSender); return true; }
+                Player recipient = instance.getServer().getPlayer(arguments[1]);
+                if (recipient == null) { sendUnknownPlayer(commandSender, arguments[1]); return true; }
+
+                if (arguments.length < 3) { sendNoItemProvided(commandSender); }
+                if (arguments[2].equals("magnet")) { giveItem(commandSender, "magnet", "", recipient); }
+                else {
+                    if (arguments.length < 4) { giveItem(commandSender, arguments[2], null, recipient); return true; }
+                    giveItem(commandSender, arguments[2], arguments[3], recipient);
+                }
+                return true;
             case "reload":
                 if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.reload")) {
                     sendPermissionDenied(commandSender);
@@ -35,17 +56,123 @@ public class ModdedAdditionsCommand implements CommandExecutor {
         }
     }
 
+    private void giveItem(CommandSender sender, String item, String type, Player player) {
+        switch (item) {
+            case "hammer":
+                if (type == null) { sendNoTypeProvided(sender); break; }
+                switch (type) {
+                    case "wood":
+                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.WOODEN)); break;
+                    case "stone":
+                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.STONE)); break;
+                    case "iron":
+                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.IRON)); break;
+                    case "gold":
+                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.GOLD)); break;
+                    case "diamond":
+                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.DIAMOND)); break;
+                    default:
+                        sendInvalidType(sender, type); break;
+                }
+                break;
+            case "excavator":
+                if (type == null) { sendNoTypeProvided(sender); break; }
+                switch (type) {
+                    case "wood":
+                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN)); break;
+                    case "stone":
+                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.STONE)); break;
+                    case "iron":
+                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.IRON)); break;
+                    case "gold":
+                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.GOLD)); break;
+                    case "diamond":
+                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.DIAMOND)); break;
+                    default:
+                        sendInvalidType(sender, type); break;
+                }
+                break;
+            case "magnet":
+                player.getInventory().addItem(instance.getMagnetController().generateNewMagnet());
+                break;
+            case "lightsaber":
+                if (type == null) { sendNoColorProvided(sender); break; }
+                switch (type) {
+                    case "blue":
+                    case "green":
+                    case "purple":
+                    case "red":
+                    case "yellow":
+                    case "orange":
+                    case "white":
+                    case "black":
+                    default:
+                        sender.sendMessage("&9This method has not yet been implemented");
+                        break;
+                        //sendInvalidColor(sender, type);
+                }
+                break;
+            default:
+                sendInvalidItem(sender, item);
+                break;
+        }
+    }
+
+    private void sendUnknownPlayer(CommandSender sender, String player) {
+        Map<String, String> messageArgs = new HashMap<>();
+        messageArgs.put("player", player);
+        sender.sendMessage(instance.getLanguageManager().generateMessage("ma-unrecognisedPlayer", messageArgs));
+    }
+
+    private void sendNoPlayerProvided(CommandSender sender) {
+        sender.sendMessage(instance.getLanguageManager().generateMessage("ma-noPlayerProvided"));
+    }
+
+    private void sendNoTypeProvided(CommandSender sender) {
+        sender.sendMessage(instance.getLanguageManager().generateMessage("ma-noTypeTool"));
+    }
+
+    private void sendNoColorProvided(CommandSender sender) {
+        sender.sendMessage(instance.getLanguageManager().generateMessage("ma-noTypeSaber"));
+    }
+
+    private void sendInvalidColor(CommandSender sender, String type) {
+        Map<String, String> messageArgs = new HashMap<>();
+        messageArgs.put("type", type);
+        sender.sendMessage(instance.getLanguageManager().generateMessage("ma-unknownTypeSaber", messageArgs));
+    }
+
+    private void sendInvalidType(CommandSender sender, String type) {
+        Map<String, String> messageArgs = new HashMap<>();
+        messageArgs.put("type", type);
+        sender.sendMessage(instance.getLanguageManager().generateMessage("ma-unknownTypeTool", messageArgs));
+    }
+
     private void sendNoSubCommand(CommandSender sender) {
         sender.sendMessage(instance.getLanguageManager().generateMessage("vm-noSubCommand"));
     }
 
+    private void sendNoItemProvided(CommandSender sender) {
+        sender.sendMessage(instance.getLanguageManager().generateMessage("ma-noItemProvided"));
+    }
+
+    private void sendInvalidItem(CommandSender sender, String item) {
+        Map<String, String> messageArgs = new HashMap<>();
+        messageArgs.put("item", item);
+        sender.sendMessage(instance.getLanguageManager().generateMessage("ma-unknownItem", messageArgs));
+    }
+
     private void sendUnknownSubCommand(CommandSender sender, String subcommand) {
         Map<String, String> messageArgs = new HashMap<>();
-        messageArgs.put("comand", subcommand);
+        messageArgs.put("command", subcommand);
         sender.sendMessage(instance.getLanguageManager().generateMessage("vm-unknownSubCommand", messageArgs));
     }
 
     private void sendPermissionDenied(CommandSender sender) {
         sender.sendMessage(instance.getLanguageManager().generateMessage("permissionDenied"));
+    }
+
+    private void sendMustBePlayer(CommandSender sender) {
+        sender.sendMessage(instance.getLanguageManager().generateMessage("mustBePlayer"));
     }
 }

@@ -23,26 +23,47 @@ mi-magnet: "&9A Magnet to draw items towards you!"
 mi-hammer: "&9A Hammer to mine a 3x3 area!"
 mi-excavator: "&9A Excavator to dig a 3x3 area!"
 
-# Command Keys
-vm-unknownSubCommand: "&9Unrecognised sub-command: %command%"
+# Veinminer Commands
+vm-unknownSubCommand: "&9Unrecognised sub-command: %command%. Valid sub-commands: add / remove / toggle / save / reload"
 vm-noSubCommand: "&9You must provide a sub-command: add / remove / toggle / save / reload"
-at-noSubCommand: "&9You must provide a sub-command: add / remove / save / reload"
-ma-noSubCommand: "&9You must provide a sub-command: reload"
-
-vm-invalidTool: "&9Unrecognized tool category: %tool%"
-vm-noToolProvided: "&9A tool category must be provided"
-
-vm-invalidBlock: "&9Unrecognized block type: %block%"
-vm-noBlockProvided: "&9A block type must be provided"
-
-vm-blockAdded: "&9Block %block% added to category %tool%"
-vm-blockRemoved: "&9Block %block% removed from category %tool%"
-
+vm-invalidTool: "&9Unrecognized tool category: %tool%. Valid tool categories: pickaxe / axe / shovel / hoe / shears / hand"
+vm-noToolProvided: "&9A tool category must be provided. Valid tool categories: pickaxe / axe / shovel / hoe / shears / hand"
+vm-invalidBlock: "&9Unrecognized block: %block%"
+vm-noBlockProvided: "&9A block must be provided"
+vm-blockAdded: "&9%block% can now be veinmined by %tool%s"
+vm-blockRemoved: "&9%block% can no longer be veinmined by %tool%s"
 vm-configReloaded: "&9Block lists have been reloaded from the configuration"
 vm-configSaved: "&9The current block list has been saved to the configuration"
-
 vm-toggleOn: "&9You have enabled VeinMiner for yourself"
-vm-toggleOff: "&9You have disabled VeinMienr for yourself"
+vm-toggleOff: "&9You have disabled VeinMiner for yourself"
+vm-listHeader: "&7---------------- &9%category% &7----------------"
+vm-blockList: "&7 - &9%block%"
+
+# Areatool Commands
+at-unknownSubCommand: "&9Unrecognised sub-command: %command%. Valid sub-commands: add / remove / save / reload"
+at-noSubCommand: "&9You must provide a sub-command: add / remove / save / reload"
+at-invalidTool: "&9Unrecognized tool category: %tool%. Valid tool categories: hammer / excavator"
+at-noToolProvided: "&9A tool category must be provided. Valid tool categories: hammer / excavator"
+at-invalidBlock: "&9Unrecognized block: %block%"
+at-noBlockProvided: "&9A block must be provided"
+at-blockAdded: "&9%block% is now mineable by %tool%s"
+at-blockRemoved: "&9%block% is no longer mineable by %tool%s"
+at-configReloaded: "&9Block lists have been reloaded from the configuration"
+at-configSaved: "&9The current block list has been saved to the configuration"
+at-listHeader: "&7---------------- &9%category% &7----------------"
+at-blockList: "&7 - &9%block%"
+
+# Modded Additions Command
+ma-noSubCommand: "&9You must provide a sub-command. Valid sub-commands: give / reload"
+ma-unknownSubCommand: "&9Unrecognised sub-command: %command%. Valid sub-commands: give / giveother / reload"
+ma-noPlayerProvided: "&9You must provide a players name"
+ma-unrecognisedPlayer: "&9A player with the name %player% is not logged in"
+ma-noItemProvided: "&9You must provide an item. Valid items: hammer / excavator / magnet / lightsaber"
+ma-unknownItem: "&9Unrecognised item %item%. Valid items: hammer / excavator / magnet / lightsaber"
+ma-noTypeTool: "&9You must provide a type. Valid types: wood / stone / iron / gold / diamond"
+ma-unknownTypeTool: "&9Unrecognised type %type%. Valid types: wood / stone / iron / gold / diamond"
+ma-noTypeSaber: "&9You must provide a color. Valid colors: blue / green / purple / red / yellow / orange / white / black"
+ma-unknownTypeSaber: "&9Unrecognised color %type%. Valid colors: blue / green / purple / red / yellow / orange / white / black"
 
 # VoteDay Keys
 dv-dayVote: "&bDo you want day? Please click $ &bor $"
