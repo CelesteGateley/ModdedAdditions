@@ -112,7 +112,7 @@ public class ExcavatorListener implements Listener {
     }
 
     private boolean verifyLore(ItemStack tool) {
-        return pickaxes.contains(tool.getType())
+        return shovels.contains(tool.getType())
                 && tool.getItemMeta() != null
                 && tool.getItemMeta().getLore() != null
                 && tool.getItemMeta().getLore().contains(lore);
