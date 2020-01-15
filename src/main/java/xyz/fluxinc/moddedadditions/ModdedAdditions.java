@@ -24,7 +24,7 @@ import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
 
 public final class ModdedAdditions extends JavaPlugin {
 
-    public static final int KEY_BASE = 40960000;
+    public static final int KEY_BASE = 5120000;
 
     private MagnetController magnetController;
     private LanguageManager<ModdedAdditions> languageManager;
