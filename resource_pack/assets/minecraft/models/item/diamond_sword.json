@@ -1,0 +1,18 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "item/diamond_sword"
+    },
+	
+	"overrides": [
+		{"predicate": {"custom_model_data": 5122021}, "model": "item/custom/saber/blue_saber"},
+		{"predicate": {"custom_model_data": 5122022}, "model": "item/custom/saber/green_saber"},
+		{"predicate": {"custom_model_data": 5122023}, "model": "item/custom/saber/purple_saber"},
+		{"predicate": {"custom_model_data": 5122024}, "model": "item/custom/saber/red_saber"},
+		{"predicate": {"custom_model_data": 5122025}, "model": "item/custom/saber/yellow_saber"},
+		{"predicate": {"custom_model_data": 5122026}, "model": "item/custom/saber/orange_saber"},
+		{"predicate": {"custom_model_data": 5122027}, "model": "item/custom/saber/white_saber"},
+		{"predicate": {"custom_model_data": 5122028}, "model": "item/custom/saber/dark_saber"}
+	
+	]
+}

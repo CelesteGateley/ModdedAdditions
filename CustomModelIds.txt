@@ -43,7 +43,7 @@ Red:        2014
 Yellow:     2015
 Orange:     2016
 White:      2017
-Black:      2018
+Dark:       2018
 
 ** LIGHT SABERS **
 
@@ -54,4 +54,4 @@ Red:        2024
 Yellow:     2025
 Orange:     2026
 White:      2027
-Black:      2028
+Dark:       2028
