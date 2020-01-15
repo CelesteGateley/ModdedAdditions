@@ -77,7 +77,7 @@ public class MagnetController {
 
     public ItemStack updateOldMagnet(ItemStack itemStack) {
         ItemMeta iMeta = itemStack.getItemMeta();
-        if (iMeta == null) { return itemStack; }
+        //if (iMeta == null) { return itemStack; }
         iMeta.setCustomModelData(MAGNET_MODEL_KEY);
         itemStack.setItemMeta(iMeta);
         return itemStack;
