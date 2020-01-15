@@ -12,6 +12,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
@@ -23,6 +24,8 @@ import java.util.Map;
 import static xyz.fluxinc.fluxcore.utils.MineabilityUtils.verifyBlockMining;
 import static xyz.fluxinc.fluxcore.utils.ToolUtils.pickaxes;
 import static xyz.fluxinc.fluxcore.utils.ToolUtils.takeDurability;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
+import static xyz.fluxinc.moddedadditions.controllers.AreaToolController.AT_KEY_BASE;
 
 public class HammerListener implements Listener {
 
@@ -50,11 +53,15 @@ public class HammerListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        // Update Hammer to new system
+        if (verifyLore(event.getPlayer().getInventory().getItemInMainHand())
+                && !verifyHammer(event.getPlayer().getInventory().getItemInMainHand()))  { updateHammer(event.getPlayer()); }
         // Verify that the tool is a hammer, and that the player has a known block face
         if (!verifyHammer(event.getPlayer().getInventory().getItemInMainHand())) return;
         if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), event.getBlock().getType())) return;
         if (!playerBlockFaceMap.containsKey(event.getPlayer())) return;
         if (!instance.getAreaToolController().checkHammer(event.getBlock().getType())) return;
+
         // Check the player has access to the block and is in survival mode
         if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), event.getBlock().getLocation(), true)) return;
         if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) return;
@@ -84,12 +91,39 @@ public class HammerListener implements Listener {
         takeDurability(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand(), Math.floorDiv(blocksBroken, 3));
     }
 
+    private void updateHammer(Player player) {
+        ItemMeta iMeta = player.getInventory().getItemInMainHand().getItemMeta();
+        Material type = player.getInventory().getItemInMainHand().getType();
+        int id;
+        if (iMeta != null) {
+            switch (type) {
+                case WOODEN_PICKAXE:  id = 11; break;
+                case STONE_PICKAXE:   id = 12; break;
+                case IRON_PICKAXE:    id = 13; break;
+                case GOLDEN_PICKAXE:  id = 14; break;
+                case DIAMOND_PICKAXE: id = 15; break;
+                default: return;
+            }
+            iMeta.setCustomModelData(KEY_BASE + AT_KEY_BASE + id);
+            player.getInventory().getItemInMainHand().setItemMeta(iMeta);
+        }
+    }
+
     private boolean verifyHammer(ItemStack tool) {
+        return pickaxes.contains(tool.getType())
+                && tool.getItemMeta() != null
+                && tool.getItemMeta().hasCustomModelData()
+                && (tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 11
+                ||  tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 12
+                ||  tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 13
+                ||  tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 14
+                ||  tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 15);
+    }
+
+    private boolean verifyLore(ItemStack tool) {
         return pickaxes.contains(tool.getType())
                 && tool.getItemMeta() != null
                 && tool.getItemMeta().getLore() != null
                 && tool.getItemMeta().getLore().contains(lore);
     }
-
-
 }

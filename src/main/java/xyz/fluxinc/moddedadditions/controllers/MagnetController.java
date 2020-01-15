@@ -10,6 +10,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.runnables.MagnetRunnable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
@@ -37,6 +38,7 @@ public class MagnetController {
         return item != null
                 && item.getType() == MAGNET_MATERIAL
                 && item.getItemMeta() != null
+                && item.getItemMeta().hasCustomModelData()
                 && item.getItemMeta().getCustomModelData() == MAGNET_MODEL_KEY;
     }
 
@@ -63,6 +65,22 @@ public class MagnetController {
             taskScheduler.cancelTask(vacuumInstances.get(player));
             vacuumInstances.remove(player);
         }
+    }
+
+    public boolean verifyOldMagnet(ItemStack item) {
+        return item != null
+                && item.getType() == MAGNET_MATERIAL
+                && item.getItemMeta() != null
+                && item.getItemMeta().getLore() != null
+                && item.getItemMeta().getLore().contains(instance.getLanguageManager().getFormattedString("mi-magnet"));
+    }
+
+    public ItemStack updateOldMagnet(ItemStack itemStack) {
+        ItemMeta iMeta = itemStack.getItemMeta();
+        if (iMeta == null) { return itemStack; }
+        iMeta.setCustomModelData(MAGNET_MODEL_KEY);
+        itemStack.setItemMeta(iMeta);
+        return itemStack;
     }
 
 }

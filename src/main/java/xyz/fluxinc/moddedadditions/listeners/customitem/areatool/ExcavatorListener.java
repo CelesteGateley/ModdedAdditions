@@ -2,6 +2,7 @@ package xyz.fluxinc.moddedadditions.listeners.customitem.areatool;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -11,6 +12,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
@@ -19,8 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static xyz.fluxinc.fluxcore.utils.ToolUtils.shovels;
-import static xyz.fluxinc.fluxcore.utils.ToolUtils.takeDurability;
+import static xyz.fluxinc.fluxcore.utils.ToolUtils.*;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
+import static xyz.fluxinc.moddedadditions.controllers.AreaToolController.AT_KEY_BASE;
 
 public class ExcavatorListener implements Listener {
 
@@ -48,6 +51,9 @@ public class ExcavatorListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        // Update Excavator to new system
+        if (verifyLore(event.getPlayer().getInventory().getItemInMainHand())
+                && !verifyExcavator(event.getPlayer().getInventory().getItemInMainHand()))  { updateExcavator(event.getPlayer()); }
         // Verify that the tool is a Excavator, and that the player has a known block face
         if (!verifyExcavator(event.getPlayer().getInventory().getItemInMainHand())) { return; }
         if (!playerBlockFaceMap.containsKey(event.getPlayer())) { return; }
@@ -76,8 +82,37 @@ public class ExcavatorListener implements Listener {
 
     }
 
+    private void updateExcavator(Player player) {
+        ItemMeta iMeta = player.getInventory().getItemInMainHand().getItemMeta();
+        Material type = player.getInventory().getItemInMainHand().getType();
+        int id;
+        if (iMeta != null) {
+            switch (type) {
+                case WOODEN_SHOVEL:  id = 21; break;
+                case STONE_SHOVEL:   id = 22; break;
+                case IRON_SHOVEL:    id = 23; break;
+                case GOLDEN_SHOVEL:  id = 24; break;
+                case DIAMOND_SHOVEL: id = 25; break;
+                default: return;
+            }
+            iMeta.setCustomModelData(KEY_BASE + AT_KEY_BASE + id);
+            player.getInventory().getItemInMainHand().setItemMeta(iMeta);
+        }
+    }
+
     private boolean verifyExcavator(ItemStack tool) {
         return shovels.contains(tool.getType())
+                && tool.getItemMeta() != null
+                && tool.getItemMeta().hasCustomModelData()
+                && (tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 21
+                ||  tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 22
+                ||  tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 23
+                ||  tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 24
+                ||  tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 25);
+    }
+
+    private boolean verifyLore(ItemStack tool) {
+        return pickaxes.contains(tool.getType())
                 && tool.getItemMeta() != null
                 && tool.getItemMeta().getLore() != null
                 && tool.getItemMeta().getLore().contains(lore);
