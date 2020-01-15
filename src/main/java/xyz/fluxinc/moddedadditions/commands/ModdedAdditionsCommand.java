@@ -149,7 +149,7 @@ public class ModdedAdditionsCommand implements CommandExecutor {
     }
 
     private void sendNoSubCommand(CommandSender sender) {
-        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-noSubCommand"));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("ma-noSubCommand"));
     }
 
     private void sendNoItemProvided(CommandSender sender) {
@@ -165,7 +165,7 @@ public class ModdedAdditionsCommand implements CommandExecutor {
     private void sendUnknownSubCommand(CommandSender sender, String subcommand) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("command", subcommand);
-        sender.sendMessage(instance.getLanguageManager().generateMessage("vm-unknownSubCommand", messageArgs));
+        sender.sendMessage(instance.getLanguageManager().generateMessage("ma-unknownSubCommand", messageArgs));
     }
 
     private void sendPermissionDenied(CommandSender sender) {
