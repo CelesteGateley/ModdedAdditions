@@ -19,6 +19,7 @@ import xyz.fluxinc.moddedadditions.listeners.VeinMinerListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.PingListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.ResponseListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.LightSaberListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.SonicListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
@@ -103,7 +104,7 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new LightSaberListener(this), this);
 
 
-
+        getServer().getPluginManager().registerEvents(new SonicListener(), this);
 
         // Register Crafting Additions (Must Be Last)
         customRecipeUtils = new CustomRecipeUtils(this);

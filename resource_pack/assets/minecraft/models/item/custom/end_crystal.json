@@ -1,0 +1,18 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "item/end_crystal"
+    },
+	
+	"overrides": [
+		{"predicate": {"custom_model_data": 5122011}, "model": "item/custom/kyber_crystal/blue_crystal"},
+		{"predicate": {"custom_model_data": 5122012}, "model": "item/custom/kyber_crystal/green_crystal"},
+		{"predicate": {"custom_model_data": 5122013}, "model": "item/custom/kyber_crystal/purple_crystal"},
+		{"predicate": {"custom_model_data": 5122014}, "model": "item/custom/kyber_crystal/red_crystal"},
+		{"predicate": {"custom_model_data": 5122015}, "model": "item/custom/kyber_crystal/yellow_crystal"},
+		{"predicate": {"custom_model_data": 5122016}, "model": "item/custom/kyber_crystal/orange_crystal"},
+		{"predicate": {"custom_model_data": 5122017}, "model": "item/custom/kyber_crystal/white_crystal"},
+		{"predicate": {"custom_model_data": 5122018}, "model": "item/custom/kyber_crystal/dark_crystal"}
+	
+	]
+}
