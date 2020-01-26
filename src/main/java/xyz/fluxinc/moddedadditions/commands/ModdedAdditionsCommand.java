@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -99,17 +100,62 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                 if (type == null) { sendNoColorProvided(sender); break; }
                 switch (type) {
                     case "blue":
-                    case "green":
-                    case "purple":
-                    case "red":
-                    case "yellow":
-                    case "orange":
-                    case "white":
-                    case "black":
-                    default:
-                        sender.sendMessage("&9This method has not yet been implemented");
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewLightSaber(SaberColor.BLUE));
                         break;
-                        //sendInvalidColor(sender, type);
+                    case "green":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewLightSaber(SaberColor.GREEN));
+                        break;
+                    case "purple":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewLightSaber(SaberColor.PURPLE));
+                        break;
+                    case "red":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewLightSaber(SaberColor.RED));
+                        break;
+                    case "yellow":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewLightSaber(SaberColor.YELLOW));
+                        break;
+                    case "orange":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewLightSaber(SaberColor.ORANGE));
+                        break;
+                    case "white":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewLightSaber(SaberColor.WHITE));
+                        break;
+                    case "dark":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewLightSaber(SaberColor.DARK));
+                        break;
+                    default:
+                        sendInvalidColor(sender, type);
+                }
+                break;
+            case "kybercrystal":
+                if (type == null) { sendNoColorProvided(sender); break; }
+                switch (type) {
+                    case "blue":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewKyberCrystal(SaberColor.BLUE));
+                        break;
+                    case "green":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewKyberCrystal(SaberColor.GREEN));
+                        break;
+                    case "purple":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewKyberCrystal(SaberColor.PURPLE));
+                        break;
+                    case "red":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewKyberCrystal(SaberColor.RED));
+                        break;
+                    case "yellow":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewKyberCrystal(SaberColor.YELLOW));
+                        break;
+                    case "orange":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewKyberCrystal(SaberColor.ORANGE));
+                        break;
+                    case "white":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewKyberCrystal(SaberColor.WHITE));
+                        break;
+                    case "dark":
+                        player.getInventory().addItem(instance.getLightSaberController().generateNewKyberCrystal(SaberColor.DARK));
+                        break;
+                    default:
+                        sendInvalidColor(sender, type);
                 }
                 break;
             default:

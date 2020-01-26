@@ -10,7 +10,6 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.runnables.MagnetRunnable;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;

@@ -21,7 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static xyz.fluxinc.fluxcore.utils.ToolUtils.*;
+import static xyz.fluxinc.fluxcore.utils.ToolUtils.shovels;
+import static xyz.fluxinc.fluxcore.utils.ToolUtils.takeDurability;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.controllers.AreaToolController.AT_KEY_BASE;
 

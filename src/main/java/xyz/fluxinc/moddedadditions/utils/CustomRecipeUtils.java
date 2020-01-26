@@ -1,35 +1,30 @@
 package xyz.fluxinc.moddedadditions.utils;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.UUID;
 
 import static org.bukkit.Bukkit.getServer;
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.storage.AdditionalRecipeStorage.*;
 
 public class CustomRecipeUtils implements Listener {
 
     private Collection<NamespacedKey> recipeKeys;
     private ModdedAdditions instance;
+    private ShapedRecipe lightSaberRecipe;
 
     /*
      * Furnace Recipe takes 5 Arguments:
@@ -86,6 +81,7 @@ public class CustomRecipeUtils implements Listener {
         getServer().addRecipe(magnetRecipe);
 
         addLightsaber();
+        makeKyberCrystals();
     }
 
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
@@ -122,6 +118,18 @@ public class CustomRecipeUtils implements Listener {
         return result;
     }
 
+    private ShapedRecipe generateKyberCrystalRecipe(SaberColor color, String key) {
+        NamespacedKey nsKey = new NamespacedKey(this.instance, key);
+        recipeKeys.add(nsKey);
+
+        ShapedRecipe result = new ShapedRecipe(nsKey, instance.getLightSaberController().generateNewKyberCrystal(color));
+        result.shape("GEG", "ECE", "GEG");
+        result.setIngredient('G', SaberColor.getStainedGlass(color));
+        result.setIngredient('E', Material.EMERALD);
+        result.setIngredient('C', Material.END_CRYSTAL);
+        return result;
+    }
+
     private void makeHammers() {
         getServer().addRecipe(generateNewHammerRecipe(ToolLevel.WOODEN, "WOODEN_HAMMER", Material.WOODEN_PICKAXE));
         getServer().addRecipe(generateNewHammerRecipe(ToolLevel.STONE, "STONE_HAMMER", Material.STONE_PICKAXE));
@@ -138,24 +146,29 @@ public class CustomRecipeUtils implements Listener {
         getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.DIAMOND, "DIAMOND_EXCAVATOR", Material.DIAMOND_SHOVEL));
     }
 
-    public void addLightsaber() {
+    private void makeKyberCrystals() {
+        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.BLUE, "BLUE_KYBER_CRYSTAL"));
+        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.GREEN, "GREEN_KYBER_CRYSTAL"));
+        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.PURPLE, "PURPLE_KYBER_CRYSTAL"));
+        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.RED, "RED_KYBER_CRYSTAL"));
+        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.YELLOW, "YELLOW_KYBER_CRYSTAL"));
+        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.ORANGE, "ORANGE_KYBER_CRYSTAL"));
+        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.WHITE, "WHITE_KYBER_CRYSTAL"));
+    }
+
+    private void addLightsaber() {
         NamespacedKey lightSaberKey = new NamespacedKey(this.instance, "LIGHTSABER");
         recipeKeys.add(lightSaberKey);
-        ItemStack lightSaber = new ItemStack(Material.DIAMOND_SWORD);
-        lightSaber = addLore(lightSaber, ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getFormattedString("mi-lightsaber")));
-        ItemMeta itemMeta = lightSaber.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.WHITE + "Lightsaber");
-        itemMeta.addEnchant(Enchantment.FIRE_ASPECT, 1, false);
-        itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "Attack_damage", 13, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
-        lightSaber.setItemMeta(itemMeta);
 
-        ShapedRecipe lightSaberRecipe = new ShapedRecipe(lightSaberKey, lightSaber);
+        lightSaberRecipe = new ShapedRecipe(lightSaberKey, instance.getLightSaberController().getDefaultLightSaber());
         lightSaberRecipe.shape("IGI", "ICI", "III");
         lightSaberRecipe.setIngredient('G', Material.GLASS_PANE);
         lightSaberRecipe.setIngredient('I', Material.IRON_BLOCK);
         lightSaberRecipe.setIngredient('C', Material.END_CRYSTAL);
         getServer().addRecipe(lightSaberRecipe);
     }
+
+    public Recipe getLightSaberRecipe() { return lightSaberRecipe; }
 
     @EventHandler
     public void updateKnowledgeBook(PlayerJoinEvent player) { player.getPlayer().discoverRecipes(recipeKeys); }

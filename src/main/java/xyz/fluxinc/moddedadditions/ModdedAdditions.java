@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions;
 
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.fluxinc.fluxcore.FluxCore;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
@@ -8,6 +9,7 @@ import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.*;
 import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
+import xyz.fluxinc.moddedadditions.controllers.LightSaberController;
 import xyz.fluxinc.moddedadditions.controllers.MagnetController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
 import xyz.fluxinc.moddedadditions.executors.MagnetExecutor;
@@ -16,7 +18,7 @@ import xyz.fluxinc.moddedadditions.listeners.CropHarvestListener;
 import xyz.fluxinc.moddedadditions.listeners.VeinMinerListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.PingListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.ResponseListener;
-import xyz.fluxinc.moddedadditions.listeners.customitem.LightSaberAttackListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.LightSaberListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
@@ -33,6 +35,8 @@ public final class ModdedAdditions extends JavaPlugin {
     private BlockAccessController blockAccessController;
     private VeinMinerController veinMinerController;
     private AreaToolController areaToolController;
+    private LightSaberController lightSaberController;
+    private CustomRecipeUtils customRecipeUtils;
 
     @Override
     public void onEnable() {
@@ -90,17 +94,34 @@ public final class ModdedAdditions extends JavaPlugin {
             getLogger().warning("No or invalid world defined for DayVote. It will not be enabled");
         }
 
-        // Register Crafting Additions (Must Be Last)
-        getServer().getPluginManager().registerEvents(new CustomRecipeUtils(this), this);
-
         // Tell Player Damage Dealt
         //getServer().getPluginManager().registerEvents(new DamageListener(), this);
+
+        // LightSaber Related Functions
         getServer().getPluginManager().registerEvents(new ResponseListener(), this);
-        getServer().getPluginManager().registerEvents(new LightSaberAttackListener(this), this);
+        lightSaberController = new LightSaberController(this);
+        getServer().getPluginManager().registerEvents(new LightSaberListener(this), this);
+
+
+
+
+        // Register Crafting Additions (Must Be Last)
+        customRecipeUtils = new CustomRecipeUtils(this);
+        getServer().getPluginManager().registerEvents(customRecipeUtils, this);
     }
 
     @Override
     public void onDisable() {
+        magnetController = null;
+        fluxCore = null;
+        languageManager = null;
+        configurationManager = null;
+        veinMinerController = null;
+        areaToolController = null;
+        blockAccessController = null;
+        customRecipeUtils = null;
+
+        HandlerList.unregisterAll(this);
     }
 
     public void reloadConfiguration() {
@@ -110,31 +131,21 @@ public final class ModdedAdditions extends JavaPlugin {
         areaToolController.loadFromConfiguration();
     }
 
-    public MagnetController getMagnetController() {
-        return magnetController;
-    }
+    public MagnetController getMagnetController() { return magnetController; }
 
-    public FluxCore getCoreInstance() {
-        return fluxCore;
-    }
+    public FluxCore getCoreInstance() { return fluxCore; }
 
-    public LanguageManager getLanguageManager() {
-        return this.languageManager;
-    }
+    public LanguageManager getLanguageManager() { return this.languageManager; }
 
-    public ConfigurationManager getConfigurationManager() {
-        return this.configurationManager;
-    }
+    public ConfigurationManager getConfigurationManager() { return this.configurationManager; }
 
-    public BlockAccessController getBlockAccessController() {
-        return this.blockAccessController;
-    }
+    public BlockAccessController getBlockAccessController() { return this.blockAccessController; }
 
-    public VeinMinerController getVeinMinerController() {
-        return this.veinMinerController;
-    }
+    public VeinMinerController getVeinMinerController() { return this.veinMinerController; }
 
-    public AreaToolController getAreaToolController() {
-        return areaToolController;
-    }
+    public AreaToolController getAreaToolController() { return areaToolController; }
+
+    public CustomRecipeUtils getCustomRecipeUtils() { return customRecipeUtils; }
+
+    public LightSaberController getLightSaberController() { return lightSaberController; }
 }
