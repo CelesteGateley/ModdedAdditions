@@ -1,0 +1,10 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "item/compass"
+    },
+	
+	"overrides": [
+		{"predicate": {"custom_model_data": 5129001}, "model": "item/custom/magnet"}
+	]
+}
