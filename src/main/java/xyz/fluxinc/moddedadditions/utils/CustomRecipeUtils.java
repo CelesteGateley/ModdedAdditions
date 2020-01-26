@@ -102,93 +102,40 @@ public class CustomRecipeUtils implements Listener {
         });
     }
 
+    private ShapedRecipe generateNewHammerRecipe(ToolLevel level, String key, Material tool) {
+        NamespacedKey nsKey = new NamespacedKey(this.instance, key);
+        recipeKeys.add(nsKey);
+        ShapedRecipe result = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(level));
+        result.shape("PPP", " S ", " S ");
+        result.setIngredient('S', Material.STICK);
+        result.setIngredient('P', tool);
+        return result;
+    }
+
+    private ShapedRecipe generateNewExcavatorRecipe(ToolLevel level, String key, Material tool) {
+        NamespacedKey nsKey = new NamespacedKey(this.instance, key);
+        recipeKeys.add(nsKey);
+        ShapedRecipe result = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(level));
+        result.shape("PPP", " S ", " S ");
+        result.setIngredient('S', Material.STICK);
+        result.setIngredient('P', tool);
+        return result;
+    }
+
     private void makeHammers() {
-        ShapedRecipe hammerRecipe;
-
-        NamespacedKey nsKey = new NamespacedKey(this.instance, "WOODEN_HAMMER");
-        recipeKeys.add(nsKey);
-        hammerRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(ToolLevel.WOODEN));
-        hammerRecipe.shape("PPP", " S ", " S ");
-        hammerRecipe.setIngredient('S', Material.STICK);
-        hammerRecipe.setIngredient('P', Material.WOODEN_PICKAXE);
-        getServer().addRecipe(hammerRecipe);
-
-        nsKey = new NamespacedKey(this.instance, "STONE_HAMMER");
-        recipeKeys.add(nsKey);
-        hammerRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(ToolLevel.STONE));
-        hammerRecipe.shape("PPP", " S ", " S ");
-        hammerRecipe.setIngredient('S', Material.STICK);
-        hammerRecipe.setIngredient('P', Material.STONE_PICKAXE);
-        getServer().addRecipe(hammerRecipe);
-
-        nsKey = new NamespacedKey(this.instance, "IRON_HAMMER");
-        recipeKeys.add(nsKey);
-        hammerRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(ToolLevel.IRON));
-        hammerRecipe.shape("PPP", " S ", " S ");
-        hammerRecipe.setIngredient('S', Material.STICK);
-        hammerRecipe.setIngredient('P', Material.IRON_PICKAXE);
-        getServer().addRecipe(hammerRecipe);
-
-        nsKey = new NamespacedKey(this.instance, "GOLDEN_HAMMER");
-        recipeKeys.add(nsKey);
-        hammerRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(ToolLevel.GOLD));
-        hammerRecipe.shape("PPP", " S ", " S ");
-        hammerRecipe.setIngredient('S', Material.STICK);
-        hammerRecipe.setIngredient('P', Material.GOLDEN_PICKAXE);
-        getServer().addRecipe(hammerRecipe);
-
-        nsKey = new NamespacedKey(this.instance, "DIAMOND_HAMMER");
-        recipeKeys.add(nsKey);
-        hammerRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(ToolLevel.DIAMOND));
-        hammerRecipe.shape("PPP", " S ", " S ");
-        hammerRecipe.setIngredient('S', Material.STICK);
-        hammerRecipe.setIngredient('P', Material.DIAMOND_PICKAXE);
-        getServer().addRecipe(hammerRecipe);
-
+        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.WOODEN, "WOODEN_HAMMER", Material.WOODEN_PICKAXE));
+        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.STONE, "STONE_HAMMER", Material.STONE_PICKAXE));
+        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.IRON, "IRON_HAMMER", Material.IRON_PICKAXE));
+        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.GOLD, "GOLDEN_HAMMER", Material.GOLDEN_PICKAXE));
+        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.DIAMOND, "DIAMOND_HAMMER", Material.DIAMOND_PICKAXE));
     }
 
     private void makeExcavators() {
-        ShapedRecipe excavatorRecipe;
-
-        NamespacedKey nsKey = new NamespacedKey(this.instance, "WOODEN_EXCAVATOR");
-        recipeKeys.add(nsKey);
-        excavatorRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN));
-        excavatorRecipe.shape("PPP", " S ", " S ");
-        excavatorRecipe.setIngredient('S', Material.STICK);
-        excavatorRecipe.setIngredient('P', Material.WOODEN_SHOVEL);
-        getServer().addRecipe(excavatorRecipe);
-
-        nsKey = new NamespacedKey(this.instance, "STONE_EXCAVATOR");
-        recipeKeys.add(nsKey);
-        excavatorRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN));
-        excavatorRecipe.shape("PPP", " S ", " S ");
-        excavatorRecipe.setIngredient('S', Material.STICK);
-        excavatorRecipe.setIngredient('P', Material.STONE_SHOVEL);
-        getServer().addRecipe(excavatorRecipe);
-
-        nsKey = new NamespacedKey(this.instance, "IRON_EXCAVATOR");
-        recipeKeys.add(nsKey);
-        excavatorRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN));
-        excavatorRecipe.shape("PPP", " S ", " S ");
-        excavatorRecipe.setIngredient('S', Material.STICK);
-        excavatorRecipe.setIngredient('P', Material.IRON_SHOVEL);
-        getServer().addRecipe(excavatorRecipe);
-
-        nsKey = new NamespacedKey(this.instance, "GOLDEN_EXCAVATOR");
-        recipeKeys.add(nsKey);
-        excavatorRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN));
-        excavatorRecipe.shape("PPP", " S ", " S ");
-        excavatorRecipe.setIngredient('S', Material.STICK);
-        excavatorRecipe.setIngredient('P', Material.GOLDEN_SHOVEL);
-        getServer().addRecipe(excavatorRecipe);
-
-        nsKey = new NamespacedKey(this.instance, "DIAMOND_EXCAVATOR");
-        recipeKeys.add(nsKey);
-        excavatorRecipe = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN));
-        excavatorRecipe.shape("PPP", " S ", " S ");
-        excavatorRecipe.setIngredient('S', Material.STICK);
-        excavatorRecipe.setIngredient('P', Material.DIAMOND_SHOVEL);
-        getServer().addRecipe(excavatorRecipe);
+        getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.WOODEN, "WOODEN_EXCAVATOR", Material.WOODEN_SHOVEL));
+        getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.STONE, "STONE_EXCAVATOR", Material.STONE_SHOVEL));
+        getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.IRON, "IRON_EXCAVATOR", Material.IRON_SHOVEL));
+        getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.GOLD, "GOLDEN_EXCAVATOR", Material.GOLDEN_SHOVEL));
+        getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.DIAMOND, "DIAMOND_EXCAVATOR", Material.DIAMOND_SHOVEL));
     }
 
     public void addLightsaber() {
@@ -211,7 +158,5 @@ public class CustomRecipeUtils implements Listener {
     }
 
     @EventHandler
-    public void updateKnowledgeBook(PlayerJoinEvent player) {
-        player.getPlayer().discoverRecipes(recipeKeys);
-    }
+    public void updateKnowledgeBook(PlayerJoinEvent player) { player.getPlayer().discoverRecipes(recipeKeys); }
 }
