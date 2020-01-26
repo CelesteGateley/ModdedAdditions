@@ -36,7 +36,7 @@ public class LightSaberController {
         iMeta.setCustomModelData(KEY_BASE + LS_KEY_BASE + getColorMod(color));
         iMeta.setDisplayName(getChatColor(color) + toTitleCase(color.toString()) + " Saber");
         iMeta.addEnchant(Enchantment.FIRE_ASPECT, 1, false);
-        iMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "Attack_damage", 13, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        iMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "Attack_damage", 13, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         itemStack.setItemMeta(iMeta);
         return itemStack;
     }
