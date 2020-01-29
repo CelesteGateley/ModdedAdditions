@@ -23,6 +23,7 @@ mi-kybercrystal: "&9A Force attuned crystal, used in crafting lightsabers!"
 mi-magnet: "&9A Magnet to draw items towards you!"
 mi-hammer: "&9A Hammer to mine a 3x3 area!"
 mi-excavator: "&9A Excavator to dig a 3x3 area!"
+mi-sonic: "&9Technology far beyond your basic understanding"
 
 # Veinminer Commands
 vm-unknownSubCommand: "&9Unrecognised sub-command: %command%. Valid sub-commands: add / remove / toggle / save / reload"

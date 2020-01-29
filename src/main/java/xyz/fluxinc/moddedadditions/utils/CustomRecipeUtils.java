@@ -82,6 +82,7 @@ public class CustomRecipeUtils implements Listener {
 
         addLightsaber();
         makeKyberCrystals();
+        addSonic();
     }
 
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
@@ -156,6 +157,8 @@ public class CustomRecipeUtils implements Listener {
         getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.WHITE, "WHITE_KYBER_CRYSTAL"));
     }
 
+
+
     private void addLightsaber() {
         NamespacedKey lightSaberKey = new NamespacedKey(this.instance, "LIGHTSABER");
         recipeKeys.add(lightSaberKey);
@@ -168,7 +171,19 @@ public class CustomRecipeUtils implements Listener {
         getServer().addRecipe(lightSaberRecipe);
     }
 
-    public Recipe getLightSaberRecipe() { return lightSaberRecipe; }
+    private void addSonic() {
+        NamespacedKey sonicKey = new NamespacedKey(this.instance, "SONIC");
+        recipeKeys.add(sonicKey);
+
+        ShapedRecipe sonicRecipe = new ShapedRecipe(sonicKey, instance.getSonicScrewdriverController().generateNewSonic());
+        sonicRecipe.shape("BGB", "IRI", "BEB");
+        sonicRecipe.setIngredient('B', Material.IRON_BLOCK);
+        sonicRecipe.setIngredient('G', Material.LIGHT_BLUE_STAINED_GLASS);
+        sonicRecipe.setIngredient('I', Material.IRON_INGOT);
+        sonicRecipe.setIngredient('R', Material.REDSTONE_TORCH);
+        sonicRecipe.setIngredient('E', Material.EMERALD);
+        getServer().addRecipe(sonicRecipe);
+    }
 
     @EventHandler
     public void updateKnowledgeBook(PlayerJoinEvent player) { player.getPlayer().discoverRecipes(recipeKeys); }

@@ -8,10 +8,7 @@ import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.*;
-import xyz.fluxinc.moddedadditions.controllers.AreaToolController;
-import xyz.fluxinc.moddedadditions.controllers.LightSaberController;
-import xyz.fluxinc.moddedadditions.controllers.MagnetController;
-import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
+import xyz.fluxinc.moddedadditions.controllers.*;
 import xyz.fluxinc.moddedadditions.executors.MagnetExecutor;
 import xyz.fluxinc.moddedadditions.listeners.BookSignListener;
 import xyz.fluxinc.moddedadditions.listeners.CropHarvestListener;
@@ -19,6 +16,7 @@ import xyz.fluxinc.moddedadditions.listeners.VeinMinerListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.PingListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.ResponseListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.LightSaberListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.SonicScrewdriverListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
@@ -37,6 +35,7 @@ public final class ModdedAdditions extends JavaPlugin {
     private AreaToolController areaToolController;
     private LightSaberController lightSaberController;
     private CustomRecipeUtils customRecipeUtils;
+    private SonicScrewdriverController sonicScrewdriverController;
 
     @Override
     public void onEnable() {
@@ -94,6 +93,10 @@ public final class ModdedAdditions extends JavaPlugin {
             getLogger().warning("No or invalid world defined for DayVote. It will not be enabled");
         }
 
+        // Sonic Screwdriver Related Functions
+        sonicScrewdriverController = new SonicScrewdriverController(this);
+        getServer().getPluginManager().registerEvents(new SonicScrewdriverListener(this), this);
+
         // Tell Player Damage Dealt
         //getServer().getPluginManager().registerEvents(new DamageListener(), this);
 
@@ -145,4 +148,6 @@ public final class ModdedAdditions extends JavaPlugin {
     public CustomRecipeUtils getCustomRecipeUtils() { return customRecipeUtils; }
 
     public LightSaberController getLightSaberController() { return lightSaberController; }
+
+    public SonicScrewdriverController getSonicScrewdriverController() { return sonicScrewdriverController;    }
 }

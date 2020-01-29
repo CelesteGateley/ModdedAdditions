@@ -25,9 +25,9 @@ public class ModdedAdditionsCommand implements CommandExecutor {
             case "give":
                 if (arguments.length < 2) { sendNoItemProvided(commandSender); return true; }
                 if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
-                if (arguments[1].equals("magnet")) { giveItem(commandSender, "magnet", "", (Player) commandSender); }
-                else {
-                    if (arguments.length < 3) { sendNoTypeProvided(commandSender); }
+                if (arguments.length < 3) {
+                    giveItem(commandSender, arguments[1], null, (Player) commandSender);
+                } else {
                     giveItem(commandSender, arguments[1], arguments[2], (Player) commandSender);
                 }
                 return true;
@@ -95,6 +95,9 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                 break;
             case "magnet":
                 player.getInventory().addItem(instance.getMagnetController().generateNewMagnet());
+                break;
+            case "sonic":
+                player.getInventory().addItem(instance.getSonicScrewdriverController().generateNewSonic());
                 break;
             case "lightsaber":
                 if (type == null) { sendNoColorProvided(sender); break; }
