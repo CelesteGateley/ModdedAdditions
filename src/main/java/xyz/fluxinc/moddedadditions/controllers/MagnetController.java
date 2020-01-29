@@ -47,7 +47,7 @@ public class MagnetController {
         ItemStack magnet = addLore(new ItemStack(MAGNET_MATERIAL), instance.getLanguageManager().getFormattedString("mi-magnet"));
         ItemMeta itemMeta = magnet.getItemMeta();
         itemMeta.setCustomModelData(MAGNET_MODEL_KEY);
-        itemMeta.setDisplayName(ChatColor.BLUE + "Item " + ChatColor.RED + "Magnet");
+        itemMeta.setDisplayName(ChatColor.AQUA + "Item " + ChatColor.RED + "Magnet");
         magnet.setItemMeta(itemMeta);
         return magnet;
     }

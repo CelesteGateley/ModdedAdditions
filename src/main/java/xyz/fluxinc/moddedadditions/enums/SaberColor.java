@@ -30,7 +30,7 @@ public enum SaberColor {
 
     public static ChatColor getChatColor(SaberColor color) {
         switch (color) {
-            case BLUE:      return ChatColor.BLUE;
+            case BLUE:      return ChatColor.AQUA;
             case GREEN:     return ChatColor.GREEN;
             case PURPLE:    return ChatColor.DARK_PURPLE;
             case RED:       return ChatColor.DARK_RED;
