@@ -164,7 +164,7 @@ public class CustomRecipeUtils implements Listener {
         lightSaberRecipe.shape("IGI", "ICI", "III");
         lightSaberRecipe.setIngredient('G', Material.GLASS_PANE);
         lightSaberRecipe.setIngredient('I', Material.IRON_BLOCK);
-        lightSaberRecipe.setIngredient('C', Material.END_CRYSTAL);
+        lightSaberRecipe.setIngredient('C', Material.EMERALD);
         getServer().addRecipe(lightSaberRecipe);
     }
 

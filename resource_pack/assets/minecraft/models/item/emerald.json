@@ -1,9 +1,8 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "item/end_crystal"
-    },
-	
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "item/emerald"
+	},
 	"overrides": [
 		{"predicate": {"custom_model_data": 5122011}, "model": "item/custom/kyber_crystal/blue_crystal"},
 		{"predicate": {"custom_model_data": 5122012}, "model": "item/custom/kyber_crystal/green_crystal"},

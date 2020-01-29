@@ -6,6 +6,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
@@ -42,9 +43,11 @@ public class LightSaberController {
     }
 
     public ItemStack generateNewKyberCrystal(SaberColor color) {
-        ItemStack itemStack = new ItemStack(Material.END_CRYSTAL);
+        ItemStack itemStack = new ItemStack(Material.EMERALD);
         itemStack = addLore(itemStack, instance.getLanguageManager().getFormattedString("mi-kybercrystal"));
         ItemMeta iMeta = itemStack.getItemMeta();
+        iMeta.addEnchant(Enchantment.LUCK, 1, true);
+        iMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         iMeta.setCustomModelData(KEY_BASE + KC_KEY_BASE + getColorMod(color));
         iMeta.setDisplayName(getChatColor(color) + toTitleCase(color.toString()) + " Kyber Crystal");
         itemStack.setItemMeta(iMeta);
