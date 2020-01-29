@@ -68,15 +68,15 @@ public class MagnetController {
 
     public boolean verifyOldMagnet(ItemStack item) {
         return item != null
-                && item.getType() == MAGNET_MATERIAL
-                && item.getItemMeta() != null
-                && item.getItemMeta().getLore() != null
-                && item.getItemMeta().getLore().contains(instance.getLanguageManager().getFormattedString("mi-magnet"));
+            && item.getType() == Material.COMPASS
+            && item.getItemMeta() != null
+            && item.getItemMeta().getLore() != null
+            && item.getItemMeta().getLore().contains(instance.getLanguageManager().getFormattedString("mi-magnet"));
     }
 
     public ItemStack updateOldMagnet(ItemStack itemStack) {
         ItemMeta iMeta = itemStack.getItemMeta();
-        //if (iMeta == null) { return itemStack; }
+        itemStack.setType(Material.IRON_NUGGET);
         iMeta.setCustomModelData(MAGNET_MODEL_KEY);
         itemStack.setItemMeta(iMeta);
         return itemStack;

@@ -55,3 +55,8 @@ Yellow:     2025
 Orange:     2026
 White:      2027
 Dark:       2028
+
+*** CUSTOM ***
+
+Magnet:     9001
+Sonic:      9002
