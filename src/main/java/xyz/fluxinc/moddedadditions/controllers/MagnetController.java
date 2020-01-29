@@ -23,7 +23,7 @@ public class MagnetController {
     private ModdedAdditions instance;
     private Map<Player, Integer> vacuumInstances;
 
-    private static final Material MAGNET_MATERIAL = Material.COMPASS;
+    private static final Material MAGNET_MATERIAL = Material.IRON_NUGGET;
 
     public MagnetController(ModdedAdditions instance) {
         this.instance = instance;
