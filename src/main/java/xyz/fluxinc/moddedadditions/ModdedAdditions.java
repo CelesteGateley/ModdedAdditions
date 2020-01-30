@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions;
 
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,6 +10,10 @@ import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.*;
 import xyz.fluxinc.moddedadditions.controllers.*;
+import xyz.fluxinc.moddedadditions.controllers.customitems.AreaToolController;
+import xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController;
+import xyz.fluxinc.moddedadditions.controllers.customitems.MagnetController;
+import xyz.fluxinc.moddedadditions.controllers.customitems.SonicScrewdriverController;
 import xyz.fluxinc.moddedadditions.executors.MagnetExecutor;
 import xyz.fluxinc.moddedadditions.listeners.BookSignListener;
 import xyz.fluxinc.moddedadditions.listeners.CropHarvestListener;

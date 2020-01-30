@@ -1,4 +1,4 @@
-package xyz.fluxinc.moddedadditions.controllers;
+package xyz.fluxinc.moddedadditions.controllers.customitems;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

@@ -15,7 +15,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
-import static xyz.fluxinc.moddedadditions.controllers.LightSaberController.*;
+import static xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController.*;
 
 public class LightSaberListener implements Listener {
 
