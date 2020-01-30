@@ -26,6 +26,9 @@ permissions:
     children:
       moddedadditions.areatool.*: true
       moddedadditions.veinminer.*: true
+      moddedadditions.give: true
+      moddedadditions.give.others: true
+      moddedadditions.sort: true
       moddedadditions.reload: true
   moddedadditions.areatool.*:
     description: Grants all permissions for modifying areatools
@@ -77,3 +80,12 @@ permissions:
   moddedadditions.veinminer.toggle:
     description: Toggle veinminer for yourself
     default: true
+  moddedadditions.sort:
+    description: Toggle chests sorting when they are opened
+    default: true
+  moddedadditions.give:
+    description: Give custom items to yourself
+    default: op
+  moddedadditions.give.others:
+    description: Give custom items to others
+    default: op

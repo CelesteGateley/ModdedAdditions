@@ -24,6 +24,10 @@ public class ModdedAdditionsCommand implements CommandExecutor {
         if (arguments.length < 1) { sendNoSubCommand(commandSender); return true; }
         switch (arguments[0].toLowerCase()) {
             case "sort":
+                if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.sort")) {
+                    sendPermissionDenied(commandSender);
+                    return true;
+                }
                 if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
                 PlayerData data = instance.getPlayerDataController().getPlayerData((Player) commandSender);
                 data.toggleSortChests();
@@ -31,6 +35,10 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                 instance.getPlayerDataController().setPlayerData((Player) commandSender, data);
                 return true;
             case "give":
+                if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.give")) {
+                    sendPermissionDenied(commandSender);
+                    return true;
+                }
                 if (arguments.length < 2) { sendNoItemProvided(commandSender); return true; }
                 if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
                 if (arguments.length < 3) {
@@ -40,6 +48,10 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                 }
                 return true;
             case "giveother":
+                if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.give.others")) {
+                    sendPermissionDenied(commandSender);
+                    return true;
+                }
                 if (arguments.length < 2) { sendNoPlayerProvided(commandSender); return true; }
                 Player recipient = instance.getServer().getPlayer(arguments[1]);
                 if (recipient == null) { sendUnknownPlayer(commandSender, arguments[1]); return true; }
