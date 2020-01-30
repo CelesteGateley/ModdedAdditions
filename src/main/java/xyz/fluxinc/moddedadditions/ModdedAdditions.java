@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions;
 
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.fluxinc.fluxcore.FluxCore;
@@ -20,6 +22,7 @@ import xyz.fluxinc.moddedadditions.listeners.customitem.SonicScrewdriverListener
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
+import xyz.fluxinc.moddedadditions.storage.PlayerData;
 import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
 
 public final class ModdedAdditions extends JavaPlugin {
@@ -36,6 +39,7 @@ public final class ModdedAdditions extends JavaPlugin {
     private LightSaberController lightSaberController;
     private CustomRecipeUtils customRecipeUtils;
     private SonicScrewdriverController sonicScrewdriverController;
+    private PlayerDataController playerDataController;
 
     @Override
     public void onEnable() {
@@ -46,6 +50,11 @@ public final class ModdedAdditions extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
+        // Initialize PlayerData
+        ConfigurationSerialization.registerClass(PlayerData.class);
+        playerDataController = new PlayerDataController(this, "storage.yml");
+        getServer().getPluginManager().registerEvents(playerDataController, this);
 
         // Register Language and Configuration Managers
         languageManager = new LanguageManager<>(this, "lang.yml");
@@ -150,4 +159,6 @@ public final class ModdedAdditions extends JavaPlugin {
     public LightSaberController getLightSaberController() { return lightSaberController; }
 
     public SonicScrewdriverController getSonicScrewdriverController() { return sonicScrewdriverController;    }
+
+    public PlayerDataController getPlayerDataController() { return playerDataController; }
 }

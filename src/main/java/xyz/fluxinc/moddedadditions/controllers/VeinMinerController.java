@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,11 +141,21 @@ public class VeinMinerController {
     }
 
     public void toggleVeinMiner(Player player) {
+        PlayerData data = instance.getPlayerDataController().getPlayerData(player);
         if (toggledPlayers.contains(player)) {
             toggledPlayers.remove(player);
+            data.setVeinMiner(false);
         } else {
             toggledPlayers.add(player);
+            data.setVeinMiner(true);
         }
+        instance.getPlayerDataController().setPlayerData(player, data);
+    }
+
+    public boolean setToggle(Player player, boolean bool) {
+        if (bool) { toggledPlayers.add(player); }
+        else { toggledPlayers.remove(player); }
+        return bool;
     }
 
     public int getMaxBlocks() {
