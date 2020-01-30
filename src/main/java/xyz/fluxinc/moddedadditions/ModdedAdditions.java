@@ -136,6 +136,8 @@ public final class ModdedAdditions extends JavaPlugin {
         areaToolController = null;
         blockAccessController = null;
         customRecipeUtils = null;
+        playerDataController.saveToDisk();
+        playerDataController = null;
 
         HandlerList.unregisterAll(this);
     }
