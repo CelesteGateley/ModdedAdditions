@@ -144,16 +144,16 @@ public class VeinMinerController {
         PlayerData data = instance.getPlayerDataController().getPlayerData(player);
         if (toggledPlayers.contains(player)) {
             toggledPlayers.remove(player);
-            data.setVeinMiner(false);
+            data.setVeinMiner(true);
         } else {
             toggledPlayers.add(player);
-            data.setVeinMiner(true);
+            data.setVeinMiner(false);
         }
         instance.getPlayerDataController().setPlayerData(player, data);
     }
 
     public boolean setToggle(Player player, boolean bool) {
-        if (bool) { toggledPlayers.add(player); }
+        if (!bool) { toggledPlayers.add(player); }
         else { toggledPlayers.remove(player); }
         return bool;
     }
