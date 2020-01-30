@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -117,12 +118,13 @@ public class VeinMinerCommand implements CommandExecutor {
             case "toggle":
                 if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
                 if (!commandSender.hasPermission("moddedadditions.veinminer.toggle")) { sendPermissionDenied(commandSender); return true; }
-                Player player = (Player) commandSender;
-                instance.getVeinMinerController().toggleVeinMiner(player);
-                if (instance.getVeinMinerController().isToggled(player)) {
-                    commandSender.sendMessage(instance.getLanguageManager().generateMessage("vm-toggleOff"));
-                } else {
+                PlayerData data = instance.getPlayerDataController().getPlayerData((Player) commandSender);
+                data.toggleVeinMiner();
+                instance.getPlayerDataController().setPlayerData((Player) commandSender, data);
+                if (data.veinMiner()) {
                     commandSender.sendMessage(instance.getLanguageManager().generateMessage("vm-toggleOn"));
+                } else {
+                    commandSender.sendMessage(instance.getLanguageManager().generateMessage("vm-toggleOff"));
                 }
                 return true;
             case "reload":

@@ -23,7 +23,6 @@ public class VeinMinerController {
     private List<Material> hoeBlocks;
     private List<Material> shearsBlocks;
     private List<Material> handBlocks;
-    private List<Player> toggledPlayers;
 
     private static final String CONFIG_NAME = "veinminer.yml";
     private static final String PICKAXE_CONFIG_KEY = "pickaxe";
@@ -37,7 +36,6 @@ public class VeinMinerController {
         this.instance = instance;
         vmConfiguration = new ConfigurationManager<>(this.instance, CONFIG_NAME);
         loadFromConfiguration();
-        toggledPlayers = new ArrayList<>();
     }
 
     public boolean checkPickaxe(Material material) {
@@ -134,28 +132,6 @@ public class VeinMinerController {
         handBlocks.remove(material);
         vmConfiguration.getConfiguration().set(HAND_CONFIG_KEY, fromMaterialToString(handBlocks).toArray());
         saveConfiguration();
-    }
-
-    public boolean isToggled(Player player) {
-        return toggledPlayers.contains(player);
-    }
-
-    public void toggleVeinMiner(Player player) {
-        PlayerData data = instance.getPlayerDataController().getPlayerData(player);
-        if (toggledPlayers.contains(player)) {
-            toggledPlayers.remove(player);
-            data.setVeinMiner(true);
-        } else {
-            toggledPlayers.add(player);
-            data.setVeinMiner(false);
-        }
-        instance.getPlayerDataController().setPlayerData(player, data);
-    }
-
-    public boolean setToggle(Player player, boolean bool) {
-        if (!bool) { toggledPlayers.add(player); }
-        else { toggledPlayers.remove(player); }
-        return bool;
     }
 
     public int getMaxBlocks() {

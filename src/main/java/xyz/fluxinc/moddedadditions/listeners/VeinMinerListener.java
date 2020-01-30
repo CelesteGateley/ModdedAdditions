@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 import xyz.fluxinc.fluxcore.utils.BlockUtils;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.List;
 
@@ -31,7 +32,8 @@ public class VeinMinerListener implements Listener {
         if (!event.getPlayer().isSneaking()) return;
         if (event.getPlayer().getGameMode() == GameMode.CREATIVE && !instance.getVeinMinerController().getAllowInCreative()) return;
         if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), event.getBlock().getType())) return;
-        if (instance.getVeinMinerController().isToggled(event.getPlayer())) { return; }
+        PlayerData playerData = instance.getPlayerDataController().getPlayerData(event.getPlayer());
+        if (!playerData.veinMiner()) { return; }
 
         ItemStack mainHandItem = event.getPlayer().getInventory().getItemInMainHand();
         Material toolMat = mainHandItem.getType();
