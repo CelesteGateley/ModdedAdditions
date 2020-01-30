@@ -29,6 +29,7 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                 data.toggleSortChests();
                 sendSortInventory((Player) commandSender, data.sortChests());
                 instance.getPlayerDataController().setPlayerData((Player) commandSender, data);
+                return true;
             case "give":
                 if (arguments.length < 2) { sendNoItemProvided(commandSender); return true; }
                 if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
