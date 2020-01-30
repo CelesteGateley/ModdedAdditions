@@ -26,9 +26,6 @@ public class SortChestListener implements Listener {
         if (!(instance.getPlayerDataController().getPlayerData(event.getPlayer()).sortChests())) { return; }
         Chest chest = (Chest) event.getClickedBlock().getState();
         ItemStack[] sorted = sortItemStacks(chest.getInventory().getContents());
-        for (ItemStack itemStack : sorted)  {
-            System.out.println(itemStack);
-        }
         chest.getInventory().clear();
         for (ItemStack itemStack : sorted) {
             if (itemStack == null) { continue; }
