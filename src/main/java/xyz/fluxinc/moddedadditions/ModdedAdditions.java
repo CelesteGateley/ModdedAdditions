@@ -15,6 +15,7 @@ import xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController;
 import xyz.fluxinc.moddedadditions.controllers.customitems.MagnetController;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SonicScrewdriverController;
 import xyz.fluxinc.moddedadditions.executors.MagnetExecutor;
+import xyz.fluxinc.moddedadditions.executors.OldMagnetExecutor;
 import xyz.fluxinc.moddedadditions.listeners.BookSignListener;
 import xyz.fluxinc.moddedadditions.listeners.CropHarvestListener;
 import xyz.fluxinc.moddedadditions.listeners.VeinMinerListener;
@@ -92,6 +93,7 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup Magnet Related Tasks
         magnetController = new MagnetController(this);
         getServer().getPluginManager().registerEvents(new InventoryChecker(this, new MagnetExecutor(this)), this);
+        getServer().getPluginManager().registerEvents(new InventoryChecker(this, new OldMagnetExecutor(this)), this);
 
         // Setup Book Handling
         getServer().getPluginManager().registerEvents(new BookSignListener(), this);
