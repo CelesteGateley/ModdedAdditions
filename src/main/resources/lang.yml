@@ -56,8 +56,8 @@ at-listHeader: "&7---------------- &9%category% &7----------------"
 at-blockList: "&7 - &9%block%"
 
 # Modded Additions Command
-ma-noSubCommand: "&9You must provide a sub-command. Valid sub-commands: give / reload"
-ma-unknownSubCommand: "&9Unrecognised sub-command: %command%. Valid sub-commands: give / giveother / reload"
+ma-noSubCommand: "&9You must provide a sub-command. Valid sub-commands: give / giveother / sort / reload"
+ma-unknownSubCommand: "&9Unrecognised sub-command: %command%. Valid sub-commands: give / giveother / sort / reload"
 ma-noPlayerProvided: "&9You must provide a players name"
 ma-unrecognisedPlayer: "&9A player with the name %player% is not logged in"
 ma-noItemProvided: "&9You must provide an item. Valid items: hammer / excavator / magnet / lightsaber"
@@ -66,6 +66,8 @@ ma-noTypeTool: "&9You must provide a type. Valid types: wood / stone / iron / go
 ma-unknownTypeTool: "&9Unrecognised type %type%. Valid types: wood / stone / iron / gold / diamond"
 ma-noTypeSaber: "&9You must provide a color. Valid colors: blue / green / purple / red / yellow / orange / white / black"
 ma-unknownTypeSaber: "&9Unrecognised color %type%. Valid colors: blue / green / purple / red / yellow / orange / white / black"
+ma-sortOn: "&9Chests you open will now be sorted!"
+ma-sortOff: "&9Chests you open will no longer be sorted!"
 
 # VoteDay Keys
 dv-dayVote: "&bDo you want day? Please click $ &bor $"

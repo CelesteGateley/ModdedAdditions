@@ -6,7 +6,7 @@
 
     <groupId>xyz.fluxinc</groupId>
     <artifactId>ModdedAdditions</artifactId>
-    <version>1.4.3</version>
+    <version>1.5</version>
     <packaging>jar</packaging>
 
     <name>ModdedAdditions</name>
@@ -110,7 +110,7 @@
         <dependency>
             <groupId>com.github.CelesteMagisteel</groupId>
             <artifactId>FluxCore</artifactId>
-            <version>v1.1.3</version>
+            <version>v1.1.4</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

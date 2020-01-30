@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
+import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,12 @@ public class ModdedAdditionsCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
         if (arguments.length < 1) { sendNoSubCommand(commandSender); return true; }
         switch (arguments[0].toLowerCase()) {
+            case "sort":
+                if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
+                PlayerData data = instance.getPlayerDataController().getPlayerData((Player) commandSender);
+                data.toggleSortChests();
+                sendSortInventory((Player) commandSender, data.sortChests());
+                instance.getPlayerDataController().setPlayerData((Player) commandSender, data);
             case "give":
                 if (arguments.length < 2) { sendNoItemProvided(commandSender); return true; }
                 if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
@@ -54,6 +61,14 @@ public class ModdedAdditionsCommand implements CommandExecutor {
             default:
                 sendUnknownSubCommand(commandSender, arguments[0]);
                 return true;
+        }
+    }
+
+    private void sendSortInventory(Player player, boolean sortChests) {
+        if (sortChests) {
+            player.sendMessage(instance.getLanguageManager().generateMessage("ma-sortOn"));
+        } else {
+            player.sendMessage(instance.getLanguageManager().generateMessage("ma-sortOff"));
         }
     }
 

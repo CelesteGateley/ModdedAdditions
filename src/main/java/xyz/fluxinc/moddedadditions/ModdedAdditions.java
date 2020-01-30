@@ -22,6 +22,7 @@ import xyz.fluxinc.moddedadditions.listeners.customitem.SonicScrewdriverListener
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
+import xyz.fluxinc.moddedadditions.listeners.inventory.SortChestListener;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
 
@@ -101,6 +102,9 @@ public final class ModdedAdditions extends JavaPlugin {
         } else {
             getLogger().warning("No or invalid world defined for DayVote. It will not be enabled");
         }
+
+        // Setup Chest Sorting
+        getServer().getPluginManager().registerEvents(new SortChestListener(this), this);
 
         // Sonic Screwdriver Related Functions
         sonicScrewdriverController = new SonicScrewdriverController(this);
