@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
@@ -59,6 +60,12 @@ public class PlayerDataController extends ConfigurationManager implements Listen
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoin(PlayerJoinEvent event) {
         cachedData.put(event.getPlayer(), initializePlayerData(event.getPlayer()));
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPlayerLeave(PlayerQuitEvent event) {
+        saveToDisk();
+        cachedData.remove(event.getPlayer());
     }
 
     @Override
