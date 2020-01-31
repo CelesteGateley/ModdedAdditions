@@ -9,12 +9,10 @@ import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.*;
+import xyz.fluxinc.moddedadditions.controllers.ManaController;
 import xyz.fluxinc.moddedadditions.controllers.PlayerDataController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
-import xyz.fluxinc.moddedadditions.controllers.customitems.AreaToolController;
-import xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController;
-import xyz.fluxinc.moddedadditions.controllers.customitems.MagnetController;
-import xyz.fluxinc.moddedadditions.controllers.customitems.SonicScrewdriverController;
+import xyz.fluxinc.moddedadditions.controllers.customitems.*;
 import xyz.fluxinc.moddedadditions.executors.MagnetExecutor;
 import xyz.fluxinc.moddedadditions.executors.OldMagnetExecutor;
 import xyz.fluxinc.moddedadditions.listeners.BookSignListener;
@@ -46,6 +44,9 @@ public final class ModdedAdditions extends JavaPlugin {
     private CustomRecipeUtils customRecipeUtils;
     private SonicScrewdriverController sonicScrewdriverController;
     private PlayerDataController playerDataController;
+
+    private SpellBookController spellBookController;
+    private ManaController manaController;
 
     @Override
     public void onEnable() {
@@ -116,6 +117,10 @@ public final class ModdedAdditions extends JavaPlugin {
         sonicScrewdriverController = new SonicScrewdriverController(this);
         getServer().getPluginManager().registerEvents(new SonicScrewdriverListener(this), this);
 
+        // Magic Related Functionality
+        manaController = new ManaController(this);
+        spellBookController = new SpellBookController(this);
+
         // Tell Player Damage Dealt
         //getServer().getPluginManager().registerEvents(new DamageListener(), this);
 
@@ -173,4 +178,8 @@ public final class ModdedAdditions extends JavaPlugin {
     public SonicScrewdriverController getSonicScrewdriverController() { return sonicScrewdriverController;    }
 
     public PlayerDataController getPlayerDataController() { return playerDataController; }
+
+    public SpellBookController getSpellBookController() { return spellBookController; }
+
+    public ManaController getManaController() { return manaController; }
 }
