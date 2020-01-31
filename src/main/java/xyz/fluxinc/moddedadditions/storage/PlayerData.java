@@ -42,9 +42,17 @@ public class PlayerData implements ConfigurationSerializable {
 
     public PlayerData setCurrentMana(int currentMana) { this.currentMana = currentMana; return this; }
 
+    public PlayerData addCurrentMana(int currentMana) { this.currentMana += currentMana; return this; }
+
+    public PlayerData takeCurrentMana(int currentMana) { this.currentMana -= currentMana; return this; }
+
     public int getMaximumMana() { return maximumMana; }
 
     public PlayerData setMaximumMana(int maximumMana) { this.maximumMana = maximumMana; return this; }
+
+    public PlayerData addMaximumMana(int maximumMana) { this.maximumMana += maximumMana; return this; }
+
+    public PlayerData takeMaximumMana(int maximumMana) { this.maximumMana -= maximumMana; return this; }
 
     @Override
     public Map<String, Object> serialize() {
