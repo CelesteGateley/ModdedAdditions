@@ -28,23 +28,23 @@ public class PlayerData implements ConfigurationSerializable {
 
     public boolean veinMiner() { return veinMiner; }
 
-    public void setVeinMiner(boolean veinMiner) { this.veinMiner = veinMiner; }
+    public PlayerData setVeinMiner(boolean veinMiner) { this.veinMiner = veinMiner; return this; }
 
-    public boolean toggleVeinMiner() { veinMiner = !veinMiner; return veinMiner; }
+    public PlayerData toggleVeinMiner() { veinMiner = !veinMiner; return this; }
 
     public boolean sortChests() { return sortChests; }
 
-    public void setSortChests(boolean sortChests) { this.sortChests = sortChests; }
+    public PlayerData setSortChests(boolean sortChests) { this.sortChests = sortChests; return this; }
 
-    public boolean toggleSortChests() { sortChests = !sortChests; return sortChests; }
+    public PlayerData toggleSortChests() { sortChests = !sortChests; return this; }
 
     public int getCurrentMana() { return currentMana; }
 
-    public void setCurrentMana(int currentMana) { this.currentMana = currentMana; }
+    public PlayerData setCurrentMana(int currentMana) { this.currentMana = currentMana; return this; }
 
     public int getMaximumMana() { return maximumMana; }
 
-    public void setMaximumMana(int maximumMana) { this.maximumMana = maximumMana; }
+    public PlayerData setMaximumMana(int maximumMana) { this.maximumMana = maximumMana; return this; }
 
     @Override
     public Map<String, Object> serialize() {
