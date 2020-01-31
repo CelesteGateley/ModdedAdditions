@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions.listeners.customitem;
 
-import org.bukkit.Material;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Lightable;
 import org.bukkit.block.data.Openable;

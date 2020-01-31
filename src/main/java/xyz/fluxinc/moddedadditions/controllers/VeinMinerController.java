@@ -1,10 +1,8 @@
 package xyz.fluxinc.moddedadditions.controllers;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
-import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.ArrayList;
 import java.util.List;
