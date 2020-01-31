@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,14 +38,22 @@ public class ManaController implements Listener, Runnable {
         instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).addCurrentMana(amount));
     }
 
-    public void showManaBar(Player player, int duration) {
+    private void updateManaBar(Player player) {
         if (Bukkit.getServer().getBossBar(playerBars.get(player)) == null) { generateManaBar(player); }
+        BossBar bar = Bukkit.getServer().getBossBar(playerBars.get(player));
+        PlayerData data = instance.getPlayerDataController().getPlayerData(player);
+        bar.setTitle("Mana: " + data.getCurrentMana() + "/" + data.getMaximumMana());
+        bar.setProgress((double) data.getCurrentMana() / (double) data.getMaximumMana());
+    }
+
+    public void showManaBar(Player player, int duration) {
+        showManaBar(player);
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(instance, new ManaBarRunnable(playerBars.get(player)), duration*20);
-        Bukkit.getServer().getBossBar(playerBars.get(player)).setVisible(true);
     }
 
     public void showManaBar(Player player) {
         if (Bukkit.getServer().getBossBar(playerBars.get(player)) == null) { generateManaBar(player); }
+        updateManaBar(player);
         Bukkit.getServer().getBossBar(playerBars.get(player)).setVisible(true);
     }
 
@@ -73,6 +82,7 @@ public class ManaController implements Listener, Runnable {
         KeyedBossBar bossBar = Bukkit.createBossBar(key, "Mana: " + data.getCurrentMana() + "/" + data.getMaximumMana(), BarColor.BLUE, BarStyle.SEGMENTED_10);
         bossBar.setProgress((double) data.getCurrentMana() / (double) data.getMaximumMana());
         bossBar.setVisible(false);
+        bossBar.addPlayer(player);
     }
 
     @Override

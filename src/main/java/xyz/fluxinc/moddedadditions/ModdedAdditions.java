@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions;
 
+import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,6 +29,8 @@ import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.SortChestListener;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
+
+import java.util.Iterator;
 
 public final class ModdedAdditions extends JavaPlugin {
 
@@ -120,6 +123,7 @@ public final class ModdedAdditions extends JavaPlugin {
         // Magic Related Functionality
         manaController = new ManaController(this);
         spellBookController = new SpellBookController(this);
+        getServer().getPluginManager().registerEvents(manaController, this);
 
         // Tell Player Damage Dealt
         //getServer().getPluginManager().registerEvents(new DamageListener(), this);
@@ -146,6 +150,11 @@ public final class ModdedAdditions extends JavaPlugin {
         customRecipeUtils = null;
         playerDataController.saveToDisk();
         playerDataController = null;
+
+        for (Iterator<KeyedBossBar> it = getServer().getBossBars(); it.hasNext(); ) {
+            KeyedBossBar bossBar = it.next();
+            if (bossBar.getKey().getNamespace().equals("moddedadditions")) { getServer().removeBossBar(bossBar.getKey()); }
+        }
 
         HandlerList.unregisterAll(this);
     }
