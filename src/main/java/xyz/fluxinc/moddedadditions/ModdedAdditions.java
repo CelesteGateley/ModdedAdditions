@@ -23,6 +23,7 @@ import xyz.fluxinc.moddedadditions.listeners.chat.PingListener;
 import xyz.fluxinc.moddedadditions.listeners.chat.ResponseListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.LightSaberListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.SonicScrewdriverListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.SpellBookListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
@@ -30,6 +31,7 @@ import xyz.fluxinc.moddedadditions.listeners.inventory.SortChestListener;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
 
+import javax.swing.*;
 import java.util.Iterator;
 
 public final class ModdedAdditions extends JavaPlugin {
@@ -122,8 +124,10 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // Magic Related Functionality
         manaController = new ManaController(this);
+        manaController.initializeAllManaBars();
         spellBookController = new SpellBookController(this);
         getServer().getPluginManager().registerEvents(manaController, this);
+        getServer().getPluginManager().registerEvents(new SpellBookListener(this), this);
 
         // Tell Player Damage Dealt
         //getServer().getPluginManager().registerEvents(new DamageListener(), this);
@@ -150,6 +154,8 @@ public final class ModdedAdditions extends JavaPlugin {
         customRecipeUtils = null;
         playerDataController.saveToDisk();
         playerDataController = null;
+        spellBookController = null;
+        manaController = null;
 
         for (Iterator<KeyedBossBar> it = getServer().getBossBars(); it.hasNext(); ) {
             KeyedBossBar bossBar = it.next();

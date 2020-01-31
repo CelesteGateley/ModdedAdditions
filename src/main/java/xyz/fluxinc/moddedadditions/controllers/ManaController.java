@@ -30,12 +30,22 @@ public class ManaController implements Listener, Runnable {
         instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, this, 100, 100);
     }
 
+    public int getMana(Player player) {
+        return instance.getPlayerDataController().getPlayerData(player).getCurrentMana();
+    }
+
+    public int getMaximumMana(Player player) {
+        return instance.getPlayerDataController().getPlayerData(player).getMaximumMana();
+    }
+
     public void useMana(Player player, int amount) {
         instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).takeCurrentMana(amount));
+        updateManaBar(player);
     }
 
     public void regenerateMana(Player player, int amount) {
         instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).addCurrentMana(amount));
+        updateManaBar(player);
     }
 
     private void updateManaBar(Player player) {
@@ -48,7 +58,7 @@ public class ManaController implements Listener, Runnable {
 
     public void showManaBar(Player player, int duration) {
         showManaBar(player);
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(instance, new ManaBarRunnable(playerBars.get(player)), duration*20);
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(instance, new ManaBarRunnable(player, playerBars.get(player)), duration*20);
     }
 
     public void showManaBar(Player player) {
@@ -75,6 +85,13 @@ public class ManaController implements Listener, Runnable {
         }
     }
 
+    public void initializeAllManaBars() {
+        playerBars = new HashMap<>();
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+            generateManaBar(player);
+        }
+    }
+
     private void generateManaBar(Player player) {
         NamespacedKey key = new NamespacedKey(instance, "mana_bar_" + player.getUniqueId());
         PlayerData data = instance.getPlayerDataController().getPlayerData(player);
@@ -98,6 +115,7 @@ public class ManaController implements Listener, Runnable {
                 if (data.getCurrentMana() % 50 == 0) { showManaBar(player, 5); }
             }
             instance.getPlayerDataController().setPlayerData(player, data);
+            updateManaBar(player);
         }
     }
 }

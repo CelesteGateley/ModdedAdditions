@@ -127,6 +127,9 @@ public class ModdedAdditionsCommand implements CommandExecutor {
             case "sonic":
                 player.getInventory().addItem(instance.getSonicScrewdriverController().generateNewSonic());
                 break;
+            case "spellbook":
+                player.getInventory().addItem(instance.getSpellBookController().generateNewSpellBook());
+                break;
             case "lightsaber":
                 if (type == null) { sendNoColorProvided(sender); break; }
                 switch (type) {

@@ -32,6 +32,17 @@ Iron:       1043
 Gold:       1044
 Diamond:    1045
 
+
+*** MAGIC ***
+
+** SPELLBOOK **
+
+Fireball: 3001
+Teleport: 3002
+Arrows: 3003
+Freeze: 3004
+Heal: 3005
+
 *** STAR WARS ***
 
 ** KYBER CRYSTALS **
