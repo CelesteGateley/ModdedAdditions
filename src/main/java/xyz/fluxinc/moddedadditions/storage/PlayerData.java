@@ -11,20 +11,41 @@ public class PlayerData implements ConfigurationSerializable {
     private boolean sortChests;
     private int currentMana;
     private int maximumMana;
+    private Map<String, Boolean> knownSpells;
 
     public PlayerData() {
         veinMiner = true;
         sortChests = false;
         currentMana = 0;
         maximumMana = 300;
+        initializeSpells();
     }
 
+    @SuppressWarnings("unchecked")
     public PlayerData(Map<String, Object> serializedData) {
         veinMiner = !serializedData.containsKey("veinMiner") || (boolean) serializedData.get("veinMiner");
         sortChests = serializedData.containsKey("sortChests") && (boolean) serializedData.get("sortChests");
         currentMana = serializedData.containsKey("currentMana") ? (int) serializedData.get("currentMana") : 0;
         maximumMana = serializedData.containsKey("maximumMana") ? (int) serializedData.get("maximumMana") : 300;
+        knownSpells = serializedData.containsKey("knownSpells") ? (Map<String, Boolean>) serializedData.get("knownSpells") : new HashMap<>();
+        initializeSpells();
     }
+
+    private void initializeSpells() {
+        if (knownSpells == null) { knownSpells = new HashMap<>(); }
+
+        knownSpells.putIfAbsent("Fireball", false);
+        knownSpells.putIfAbsent("Teleport", false);
+        knownSpells.putIfAbsent("Shoot Arrows", false);
+        knownSpells.putIfAbsent("Heal", false);
+
+    }
+
+    public boolean knowsSpell(String spell) {
+        return knownSpells.getOrDefault(spell, false);
+    }
+
+    public void learnSpell(String spell) { knownSpells.put(spell, true); }
 
     public boolean veinMiner() { return veinMiner; }
 
@@ -61,6 +82,7 @@ public class PlayerData implements ConfigurationSerializable {
         map.put("sortChests", sortChests);
         map.put("currentMana", currentMana);
         map.put("maximumMana", maximumMana);
+        map.put("knownSpells", knownSpells);
         return map;
     }
 }

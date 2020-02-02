@@ -31,8 +31,8 @@ import xyz.fluxinc.moddedadditions.listeners.inventory.SortChestListener;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
 
-import javax.swing.*;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class ModdedAdditions extends JavaPlugin {
 
@@ -62,6 +62,16 @@ public final class ModdedAdditions extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
+        List<KeyedBossBar> bossBars = new ArrayList<>();
+        getServer().getBossBars().forEachRemaining(bossBars::add);
+
+        for (KeyedBossBar bossBar : bossBars) {
+            if (bossBar.getKey().getNamespace().equals("moddedadditions")) {
+                getServer().removeBossBar(bossBar.getKey());
+            }
+        }
+
 
         // Initialize PlayerData
         ConfigurationSerialization.registerClass(PlayerData.class);
@@ -152,15 +162,10 @@ public final class ModdedAdditions extends JavaPlugin {
         areaToolController = null;
         blockAccessController = null;
         customRecipeUtils = null;
-        playerDataController.saveToDisk();
+        if (playerDataController != null) { playerDataController.saveToDisk(); }
         playerDataController = null;
         spellBookController = null;
         manaController = null;
-
-        for (Iterator<KeyedBossBar> it = getServer().getBossBars(); it.hasNext(); ) {
-            KeyedBossBar bossBar = it.next();
-            if (bossBar.getKey().getNamespace().equals("moddedadditions")) { getServer().removeBossBar(bossBar.getKey()); }
-        }
 
         HandlerList.unregisterAll(this);
     }
