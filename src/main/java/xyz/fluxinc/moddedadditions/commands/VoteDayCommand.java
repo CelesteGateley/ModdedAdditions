@@ -64,6 +64,7 @@ public class VoteDayCommand implements CommandExecutor, Listener {
 
     @EventHandler
     public void onSleepEvent(PlayerBedEnterEvent event) {
+        if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) { return; }
         if (activeVote == null) { initiateVote(); }
         activeVote.yesVotes++;
         activeVote.votedPlayers.add(event.getPlayer());
