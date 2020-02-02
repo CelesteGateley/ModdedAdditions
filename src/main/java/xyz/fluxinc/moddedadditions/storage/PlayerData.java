@@ -45,7 +45,9 @@ public class PlayerData implements ConfigurationSerializable {
         return knownSpells.getOrDefault(spell, false);
     }
 
-    public void learnSpell(String spell) { knownSpells.put(spell, true); }
+    public PlayerData learnSpell(String spell) { knownSpells.put(spell, true); return this; }
+
+    public PlayerData setSpell(String spell, boolean value) { knownSpells.put(spell, value); return this; }
 
     public boolean veinMiner() { return veinMiner; }
 

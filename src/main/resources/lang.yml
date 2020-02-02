@@ -28,6 +28,10 @@ mi-spellbook: "&9A book, containing ancient magical knowledge"
 
 # Spellbook Keys
 sb-lockedSpell: "&9You do not possess the knowledge to cast this spell"
+sb-noSubCommand: "&9You must provide a sub-command: learn / unlearn / fillmana"
+sb-noSpellProvided: "&9You must provide a spell: fireball / teleport / arrows / heal"
+sb-unknownSpell: "&9Unrecognized spell: %spell%. Valid spells: fireball / teleport / arrows / heal"
+sb-unknownSubCommand: "&9Unrecognised sub-command: %command%. Valid sub-commands: learn / unlearn / fillmana"
 
 # Veinminer Commands
 vm-unknownSubCommand: "&9Unrecognised sub-command: %command%. Valid sub-commands: add / remove / toggle / save / reload"

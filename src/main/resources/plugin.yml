@@ -12,14 +12,17 @@ commands:
     usage: veinminer <add/remove/save/reload> [tool] [block]
     aliases: [vm, veinm, vminer]
   areatool:
-      usage: areatool <add/remove/save/reload> [tool] [block]
-      aliases: [at, areat, atool]
+    usage: areatool <add/remove/save/reload> [tool] [block]
+    aliases: [at, areat, atool]
   moddedadditions:
     usage: moddedadditions reload
     aliases: [ma, moddeda, madditions, madd, modadd]
   voteday:
     usage: dayvote <yes/no>
     aliases: [dv, dayvote]
+  spellbook:
+    usage: spellbook <learn/unlearn/fillmana> [spell] [player]
+    aliases: [sb, spellb, sbook]
 permissions:
   moddedadditions.*:
     description: Grants all permissions from the plugin
@@ -88,4 +91,22 @@ permissions:
     default: op
   moddedadditions.give.others:
     description: Give custom items to others
+    default: op
+  moddedadditions.fillmana:
+    description: Fill your mana to full
+    default: op
+  moddedadditions.fillmana.others:
+    description: Fill anothers mana to full
+    default: op
+  moddedadditions.spells.learn:
+    description: Learn a spell
+    default: op
+  moddedadditions.spells.unlearn:
+    description: Learn a spell
+    default: op
+  moddedadditions.spells.learn.others:
+    description: Learn a spell
+    default: op
+  moddedadditions.spells.unlearn.others:
+    description: Learn a spell
     default: op

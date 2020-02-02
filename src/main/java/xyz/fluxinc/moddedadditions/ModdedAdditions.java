@@ -138,6 +138,7 @@ public final class ModdedAdditions extends JavaPlugin {
         spellBookController = new SpellBookController(this);
         getServer().getPluginManager().registerEvents(manaController, this);
         getServer().getPluginManager().registerEvents(new SpellBookListener(this), this);
+        getCommand("spellbook").setExecutor(new SpellBookCommand(this));
 
         // Tell Player Damage Dealt
         //getServer().getPluginManager().registerEvents(new DamageListener(), this);

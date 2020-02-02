@@ -33,6 +33,7 @@ public class SpellBookListener implements Listener {
         blockedItem = addLore(new ItemStack(Material.BARRIER), instance.getLanguageManager().getFormattedString("sb-lockedSpell"));
         ItemMeta itemMeta = blockedItem.getItemMeta();
         itemMeta.setDisplayName(ChatColor.WHITE + "Locked Spell");
+        itemMeta.setCustomModelData(1);
         blockedItem.setItemMeta(itemMeta);
     }
 
@@ -40,20 +41,21 @@ public class SpellBookListener implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if (!event.getView().getTitle().equals(INVENTORY_TITLE)) { return; }
         if (event.getClickedInventory() == null || event.getClickedInventory().getSize() != 9) { return; }
+        event.setCancelled(true);
         if (event.getCurrentItem() == null) { return; }
         if (event.getCurrentItem().getItemMeta() == null || !event.getCurrentItem().getItemMeta().hasCustomModelData()) { return; }
-        event.setCancelled(true);
+
 
         if (event.getCurrentItem().getType() == Material.BARRIER) {
             event.getWhoClicked().sendMessage(instance.getLanguageManager().generateMessage("sb-lockedSpell"));
-            return;
-        }
-
-        Player player = (Player) event.getWhoClicked();
-        if (verifySpellBook(player.getInventory().getItemInMainHand())) {
-            instance.getSpellBookController().setSpell(event.getCurrentItem().getItemMeta().getCustomModelData(), player.getInventory().getItemInMainHand());
-        } else if (verifySpellBook(player.getInventory().getItemInOffHand())) {
-            instance.getSpellBookController().setSpell(event.getCurrentItem().getItemMeta().getCustomModelData(), player.getInventory().getItemInOffHand());
+            event.getView().close();
+        } else {
+            Player player = (Player) event.getWhoClicked();
+            if (verifySpellBook(player.getInventory().getItemInMainHand())) {
+                instance.getSpellBookController().setSpell(event.getCurrentItem().getItemMeta().getCustomModelData(), player.getInventory().getItemInMainHand());
+            } else if (verifySpellBook(player.getInventory().getItemInOffHand())) {
+                instance.getSpellBookController().setSpell(event.getCurrentItem().getItemMeta().getCustomModelData(), player.getInventory().getItemInOffHand());
+            }
         }
 
         event.getView().close();
