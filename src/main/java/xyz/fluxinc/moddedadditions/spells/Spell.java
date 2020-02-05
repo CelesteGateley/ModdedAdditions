@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions.spells;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -22,7 +23,13 @@ public abstract class Spell {
 
     public abstract int getCost();
 
-    public abstract void castSpell(Player caster, LivingEntity target);
+    public void castSpell(Player caster, LivingEntity target) {
+        if (getInstance().getManaController().getMana(caster) >= getCost()) {
+            boolean isCast = enactSpell(caster, target);
+            if (isCast) { getInstance().getManaController().useMana(caster, getCost()); }
+        } else { caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1); }
+    }
 
+    public abstract boolean enactSpell(Player caster, LivingEntity target);
 
 }

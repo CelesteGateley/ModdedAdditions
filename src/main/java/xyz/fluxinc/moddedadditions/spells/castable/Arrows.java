@@ -3,6 +3,7 @@ package xyz.fluxinc.moddedadditions.spells.castable;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -27,7 +28,6 @@ public class Arrows extends Spell {
     @Override
     public ItemStack getItemStack(int modelId) {
         ItemStack arrows = addLore(new ItemStack(Material.BOW), "Costs: " + getCost() + " Mana");
-        arrows = addLore(arrows, "Costs: 1 Arrow");
         ItemMeta iMeta = arrows.getItemMeta(); iMeta.setCustomModelData(modelId); iMeta.setDisplayName(ChatColor.WHITE + getName());
         arrows.setItemMeta(iMeta);
         return arrows;
@@ -39,21 +39,11 @@ public class Arrows extends Spell {
     }
 
     @Override
-    public void castSpell(Player caster, LivingEntity target) {
-        if (caster.getInventory().contains(Material.ARROW) && getInstance().getManaController().getMana(caster) >= getCost()) {
-            caster.launchProjectile(Arrow.class);
-            caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 1);
-            getInstance().getManaController().useMana(caster, getCost());
-            takeArrow(caster);
-        } else {caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1); }
+    public boolean enactSpell(Player caster, LivingEntity target) {
+        Arrow arrow = caster.launchProjectile(Arrow.class);
+        arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
+        caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 1);
+        return true;
     }
 
-    private void takeArrow(Player player) {
-        if (player.getInventory().contains(Material.ARROW)) {
-            int slot = player.getInventory().first(Material.ARROW);
-            ItemStack iStack = player.getInventory().getItem(slot);
-            if (iStack.getAmount() == 1) { player.getInventory().setItem(slot, null); }
-            else { iStack.setAmount(iStack.getAmount() - 1); player.getInventory().setItem(slot, iStack); }
-        }
-    }
 }

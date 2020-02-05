@@ -35,11 +35,10 @@ public class Fireball extends Spell {
     }
 
     @Override
-    public void castSpell(Player caster, LivingEntity target) {
-        if (getInstance().getManaController().getMana(caster) >= getCost()) {
-            caster.launchProjectile(org.bukkit.entity.Fireball.class);
-            caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_GHAST_SHOOT, 1, 1);
-            getInstance().getManaController().useMana(caster.getPlayer(), getCost());
-        } else { caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1); }
+    public boolean enactSpell(Player caster, LivingEntity target) {
+        org.bukkit.entity.Fireball fireball = caster.launchProjectile(org.bukkit.entity.Fireball.class);
+        fireball.setYield(2);
+        caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_GHAST_SHOOT, 1, 1);
+        return true;
     }
 }

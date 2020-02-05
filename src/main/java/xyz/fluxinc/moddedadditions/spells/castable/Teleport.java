@@ -36,10 +36,9 @@ public class Teleport extends Spell {
     }
 
     @Override
-    public void castSpell(Player caster, LivingEntity target) {
-        if (getInstance().getManaController().getMana(caster) >= getCost()) {
-            caster.launchProjectile(EnderPearl.class);
-            getInstance().getManaController().useMana(caster, getCost());
-        } else { caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1); }
+    public boolean enactSpell(Player caster, LivingEntity target) {
+        caster.launchProjectile(EnderPearl.class);
+        caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ENDER_PEARL_THROW, 1, 1);
+        return true;
     }
 }

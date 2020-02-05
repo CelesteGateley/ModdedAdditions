@@ -39,15 +39,14 @@ public class Heal extends Spell {
     }
 
     @Override
-    public void castSpell(Player caster, LivingEntity target) {
-        if (getInstance().getManaController().getMana(caster) >= getCost()
-                && target.getHealth() != target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
+    public boolean enactSpell(Player caster, LivingEntity target) {
+        if (target.getHealth() != target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
             if (target.getHealth() > target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() -2)
                     { target.setHealth(target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()); }
             else { target.setHealth(target.getHealth() + 2); }
             target.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, target.getLocation(), 50, 0.5, 1, 0.5);
             target.getWorld().playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
-            getInstance().getManaController().useMana(caster, getCost());
-        } else { caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1); }
+            return true;
+        } else { return false; }
     }
 }
