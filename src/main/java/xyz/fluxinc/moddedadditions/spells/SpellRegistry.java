@@ -22,6 +22,7 @@ public class SpellRegistry {
         technicalNames = new ArrayList<>();
         registryById = new LinkedHashMap<>();
         registryByName = new LinkedHashMap<>();
+        registryToString = new LinkedHashMap<>();
 
         registerAllSpells(instance);
 
@@ -31,6 +32,7 @@ public class SpellRegistry {
         technicalNames = new ArrayList<>();
         registryById = new LinkedHashMap<>();
         registryByName = new LinkedHashMap<>();
+        registryToString = new LinkedHashMap<>();
 
         registerAllSpells(null);
     }
