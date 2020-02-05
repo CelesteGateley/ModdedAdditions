@@ -3,10 +3,7 @@ package xyz.fluxinc.moddedadditions.spells;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.spells.castable.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.SB_KEY_BASE;
@@ -19,8 +16,8 @@ public class SpellRegistry {
 
     public SpellRegistry(ModdedAdditions instance) {
         technicalNames = new ArrayList<>();
-        registryById = new HashMap<>();
-        registryByName = new HashMap<>();
+        registryById = new LinkedHashMap<>();
+        registryByName = new LinkedHashMap<>();
 
         registerAllSpells(instance);
 
@@ -28,8 +25,8 @@ public class SpellRegistry {
 
     public SpellRegistry() {
         technicalNames = new ArrayList<>();
-        registryById = new HashMap<>();
-        registryByName = new HashMap<>();
+        registryById = new LinkedHashMap<>();
+        registryByName = new LinkedHashMap<>();
 
         registerAllSpells(null);
     }
