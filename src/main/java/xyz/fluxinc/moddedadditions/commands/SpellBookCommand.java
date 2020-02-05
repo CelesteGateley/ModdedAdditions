@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SpellBookCommand implements CommandExecutor {
@@ -54,13 +55,8 @@ public class SpellBookCommand implements CommandExecutor {
     }
 
     private void setSpell(Player player, String spell, boolean value) {
-        switch (spell) {
-            case "fireball": spell = "Fireball"; break;
-            case "teleport": spell = "Teleport"; break;
-            case "arrows":   spell = "Shoot Arrows"; break;
-            case "heal":     spell = "Heal"; break;
-            default:         sendInvalidSpell(player, spell); return;
-        }
+        List<String> spells = instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames();
+        if (!spells.contains(spell)) { sendInvalidSpell(player, spell); return; }
         instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).setSpell(spell, value));
     }
 
