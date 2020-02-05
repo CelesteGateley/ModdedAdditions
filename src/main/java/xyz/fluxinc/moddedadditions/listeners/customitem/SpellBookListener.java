@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions.listeners.customitem;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,8 +15,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import static xyz.fluxinc.fluxcore.utils.InventoryUtils.generateDistributedInventory;
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.verifySpellBook;
 
@@ -92,18 +94,15 @@ public class SpellBookListener implements Listener {
 
 
     private Inventory generateSpellInventory(Player player) {
-        Inventory selectSpellScreen = Bukkit.getServer().createInventory(null, 9, INVENTORY_TITLE);
         Map<Integer, Spell> spells = instance.getSpellBookController().getSpellRegistry().getRegistryById();
-        int slot = 0;
+        List<ItemStack> stacks = new ArrayList<>();
         for (Integer key : spells.keySet()) {
             if (instance.getSpellBookController().knowsSpell(player, spells.get(key))) {
-                ItemStack iStack = spells.get(key).getItemStack(key);
-                selectSpellScreen.setItem(slot, iStack);
+                stacks.add(spells.get(key).getItemStack(key));
             } else {
-                selectSpellScreen.setItem(slot, blockedItem);
+                stacks.add(blockedItem);
             }
-            slot += 2;
         }
-        return selectSpellScreen;
+        return generateDistributedInventory(INVENTORY_TITLE, stacks);
     }
 }

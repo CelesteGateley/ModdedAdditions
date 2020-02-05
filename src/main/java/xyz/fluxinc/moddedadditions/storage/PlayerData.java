@@ -1,8 +1,6 @@
 package xyz.fluxinc.moddedadditions.storage;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.spells.SpellRegistry;
 
 import java.util.HashMap;

@@ -110,7 +110,7 @@
         <dependency>
             <groupId>com.github.CelesteMagisteel</groupId>
             <artifactId>FluxCore</artifactId>
-            <version>v1.1.4</version>
+            <version>v1.1.5</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
