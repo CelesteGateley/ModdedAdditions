@@ -93,7 +93,7 @@ public class SpellBookListener implements Listener {
 
     private Inventory generateSpellInventory(Player player) {
         Inventory selectSpellScreen = Bukkit.getServer().createInventory(null, 9, INVENTORY_TITLE);
-        Map<Integer, Spell> spells = instance.getSpellBookController().getAllSpells();
+        Map<Integer, Spell> spells = instance.getSpellBookController().getSpellRegistry().getRegistryById();
         int slot = 0;
         for (Integer key : spells.keySet()) {
             if (instance.getSpellBookController().knowsSpell(player, spells.get(key))) {
