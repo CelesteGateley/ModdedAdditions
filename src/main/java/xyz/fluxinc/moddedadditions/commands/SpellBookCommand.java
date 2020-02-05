@@ -36,6 +36,7 @@ public class SpellBookCommand implements CommandExecutor {
                 if (args[1].equals("*")) {
                     for (String spell : instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames()) {
                         setSpell(target, spell, true);
+                        return true;
                     }
                 }
                 setSpell(target, args[1], true);
@@ -45,6 +46,7 @@ public class SpellBookCommand implements CommandExecutor {
                 if (args[1].equals("*")) {
                     for (String spell : instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames()) {
                         setSpell(target, spell, false);
+                        return true;
                     }
                 }
                 setSpell(target, args[1], false);

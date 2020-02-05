@@ -97,7 +97,7 @@ public class SpellBookListener implements Listener {
         Map<Integer, Spell> spells = instance.getSpellBookController().getSpellRegistry().getRegistryById();
         List<ItemStack> stacks = new ArrayList<>();
         for (Integer key : spells.keySet()) {
-            if (instance.getSpellBookController().knowsSpell(player, spells.get(key))) {
+            if (instance.getSpellBookController().knowsSpell(player, instance.getSpellBookController().getSpellRegistry().getTechnicalName(key))) {
                 stacks.add(spells.get(key).getItemStack(key));
             } else {
                 stacks.add(blockedItem);

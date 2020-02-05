@@ -59,8 +59,8 @@ public class SpellBookController {
         return spellBook;
     }
 
-    public boolean knowsSpell(Player player, Spell spell) {
-        return instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell.getName());
+    public boolean knowsSpell(Player player, String spell) {
+        return instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell);
     }
 
     public Spell getSpell(int modelId) {

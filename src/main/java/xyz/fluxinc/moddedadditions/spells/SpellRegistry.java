@@ -15,6 +15,7 @@ public class SpellRegistry {
 
     private Map<Integer, Spell> registryById;
     private Map<String, Spell> registryByName;
+    private Map<Integer, String> registryToString;
     private List<String> technicalNames;
 
     public SpellRegistry(ModdedAdditions instance) {
@@ -46,6 +47,7 @@ public class SpellRegistry {
         technicalNames.add(technicalName);
         registryByName.put(technicalName, spell);
         registryById.put(modelId, spell);
+        registryToString.put(modelId, technicalName);
     }
 
     public List<String> getAllTechnicalNames() {
@@ -65,4 +67,6 @@ public class SpellRegistry {
     public Map<Integer, Spell> getRegistryById() { return registryById; }
 
     public Map<String, Spell> getRegistryByName() { return registryByName; }
+
+    public String getTechnicalName(int modelId) { return registryToString.getOrDefault(modelId, null); }
 }
