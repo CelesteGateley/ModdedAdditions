@@ -80,23 +80,21 @@ public class SpellBookListener implements Listener {
     @EventHandler
     public void onCastSpell(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) { return; }
-        if (event.getPlayer().isSneaking()) { event.getPlayer().openInventory(generateSpellInventory(event.getPlayer())); }
-        else {
-            if (verifySpellBook(event.getPlayer().getInventory().getItemInOffHand())) {
-                Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInOffHand());
-                spell.castSpell(event.getPlayer(), event.getPlayer());
-            } else if (verifySpellBook(event.getPlayer().getInventory().getItemInMainHand())) {
-                Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInMainHand());
-                spell.castSpell(event.getPlayer(), event.getPlayer());
-            }
+        if (verifySpellBook(event.getPlayer().getInventory().getItemInOffHand())) {
+            if (event.getPlayer().isSneaking()) { event.getPlayer().openInventory(generateSpellInventory(event.getPlayer())); }
+            else { instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInOffHand()).castSpell(event.getPlayer(), event.getPlayer()); }
+        } else if (verifySpellBook(event.getPlayer().getInventory().getItemInMainHand())) {
+            if (event.getPlayer().isSneaking()) { event.getPlayer().openInventory(generateSpellInventory(event.getPlayer())); }
+            else { instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInMainHand()).castSpell(event.getPlayer(), event.getPlayer()); }
         }
+
     }
 
 
     private Inventory generateSpellInventory(Player player) {
         Inventory selectSpellScreen = Bukkit.getServer().createInventory(null, 9, INVENTORY_TITLE);
         Map<Integer, Spell> spells = instance.getSpellBookController().getAllSpells();
-        int slot = 1;
+        int slot = 0;
         for (Integer key : spells.keySet()) {
             if (instance.getSpellBookController().knowsSpell(player, spells.get(key))) {
                 ItemStack iStack = spells.get(key).getItemStack(key);
