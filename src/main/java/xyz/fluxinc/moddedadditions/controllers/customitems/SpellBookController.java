@@ -6,10 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.spells.Spell;
-import xyz.fluxinc.moddedadditions.spells.castable.Arrows;
-import xyz.fluxinc.moddedadditions.spells.castable.Fireball;
-import xyz.fluxinc.moddedadditions.spells.castable.Heal;
-import xyz.fluxinc.moddedadditions.spells.castable.Teleport;
+import xyz.fluxinc.moddedadditions.spells.castable.*;
 
 import java.util.LinkedHashMap;
 import java.util.List;
