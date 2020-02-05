@@ -38,7 +38,7 @@ public class PlayerData implements ConfigurationSerializable {
         knownSpells.putIfAbsent("Teleport", false);
         knownSpells.putIfAbsent("Shoot Arrows", false);
         knownSpells.putIfAbsent("Heal", false);
-        knownSpells.putIfAbsent("Yeet", true);
+        knownSpells.putIfAbsent("Air Jet", true);
 
     }
 

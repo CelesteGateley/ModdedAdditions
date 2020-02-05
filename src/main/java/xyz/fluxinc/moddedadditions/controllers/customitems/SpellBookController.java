@@ -70,6 +70,7 @@ public class SpellBookController {
         spells.put(KEY_BASE + SB_KEY_BASE + 2, new Teleport(instance));
         spells.put(KEY_BASE + SB_KEY_BASE + 3, new Arrows(instance));
         spells.put(KEY_BASE + SB_KEY_BASE + 4, new Heal(instance));
+        spells.put(KEY_BASE + SB_KEY_BASE + 5, new AirJet(instance));
         return spells;
     }
 
