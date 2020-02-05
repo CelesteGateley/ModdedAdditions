@@ -40,8 +40,8 @@ Diamond:    1045
 Fireball: 3001
 Teleport: 3002
 Arrows: 3003
-Freeze: 3004
-Heal: 3005
+Heal: 3004
+AirJet: 3005
 
 *** STAR WARS ***
 
