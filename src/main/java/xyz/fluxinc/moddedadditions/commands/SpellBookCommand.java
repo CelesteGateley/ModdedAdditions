@@ -33,10 +33,20 @@ public class SpellBookCommand implements CommandExecutor {
         switch (args[0]) {
             case "learn":
                 if (args.length < 2) { sendNoSpellProvided(sender); return true; }
+                if (args[1].equals("*")) {
+                    for (String spell : instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames()) {
+                        setSpell(target, spell, true);
+                    }
+                }
                 setSpell(target, args[1], true);
                 return true;
             case "unlearn":
                 if (args.length < 2) { sendNoSpellProvided(sender); return true; }
+                if (args[1].equals("*")) {
+                    for (String spell : instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames()) {
+                        setSpell(target, spell, false);
+                    }
+                }
                 setSpell(target, args[1], false);
                 return true;
             case "fillmana":
