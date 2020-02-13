@@ -6,10 +6,8 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.util.Vector;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.spells.Spell;
-import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
