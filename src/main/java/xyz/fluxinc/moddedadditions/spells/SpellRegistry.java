@@ -43,6 +43,7 @@ public class SpellRegistry {
         registerSpell(new Arrows(instance), "arrows", KEY_BASE + SB_KEY_BASE + 3);
         registerSpell(new Heal(instance), "heal", KEY_BASE + SB_KEY_BASE + 4);
         registerSpell(new AirJet(instance), "airjet", KEY_BASE + SB_KEY_BASE + 5);
+        registerSpell(new FillMana(instance), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
     }
 
     public void registerSpell(Spell spell, String technicalName, int modelId) {
