@@ -46,7 +46,7 @@ public class SpellBookController {
     public ItemStack setSpell(int spellId, ItemStack spellBook) {
         ItemMeta iMeta = spellBook.getItemMeta();
         List<String> lore = iMeta.getLore();
-        Spell spell = spellRegistry.getSpellById(spellBook.getItemMeta().getCustomModelData());
+        Spell spell = spellRegistry.getSpellById(spellId);
         if (lore.size() < 2) {
             lore.add("Current Spell: " + toTitleCase(spell.getName()));
         } else {
