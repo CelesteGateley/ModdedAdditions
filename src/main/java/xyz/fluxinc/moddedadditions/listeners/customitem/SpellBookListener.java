@@ -42,7 +42,7 @@ public class SpellBookListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         if (!event.getView().getTitle().equals(INVENTORY_TITLE)) { return; }
-        if (event.getClickedInventory() == null || event.getClickedInventory().getSize() != 9) { return; }
+        if (event.getClickedInventory() == null) { return; }
         event.setCancelled(true);
         if (event.getCurrentItem() == null) { return; }
         if (event.getCurrentItem().getItemMeta() == null || !event.getCurrentItem().getItemMeta().hasCustomModelData()) { return; }
