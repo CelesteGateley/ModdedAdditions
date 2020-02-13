@@ -66,9 +66,17 @@ public class PlayerData implements ConfigurationSerializable {
 
     public PlayerData setCurrentMana(int currentMana) { this.currentMana = currentMana; return this; }
 
-    public PlayerData addCurrentMana(int currentMana) { this.currentMana += currentMana; return this; }
+    public PlayerData addCurrentMana(int currentMana) {
+        if (this.currentMana + currentMana > this.maximumMana) { this.currentMana = this.maximumMana; }
+        else { this.currentMana += currentMana; }
+        return this;
+    }
 
-    public PlayerData takeCurrentMana(int currentMana) { this.currentMana -= currentMana; return this; }
+    public PlayerData takeCurrentMana(int currentMana) {
+        if (this.currentMana - currentMana < 300) { this.currentMana = 0; }
+        else { this.currentMana -= currentMana; }
+        return this;
+    }
 
     public int getMaximumMana() { return maximumMana; }
 
