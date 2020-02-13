@@ -30,7 +30,7 @@ public class SpellBookController {
         return itemStack.getItemMeta() != null
             && itemStack.getItemMeta().hasCustomModelData()
             && itemStack.getItemMeta().getCustomModelData() > KEY_BASE + SB_KEY_BASE
-            && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + SB_KEY_BASE + 10;
+            && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + SB_KEY_BASE + 1000;
     }
 
     public ItemStack generateNewSpellBook() {
