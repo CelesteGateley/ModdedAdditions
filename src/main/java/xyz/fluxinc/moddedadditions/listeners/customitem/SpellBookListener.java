@@ -2,11 +2,14 @@ package xyz.fluxinc.moddedadditions.listeners.customitem;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.Inventory;
@@ -37,6 +40,27 @@ public class SpellBookListener implements Listener {
         itemMeta.setDisplayName(ChatColor.WHITE + "Locked Spell");
         itemMeta.setCustomModelData(1);
         blockedItem.setItemMeta(itemMeta);
+    }
+
+    @EventHandler
+    public void onInventoryMoveItem(InventoryMoveItemEvent event) {
+        /*
+            Make sure the destination is a player inventory
+            check if main hand or off hand is a spell book and if so show mana bar
+         */
+        if (!event.getDestination().getType().equals(InventoryType.PLAYER)) {return;}
+        if (!(event.getDestination().getHolder() instanceof HumanEntity)) { return; }
+        HumanEntity entity = (HumanEntity) event.getDestination().getHolder();
+        if (!(entity instanceof Player)) { return; }
+        Player player = (Player) entity;
+
+        if (verifySpellBook(player.getInventory().getItemInMainHand())) {
+            instance.getManaController().showManaBar(player);
+        } else if (verifySpellBook(player.getInventory().getItemInOffHand())) {
+            instance.getManaController().showManaBar(player);
+        } else {
+            instance.getManaController().hideManaBar(player);
+        }
     }
 
     @EventHandler
@@ -82,6 +106,7 @@ public class SpellBookListener implements Listener {
     @EventHandler
     public void onCastSpell(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) { return; }
+
         if (verifySpellBook(event.getPlayer().getInventory().getItemInOffHand())) {
             if (event.getPlayer().isSneaking()) { event.getPlayer().openInventory(generateSpellInventory(event.getPlayer())); }
             else { instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInOffHand()).castSpell(event.getPlayer(), event.getPlayer()); }
