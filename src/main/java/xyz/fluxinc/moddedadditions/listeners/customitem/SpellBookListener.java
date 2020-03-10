@@ -1,7 +1,6 @@
 package xyz.fluxinc.moddedadditions.listeners.customitem;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,6 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 
 import java.util.ArrayList;
@@ -141,6 +141,30 @@ public class SpellBookListener implements Listener {
             }
         }
 
+    }
+
+    @EventHandler
+    public void onMakeSpellbook(PlayerInteractEvent event) {
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+            return;
+        }
+        if (event.getClickedBlock() == null || event.getClickedBlock().getType() != Material.BOOKSHELF) {
+            return;
+        }
+        if (event.getItem() == null || event.getItem().getType() != Material.BOOK) {
+            return;
+        }
+        if (SpellBookController.verifySpellBook(event.getItem())) {
+            return;
+        }
+        if (event.getPlayer().getLevel() < 8) {
+            event.getClickedBlock().getWorld().playSound(event.getPlayer().getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
+            return;
+        }
+        World world = event.getClickedBlock().getWorld();
+        world.spawnParticle(Particle.VILLAGER_HAPPY, event.getClickedBlock().getLocation(), 5, 3, 3, 3);
+        event.getPlayer().setLevel(event.getPlayer().getLevel() - 8);
+        event.getPlayer().getInventory().setItemInMainHand(instance.getSpellBookController().generateNewSpellBook());
     }
 
 
