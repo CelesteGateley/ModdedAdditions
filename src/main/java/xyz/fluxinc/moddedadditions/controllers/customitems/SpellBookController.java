@@ -29,23 +29,32 @@ public class SpellBookController {
     public static boolean verifySpellBook(ItemStack itemStack) {
         return itemStack.getItemMeta() != null
             && itemStack.getItemMeta().hasCustomModelData()
-            && itemStack.getItemMeta().getCustomModelData() > KEY_BASE + SB_KEY_BASE
+            && itemStack.getItemMeta().getCustomModelData() >= KEY_BASE + SB_KEY_BASE
             && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + SB_KEY_BASE + 1000;
     }
 
     public ItemStack generateNewSpellBook() {
         ItemStack itemStack = addLore(new ItemStack(Material.BOOK), instance.getLanguageManager().getFormattedString("mi-spellbook"));
-        return setSpell(KEY_BASE + SB_KEY_BASE + 1, itemStack);
+        return setSpell(KEY_BASE + SB_KEY_BASE, itemStack);
     }
 
     public Spell getSpell(ItemStack spellBook) {
         if (!verifySpellBook(spellBook)) { return null; }
+        if (spellBook.getItemMeta().getCustomModelData() == KEY_BASE + SB_KEY_BASE) { return null; }
         return spellRegistry.getSpellById(spellBook.getItemMeta().getCustomModelData());
     }
 
     public ItemStack setSpell(int spellId, ItemStack spellBook) {
         ItemMeta iMeta = spellBook.getItemMeta();
         List<String> lore = iMeta.getLore();
+
+        if (spellId == KEY_BASE + SB_KEY_BASE) {
+            iMeta.setDisplayName("Spellbook");
+            iMeta.setCustomModelData(spellId);
+            spellBook.setItemMeta(iMeta);
+            return spellBook;
+        }
+
         Spell spell = spellRegistry.getSpellById(spellId);
         if (lore.size() < 2) {
             lore.add("Current Spell: " + toTitleCase(spell.getName()));

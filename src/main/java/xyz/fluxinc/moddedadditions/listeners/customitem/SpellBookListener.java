@@ -109,10 +109,20 @@ public class SpellBookListener implements Listener {
 
         if (verifySpellBook(event.getPlayer().getInventory().getItemInOffHand())) {
             if (event.getPlayer().isSneaking()) { event.getPlayer().openInventory(generateSpellInventory(event.getPlayer())); }
-            else { instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInOffHand()).castSpell(event.getPlayer(), event.getPlayer()); }
+            else {
+                Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInOffHand());
+                if (spell != null) {
+                    spell.castSpell(event.getPlayer(), event.getPlayer());
+                }
+            }
         } else if (verifySpellBook(event.getPlayer().getInventory().getItemInMainHand())) {
             if (event.getPlayer().isSneaking()) { event.getPlayer().openInventory(generateSpellInventory(event.getPlayer())); }
-            else { instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInMainHand()).castSpell(event.getPlayer(), event.getPlayer()); }
+            else {
+                Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInMainHand());
+                if (spell != null) {
+                    spell.castSpell(event.getPlayer(), event.getPlayer());
+                }
+            }
         }
 
     }
