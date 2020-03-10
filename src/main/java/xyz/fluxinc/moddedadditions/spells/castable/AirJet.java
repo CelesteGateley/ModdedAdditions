@@ -40,7 +40,7 @@ public class AirJet extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
-        Vector newVector = caster.getEyeLocation().getDirection().multiply(new Vector(1.5, -1.5, 1.5));
+        Vector newVector = caster.getEyeLocation().getDirection().multiply(new Vector(2, -2, 2));
         if (newVector.getY() < 0) {
             newVector.multiply(new Vector(1, -1, 1));
         }
