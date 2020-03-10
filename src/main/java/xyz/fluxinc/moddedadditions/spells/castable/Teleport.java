@@ -1,6 +1,7 @@
 package xyz.fluxinc.moddedadditions.spells.castable;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -41,12 +42,15 @@ public class Teleport extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
-        Block targetBlock = caster.getTargetBlock(null, 50);
+        Block targetBlock = caster.getTargetBlock(null, 100);
         if (targetBlock.getType() == Material.AIR) {
             caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
             return false;
         }
-        caster.teleport(targetBlock.getLocation().add(0, 1, 0));
+        Location targetLocation = targetBlock.getLocation().add(0, 1, 0);
+        targetLocation.setPitch(caster.getLocation().getPitch());
+        targetLocation.setYaw(caster.getLocation().getYaw());
+        caster.teleport(targetLocation);
         caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
         return true;
     }
