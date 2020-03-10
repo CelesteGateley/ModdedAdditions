@@ -47,7 +47,7 @@ public class LightSaberListener implements Listener {
                 && event.getRecipe().getResult().getItemMeta().hasCustomModelData()
                 && event.getRecipe().getResult().getItemMeta().getCustomModelData() == KEY_BASE + LS_KEY_BASE) {
             for (ItemStack item : event.getInventory().getMatrix()) {
-                if (item != null && item.getType().equals(Material.END_CRYSTAL)) {
+                if (item != null && item.getType().equals(Material.EMERALD)) {
                     if (item.getItemMeta() != null && item.getItemMeta().hasCustomModelData()) {
                         if (verifyKyberCrystal(item)){
                             containsKyberCrystal = true;
@@ -63,15 +63,5 @@ public class LightSaberListener implements Listener {
                 event.getInventory().setResult(instance.getLightSaberController().generateNewLightSaber(color));
             }
         }
-    }
-
-    @EventHandler
-    public void onPlayerInteractKyber(PlayerInteractEvent event) {
-        if (event.getItem() == null || event.getItem().getType() != Material.END_CRYSTAL) { return; }
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) { return; }
-        if (event.getClickedBlock() == null || event.getClickedBlock().getType() != Material.BEDROCK) { return; }
-        ItemStack item = event.getItem();
-        if (!verifyKyberCrystal(item)) { return; }
-        event.setCancelled(true);
     }
 }
