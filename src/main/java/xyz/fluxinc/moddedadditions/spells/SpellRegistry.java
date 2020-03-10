@@ -60,7 +60,9 @@ public class SpellRegistry {
 
     public List<Spell> getAllSpells() {
         List<Spell> spells = new ArrayList<>();
-        for (String name : registryByName.keySet()) { spells.add(registryByName.get(name)); }
+        for (String name : registryByName.keySet()) {
+            spells.add(registryByName.get(name));
+        }
         return spells;
     }
 
@@ -68,9 +70,15 @@ public class SpellRegistry {
         return registryById.getOrDefault(modelId, null);
     }
 
-    public Map<Integer, Spell> getRegistryById() { return registryById; }
+    public Map<Integer, Spell> getRegistryById() {
+        return registryById;
+    }
 
-    public Map<String, Spell> getRegistryByName() { return registryByName; }
+    public Map<String, Spell> getRegistryByName() {
+        return registryByName;
+    }
 
-    public String getTechnicalName(int modelId) { return registryToString.getOrDefault(modelId, null); }
+    public String getTechnicalName(int modelId) {
+        return registryToString.getOrDefault(modelId, null);
+    }
 }

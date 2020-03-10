@@ -24,10 +24,8 @@ import static xyz.fluxinc.fluxcore.utils.BlockUtils.getVMBlockList;
 @SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class CropHarvestListener implements Listener {
 
-    private ModdedAdditions instance;
-    private int blockLimit;
-
     private static List<Material> crops;
+    private static List<Material> tallCrops;
 
     static {
         crops = new ArrayList<>();
@@ -39,14 +37,15 @@ public class CropHarvestListener implements Listener {
         crops.add(Material.COCOA);
     }
 
-    private static List<Material> tallCrops;
-
     static {
         tallCrops = new ArrayList<>();
         tallCrops.add(Material.BAMBOO);
         tallCrops.add(Material.CACTUS);
         tallCrops.add(Material.SUGAR_CANE);
     }
+
+    private ModdedAdditions instance;
+    private int blockLimit;
 
     public CropHarvestListener(ModdedAdditions pluginInstance, int blockLimit) {
         this.instance = pluginInstance;

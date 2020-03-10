@@ -15,7 +15,9 @@ public abstract class Spell {
         this.instance = instance;
     }
 
-    public ModdedAdditions getInstance() { return instance; }
+    public ModdedAdditions getInstance() {
+        return instance;
+    }
 
     public abstract String getName();
 
@@ -26,8 +28,12 @@ public abstract class Spell {
     public void castSpell(Player caster, LivingEntity target) {
         if (getInstance().getManaController().getMana(caster) >= getCost()) {
             boolean isCast = enactSpell(caster, target);
-            if (isCast) { getInstance().getManaController().useMana(caster, getCost()); }
-        } else { caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1); }
+            if (isCast) {
+                getInstance().getManaController().useMana(caster, getCost());
+            }
+        } else {
+            caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
+        }
     }
 
     public abstract boolean enactSpell(Player caster, LivingEntity target);

@@ -26,7 +26,9 @@ public class Smite extends Spell {
     @Override
     public ItemStack getItemStack(int modelId) {
         ItemStack smite = addLore(new ItemStack(Material.TRIDENT), "Costs: " + getCost() + " Mana");
-        ItemMeta iMeta = smite.getItemMeta(); iMeta.setCustomModelData(modelId); iMeta.setDisplayName(ChatColor.WHITE + getName());
+        ItemMeta iMeta = smite.getItemMeta();
+        iMeta.setCustomModelData(modelId);
+        iMeta.setDisplayName(ChatColor.WHITE + getName());
         smite.setItemMeta(iMeta);
         return smite;
     }

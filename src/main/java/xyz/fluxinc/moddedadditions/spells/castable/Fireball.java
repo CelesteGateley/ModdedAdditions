@@ -14,7 +14,9 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Fireball extends Spell {
 
-    public Fireball(ModdedAdditions instance) { super(instance); }
+    public Fireball(ModdedAdditions instance) {
+        super(instance);
+    }
 
     @Override
     public String getName() {
@@ -24,7 +26,9 @@ public class Fireball extends Spell {
     @Override
     public ItemStack getItemStack(int modelId) {
         ItemStack fireball = addLore(new ItemStack(Material.FIRE_CHARGE), "Costs: " + getCost() + " Mana");
-        ItemMeta iMeta = fireball.getItemMeta(); iMeta.setCustomModelData(modelId); iMeta.setDisplayName(ChatColor.WHITE + getName());
+        ItemMeta iMeta = fireball.getItemMeta();
+        iMeta.setCustomModelData(modelId);
+        iMeta.setDisplayName(ChatColor.WHITE + getName());
         fireball.setItemMeta(iMeta);
         return fireball;
     }

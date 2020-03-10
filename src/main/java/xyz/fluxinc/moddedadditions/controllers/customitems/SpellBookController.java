@@ -16,9 +16,9 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 
 public class SpellBookController {
 
+    public static final int SB_KEY_BASE = 3000;
     private ModdedAdditions instance;
     private SpellRegistry spellRegistry;
-    public static final int SB_KEY_BASE = 3000;
 
     public SpellBookController(ModdedAdditions instance) {
         this.instance = instance;
@@ -28,9 +28,9 @@ public class SpellBookController {
 
     public static boolean verifySpellBook(ItemStack itemStack) {
         return itemStack.getItemMeta() != null
-            && itemStack.getItemMeta().hasCustomModelData()
-            && itemStack.getItemMeta().getCustomModelData() >= KEY_BASE + SB_KEY_BASE
-            && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + SB_KEY_BASE + 1000;
+                && itemStack.getItemMeta().hasCustomModelData()
+                && itemStack.getItemMeta().getCustomModelData() >= KEY_BASE + SB_KEY_BASE
+                && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + SB_KEY_BASE + 1000;
     }
 
     public ItemStack generateNewSpellBook() {
@@ -39,8 +39,12 @@ public class SpellBookController {
     }
 
     public Spell getSpell(ItemStack spellBook) {
-        if (!verifySpellBook(spellBook)) { return null; }
-        if (spellBook.getItemMeta().getCustomModelData() == KEY_BASE + SB_KEY_BASE) { return null; }
+        if (!verifySpellBook(spellBook)) {
+            return null;
+        }
+        if (spellBook.getItemMeta().getCustomModelData() == KEY_BASE + SB_KEY_BASE) {
+            return null;
+        }
         return spellRegistry.getSpellById(spellBook.getItemMeta().getCustomModelData());
     }
 

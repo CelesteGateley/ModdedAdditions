@@ -15,7 +15,9 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Teleport extends Spell {
 
-    public Teleport(ModdedAdditions instance) { super(instance); }
+    public Teleport(ModdedAdditions instance) {
+        super(instance);
+    }
 
     @Override
     public String getName() {
@@ -25,7 +27,9 @@ public class Teleport extends Spell {
     @Override
     public ItemStack getItemStack(int modelId) {
         ItemStack teleport = addLore(new ItemStack(Material.ENDER_PEARL), "Costs: " + getCost() + " Mana");
-        ItemMeta iMeta = teleport.getItemMeta(); iMeta.setCustomModelData(modelId); iMeta.setDisplayName(ChatColor.WHITE + getName());
+        ItemMeta iMeta = teleport.getItemMeta();
+        iMeta.setCustomModelData(modelId);
+        iMeta.setDisplayName(ChatColor.WHITE + getName());
         teleport.setItemMeta(iMeta);
         return teleport;
     }

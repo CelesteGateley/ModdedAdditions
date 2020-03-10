@@ -30,10 +30,14 @@ public class VeinMinerListener implements Listener {
     @EventHandler
     public void blockBreakListener(BlockBreakEvent event) {
         if (!event.getPlayer().isSneaking()) return;
-        if (event.getPlayer().getGameMode() == GameMode.CREATIVE && !instance.getVeinMinerController().getAllowInCreative()) return;
-        if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), event.getBlock().getType())) return;
+        if (event.getPlayer().getGameMode() == GameMode.CREATIVE && !instance.getVeinMinerController().getAllowInCreative())
+            return;
+        if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), event.getBlock().getType()))
+            return;
         PlayerData playerData = instance.getPlayerDataController().getPlayerData(event.getPlayer());
-        if (!playerData.veinMiner()) { return; }
+        if (!playerData.veinMiner()) {
+            return;
+        }
 
         ItemStack mainHandItem = event.getPlayer().getInventory().getItemInMainHand();
         Material toolMat = mainHandItem.getType();
@@ -68,7 +72,9 @@ public class VeinMinerListener implements Listener {
                 blocksBroken++;
                 CoreProtectLogger.logBlockBreak(player, b);
                 b.breakNaturally(tool);
-                if (remainingDurability - blocksBroken < 1) { break; }
+                if (remainingDurability - blocksBroken < 1) {
+                    break;
+                }
             }
         }
         takeDurability(player, toolUsed, blocksBroken);

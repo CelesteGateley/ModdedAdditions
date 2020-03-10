@@ -12,7 +12,9 @@ public class PingListener implements Listener {
 
     @EventHandler
     public void onChatMessage(AsyncPlayerChatEvent event) {
-        if (!event.getMessage().contains("@")) { return; }
+        if (!event.getMessage().contains("@")) {
+            return;
+        }
 
         Player p = null;
 
@@ -23,7 +25,9 @@ public class PingListener implements Listener {
             }
         }
 
-        if (p != null) { p.playSound(p.getLocation(), Sound.BLOCK_BELL_USE, 10, 1);  }
+        if (p != null) {
+            p.playSound(p.getLocation(), Sound.BLOCK_BELL_USE, 10, 1);
+        }
     }
 
 }

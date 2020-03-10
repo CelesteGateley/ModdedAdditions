@@ -20,19 +20,31 @@ public class SpellBookCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length < 1) { sendNoSubCommand(sender); return true;}
+        if (args.length < 1) {
+            sendNoSubCommand(sender);
+            return true;
+        }
         Player target;
         if (args.length == 3) {
             Player player = instance.getServer().getPlayer(args[2]);
-            if (player == null) { sendUnknownPlayer(sender, args[2]); return true; }
+            if (player == null) {
+                sendUnknownPlayer(sender, args[2]);
+                return true;
+            }
             target = player;
         } else {
-            if (!(sender instanceof Player)) { sendMustBePlayer(sender); return true;}
+            if (!(sender instanceof Player)) {
+                sendMustBePlayer(sender);
+                return true;
+            }
             target = (Player) sender;
         }
         switch (args[0]) {
             case "learn":
-                if (args.length < 2) { sendNoSpellProvided(sender); return true; }
+                if (args.length < 2) {
+                    sendNoSpellProvided(sender);
+                    return true;
+                }
                 if (args[1].equals("*")) {
                     for (String spell : instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames()) {
                         setSpell(target, spell, true);
@@ -42,7 +54,10 @@ public class SpellBookCommand implements CommandExecutor {
                 setSpell(target, args[1], true);
                 return true;
             case "unlearn":
-                if (args.length < 2) { sendNoSpellProvided(sender); return true; }
+                if (args.length < 2) {
+                    sendNoSpellProvided(sender);
+                    return true;
+                }
                 if (args[1].equals("*")) {
                     for (String spell : instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames()) {
                         setSpell(target, spell, false);
@@ -54,7 +69,10 @@ public class SpellBookCommand implements CommandExecutor {
             case "fillmana":
                 if (args.length == 2) {
                     Player player = instance.getServer().getPlayer(args[1]);
-                    if (player == null) { sendUnknownPlayer(sender, args[1]); return true; }
+                    if (player == null) {
+                        sendUnknownPlayer(sender, args[1]);
+                        return true;
+                    }
                     target = player;
                 }
                 instance.getManaController().regenerateMana(target,
@@ -68,7 +86,10 @@ public class SpellBookCommand implements CommandExecutor {
 
     private void setSpell(Player player, String spell, boolean value) {
         List<String> spells = instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames();
-        if (!spells.contains(spell)) { sendInvalidSpell(player, spell); return; }
+        if (!spells.contains(spell)) {
+            sendInvalidSpell(player, spell);
+            return;
+        }
         instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).setSpell(spell, value));
     }
 

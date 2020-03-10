@@ -21,18 +21,25 @@ public class SortChestListener implements Listener {
 
     @EventHandler
     public void onOpenInventoryEvent(PlayerInteractEvent event) {
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getClickedBlock() == null) { return; }
-        if (event.getClickedBlock().getType() != Material.CHEST) { return; }
-        if (!(instance.getPlayerDataController().getPlayerData(event.getPlayer()).sortChests())) { return; }
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getClickedBlock() == null) {
+            return;
+        }
+        if (event.getClickedBlock().getType() != Material.CHEST) {
+            return;
+        }
+        if (!(instance.getPlayerDataController().getPlayerData(event.getPlayer()).sortChests())) {
+            return;
+        }
         Chest chest = (Chest) event.getClickedBlock().getState();
         ItemStack[] sorted = sortItemStacks(chest.getInventory().getContents());
         chest.getInventory().clear();
         for (ItemStack itemStack : sorted) {
-            if (itemStack == null) { continue; }
+            if (itemStack == null) {
+                continue;
+            }
             chest.getInventory().addItem(itemStack);
         }
     }
-
 
 
 }

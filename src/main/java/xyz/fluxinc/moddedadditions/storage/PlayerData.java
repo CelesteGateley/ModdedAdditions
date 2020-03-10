@@ -33,7 +33,9 @@ public class PlayerData implements ConfigurationSerializable {
     }
 
     private void initializeSpells() {
-        if (knownSpells == null) { knownSpells = new HashMap<>(); }
+        if (knownSpells == null) {
+            knownSpells = new HashMap<>();
+        }
 
         SpellRegistry registry = new SpellRegistry();
         for (String spell : registry.getAllTechnicalNames()) {
@@ -46,45 +48,89 @@ public class PlayerData implements ConfigurationSerializable {
         return knownSpells.getOrDefault(spell, false);
     }
 
-    public PlayerData learnSpell(String spell) { knownSpells.put(spell, true); return this; }
+    public PlayerData learnSpell(String spell) {
+        knownSpells.put(spell, true);
+        return this;
+    }
 
-    public PlayerData setSpell(String spell, boolean value) { knownSpells.put(spell, value); return this; }
+    public PlayerData setSpell(String spell, boolean value) {
+        knownSpells.put(spell, value);
+        return this;
+    }
 
-    public boolean veinMiner() { return veinMiner; }
+    public boolean veinMiner() {
+        return veinMiner;
+    }
 
-    public PlayerData setVeinMiner(boolean veinMiner) { this.veinMiner = veinMiner; return this; }
+    public PlayerData setVeinMiner(boolean veinMiner) {
+        this.veinMiner = veinMiner;
+        return this;
+    }
 
-    public PlayerData toggleVeinMiner() { veinMiner = !veinMiner; return this; }
+    public PlayerData toggleVeinMiner() {
+        veinMiner = !veinMiner;
+        return this;
+    }
 
-    public boolean sortChests() { return sortChests; }
+    public boolean sortChests() {
+        return sortChests;
+    }
 
-    public PlayerData setSortChests(boolean sortChests) { this.sortChests = sortChests; return this; }
+    public PlayerData setSortChests(boolean sortChests) {
+        this.sortChests = sortChests;
+        return this;
+    }
 
-    public PlayerData toggleSortChests() { sortChests = !sortChests; return this; }
+    public PlayerData toggleSortChests() {
+        sortChests = !sortChests;
+        return this;
+    }
 
-    public int getCurrentMana() { return currentMana; }
+    public int getCurrentMana() {
+        return currentMana;
+    }
 
-    public PlayerData setCurrentMana(int currentMana) { this.currentMana = currentMana; return this; }
+    public PlayerData setCurrentMana(int currentMana) {
+        this.currentMana = currentMana;
+        return this;
+    }
 
     public PlayerData addCurrentMana(int mana) {
-        if (this.currentMana + mana > this.maximumMana) { this.currentMana = this.maximumMana; }
-        else { this.currentMana += mana; }
+        if (this.currentMana + mana > this.maximumMana) {
+            this.currentMana = this.maximumMana;
+        } else {
+            this.currentMana += mana;
+        }
         return this;
     }
 
     public PlayerData takeCurrentMana(int mana) {
-        if (this.currentMana - mana < 0) { this.currentMana = 0; }
-        else { this.currentMana -= mana; }
+        if (this.currentMana - mana < 0) {
+            this.currentMana = 0;
+        } else {
+            this.currentMana -= mana;
+        }
         return this;
     }
 
-    public int getMaximumMana() { return maximumMana; }
+    public int getMaximumMana() {
+        return maximumMana;
+    }
 
-    public PlayerData setMaximumMana(int maximumMana) { this.maximumMana = maximumMana; return this; }
+    public PlayerData setMaximumMana(int maximumMana) {
+        this.maximumMana = maximumMana;
+        return this;
+    }
 
-    public PlayerData addMaximumMana(int maximumMana) { this.maximumMana += maximumMana; return this; }
+    public PlayerData addMaximumMana(int maximumMana) {
+        this.maximumMana += maximumMana;
+        return this;
+    }
 
-    public PlayerData takeMaximumMana(int maximumMana) { this.maximumMana -= maximumMana; return this; }
+    public PlayerData takeMaximumMana(int maximumMana) {
+        this.maximumMana -= maximumMana;
+        return this;
+    }
 
     @Override
     public Map<String, Object> serialize() {

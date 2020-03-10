@@ -28,7 +28,9 @@ public class Heal extends Spell {
     @Override
     public ItemStack getItemStack(int modelId) {
         ItemStack heal = addLore(new ItemStack(Material.GOLDEN_APPLE), "Costs: " + getCost() + " Mana");
-        ItemMeta iMeta = heal.getItemMeta(); iMeta.setCustomModelData(modelId); iMeta.setDisplayName(ChatColor.WHITE + getName());
+        ItemMeta iMeta = heal.getItemMeta();
+        iMeta.setCustomModelData(modelId);
+        iMeta.setDisplayName(ChatColor.WHITE + getName());
         heal.setItemMeta(iMeta);
         return heal;
     }
@@ -41,12 +43,16 @@ public class Heal extends Spell {
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         if (target.getHealth() != target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
-            if (target.getHealth() > target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() -2)
-                    { target.setHealth(target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()); }
-            else { target.setHealth(target.getHealth() + 2); }
+            if (target.getHealth() > target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() - 2) {
+                target.setHealth(target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+            } else {
+                target.setHealth(target.getHealth() + 2);
+            }
             target.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, target.getLocation(), 50, 0.5, 1, 0.5);
             target.getWorld().playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
             return true;
-        } else { return false; }
+        } else {
+            return false;
+        }
     }
 }

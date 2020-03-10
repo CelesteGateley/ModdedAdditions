@@ -26,7 +26,9 @@ public class AirJet extends Spell {
     @Override
     public ItemStack getItemStack(int modelId) {
         ItemStack yeet = addLore(new ItemStack(Material.FEATHER), "Costs: " + getCost() + " Mana");
-        ItemMeta iMeta = yeet.getItemMeta(); iMeta.setCustomModelData(modelId); iMeta.setDisplayName(ChatColor.WHITE + getName());
+        ItemMeta iMeta = yeet.getItemMeta();
+        iMeta.setCustomModelData(modelId);
+        iMeta.setDisplayName(ChatColor.WHITE + getName());
         yeet.setItemMeta(iMeta);
         return yeet;
     }
@@ -39,7 +41,9 @@ public class AirJet extends Spell {
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         Vector newVector = caster.getEyeLocation().getDirection().multiply(new Vector(1.5, -1.5, 1.5));
-        if (newVector.getY() < 0) { newVector.multiply(new Vector(1, -1, 1)); }
+        if (newVector.getY() < 0) {
+            newVector.multiply(new Vector(1, -1, 1));
+        }
         caster.setVelocity(newVector);
         return true;
     }

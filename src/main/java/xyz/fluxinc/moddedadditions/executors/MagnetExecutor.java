@@ -21,7 +21,9 @@ public class MagnetExecutor extends CheckExecutor {
     }
 
     @Override
-    public Material getMaterial() { return instance.getMagnetController().getMagnetMaterial(); }
+    public Material getMaterial() {
+        return instance.getMagnetController().getMagnetMaterial();
+    }
 
     @Override
     public void executeIfTrue(Player player) {
@@ -32,8 +34,12 @@ public class MagnetExecutor extends CheckExecutor {
     }
 
     @Override
-    public void executeIfFalse(Player player) { instance.getMagnetController().deregisterVacuumInstance(player); }
+    public void executeIfFalse(Player player) {
+        instance.getMagnetController().deregisterVacuumInstance(player);
+    }
 
     @Override
-    public void removeOnLeave(Player player) { executeIfFalse(player); }
+    public void removeOnLeave(Player player) {
+        executeIfFalse(player);
+    }
 }

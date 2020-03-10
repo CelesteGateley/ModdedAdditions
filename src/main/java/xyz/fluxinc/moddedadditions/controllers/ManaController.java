@@ -49,7 +49,9 @@ public class ManaController implements Listener, Runnable {
     }
 
     private void updateManaBar(Player player) {
-        if (Bukkit.getServer().getBossBar(playerBars.get(player)) == null) { generateManaBar(player); }
+        if (Bukkit.getServer().getBossBar(playerBars.get(player)) == null) {
+            generateManaBar(player);
+        }
         BossBar bar = Bukkit.getServer().getBossBar(playerBars.get(player));
         PlayerData data = instance.getPlayerDataController().getPlayerData(player);
         bar.setTitle("Mana: " + data.getCurrentMana() + "/" + data.getMaximumMana());
@@ -58,17 +60,21 @@ public class ManaController implements Listener, Runnable {
 
     public void showManaBar(Player player, int duration) {
         showManaBar(player);
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(instance, new ManaBarRunnable(player, playerBars.get(player)), duration*20);
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(instance, new ManaBarRunnable(player, playerBars.get(player)), duration * 20);
     }
 
     public void showManaBar(Player player) {
-        if (Bukkit.getServer().getBossBar(playerBars.get(player)) == null) { generateManaBar(player); }
+        if (Bukkit.getServer().getBossBar(playerBars.get(player)) == null) {
+            generateManaBar(player);
+        }
         updateManaBar(player);
         Bukkit.getServer().getBossBar(playerBars.get(player)).setVisible(true);
     }
 
     public void hideManaBar(Player player) {
-        if (Bukkit.getServer().getBossBar(playerBars.get(player)) == null) { generateManaBar(player); }
+        if (Bukkit.getServer().getBossBar(playerBars.get(player)) == null) {
+            generateManaBar(player);
+        }
         Bukkit.getServer().getBossBar(playerBars.get(player)).setVisible(false);
     }
 
@@ -106,13 +112,16 @@ public class ManaController implements Listener, Runnable {
     public void run() {
         for (Player player : instance.getServer().getOnlinePlayers()) {
             PlayerData data = instance.getPlayerDataController().getPlayerData(player);
-            if (data.getCurrentMana() >= data.getMaximumMana()) { data.setCurrentMana(data.getMaximumMana()); }
-            else if (data.getMaximumMana() - data.getCurrentMana() < 5) {
+            if (data.getCurrentMana() >= data.getMaximumMana()) {
+                data.setCurrentMana(data.getMaximumMana());
+            } else if (data.getMaximumMana() - data.getCurrentMana() < 5) {
                 data.setCurrentMana(data.getMaximumMana());
                 showManaBar(player, 10);
             } else {
                 data.addCurrentMana(5);
-                if (data.getCurrentMana() % 50 == 0) { showManaBar(player, 5); }
+                if (data.getCurrentMana() % 50 == 0) {
+                    showManaBar(player, 5);
+                }
             }
             instance.getPlayerDataController().setPlayerData(player, data);
             updateManaBar(player);

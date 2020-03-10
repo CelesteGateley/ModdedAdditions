@@ -28,9 +28,8 @@ import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookContr
 
 public class SpellBookListener implements Listener {
 
-    private ModdedAdditions instance;
-
     private static final String INVENTORY_TITLE = "Select Spell";
+    private ModdedAdditions instance;
     private ItemStack blockedItem;
 
     public SpellBookListener(ModdedAdditions instance) {
@@ -48,10 +47,16 @@ public class SpellBookListener implements Listener {
             Make sure the destination is a player inventory
             check if main hand or off hand is a spell book and if so show mana bar
          */
-        if (!event.getDestination().getType().equals(InventoryType.PLAYER)) {return;}
-        if (!(event.getDestination().getHolder() instanceof HumanEntity)) { return; }
+        if (!event.getDestination().getType().equals(InventoryType.PLAYER)) {
+            return;
+        }
+        if (!(event.getDestination().getHolder() instanceof HumanEntity)) {
+            return;
+        }
         HumanEntity entity = (HumanEntity) event.getDestination().getHolder();
-        if (!(entity instanceof Player)) { return; }
+        if (!(entity instanceof Player)) {
+            return;
+        }
         Player player = (Player) entity;
 
         if (verifySpellBook(player.getInventory().getItemInMainHand())) {
@@ -65,11 +70,19 @@ public class SpellBookListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if (!event.getView().getTitle().equals(INVENTORY_TITLE)) { return; }
-        if (event.getClickedInventory() == null) { return; }
+        if (!event.getView().getTitle().equals(INVENTORY_TITLE)) {
+            return;
+        }
+        if (event.getClickedInventory() == null) {
+            return;
+        }
         event.setCancelled(true);
-        if (event.getCurrentItem() == null) { return; }
-        if (event.getCurrentItem().getItemMeta() == null || !event.getCurrentItem().getItemMeta().hasCustomModelData()) { return; }
+        if (event.getCurrentItem() == null) {
+            return;
+        }
+        if (event.getCurrentItem().getItemMeta() == null || !event.getCurrentItem().getItemMeta().hasCustomModelData()) {
+            return;
+        }
 
 
         if (event.getCurrentItem().getType() == Material.BARRIER) {
@@ -97,27 +110,30 @@ public class SpellBookListener implements Listener {
         } else if (event.getPlayer().getInventory().getItemInOffHand() != null
                 && verifySpellBook(event.getPlayer().getInventory().getItemInOffHand())) {
             instance.getManaController().showManaBar(event.getPlayer());
-        }
-        else {
+        } else {
             instance.getManaController().hideManaBar(event.getPlayer());
         }
     }
 
     @EventHandler
     public void onCastSpell(PlayerInteractEvent event) {
-        if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) { return; }
+        if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+            return;
+        }
 
         if (verifySpellBook(event.getPlayer().getInventory().getItemInOffHand())) {
-            if (event.getPlayer().isSneaking()) { event.getPlayer().openInventory(generateSpellInventory(event.getPlayer())); }
-            else {
+            if (event.getPlayer().isSneaking()) {
+                event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
+            } else {
                 Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInOffHand());
                 if (spell != null) {
                     spell.castSpell(event.getPlayer(), event.getPlayer());
                 }
             }
         } else if (verifySpellBook(event.getPlayer().getInventory().getItemInMainHand())) {
-            if (event.getPlayer().isSneaking()) { event.getPlayer().openInventory(generateSpellInventory(event.getPlayer())); }
-            else {
+            if (event.getPlayer().isSneaking()) {
+                event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
+            } else {
                 Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInMainHand());
                 if (spell != null) {
                     spell.castSpell(event.getPlayer(), event.getPlayer());

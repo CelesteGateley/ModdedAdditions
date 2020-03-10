@@ -18,12 +18,10 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 public class MagnetController {
 
     private static final int MAGNET_MODEL_KEY = KEY_BASE + 9001;
-
+    private static final Material MAGNET_MATERIAL = Material.IRON_NUGGET;
     private BukkitScheduler taskScheduler;
     private ModdedAdditions instance;
     private Map<Player, Integer> vacuumInstances;
-
-    private static final Material MAGNET_MATERIAL = Material.IRON_NUGGET;
 
     public MagnetController(ModdedAdditions instance) {
         this.instance = instance;
@@ -31,7 +29,9 @@ public class MagnetController {
         vacuumInstances = new HashMap<>();
     }
 
-    public Material getMagnetMaterial() { return MAGNET_MATERIAL; }
+    public Material getMagnetMaterial() {
+        return MAGNET_MATERIAL;
+    }
 
     public boolean isMagnet(ItemStack item) {
         return item != null
@@ -41,7 +41,9 @@ public class MagnetController {
                 && item.getItemMeta().getCustomModelData() == MAGNET_MODEL_KEY;
     }
 
-    public boolean hasVacuumInstance(Player player) { return vacuumInstances.containsKey(player); }
+    public boolean hasVacuumInstance(Player player) {
+        return vacuumInstances.containsKey(player);
+    }
 
     public ItemStack generateNewMagnet() {
         ItemStack magnet = addLore(new ItemStack(MAGNET_MATERIAL), instance.getLanguageManager().getFormattedString("mi-magnet"));
@@ -68,10 +70,10 @@ public class MagnetController {
 
     public boolean verifyOldMagnet(ItemStack item) {
         return item != null
-            && item.getType() == Material.COMPASS
-            && item.getItemMeta() != null
-            && item.getItemMeta().getLore() != null
-            && item.getItemMeta().getLore().contains(instance.getLanguageManager().getFormattedString("mi-magnet"));
+                && item.getType() == Material.COMPASS
+                && item.getItemMeta() != null
+                && item.getItemMeta().getLore() != null
+                && item.getItemMeta().getLore().contains(instance.getLanguageManager().getFormattedString("mi-magnet"));
     }
 
     public ItemStack updateOldMagnet(ItemStack itemStack) {

@@ -15,7 +15,9 @@ public class AreaToolCommand implements CommandExecutor {
     private ModdedAdditions instance;
 
 
-    public AreaToolCommand(ModdedAdditions instance) { this.instance = instance; }
+    public AreaToolCommand(ModdedAdditions instance) {
+        this.instance = instance;
+    }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
@@ -31,10 +33,16 @@ public class AreaToolCommand implements CommandExecutor {
                     return true;
                 }
 
-                if (arguments.length < 2) { sendNoToolProvided(commandSender); return true; }
+                if (arguments.length < 2) {
+                    sendNoToolProvided(commandSender);
+                    return true;
+                }
 
                 // Check if the sender provided a block
-                if (arguments.length < 3) { sendNoBlockProvided(commandSender); return true; }
+                if (arguments.length < 3) {
+                    sendNoBlockProvided(commandSender);
+                    return true;
+                }
                 Material block;
                 try {
                     block = Material.valueOf(arguments[2].toUpperCase());
@@ -63,10 +71,16 @@ public class AreaToolCommand implements CommandExecutor {
                     return true;
                 }
 
-                if (arguments.length < 2) { sendNoToolProvided(commandSender); return true; }
+                if (arguments.length < 2) {
+                    sendNoToolProvided(commandSender);
+                    return true;
+                }
 
                 // Check if the sender provided a block
-                if (arguments.length < 3) { sendNoBlockProvided(commandSender); return true; }
+                if (arguments.length < 3) {
+                    sendNoBlockProvided(commandSender);
+                    return true;
+                }
                 Material removeBlock;
                 try {
                     removeBlock = Material.valueOf(arguments[2].toUpperCase());

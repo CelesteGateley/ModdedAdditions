@@ -19,16 +19,23 @@ public class ModdedAdditionsCommand implements CommandExecutor {
     public ModdedAdditionsCommand(ModdedAdditions instance) {
         this.instance = instance;
     }
+
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
-        if (arguments.length < 1) { sendNoSubCommand(commandSender); return true; }
+        if (arguments.length < 1) {
+            sendNoSubCommand(commandSender);
+            return true;
+        }
         switch (arguments[0].toLowerCase()) {
             case "sort":
                 if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.sort")) {
                     sendPermissionDenied(commandSender);
                     return true;
                 }
-                if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
+                if (!(commandSender instanceof Player)) {
+                    sendMustBePlayer(commandSender);
+                    return true;
+                }
                 PlayerData data = instance.getPlayerDataController().getPlayerData((Player) commandSender);
                 data.toggleSortChests();
                 sendSortInventory((Player) commandSender, data.sortChests());
@@ -39,8 +46,14 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                     sendPermissionDenied(commandSender);
                     return true;
                 }
-                if (arguments.length < 2) { sendNoItemProvided(commandSender); return true; }
-                if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
+                if (arguments.length < 2) {
+                    sendNoItemProvided(commandSender);
+                    return true;
+                }
+                if (!(commandSender instanceof Player)) {
+                    sendMustBePlayer(commandSender);
+                    return true;
+                }
                 if (arguments.length < 3) {
                     giveItem(commandSender, arguments[1], null, (Player) commandSender);
                 } else {
@@ -52,14 +65,26 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                     sendPermissionDenied(commandSender);
                     return true;
                 }
-                if (arguments.length < 2) { sendNoPlayerProvided(commandSender); return true; }
+                if (arguments.length < 2) {
+                    sendNoPlayerProvided(commandSender);
+                    return true;
+                }
                 Player recipient = instance.getServer().getPlayer(arguments[1]);
-                if (recipient == null) { sendUnknownPlayer(commandSender, arguments[1]); return true; }
+                if (recipient == null) {
+                    sendUnknownPlayer(commandSender, arguments[1]);
+                    return true;
+                }
 
-                if (arguments.length < 3) { sendNoItemProvided(commandSender); }
-                if (arguments[2].equals("magnet")) { giveItem(commandSender, "magnet", "", recipient); }
-                else {
-                    if (arguments.length < 4) { giveItem(commandSender, arguments[2], null, recipient); return true; }
+                if (arguments.length < 3) {
+                    sendNoItemProvided(commandSender);
+                }
+                if (arguments[2].equals("magnet")) {
+                    giveItem(commandSender, "magnet", "", recipient);
+                } else {
+                    if (arguments.length < 4) {
+                        giveItem(commandSender, arguments[2], null, recipient);
+                        return true;
+                    }
                     giveItem(commandSender, arguments[2], arguments[3], recipient);
                 }
                 return true;
@@ -88,37 +113,55 @@ public class ModdedAdditionsCommand implements CommandExecutor {
     private void giveItem(CommandSender sender, String item, String type, Player player) {
         switch (item) {
             case "hammer":
-                if (type == null) { sendNoTypeProvided(sender); break; }
+                if (type == null) {
+                    sendNoTypeProvided(sender);
+                    break;
+                }
                 switch (type) {
                     case "wood":
-                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.WOODEN)); break;
+                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.WOODEN));
+                        break;
                     case "stone":
-                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.STONE)); break;
+                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.STONE));
+                        break;
                     case "iron":
-                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.IRON)); break;
+                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.IRON));
+                        break;
                     case "gold":
-                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.GOLD)); break;
+                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.GOLD));
+                        break;
                     case "diamond":
-                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.DIAMOND)); break;
+                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.DIAMOND));
+                        break;
                     default:
-                        sendInvalidType(sender, type); break;
+                        sendInvalidType(sender, type);
+                        break;
                 }
                 break;
             case "excavator":
-                if (type == null) { sendNoTypeProvided(sender); break; }
+                if (type == null) {
+                    sendNoTypeProvided(sender);
+                    break;
+                }
                 switch (type) {
                     case "wood":
-                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN)); break;
+                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.WOODEN));
+                        break;
                     case "stone":
-                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.STONE)); break;
+                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.STONE));
+                        break;
                     case "iron":
-                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.IRON)); break;
+                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.IRON));
+                        break;
                     case "gold":
-                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.GOLD)); break;
+                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.GOLD));
+                        break;
                     case "diamond":
-                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.DIAMOND)); break;
+                        player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.DIAMOND));
+                        break;
                     default:
-                        sendInvalidType(sender, type); break;
+                        sendInvalidType(sender, type);
+                        break;
                 }
                 break;
             case "magnet":
@@ -131,7 +174,10 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                 player.getInventory().addItem(instance.getSpellBookController().generateNewSpellBook());
                 break;
             case "lightsaber":
-                if (type == null) { sendNoColorProvided(sender); break; }
+                if (type == null) {
+                    sendNoColorProvided(sender);
+                    break;
+                }
                 switch (type) {
                     case "blue":
                         player.getInventory().addItem(instance.getLightSaberController().generateNewLightSaber(SaberColor.BLUE));
@@ -162,7 +208,10 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                 }
                 break;
             case "kybercrystal":
-                if (type == null) { sendNoColorProvided(sender); break; }
+                if (type == null) {
+                    sendNoColorProvided(sender);
+                    break;
+                }
                 switch (type) {
                     case "blue":
                         player.getInventory().addItem(instance.getLightSaberController().generateNewKyberCrystal(SaberColor.BLUE));

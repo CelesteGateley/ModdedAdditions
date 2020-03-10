@@ -32,13 +32,22 @@ public class VoteDayCommand implements CommandExecutor, Listener {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
         if (arguments.length < 1) {
-            if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) { commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-alreadyDay")); return true; }
+            if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) {
+                commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-alreadyDay"));
+                return true;
+            }
             initiateVote();
-            if (commandSender instanceof Player) { activeVote.votedPlayers.add((Player) commandSender); activeVote.yesVotes++; }
+            if (commandSender instanceof Player) {
+                activeVote.votedPlayers.add((Player) commandSender);
+                activeVote.yesVotes++;
+            }
             checkVote();
             return true;
         }
-        if (activeVote == null) { commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-noVoteActive")); return true; }
+        if (activeVote == null) {
+            commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-noVoteActive"));
+            return true;
+        }
         if (commandSender instanceof Player && activeVote.votedPlayers.contains(commandSender)) {
             commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-alreadyVoted"));
             return true;
@@ -46,13 +55,17 @@ public class VoteDayCommand implements CommandExecutor, Listener {
         switch (arguments[0].toLowerCase()) {
             case "yes":
                 activeVote.yesVotes++;
-                if (commandSender instanceof Player) { activeVote.votedPlayers.add((Player) commandSender); }
+                if (commandSender instanceof Player) {
+                    activeVote.votedPlayers.add((Player) commandSender);
+                }
                 checkVote();
                 commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-voteRegistered"));
                 return true;
             case "no":
                 activeVote.noVotes++;
-                if (commandSender instanceof Player) { activeVote.votedPlayers.add((Player) commandSender); }
+                if (commandSender instanceof Player) {
+                    activeVote.votedPlayers.add((Player) commandSender);
+                }
                 commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-voteRegistered"));
                 checkVote();
                 return true;
@@ -64,8 +77,12 @@ public class VoteDayCommand implements CommandExecutor, Listener {
 
     @EventHandler
     public void onSleepEvent(PlayerBedEnterEvent event) {
-        if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) { return; }
-        if (activeVote == null) { initiateVote(); }
+        if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) {
+            return;
+        }
+        if (activeVote == null) {
+            initiateVote();
+        }
         activeVote.yesVotes++;
         activeVote.votedPlayers.add(event.getPlayer());
     }
@@ -73,27 +90,41 @@ public class VoteDayCommand implements CommandExecutor, Listener {
     private void initiateVote() {
         activeVote = new DayVote();
         TextComponent mainComponent = getVoteComponent();
-        for (Player player : instance.getServer().getOnlinePlayers()) { player.spigot().sendMessage(mainComponent); }
+        for (Player player : instance.getServer().getOnlinePlayers()) {
+            player.spigot().sendMessage(mainComponent);
+        }
         taskId = instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, () -> {
             if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000 && activeVote != null) {
                 activeVote = null;
-                for (Player player : instance.getServer().getOnlinePlayers()) { player.sendMessage(instance.getLanguageManager().generateMessage("dv-voteCancelled")); }
-                if (taskId != -1) { instance.getServer().getScheduler().cancelTask(taskId); }
+                for (Player player : instance.getServer().getOnlinePlayers()) {
+                    player.sendMessage(instance.getLanguageManager().generateMessage("dv-voteCancelled"));
+                }
+                if (taskId != -1) {
+                    instance.getServer().getScheduler().cancelTask(taskId);
+                }
             }
         }, 100L, 100L);
     }
 
     private void checkVote() {
         long playerCount = instance.getServer().getOnlinePlayers().size();
-        if (activeVote.yesVotes >= playerCount/2L && (playerCount < 2 || activeVote.yesVotes >= 2)) {
+        if (activeVote.yesVotes >= playerCount / 2L && (playerCount < 2 || activeVote.yesVotes >= 2)) {
             dayWorld.setTime(1000);
-            for (Player player : instance.getServer().getOnlinePlayers()) { player.sendMessage(instance.getLanguageManager().generateMessage("dv-voteSuccessful")); }
+            for (Player player : instance.getServer().getOnlinePlayers()) {
+                player.sendMessage(instance.getLanguageManager().generateMessage("dv-voteSuccessful"));
+            }
             activeVote = null;
-            if (taskId != -1) { instance.getServer().getScheduler().cancelTask(taskId); }
-        } else if (activeVote.noVotes >= playerCount/2L ) {
-            for (Player player : instance.getServer().getOnlinePlayers()) { player.sendMessage(instance.getLanguageManager().generateMessage("dv-voteFailed")); }
+            if (taskId != -1) {
+                instance.getServer().getScheduler().cancelTask(taskId);
+            }
+        } else if (activeVote.noVotes >= playerCount / 2L) {
+            for (Player player : instance.getServer().getOnlinePlayers()) {
+                player.sendMessage(instance.getLanguageManager().generateMessage("dv-voteFailed"));
+            }
             activeVote = null;
-            if (taskId != -1) { instance.getServer().getScheduler().cancelTask(taskId); }
+            if (taskId != -1) {
+                instance.getServer().getScheduler().cancelTask(taskId);
+            }
         }
 
     }
@@ -118,6 +149,11 @@ public class VoteDayCommand implements CommandExecutor, Listener {
         private int yesVotes;
         private int noVotes;
         private List<Player> votedPlayers;
-        public DayVote() { yesVotes = 0; noVotes = 0; votedPlayers = new ArrayList<>(); }
+
+        public DayVote() {
+            yesVotes = 0;
+            noVotes = 0;
+            votedPlayers = new ArrayList<>();
+        }
     }
 }

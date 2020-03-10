@@ -20,7 +20,9 @@ public class OldMagnetExecutor extends CheckExecutor {
     }
 
     @Override
-    public Material getMaterial() { return Material.COMPASS; }
+    public Material getMaterial() {
+        return Material.COMPASS;
+    }
 
     @Override
     public void executeIfTrue(Player player) {
@@ -32,8 +34,10 @@ public class OldMagnetExecutor extends CheckExecutor {
     }
 
     @Override
-    public void executeIfFalse(Player player) { }
+    public void executeIfFalse(Player player) {
+    }
 
     @Override
-    public void removeOnLeave(Player player) { }
+    public void removeOnLeave(Player player) {
+    }
 }

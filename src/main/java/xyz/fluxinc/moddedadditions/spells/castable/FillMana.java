@@ -25,7 +25,9 @@ public class FillMana extends Spell {
     @Override
     public ItemStack getItemStack(int modelId) {
         ItemStack fillMana = addLore(new ItemStack(Material.EMERALD), "Costs: " + getCost() + " Mana");
-        ItemMeta iMeta = fillMana.getItemMeta(); iMeta.setCustomModelData(modelId); iMeta.setDisplayName(ChatColor.WHITE + getName());
+        ItemMeta iMeta = fillMana.getItemMeta();
+        iMeta.setCustomModelData(modelId);
+        iMeta.setDisplayName(ChatColor.WHITE + getName());
         fillMana.setItemMeta(iMeta);
         return fillMana;
     }

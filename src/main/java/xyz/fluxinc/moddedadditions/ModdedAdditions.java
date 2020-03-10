@@ -163,7 +163,9 @@ public final class ModdedAdditions extends JavaPlugin {
         areaToolController = null;
         blockAccessController = null;
         customRecipeUtils = null;
-        if (playerDataController != null) { playerDataController.saveToDisk(); }
+        if (playerDataController != null) {
+            playerDataController.saveToDisk();
+        }
         playerDataController = null;
         spellBookController = null;
         manaController = null;
@@ -178,29 +180,55 @@ public final class ModdedAdditions extends JavaPlugin {
         areaToolController.loadFromConfiguration();
     }
 
-    public MagnetController getMagnetController() { return magnetController; }
+    public MagnetController getMagnetController() {
+        return magnetController;
+    }
 
-    public FluxCore getCoreInstance() { return fluxCore; }
+    public FluxCore getCoreInstance() {
+        return fluxCore;
+    }
 
-    public LanguageManager getLanguageManager() { return this.languageManager; }
+    public LanguageManager getLanguageManager() {
+        return this.languageManager;
+    }
 
-    public ConfigurationManager getConfigurationManager() { return this.configurationManager; }
+    public ConfigurationManager getConfigurationManager() {
+        return this.configurationManager;
+    }
 
-    public BlockAccessController getBlockAccessController() { return this.blockAccessController; }
+    public BlockAccessController getBlockAccessController() {
+        return this.blockAccessController;
+    }
 
-    public VeinMinerController getVeinMinerController() { return this.veinMinerController; }
+    public VeinMinerController getVeinMinerController() {
+        return this.veinMinerController;
+    }
 
-    public AreaToolController getAreaToolController() { return areaToolController; }
+    public AreaToolController getAreaToolController() {
+        return areaToolController;
+    }
 
-    public CustomRecipeUtils getCustomRecipeUtils() { return customRecipeUtils; }
+    public CustomRecipeUtils getCustomRecipeUtils() {
+        return customRecipeUtils;
+    }
 
-    public LightSaberController getLightSaberController() { return lightSaberController; }
+    public LightSaberController getLightSaberController() {
+        return lightSaberController;
+    }
 
-    public SonicScrewdriverController getSonicScrewdriverController() { return sonicScrewdriverController;    }
+    public SonicScrewdriverController getSonicScrewdriverController() {
+        return sonicScrewdriverController;
+    }
 
-    public PlayerDataController getPlayerDataController() { return playerDataController; }
+    public PlayerDataController getPlayerDataController() {
+        return playerDataController;
+    }
 
-    public SpellBookController getSpellBookController() { return spellBookController; }
+    public SpellBookController getSpellBookController() {
+        return spellBookController;
+    }
 
-    public ManaController getManaController() { return manaController; }
+    public ManaController getManaController() {
+        return manaController;
+    }
 }

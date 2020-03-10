@@ -157,7 +157,6 @@ public class CustomRecipeUtils implements Listener {
     }
 
 
-
     private void addLightsaber() {
         NamespacedKey lightSaberKey = new NamespacedKey(this.instance, "LIGHTSABER");
         recipeKeys.add(lightSaberKey);
@@ -185,5 +184,7 @@ public class CustomRecipeUtils implements Listener {
     }
 
     @EventHandler
-    public void updateKnowledgeBook(PlayerJoinEvent player) { player.getPlayer().discoverRecipes(recipeKeys); }
+    public void updateKnowledgeBook(PlayerJoinEvent player) {
+        player.getPlayer().discoverRecipes(recipeKeys);
+    }
 }

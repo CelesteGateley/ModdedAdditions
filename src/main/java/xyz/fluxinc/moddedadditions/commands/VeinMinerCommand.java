@@ -34,10 +34,16 @@ public class VeinMinerCommand implements CommandExecutor {
                     return true;
                 }
 
-                if (arguments.length < 2) { sendNoToolProvided(commandSender); return true; }
+                if (arguments.length < 2) {
+                    sendNoToolProvided(commandSender);
+                    return true;
+                }
 
                 // Check if the sender provided a block
-                if (arguments.length < 3) { sendNoBlockProvided(commandSender); return true; }
+                if (arguments.length < 3) {
+                    sendNoBlockProvided(commandSender);
+                    return true;
+                }
                 Material block;
                 try {
                     block = Material.valueOf(arguments[2].toUpperCase());
@@ -78,10 +84,16 @@ public class VeinMinerCommand implements CommandExecutor {
                     return true;
                 }
 
-                if (arguments.length < 2) { sendNoToolProvided(commandSender); return true; }
+                if (arguments.length < 2) {
+                    sendNoToolProvided(commandSender);
+                    return true;
+                }
 
                 // Check if the sender provided a block
-                if (arguments.length < 3) { sendNoBlockProvided(commandSender); return true; }
+                if (arguments.length < 3) {
+                    sendNoBlockProvided(commandSender);
+                    return true;
+                }
                 Material removeBlock;
                 try {
                     removeBlock = Material.valueOf(arguments[2].toUpperCase());
@@ -116,8 +128,14 @@ public class VeinMinerCommand implements CommandExecutor {
                 sendBlockRemoved(commandSender, arguments[2], arguments[1]);
                 return true;
             case "toggle":
-                if (!(commandSender instanceof Player)) { sendMustBePlayer(commandSender); return true; }
-                if (!commandSender.hasPermission("moddedadditions.veinminer.toggle")) { sendPermissionDenied(commandSender); return true; }
+                if (!(commandSender instanceof Player)) {
+                    sendMustBePlayer(commandSender);
+                    return true;
+                }
+                if (!commandSender.hasPermission("moddedadditions.veinminer.toggle")) {
+                    sendPermissionDenied(commandSender);
+                    return true;
+                }
                 PlayerData data = instance.getPlayerDataController().getPlayerData((Player) commandSender);
                 data.toggleVeinMiner();
                 instance.getPlayerDataController().setPlayerData((Player) commandSender, data);

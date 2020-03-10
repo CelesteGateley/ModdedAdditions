@@ -30,6 +30,20 @@ public class LightSaberController {
         this.instance = instance;
     }
 
+    public static boolean verifyLightSaber(ItemStack itemStack) {
+        return itemStack.getItemMeta() != null
+                && itemStack.getItemMeta().hasCustomModelData()
+                && itemStack.getItemMeta().getCustomModelData() > KEY_BASE + LS_KEY_BASE
+                && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + LS_KEY_BASE + 10;
+    }
+
+    public static boolean verifyKyberCrystal(ItemStack itemStack) {
+        return itemStack.getItemMeta() != null
+                && itemStack.getItemMeta().hasCustomModelData()
+                && itemStack.getItemMeta().getCustomModelData() > KEY_BASE + KC_KEY_BASE
+                && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + KC_KEY_BASE + 10;
+    }
+
     public ItemStack generateNewLightSaber(SaberColor color) {
         ItemStack itemStack = addLore(new ItemStack(Material.DIAMOND_SWORD), instance.getLanguageManager().getFormattedString("mi-lightsaber"));
         ItemMeta iMeta = itemStack.getItemMeta();
@@ -50,20 +64,6 @@ public class LightSaberController {
         iMeta.setDisplayName(getChatColor(color) + toTitleCase(color.toString()) + " Kyber Crystal");
         itemStack.setItemMeta(iMeta);
         return itemStack;
-    }
-
-    public static boolean verifyLightSaber(ItemStack itemStack) {
-        return itemStack.getItemMeta() != null
-                && itemStack.getItemMeta().hasCustomModelData()
-                && itemStack.getItemMeta().getCustomModelData() > KEY_BASE + LS_KEY_BASE
-                && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + LS_KEY_BASE + 10;
-    }
-
-    public static boolean verifyKyberCrystal(ItemStack itemStack) {
-        return itemStack.getItemMeta() != null
-                && itemStack.getItemMeta().hasCustomModelData()
-                && itemStack.getItemMeta().getCustomModelData() > KEY_BASE + KC_KEY_BASE
-                && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + KC_KEY_BASE + 10;
     }
 
     public ItemStack getDefaultLightSaber() {

@@ -12,16 +12,6 @@ import static xyz.fluxinc.fluxcore.utils.BlockUtils.convertStringToMaterial;
 @SuppressWarnings("unused")
 public class VeinMinerController {
 
-    private ModdedAdditions instance;
-    private ConfigurationManager<ModdedAdditions> vmConfiguration;
-
-    private List<Material> pickaxeBlocks;
-    private List<Material> axeBlocks;
-    private List<Material> shovelBlocks;
-    private List<Material> hoeBlocks;
-    private List<Material> shearsBlocks;
-    private List<Material> handBlocks;
-
     private static final String CONFIG_NAME = "veinminer.yml";
     private static final String PICKAXE_CONFIG_KEY = "pickaxe";
     private static final String AXE_CONFIG_KEY = "axe";
@@ -29,6 +19,14 @@ public class VeinMinerController {
     private static final String HOE_CONFIG_KEY = "hoe";
     private static final String SHEARS_CONFIG_KEY = "shears";
     private static final String HAND_CONFIG_KEY = "hand";
+    private ModdedAdditions instance;
+    private ConfigurationManager<ModdedAdditions> vmConfiguration;
+    private List<Material> pickaxeBlocks;
+    private List<Material> axeBlocks;
+    private List<Material> shovelBlocks;
+    private List<Material> hoeBlocks;
+    private List<Material> shearsBlocks;
+    private List<Material> handBlocks;
 
     public VeinMinerController(ModdedAdditions instance) {
         this.instance = instance;
@@ -141,7 +139,7 @@ public class VeinMinerController {
     }
 
     public void saveConfiguration() {
-       vmConfiguration.saveConfiguration();
+        vmConfiguration.saveConfiguration();
     }
 
     public void loadFromConfiguration() {
@@ -155,7 +153,9 @@ public class VeinMinerController {
 
     private List<String> fromMaterialToString(List<Material> materials) {
         List<String> strings = new ArrayList<>();
-        for (Material material : materials) { strings.add(material.name()); }
+        for (Material material : materials) {
+            strings.add(material.name());
+        }
         return strings;
     }
 }

@@ -8,7 +8,9 @@ public class ResponseListener implements Listener {
 
     @EventHandler
     public void onChatEvent(AsyncPlayerChatEvent event) {
-        if (!(event.getMessage().toLowerCase().contains("hello there"))) { return; }
+        if (!(event.getMessage().toLowerCase().contains("hello there"))) {
+            return;
+        }
         event.getPlayer().sendTitle("General Kenobi", "You are a bold one!", 10, 70, 20);
     }
 

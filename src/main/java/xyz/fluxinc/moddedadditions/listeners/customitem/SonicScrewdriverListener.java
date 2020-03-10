@@ -19,9 +19,15 @@ public class SonicScrewdriverListener implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) { return; }
-        if (event.getItem() == null || !instance.getSonicScrewdriverController().isSonic(event.getItem())) { return; }
-        if (event.getClickedBlock() == null) { return; }
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+            return;
+        }
+        if (event.getItem() == null || !instance.getSonicScrewdriverController().isSonic(event.getItem())) {
+            return;
+        }
+        if (event.getClickedBlock() == null) {
+            return;
+        }
         event.setCancelled(true);
         BlockData blockData = event.getClickedBlock().getBlockData();
 

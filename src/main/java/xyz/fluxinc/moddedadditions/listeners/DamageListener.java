@@ -9,7 +9,9 @@ public class DamageListener implements Listener {
 
     @EventHandler
     public void onDamageEntity(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player)) { return; }
+        if (!(event.getDamager() instanceof Player)) {
+            return;
+        }
         event.getDamager().sendMessage("Dealt: " + event.getFinalDamage());
     }
 }

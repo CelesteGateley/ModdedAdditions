@@ -26,11 +26,12 @@ public class SonicScrewdriverController {
         sonic.setItemMeta(iMeta);
         return sonic;
     }
+
     public boolean isSonic(ItemStack item) {
         return item != null
-            && item.getItemMeta() != null
-            && item.getItemMeta().hasCustomModelData()
-            && item.getItemMeta().getCustomModelData() == SONIC_MODEL_KEY;
+                && item.getItemMeta() != null
+                && item.getItemMeta().hasCustomModelData()
+                && item.getItemMeta().getCustomModelData() == SONIC_MODEL_KEY;
     }
 
 }

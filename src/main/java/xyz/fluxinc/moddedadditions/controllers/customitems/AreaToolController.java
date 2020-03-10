@@ -24,52 +24,19 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 public class AreaToolController {
 
     public static final int AT_KEY_BASE = 1000;
-
+    private static final String CONFIG_NAME = "areatool.yml";
+    private static final String HAMMER_CONFIG_KEY = "hammer";
+    private static final String EXCAVATOR_CONFIG_KEY = "excavator";
     private ModdedAdditions instance;
     private YamlConfiguration areaToolConfiguration;
     private List<Material> hammerBlocks;
     private List<Material> excavatorBlocks;
-    private static final String CONFIG_NAME = "areatool.yml";
-    private static final String HAMMER_CONFIG_KEY = "hammer";
-    private static final String EXCAVATOR_CONFIG_KEY = "excavator";
 
 
     public AreaToolController(ModdedAdditions instance) {
         this.instance = instance;
         areaToolConfiguration = new ConfigurationManager<>(this.instance, CONFIG_NAME).getConfiguration();
         loadFromConfiguration();
-    }
-
-    public boolean checkHammer(Material material) {
-        return hammerBlocks.contains(material);
-    }
-
-    public boolean checkExcavator(Material material) {
-        return excavatorBlocks.contains(material);
-    }
-
-    public void addHammerBlock(Material material) {
-        hammerBlocks.add(material);
-        areaToolConfiguration.set(HAMMER_CONFIG_KEY, fromMaterialToString(hammerBlocks).toArray());
-        saveConfiguration();
-    }
-
-    public void removeHammerBlock(Material material) {
-        hammerBlocks.remove(material);
-        areaToolConfiguration.set(HAMMER_CONFIG_KEY, fromMaterialToString(hammerBlocks).toArray());
-        saveConfiguration();
-    }
-
-    public void addExcavatorBlock(Material material) {
-        excavatorBlocks.add(material);
-        areaToolConfiguration.set(EXCAVATOR_CONFIG_KEY, fromMaterialToString(excavatorBlocks).toArray());
-        saveConfiguration();
-    }
-
-    public void removeExcavatorBlock(Material material) {
-        excavatorBlocks.remove(material);
-        areaToolConfiguration.set(EXCAVATOR_CONFIG_KEY, fromMaterialToString(excavatorBlocks).toArray());
-        saveConfiguration();
     }
 
     public static List<Block> getBlockList(Block startingBlock, BlockFace face) {
@@ -113,15 +80,62 @@ public class AreaToolController {
         return extraBlocks;
     }
 
+    public boolean checkHammer(Material material) {
+        return hammerBlocks.contains(material);
+    }
+
+    public boolean checkExcavator(Material material) {
+        return excavatorBlocks.contains(material);
+    }
+
+    public void addHammerBlock(Material material) {
+        hammerBlocks.add(material);
+        areaToolConfiguration.set(HAMMER_CONFIG_KEY, fromMaterialToString(hammerBlocks).toArray());
+        saveConfiguration();
+    }
+
+    public void removeHammerBlock(Material material) {
+        hammerBlocks.remove(material);
+        areaToolConfiguration.set(HAMMER_CONFIG_KEY, fromMaterialToString(hammerBlocks).toArray());
+        saveConfiguration();
+    }
+
+    public void addExcavatorBlock(Material material) {
+        excavatorBlocks.add(material);
+        areaToolConfiguration.set(EXCAVATOR_CONFIG_KEY, fromMaterialToString(excavatorBlocks).toArray());
+        saveConfiguration();
+    }
+
+    public void removeExcavatorBlock(Material material) {
+        excavatorBlocks.remove(material);
+        areaToolConfiguration.set(EXCAVATOR_CONFIG_KEY, fromMaterialToString(excavatorBlocks).toArray());
+        saveConfiguration();
+    }
+
     public ItemStack generateHammer(ToolLevel level) {
         Material toolMaterial;
         int modelId;
         switch (level) {
-            case STONE:   toolMaterial = Material.STONE_PICKAXE;   modelId = 2; break;
-            case IRON:    toolMaterial = Material.IRON_PICKAXE;    modelId = 3; break;
-            case GOLD:    toolMaterial = Material.GOLDEN_PICKAXE;  modelId = 4; break;
-            case DIAMOND: toolMaterial = Material.DIAMOND_PICKAXE; modelId = 5; break;
-            default:      toolMaterial = Material.WOODEN_PICKAXE;  modelId = 1; break;
+            case STONE:
+                toolMaterial = Material.STONE_PICKAXE;
+                modelId = 2;
+                break;
+            case IRON:
+                toolMaterial = Material.IRON_PICKAXE;
+                modelId = 3;
+                break;
+            case GOLD:
+                toolMaterial = Material.GOLDEN_PICKAXE;
+                modelId = 4;
+                break;
+            case DIAMOND:
+                toolMaterial = Material.DIAMOND_PICKAXE;
+                modelId = 5;
+                break;
+            default:
+                toolMaterial = Material.WOODEN_PICKAXE;
+                modelId = 1;
+                break;
         }
         modelId = KEY_BASE + AT_KEY_BASE + 10 + modelId;
         ItemStack itemStack = addLore(new ItemStack(toolMaterial), instance.getLanguageManager().getFormattedString("mi-hammer"));
@@ -137,11 +151,26 @@ public class AreaToolController {
         Material toolMaterial;
         int modelId;
         switch (level) {
-            case STONE:   toolMaterial = Material.STONE_SHOVEL;   modelId = 2; break;
-            case IRON:    toolMaterial = Material.IRON_SHOVEL;    modelId = 3; break;
-            case GOLD:    toolMaterial = Material.GOLDEN_SHOVEL;  modelId = 4; break;
-            case DIAMOND: toolMaterial = Material.DIAMOND_SHOVEL; modelId = 5; break;
-            default:      toolMaterial = Material.WOODEN_SHOVEL;  modelId = 1; break;
+            case STONE:
+                toolMaterial = Material.STONE_SHOVEL;
+                modelId = 2;
+                break;
+            case IRON:
+                toolMaterial = Material.IRON_SHOVEL;
+                modelId = 3;
+                break;
+            case GOLD:
+                toolMaterial = Material.GOLDEN_SHOVEL;
+                modelId = 4;
+                break;
+            case DIAMOND:
+                toolMaterial = Material.DIAMOND_SHOVEL;
+                modelId = 5;
+                break;
+            default:
+                toolMaterial = Material.WOODEN_SHOVEL;
+                modelId = 1;
+                break;
         }
         modelId = KEY_BASE + AT_KEY_BASE + 20 + modelId;
         ItemStack itemStack = addLore(new ItemStack(toolMaterial), instance.getLanguageManager().getFormattedString("mi-excavator"));
@@ -153,9 +182,13 @@ public class AreaToolController {
         return itemStack;
     }
 
-    public List<Material> getHammerList() { return this.hammerBlocks; }
+    public List<Material> getHammerList() {
+        return this.hammerBlocks;
+    }
 
-    public List<Material> getExcavatorList() { return this.excavatorBlocks; }
+    public List<Material> getExcavatorList() {
+        return this.excavatorBlocks;
+    }
 
     public void saveConfiguration() {
         try {
@@ -173,7 +206,9 @@ public class AreaToolController {
 
     private List<String> fromMaterialToString(List<Material> materials) {
         List<String> strings = new ArrayList<>();
-        for (Material material : materials) { strings.add(material.name()); }
+        for (Material material : materials) {
+            strings.add(material.name());
+        }
         return strings;
     }
 
