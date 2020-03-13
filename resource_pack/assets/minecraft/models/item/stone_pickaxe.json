@@ -1,0 +1,11 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "item/stone_pickaxe"
+  },
+
+  "overrides": [
+    {"predicate": {"custom_model_data": 5121022}, "model": "item/custom/hammer/stone_hammer"}
+
+  ]
+}
