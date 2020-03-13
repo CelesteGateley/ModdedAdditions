@@ -1,0 +1,16 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "item/book"
+    },
+	
+	"overrides": [
+		{"predicate": {"custom_model_data": 5123000}, "model": "item/custom/spellbook/default_spellbook"},
+		{"predicate": {"custom_model_data": 5123001}, "model": "item/custom/spellbook/fireball_spellbook"},
+		{"predicate": {"custom_model_data": 5123002}, "model": "item/custom/spellbook/teleport_spellbook"},
+		{"predicate": {"custom_model_data": 5123003}, "model": "item/custom/spellbook/arrow_spellbook"},
+		{"predicate": {"custom_model_data": 5123004}, "model": "item/custom/spellbook/heal_spellbook"},
+		{"predicate": {"custom_model_data": 5123005}, "model": "item/custom/spellbook/airjet_spellbook"},
+		{"predicate": {"custom_model_data": 5123006}, "model": "item/custom/spellbook/smite_spellbook"}
+	]
+}
