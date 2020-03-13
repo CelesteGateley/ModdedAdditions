@@ -5,7 +5,7 @@
   },
 
   "overrides": [
-    {"predicate": {"custom_model_data": 5122021}, "model": "item/custom/excavator/wooden_excavator"}
+    {"predicate": {"custom_model_data": 5121021}, "model": "item/custom/excavator/wooden_excavator"}
 
   ]
 }

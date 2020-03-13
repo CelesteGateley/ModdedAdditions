@@ -5,7 +5,7 @@
   },
 
   "overrides": [
-    {"predicate": {"custom_model_data": 5121021}, "model": "item/custom/hammer/wooden_hammer"}
+    {"predicate": {"custom_model_data": 5121011}, "model": "item/custom/hammer/wooden_hammer"}
 
   ]
 }
