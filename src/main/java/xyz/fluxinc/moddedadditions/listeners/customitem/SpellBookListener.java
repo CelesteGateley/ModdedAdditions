@@ -209,10 +209,15 @@ public class SpellBookListener implements Listener {
         Map<Integer, Spell> spells = instance.getSpellBookController().getSpellRegistry().getRegistryById();
         List<ItemStack> stacks = new ArrayList<>();
         for (Integer key : spells.keySet()) {
-            if (instance.getSpellBookController().knowsSpell(player, instance.getSpellBookController().getSpellRegistry().getTechnicalName(key))) {
+            String spellName = instance.getSpellBookController().getSpellRegistry().getTechnicalName(key);
+            if (instance.getSpellBookController().knowsSpell(player, spellName)) {
                 stacks.add(spells.get(key).getItemStack(key));
             } else {
-                stacks.add(blockedItem);
+                ItemStack iStack = blockedItem.clone();
+                ItemMeta iMeta = blockedItem.getItemMeta();
+                iMeta.setDisplayName(spellName);
+                iStack.setItemMeta(iMeta);
+                stacks.add(iStack);
             }
         }
         return generateDistributedInventory(INVENTORY_TITLE, stacks);
