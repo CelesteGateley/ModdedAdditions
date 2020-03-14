@@ -127,6 +127,7 @@ public class SpellBookListener implements Listener {
                 event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
             } else {
                 Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInOffHand());
+                if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) { return; }
                 if (spell != null) {
                     spell.castSpell(event.getPlayer(), event.getPlayer());
                 }
