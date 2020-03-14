@@ -6,17 +6,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
-import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
+import xyz.fluxinc.moddedadditions.spells.castable.Fireball;
+import xyz.fluxinc.moddedadditions.spells.castable.Heal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,6 +172,38 @@ public class SpellBookListener implements Listener {
         event.getPlayer().getInventory().setItemInMainHand(instance.getSpellBookController().generateNewSpellBook());
     }
 
+    @EventHandler
+    public void onSpecialCraft(PrepareItemCraftEvent event) {
+        if (event.getRecipe() == null) { return; }
+        ItemStack result = event.getRecipe().getResult();
+        if (!verifySpellBook(result)) { return; }
+        Spell spell = instance.getSpellBookController().getSpell(event.getRecipe().getResult());
+        if (spell instanceof Heal) {
+            ItemStack pot1 = event.getInventory().getItem(2); ItemStack pot2 = event.getInventory().getItem(4);
+            ItemStack pot3 = event.getInventory().getItem(6); ItemStack pot4 = event.getInventory().getItem(8);
+            if (pot1 == null
+                    || pot2 == null
+                    || pot3 == null
+                    || pot4 == null) { event.getInventory().setResult(null); return; }
+            if (!(pot1.getItemMeta() instanceof PotionMeta)
+                || !(pot2.getItemMeta() instanceof PotionMeta)
+                || !(pot3.getItemMeta() instanceof PotionMeta)
+                || !(pot4.getItemMeta() instanceof PotionMeta)) { event.getInventory().setResult(null); return; }
+            PotionMeta pM1 = (PotionMeta) pot1.getItemMeta(); PotionMeta pM2 = (PotionMeta) pot2.getItemMeta();
+            PotionMeta pM3 = (PotionMeta) pot3.getItemMeta(); PotionMeta pM4 = (PotionMeta) pot4.getItemMeta();
+            if (pM1.getBasePotionData().getType() != PotionType.INSTANT_HEAL
+               || pM2.getBasePotionData().getType() != PotionType.INSTANT_HEAL
+               || pM3.getBasePotionData().getType() != PotionType.INSTANT_HEAL
+               || pM4.getBasePotionData().getType() != PotionType.INSTANT_HEAL) { event.getInventory().setResult(null); return; }
+        }
+    }
+
+    @EventHandler
+    public void onSpellBookCraft(CraftItemEvent event) {
+        if (!verifySpellBook(event.getRecipe().getResult())) { return; }
+        String spell = instance.getSpellBookController().getSpellRegistry().getTechnicalName(event.getRecipe().getResult().getItemMeta().getCustomModelData());
+        instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), instance.getPlayerDataController().getPlayerData((Player) event.getWhoClicked()).setSpell(spell, true));
+    }
 
     private Inventory generateSpellInventory(Player player) {
         Map<Integer, Spell> spells = instance.getSpellBookController().getSpellRegistry().getRegistryById();

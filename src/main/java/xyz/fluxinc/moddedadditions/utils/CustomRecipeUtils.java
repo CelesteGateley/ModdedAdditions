@@ -17,6 +17,8 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import static org.bukkit.Bukkit.getServer;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
+import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.SB_KEY_BASE;
 import static xyz.fluxinc.moddedadditions.storage.AdditionalRecipeStorage.*;
 
 public class CustomRecipeUtils implements Listener {
@@ -82,6 +84,7 @@ public class CustomRecipeUtils implements Listener {
         addLightsaber();
         makeKyberCrystals();
         addSonic();
+        addSpells();
     }
 
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
@@ -181,6 +184,26 @@ public class CustomRecipeUtils implements Listener {
         sonicRecipe.setIngredient('R', Material.REDSTONE_TORCH);
         sonicRecipe.setIngredient('E', Material.EMERALD);
         getServer().addRecipe(sonicRecipe);
+    }
+
+    private void addSpell(int spellId, Material item1, Material item2) {
+        NamespacedKey spellKey = new NamespacedKey(this.instance, "SPELL_" + spellId);
+        ItemStack result = instance.getSpellBookController().setSpell(spellId, instance.getSpellBookController().generateNewSpellBook());
+        ShapedRecipe spellRecipe = new ShapedRecipe(spellKey, result);
+        spellRecipe.shape("ABA", "BSB", "ABA");
+        spellRecipe.setIngredient('A', item1);
+        spellRecipe.setIngredient('B', item2);
+        spellRecipe.setIngredient('S', Material.BOOK);
+        getServer().addRecipe(spellRecipe);
+    }
+
+    private void addSpells() {
+        addSpell(KEY_BASE + SB_KEY_BASE + 1, Material.BLAZE_POWDER, Material.GHAST_TEAR);
+        addSpell(KEY_BASE + SB_KEY_BASE + 2, Material.ENDER_PEARL, Material.ENDER_EYE);
+        addSpell(KEY_BASE + SB_KEY_BASE + 3, Material.BOW, Material.SPECTRAL_ARROW);
+        addSpell(KEY_BASE + SB_KEY_BASE + 4, Material.GOLDEN_APPLE, Material.POTION);
+        addSpell(KEY_BASE + SB_KEY_BASE + 5, Material.FEATHER, Material.STRING);
+        addSpell(KEY_BASE + SB_KEY_BASE + 6, Material.EMERALD_BLOCK, Material.TRIDENT);
     }
 
     @EventHandler
