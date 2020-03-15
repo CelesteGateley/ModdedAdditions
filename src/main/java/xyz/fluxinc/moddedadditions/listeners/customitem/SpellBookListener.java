@@ -225,7 +225,7 @@ public class SpellBookListener implements Listener {
         List<ItemStack> stacks = new ArrayList<>();
         for (Integer key : spells.keySet()) {
             String spellName = instance.getSpellBookController().getSpellRegistry().getSpellById(key).getName();
-            if (instance.getSpellBookController().knowsSpell(player, spellName)) {
+            if (instance.getSpellBookController().knowsSpell(player, instance.getSpellBookController().getSpellRegistry().getTechnicalName(key))) {
                 stacks.add(spells.get(key).getItemStack(key));
             } else {
                 ItemStack iStack = blockedItem.clone();
