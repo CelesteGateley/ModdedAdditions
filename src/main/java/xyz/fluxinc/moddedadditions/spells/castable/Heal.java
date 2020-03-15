@@ -48,6 +48,23 @@ public class Heal extends Spell {
             } else {
                 target.setHealth(target.getHealth() + 2);
             }
+            if (target instanceof Player) {
+                Player p = (Player) target;
+                if (p.getFoodLevel() <= 18) {
+                    p.setFoodLevel(p.getFoodLevel() + 2);
+                } else {
+                    p.setFoodLevel(20);
+                }
+            }
+            target.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, target.getLocation(), 50, 0.5, 1, 0.5);
+            target.getWorld().playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
+            return true;
+        } else if (target instanceof Player && ((Player)target).getFoodLevel() < 20) {
+            if (((Player)target).getFoodLevel() <= 18) {
+                ((Player)target).setFoodLevel(((Player)target).getFoodLevel() + 2);
+            } else {
+                ((Player)target).setFoodLevel(20);
+            }
             target.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, target.getLocation(), 50, 0.5, 1, 0.5);
             target.getWorld().playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
             return true;
