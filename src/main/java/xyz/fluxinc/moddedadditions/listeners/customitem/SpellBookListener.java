@@ -224,7 +224,7 @@ public class SpellBookListener implements Listener {
         Map<Integer, Spell> spells = instance.getSpellBookController().getSpellRegistry().getRegistryById();
         List<ItemStack> stacks = new ArrayList<>();
         for (Integer key : spells.keySet()) {
-            String spellName = instance.getSpellBookController().getSpellRegistry().getTechnicalName(key);
+            String spellName = instance.getSpellBookController().getSpellRegistry().getSpellById(key).getName();
             if (instance.getSpellBookController().knowsSpell(player, spellName)) {
                 stacks.add(spells.get(key).getItemStack(key));
             } else {
