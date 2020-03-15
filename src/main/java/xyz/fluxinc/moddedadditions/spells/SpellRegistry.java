@@ -38,20 +38,21 @@ public class SpellRegistry {
     }
 
     private void registerAllSpells(ModdedAdditions instance) {
-        registerSpell(new Fireball(instance), "fireball", KEY_BASE + SB_KEY_BASE + 1);
-        registerSpell(new Teleport(instance), "teleport", KEY_BASE + SB_KEY_BASE + 2);
-        registerSpell(new Arrows(instance), "arrows", KEY_BASE + SB_KEY_BASE + 3);
-        registerSpell(new Heal(instance), "heal", KEY_BASE + SB_KEY_BASE + 4);
-        registerSpell(new AirJet(instance), "airjet", KEY_BASE + SB_KEY_BASE + 5);
+        registerSpell(new Fireball(instance), "fireball", 1);
+        registerSpell(new Teleport(instance), "teleport", 2);
+        registerSpell(new Arrows(instance), "arrows", 3);
+        registerSpell(new Heal(instance), "heal", 4);
+        registerSpell(new AirJet(instance), "airjet", 5);
         //registerSpell(new FillMana(instance), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
-        registerSpell(new Smite(instance), "smite", KEY_BASE + SB_KEY_BASE + 6);
+        registerSpell(new Smite(instance), "smite", 6);
+        registerSpell(new Speed(instance), "speed", 7);
     }
 
     public void registerSpell(Spell spell, String technicalName, int modelId) {
         technicalNames.add(technicalName);
         registryByName.put(technicalName, spell);
-        registryById.put(modelId, spell);
-        registryToString.put(modelId, technicalName);
+        registryById.put(KEY_BASE + SB_KEY_BASE + modelId, spell);
+        registryToString.put(KEY_BASE + SB_KEY_BASE + modelId, technicalName);
     }
 
     public List<String> getAllTechnicalNames() {
