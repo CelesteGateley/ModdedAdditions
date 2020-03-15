@@ -187,8 +187,8 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addSpell(int spellId, Material item1, Material item2) {
-        NamespacedKey spellKey = new NamespacedKey(this.instance, "SPELL_" + spellId);
-        ItemStack result = instance.getSpellBookController().setSpell(spellId, instance.getSpellBookController().generateNewSpellBook());
+        NamespacedKey spellKey = new NamespacedKey(this.instance, "SPELL_" + (KEY_BASE + SB_KEY_BASE + spellId));
+        ItemStack result = instance.getSpellBookController().setSpell(KEY_BASE + SB_KEY_BASE + spellId, instance.getSpellBookController().generateNewSpellBook());
         ShapedRecipe spellRecipe = new ShapedRecipe(spellKey, result);
         spellRecipe.shape("ABA", "BSB", "ABA");
         spellRecipe.setIngredient('A', item1);
@@ -198,12 +198,13 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addSpells() {
-        addSpell(KEY_BASE + SB_KEY_BASE + 1, Material.BLAZE_POWDER, Material.GHAST_TEAR);
-        addSpell(KEY_BASE + SB_KEY_BASE + 2, Material.ENDER_PEARL, Material.ENDER_EYE);
-        addSpell(KEY_BASE + SB_KEY_BASE + 3, Material.BOW, Material.SPECTRAL_ARROW);
-        addSpell(KEY_BASE + SB_KEY_BASE + 4, Material.GOLDEN_APPLE, Material.POTION);
-        addSpell(KEY_BASE + SB_KEY_BASE + 5, Material.FEATHER, Material.STRING);
-        addSpell(KEY_BASE + SB_KEY_BASE + 6, Material.EMERALD_BLOCK, Material.TRIDENT);
+        addSpell( 1, Material.BLAZE_POWDER, Material.GHAST_TEAR);
+        addSpell(2, Material.ENDER_PEARL, Material.ENDER_EYE);
+        addSpell(3, Material.BOW, Material.SPECTRAL_ARROW);
+        addSpell(4, Material.GOLDEN_APPLE, Material.POTION);
+        addSpell(5, Material.FEATHER, Material.STRING);
+        addSpell(6, Material.EMERALD_BLOCK, Material.TRIDENT);
+        addSpell(7, Material.GLOWSTONE_DUST, Material.SUGAR);
     }
 
     @EventHandler
