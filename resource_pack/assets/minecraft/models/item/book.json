@@ -11,6 +11,8 @@
 		{"predicate": {"custom_model_data": 5123003}, "model": "item/custom/spellbook/arrow_spellbook"},
 		{"predicate": {"custom_model_data": 5123004}, "model": "item/custom/spellbook/heal_spellbook"},
 		{"predicate": {"custom_model_data": 5123005}, "model": "item/custom/spellbook/airjet_spellbook"},
-		{"predicate": {"custom_model_data": 5123006}, "model": "item/custom/spellbook/smite_spellbook"}
+		{"predicate": {"custom_model_data": 5123006}, "model": "item/custom/spellbook/smite_spellbook"},
+		{"predicate": {"custom_model_data": 5123007}, "model": "item/custom/spellbook/speed_spellbook"},
+		{"predicate": {"custom_model_data": 5123008}, "model": "item/custom/spellbook/slowball_spellbook"}
 	]
 }
