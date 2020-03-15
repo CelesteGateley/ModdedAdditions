@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
@@ -208,15 +209,18 @@ public class SpellBookListener implements Listener {
     }
 
     @EventHandler
-    public void onSnowballHit(EntityDamageByEntityEvent event) {
-        if (event.getDamager().getType() != EntityType.SNOWBALL) {
+    public void onSnowballHit(ProjectileHitEvent event) {
+        if (event.getEntity().getType() != EntityType.SNOWBALL) {
             return;
         }
-        if (!event.getDamager().getName().equals(SlowBall.SLOWBALL_NAME)) { return; }
-        Entity target = event.getEntity();
+        if (event.getEntity().getCustomName() ==  null
+                || !event.getEntity().getCustomName().equals(SlowBall.SLOWBALL_NAME)) {
+            return;
+        }
+        Entity target = event.getHitEntity();
         if (target instanceof LivingEntity) {
-            new PotionEffect(PotionEffectType.SLOW, 20*20, 2).apply((LivingEntity) target);
-            new PotionEffect(PotionEffectType.SLOW_DIGGING, 20*20, 2).apply((LivingEntity) target);
+            new PotionEffect(PotionEffectType.SLOW, 10*20, 2).apply((LivingEntity) target);
+            new PotionEffect(PotionEffectType.SLOW_DIGGING, 10*20, 2).apply((LivingEntity) target);
         }
     }
 
