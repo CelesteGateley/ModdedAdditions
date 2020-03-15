@@ -1,11 +1,11 @@
 package xyz.fluxinc.moddedadditions.listeners.customitem;
 
 import org.bukkit.*;
-import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
@@ -14,12 +14,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.castable.Fireball;
 import xyz.fluxinc.moddedadditions.spells.castable.Heal;
+import xyz.fluxinc.moddedadditions.spells.castable.SlowBall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -203,6 +205,19 @@ public class SpellBookListener implements Listener {
         if (!verifySpellBook(event.getRecipe().getResult())) { return; }
         String spell = instance.getSpellBookController().getSpellRegistry().getTechnicalName(event.getRecipe().getResult().getItemMeta().getCustomModelData());
         instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), instance.getPlayerDataController().getPlayerData((Player) event.getWhoClicked()).setSpell(spell, true));
+    }
+
+    @EventHandler
+    public void onSnowballHit(EntityDamageByEntityEvent event) {
+        if (event.getDamager().getType() != EntityType.SNOWBALL) {
+            return;
+        }
+        if (!event.getDamager().getName().equals(SlowBall.SLOWBALL_NAME)) { return; }
+        Entity target = event.getEntity();
+        if (target instanceof LivingEntity) {
+            ((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 3));
+            ((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 20, 3));
+        }
     }
 
     private Inventory generateSpellInventory(Player player) {

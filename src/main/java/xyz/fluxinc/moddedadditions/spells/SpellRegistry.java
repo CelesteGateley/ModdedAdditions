@@ -46,6 +46,7 @@ public class SpellRegistry {
         //registerSpell(new FillMana(instance), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
         registerSpell(new Smite(instance), "smite", 6);
         registerSpell(new Speed(instance), "speed", 7);
+        registerSpell(new Speed(instance), "slowball", 8);
     }
 
     public void registerSpell(Spell spell, String technicalName, int modelId) {

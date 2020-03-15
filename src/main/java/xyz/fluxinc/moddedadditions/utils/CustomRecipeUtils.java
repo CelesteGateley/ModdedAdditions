@@ -205,6 +205,7 @@ public class CustomRecipeUtils implements Listener {
         addSpell(5, Material.FEATHER, Material.STRING);
         addSpell(6, Material.EMERALD_BLOCK, Material.TRIDENT);
         addSpell(7, Material.GLOWSTONE_DUST, Material.SUGAR);
+        addSpell(8, Material.SNOWBALL, Material.PACKED_ICE);
     }
 
     @EventHandler
