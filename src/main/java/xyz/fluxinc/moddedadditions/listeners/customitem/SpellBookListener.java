@@ -215,8 +215,8 @@ public class SpellBookListener implements Listener {
         if (!event.getDamager().getName().equals(SlowBall.SLOWBALL_NAME)) { return; }
         Entity target = event.getEntity();
         if (target instanceof LivingEntity) {
-            ((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 3));
-            ((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 20, 3));
+            new PotionEffect(PotionEffectType.SLOW, 20*20, 2).apply((LivingEntity) target);
+            new PotionEffect(PotionEffectType.SLOW_DIGGING, 20*20, 2).apply((LivingEntity) target);
         }
     }
 
