@@ -88,6 +88,7 @@ public class CustomRecipeUtils implements Listener {
         addSpells();
         addLongFallBoots();
         addHoneyChestPlate();
+        addSlimeChestPlate();
     }
 
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
