@@ -20,6 +20,7 @@ import static org.bukkit.Bukkit.getServer;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.SB_KEY_BASE;
 import static xyz.fluxinc.moddedadditions.storage.AdditionalRecipeStorage.*;
+import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.generateNewLongFallBoots;
 
 public class CustomRecipeUtils implements Listener {
 
@@ -206,6 +207,19 @@ public class CustomRecipeUtils implements Listener {
         addSpell(6, Material.EMERALD_BLOCK, Material.TRIDENT);
         addSpell(7, Material.GLOWSTONE_DUST, Material.SUGAR);
         addSpell(8, Material.SNOWBALL, Material.PACKED_ICE);
+    }
+
+    private void addLongFallBoots() {
+        NamespacedKey bootsKey = new NamespacedKey(this.instance, "LONG_FALL_BOOTS");
+
+        ItemStack result = generateNewLongFallBoots();
+        ShapedRecipe bootsRecipe = new ShapedRecipe(bootsKey, result);
+        bootsRecipe.shape("BFB", "BFB", "SIS");
+        bootsRecipe.setIngredient('F', Material.FEATHER);
+        bootsRecipe.setIngredient('B', Material.IRON_BLOCK);
+        bootsRecipe.setIngredient('S', Material.SLIME_BLOCK);
+        bootsRecipe.setIngredient('I', Material.IRON_BOOTS);
+        getServer().addRecipe(bootsRecipe);
     }
 
     @EventHandler
