@@ -86,6 +86,7 @@ public class CustomRecipeUtils implements Listener {
         makeKyberCrystals();
         addSonic();
         addSpells();
+        addLongFallBoots();
     }
 
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
