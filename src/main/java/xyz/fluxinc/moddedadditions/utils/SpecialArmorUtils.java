@@ -45,4 +45,21 @@ public class SpecialArmorUtils {
                 iStack.getItemMeta().hasCustomModelData() &&
                 iStack.getItemMeta().getCustomModelData() == KEY_BASE + ARMOR_KEY + 2;
     }
+
+    public static ItemStack generateSlimeChestplate() {
+        ItemStack iStack = addLore(new ItemStack(Material.CHAINMAIL_CHESTPLATE), "A bouncy chestplate, knocking back attackers!");
+        ItemMeta iMeta = iStack.getItemMeta();
+        iMeta.setDisplayName(ChatColor.RESET + "Slime Chestplate");
+        iMeta.setCustomModelData(KEY_BASE + ARMOR_KEY + 3);
+        iStack.setItemMeta(iMeta);
+        return iStack;
+    }
+
+    public static boolean verifySlimeChestplate(ItemStack iStack) {
+        return iStack != null &&
+                iStack.getType() == Material.CHAINMAIL_CHESTPLATE &&
+                iStack.getItemMeta() != null &&
+                iStack.getItemMeta().hasCustomModelData() &&
+                iStack.getItemMeta().getCustomModelData() == KEY_BASE + ARMOR_KEY + 3;
+    }
 }

@@ -28,6 +28,7 @@ import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListen
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.HoneyChestplateListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.LongFallBootsListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.armor.SlimeChestplateListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.SortChestListener;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
@@ -153,6 +154,7 @@ public final class ModdedAdditions extends JavaPlugin {
         // Register Custom Armor Listeners
         getServer().getPluginManager().registerEvents(new LongFallBootsListener(), this);
         getServer().getPluginManager().registerEvents(new HoneyChestplateListener(), this);
+        getServer().getPluginManager().registerEvents(new SlimeChestplateListener(), this);
 
         // Register Crafting Additions (Must Be Last)
         customRecipeUtils = new CustomRecipeUtils(this);
