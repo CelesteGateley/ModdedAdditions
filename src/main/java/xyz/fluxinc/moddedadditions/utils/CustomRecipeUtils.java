@@ -20,7 +20,7 @@ import static org.bukkit.Bukkit.getServer;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.SB_KEY_BASE;
 import static xyz.fluxinc.moddedadditions.storage.AdditionalRecipeStorage.*;
-import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.generateNewLongFallBoots;
+import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.*;
 
 public class CustomRecipeUtils implements Listener {
 
@@ -227,7 +227,7 @@ public class CustomRecipeUtils implements Listener {
     private void addHoneyChestPlate() {
         NamespacedKey key = new NamespacedKey(this.instance, "HONEY_CHESTPLATE");
         recipeKeys.add(key);
-        ItemStack result = generateNewLongFallBoots();
+        ItemStack result = generateHoneyChestplate();
         ShapedRecipe recipe = new ShapedRecipe(key, result);
         recipe.shape("A A", "AAA", "AAA");
         recipe.setIngredient('A', Material.HONEY_BLOCK);
