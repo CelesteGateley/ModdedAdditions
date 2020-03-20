@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions.utils;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -15,6 +16,7 @@ public class SpecialArmorUtils {
         ItemStack iStack = addLore(new ItemStack(Material.IRON_BOOTS), "Boots that prevent the wearer from receiving fall damage!");
         ItemMeta iMeta = iStack.getItemMeta();
         iMeta.setCustomModelData(KEY_BASE + ARMOR_KEY + 1);
+        iMeta.setDisplayName(ChatColor.RESET + "Long Fall Boots");
         iStack.setItemMeta(iMeta);
         return iStack;
     }
@@ -31,6 +33,7 @@ public class SpecialArmorUtils {
         ItemStack iStack = addLore(new ItemStack(Material.CHAINMAIL_CHESTPLATE), "Leaves a sticky residue on attackers, slowing them down!");
         ItemMeta iMeta = iStack.getItemMeta();
         iMeta.setCustomModelData(KEY_BASE + ARMOR_KEY + 2);
+        iMeta.setDisplayName(ChatColor.RESET + "Honey Chestplate");
         iStack.setItemMeta(iMeta);
         return iStack;
     }
