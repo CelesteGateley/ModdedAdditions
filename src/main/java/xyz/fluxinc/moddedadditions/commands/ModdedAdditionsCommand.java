@@ -12,6 +12,8 @@ import xyz.fluxinc.moddedadditions.storage.PlayerData;
 import java.util.HashMap;
 import java.util.Map;
 
+import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.*;
+
 public class ModdedAdditionsCommand implements CommandExecutor {
 
     private ModdedAdditions instance;
@@ -241,6 +243,12 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                         sendInvalidColor(sender, type);
                 }
                 break;
+            case "longfallboots":
+                player.getInventory().addItem(generateNewLongFallBoots());
+            case "honeychestplate":
+                player.getInventory().addItem(generateHoneyChestplate());
+            case "slimechestplate":
+                player.getInventory().addItem(generateSlimeChestplate());
             default:
                 sendInvalidItem(sender, item);
                 break;
