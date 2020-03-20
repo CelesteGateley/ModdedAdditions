@@ -87,6 +87,7 @@ public class CustomRecipeUtils implements Listener {
         addSonic();
         addSpells();
         addLongFallBoots();
+        addHoneyChestPlate();
     }
 
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
@@ -223,7 +224,15 @@ public class CustomRecipeUtils implements Listener {
         getServer().addRecipe(bootsRecipe);
     }
 
-
+    private void addHoneyChestPlate() {
+        NamespacedKey key = new NamespacedKey(this.instance, "HONEY_CHESTPLATE");
+        recipeKeys.add(key);
+        ItemStack result = generateNewLongFallBoots();
+        ShapedRecipe recipe = new ShapedRecipe(key, result);
+        recipe.shape("A A", "AAA", "AAA");
+        recipe.setIngredient('A', Material.HONEY_BLOCK);
+        getServer().addRecipe(recipe);
+    }
 
     @EventHandler
     public void updateKnowledgeBook(PlayerJoinEvent player) {
