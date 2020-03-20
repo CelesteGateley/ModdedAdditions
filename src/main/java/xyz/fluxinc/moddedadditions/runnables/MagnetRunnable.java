@@ -7,6 +7,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
+import java.util.function.Predicate;
 
 public class MagnetRunnable implements Runnable {
 
@@ -40,11 +41,9 @@ public class MagnetRunnable implements Runnable {
     @Override
     public void run() {
         Location pFeet = player.getLocation();
-        Collection<Entity> nearbyEntities = player.getWorld().getNearbyEntities(pFeet, xRadius, yRadius, zRadius);
+        Predicate<Entity> predicate = entity -> (entity.getType() == EntityType.DROPPED_ITEM);
+        Collection<Entity> nearbyEntities = player.getWorld().getNearbyEntities(pFeet, xRadius, yRadius, zRadius, predicate);
         for (Entity entity : nearbyEntities) {
-            if (entity.getType() != EntityType.DROPPED_ITEM) {
-                continue;
-            }
             Item item = (Item) entity;
             if (item.getPickupDelay() <= 0) {
                 item.teleport(player);
