@@ -212,7 +212,7 @@ public class CustomRecipeUtils implements Listener {
 
     private void addLongFallBoots() {
         NamespacedKey bootsKey = new NamespacedKey(this.instance, "LONG_FALL_BOOTS");
-
+        recipeKeys.add(bootsKey);
         ItemStack result = generateNewLongFallBoots();
         ShapedRecipe bootsRecipe = new ShapedRecipe(bootsKey, result);
         bootsRecipe.shape("BFB", "BFB", "SIS");
@@ -222,6 +222,8 @@ public class CustomRecipeUtils implements Listener {
         bootsRecipe.setIngredient('I', Material.IRON_BOOTS);
         getServer().addRecipe(bootsRecipe);
     }
+
+
 
     @EventHandler
     public void updateKnowledgeBook(PlayerJoinEvent player) {
