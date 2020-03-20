@@ -48,6 +48,9 @@ public class Teleport extends Spell {
             return false;
         }
         Location targetLocation = targetBlock.getLocation().add(0, 1, 0);
+        if (caster.getWorld().getBlockAt(targetLocation).getType() != Material.AIR) {
+            return false;
+        }
         targetLocation.setPitch(caster.getLocation().getPitch());
         targetLocation.setYaw(caster.getLocation().getYaw());
         caster.teleport(targetLocation);
