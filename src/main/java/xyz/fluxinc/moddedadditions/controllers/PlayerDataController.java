@@ -16,8 +16,8 @@ import java.util.Map;
 
 public class PlayerDataController extends ConfigurationManager implements Listener, Runnable {
 
-    private ModdedAdditions instance;
-    private Map<Player, PlayerData> cachedData;
+    private final ModdedAdditions instance;
+    private final Map<Player, PlayerData> cachedData;
 
     public PlayerDataController(ModdedAdditions instance, String configuration) {
         super(instance, configuration);

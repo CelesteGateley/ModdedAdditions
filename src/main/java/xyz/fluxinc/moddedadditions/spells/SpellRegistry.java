@@ -13,10 +13,10 @@ import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookContr
 
 public class SpellRegistry {
 
-    private Map<Integer, Spell> registryById;
-    private Map<String, Spell> registryByName;
-    private Map<Integer, String> registryToString;
-    private List<String> technicalNames;
+    private final Map<Integer, Spell> registryById;
+    private final Map<String, Spell> registryByName;
+    private final Map<Integer, String> registryToString;
+    private final List<String> technicalNames;
 
     public SpellRegistry(ModdedAdditions instance) {
         technicalNames = new ArrayList<>();

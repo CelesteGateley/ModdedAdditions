@@ -11,16 +11,21 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.verifyHoneyChestplate;
-import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.verifyLongFallBoots;
 
 public class HoneyChestplateListener implements Listener {
 
     @EventHandler
     public void onFallDamage(EntityDamageByEntityEvent event) {
-        if (event.getEntityType() != EntityType.PLAYER) { return; }
+        if (event.getEntityType() != EntityType.PLAYER) {
+            return;
+        }
         if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK)
-        if (!(event.getDamager() instanceof LivingEntity)) { return; }
-        if (!verifyHoneyChestplate(((Player) event.getEntity()).getInventory().getChestplate())) { return; }
+            if (!(event.getDamager() instanceof LivingEntity)) {
+                return;
+            }
+        if (!verifyHoneyChestplate(((Player) event.getEntity()).getInventory().getChestplate())) {
+            return;
+        }
         new PotionEffect(PotionEffectType.SLOW, 100, 2).apply((LivingEntity) event.getDamager());
     }
 }

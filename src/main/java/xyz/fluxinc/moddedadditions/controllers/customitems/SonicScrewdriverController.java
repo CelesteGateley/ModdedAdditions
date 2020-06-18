@@ -12,7 +12,7 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 public class SonicScrewdriverController {
 
     private static final int SONIC_MODEL_KEY = KEY_BASE + 9002;
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
     public SonicScrewdriverController(ModdedAdditions instance) {
         this.instance = instance;

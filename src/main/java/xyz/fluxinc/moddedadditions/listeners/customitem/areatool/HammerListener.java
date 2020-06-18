@@ -29,9 +29,9 @@ import static xyz.fluxinc.moddedadditions.controllers.customitems.AreaToolContro
 
 public class HammerListener implements Listener {
 
-    private ModdedAdditions instance;
-    private String lore;
-    private Map<Player, BlockFace> playerBlockFaceMap;
+    private final ModdedAdditions instance;
+    private final String lore;
+    private final Map<Player, BlockFace> playerBlockFaceMap;
 
     public HammerListener(ModdedAdditions instance, String lore) {
         this.instance = instance;

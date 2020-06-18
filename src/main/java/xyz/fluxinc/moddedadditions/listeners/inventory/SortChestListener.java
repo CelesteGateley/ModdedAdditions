@@ -13,7 +13,7 @@ import static xyz.fluxinc.fluxcore.utils.InventoryUtils.sortItemStacks;
 
 public class SortChestListener implements Listener {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
     public SortChestListener(ModdedAdditions instance) {
         this.instance = instance;

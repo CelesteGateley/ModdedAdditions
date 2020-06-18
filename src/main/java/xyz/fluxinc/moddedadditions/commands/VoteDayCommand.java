@@ -19,9 +19,9 @@ import java.util.List;
 
 public class VoteDayCommand implements CommandExecutor, Listener {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
     private DayVote activeVote = null;
-    private World dayWorld;
+    private final World dayWorld;
     private int taskId = -1;
 
     public VoteDayCommand(ModdedAdditions instance, World world) {
@@ -29,16 +29,20 @@ public class VoteDayCommand implements CommandExecutor, Listener {
         this.instance = instance;
     }
 
-
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
-        if (Bukkit.getServer().getOnlinePlayers().size() == 1) { dayWorld.setTime(1000); }
+        if (Bukkit.getServer().getOnlinePlayers().size() == 1) {
+            dayWorld.setTime(1000);
+        }
         if (arguments.length < 1) {
             if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) {
                 commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-alreadyDay"));
                 return true;
             }
-            if (Bukkit.getServer().getOnlinePlayers().size() == 1) { dayWorld.setTime(1000); return true; }
+            if (Bukkit.getServer().getOnlinePlayers().size() == 1) {
+                dayWorld.setTime(1000);
+                return true;
+            }
             initiateVote();
             if (commandSender instanceof Player) {
                 activeVote.votedPlayers.add((Player) commandSender);
@@ -80,9 +84,15 @@ public class VoteDayCommand implements CommandExecutor, Listener {
 
     @EventHandler
     public void onSleepEvent(PlayerBedEnterEvent event) {
-        if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) { return; }
-        if (Bukkit.getServer().getOnlinePlayers().size() == 1) { return; }
-        if (activeVote == null) { initiateVote(); }
+        if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) {
+            return;
+        }
+        if (Bukkit.getServer().getOnlinePlayers().size() == 1) {
+            return;
+        }
+        if (activeVote == null) {
+            initiateVote();
+        }
         activeVote.yesVotes++;
         activeVote.votedPlayers.add(event.getPlayer());
     }
@@ -148,7 +158,7 @@ public class VoteDayCommand implements CommandExecutor, Listener {
     private static class DayVote {
         private int yesVotes;
         private int noVotes;
-        private List<Player> votedPlayers;
+        private final List<Player> votedPlayers;
 
         public DayVote() {
             yesVotes = 0;

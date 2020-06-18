@@ -8,7 +8,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 public class MagnetExecutor extends CheckExecutor {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
     public MagnetExecutor(ModdedAdditions instance) {
         this.instance = instance;

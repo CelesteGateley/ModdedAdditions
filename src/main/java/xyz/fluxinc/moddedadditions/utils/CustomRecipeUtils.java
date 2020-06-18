@@ -24,8 +24,8 @@ import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.*;
 
 public class CustomRecipeUtils implements Listener {
 
-    private Collection<NamespacedKey> recipeKeys;
-    private ModdedAdditions instance;
+    private final Collection<NamespacedKey> recipeKeys;
+    private final ModdedAdditions instance;
     private ShapedRecipe lightSaberRecipe;
 
     /*
@@ -202,7 +202,7 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addSpells() {
-        addSpell( 1, Material.BLAZE_POWDER, Material.GHAST_TEAR);
+        addSpell(1, Material.BLAZE_POWDER, Material.GHAST_TEAR);
         addSpell(2, Material.ENDER_PEARL, Material.ENDER_EYE);
         addSpell(3, Material.BOW, Material.SPECTRAL_ARROW);
         addSpell(4, Material.GOLDEN_APPLE, Material.POTION);

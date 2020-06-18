@@ -16,7 +16,7 @@ import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.*;
 
 public class ModdedAdditionsCommand implements CommandExecutor {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
     public ModdedAdditionsCommand(ModdedAdditions instance) {
         this.instance = instance;

@@ -21,7 +21,7 @@ import static xyz.fluxinc.fluxcore.utils.ToolUtils.*;
 
 public class VeinMinerListener implements Listener {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
     public VeinMinerListener(ModdedAdditions instance) {
         this.instance = instance;

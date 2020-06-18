@@ -8,7 +8,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 public abstract class Spell {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
 
     public Spell(ModdedAdditions instance) {

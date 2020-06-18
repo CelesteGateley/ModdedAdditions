@@ -5,7 +5,6 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -35,8 +34,8 @@ import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookContr
 public class SpellBookListener implements Listener {
 
     private static final String INVENTORY_TITLE = "Select Spell";
-    private ModdedAdditions instance;
-    private ItemStack blockedItem;
+    private final ModdedAdditions instance;
+    private final ItemStack blockedItem;
 
     public SpellBookListener(ModdedAdditions instance) {
         this.instance = instance;
@@ -90,7 +89,10 @@ public class SpellBookListener implements Listener {
             return;
         }
 
-        if (event.getClickedInventory().getType() == InventoryType.PLAYER) { event.setCancelled(true); return; }
+        if (event.getClickedInventory().getType() == InventoryType.PLAYER) {
+            event.setCancelled(true);
+            return;
+        }
 
         if (event.getCurrentItem().getType() == Material.BARRIER) {
             event.getWhoClicked().sendMessage(instance.getLanguageManager().generateMessage("sb-lockedSpell"));
@@ -133,7 +135,9 @@ public class SpellBookListener implements Listener {
                 event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
             } else {
                 Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInOffHand());
-                if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) { return; }
+                if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                    return;
+                }
                 if (spell != null) {
                     spell.castSpell(event.getPlayer(), event.getPlayer());
                 }
@@ -177,33 +181,52 @@ public class SpellBookListener implements Listener {
 
     @EventHandler
     public void onSpecialCraft(PrepareItemCraftEvent event) {
-        if (event.getRecipe() == null) { return; }
+        if (event.getRecipe() == null) {
+            return;
+        }
         ItemStack result = event.getRecipe().getResult();
-        if (!verifySpellBook(result)) { return; }
+        if (!verifySpellBook(result)) {
+            return;
+        }
         Spell spell = instance.getSpellBookController().getSpell(event.getRecipe().getResult());
         if (spell instanceof Heal) {
-            ItemStack pot1 = event.getInventory().getItem(2); ItemStack pot2 = event.getInventory().getItem(4);
-            ItemStack pot3 = event.getInventory().getItem(6); ItemStack pot4 = event.getInventory().getItem(8);
+            ItemStack pot1 = event.getInventory().getItem(2);
+            ItemStack pot2 = event.getInventory().getItem(4);
+            ItemStack pot3 = event.getInventory().getItem(6);
+            ItemStack pot4 = event.getInventory().getItem(8);
             if (pot1 == null
                     || pot2 == null
                     || pot3 == null
-                    || pot4 == null) { event.getInventory().setResult(null); return; }
+                    || pot4 == null) {
+                event.getInventory().setResult(null);
+                return;
+            }
             if (!(pot1.getItemMeta() instanceof PotionMeta)
-                || !(pot2.getItemMeta() instanceof PotionMeta)
-                || !(pot3.getItemMeta() instanceof PotionMeta)
-                || !(pot4.getItemMeta() instanceof PotionMeta)) { event.getInventory().setResult(null); return; }
-            PotionMeta pM1 = (PotionMeta) pot1.getItemMeta(); PotionMeta pM2 = (PotionMeta) pot2.getItemMeta();
-            PotionMeta pM3 = (PotionMeta) pot3.getItemMeta(); PotionMeta pM4 = (PotionMeta) pot4.getItemMeta();
+                    || !(pot2.getItemMeta() instanceof PotionMeta)
+                    || !(pot3.getItemMeta() instanceof PotionMeta)
+                    || !(pot4.getItemMeta() instanceof PotionMeta)) {
+                event.getInventory().setResult(null);
+                return;
+            }
+            PotionMeta pM1 = (PotionMeta) pot1.getItemMeta();
+            PotionMeta pM2 = (PotionMeta) pot2.getItemMeta();
+            PotionMeta pM3 = (PotionMeta) pot3.getItemMeta();
+            PotionMeta pM4 = (PotionMeta) pot4.getItemMeta();
             if (pM1.getBasePotionData().getType() != PotionType.INSTANT_HEAL
-               || pM2.getBasePotionData().getType() != PotionType.INSTANT_HEAL
-               || pM3.getBasePotionData().getType() != PotionType.INSTANT_HEAL
-               || pM4.getBasePotionData().getType() != PotionType.INSTANT_HEAL) { event.getInventory().setResult(null); return; }
+                    || pM2.getBasePotionData().getType() != PotionType.INSTANT_HEAL
+                    || pM3.getBasePotionData().getType() != PotionType.INSTANT_HEAL
+                    || pM4.getBasePotionData().getType() != PotionType.INSTANT_HEAL) {
+                event.getInventory().setResult(null);
+                return;
+            }
         }
     }
 
     @EventHandler
     public void onSpellBookCraft(CraftItemEvent event) {
-        if (!verifySpellBook(event.getRecipe().getResult())) { return; }
+        if (!verifySpellBook(event.getRecipe().getResult())) {
+            return;
+        }
         String spell = instance.getSpellBookController().getSpellRegistry().getTechnicalName(event.getRecipe().getResult().getItemMeta().getCustomModelData());
         instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), instance.getPlayerDataController().getPlayerData((Player) event.getWhoClicked()).setSpell(spell, true));
     }
@@ -213,14 +236,14 @@ public class SpellBookListener implements Listener {
         if (event.getEntity().getType() != EntityType.SNOWBALL) {
             return;
         }
-        if (event.getEntity().getCustomName() ==  null
+        if (event.getEntity().getCustomName() == null
                 || !event.getEntity().getCustomName().equals(SlowBall.SLOWBALL_NAME)) {
             return;
         }
         Entity target = event.getHitEntity();
         if (target instanceof LivingEntity) {
-            new PotionEffect(PotionEffectType.SLOW, 10*20, 2).apply((LivingEntity) target);
-            new PotionEffect(PotionEffectType.SLOW_DIGGING, 10*20, 2).apply((LivingEntity) target);
+            new PotionEffect(PotionEffectType.SLOW, 10 * 20, 2).apply((LivingEntity) target);
+            new PotionEffect(PotionEffectType.SLOW_DIGGING, 10 * 20, 2).apply((LivingEntity) target);
         }
     }
 

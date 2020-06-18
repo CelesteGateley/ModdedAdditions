@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class AreaToolCommand implements CommandExecutor {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
 
     public AreaToolCommand(ModdedAdditions instance) {

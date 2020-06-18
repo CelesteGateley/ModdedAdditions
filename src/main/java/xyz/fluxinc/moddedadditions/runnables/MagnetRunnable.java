@@ -12,10 +12,10 @@ import java.util.function.Predicate;
 public class MagnetRunnable implements Runnable {
 
     private static final int DEFAULT_RADIUS = 8;
-    private Player player;
-    private int xRadius;
-    private int yRadius;
-    private int zRadius;
+    private final Player player;
+    private final int xRadius;
+    private final int yRadius;
+    private final int zRadius;
 
     public MagnetRunnable(Player player) {
         this.player = player;

@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class SpellBookCommand implements CommandExecutor {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
     public SpellBookCommand(ModdedAdditions instance) {
         this.instance = instance;

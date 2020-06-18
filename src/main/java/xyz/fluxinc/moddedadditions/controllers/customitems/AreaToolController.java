@@ -27,8 +27,8 @@ public class AreaToolController {
     private static final String CONFIG_NAME = "areatool.yml";
     private static final String HAMMER_CONFIG_KEY = "hammer";
     private static final String EXCAVATOR_CONFIG_KEY = "excavator";
-    private ModdedAdditions instance;
-    private YamlConfiguration areaToolConfiguration;
+    private final ModdedAdditions instance;
+    private final YamlConfiguration areaToolConfiguration;
     private List<Material> hammerBlocks;
     private List<Material> excavatorBlocks;
 

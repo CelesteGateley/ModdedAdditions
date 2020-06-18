@@ -12,10 +12,16 @@ public class LongFallBootsListener implements Listener {
 
     @EventHandler
     public void onFallDamage(EntityDamageEvent event) {
-        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) { return; }
-        if (event.getEntityType() != EntityType.PLAYER) { return; }
+        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) {
+            return;
+        }
+        if (event.getEntityType() != EntityType.PLAYER) {
+            return;
+        }
         Player player = (Player) event.getEntity();
-        if (!verifyLongFallBoots(player.getInventory().getBoots())) { return; }
+        if (!verifyLongFallBoots(player.getInventory().getBoots())) {
+            return;
+        }
         event.setCancelled(true);
     }
 }

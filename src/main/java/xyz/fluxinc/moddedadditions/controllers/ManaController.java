@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class ManaController implements Listener, Runnable {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
     private Map<Player, NamespacedKey> playerBars;
 
     public ManaController(ModdedAdditions instance) {

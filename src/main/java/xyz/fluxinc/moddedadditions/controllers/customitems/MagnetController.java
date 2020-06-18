@@ -19,9 +19,9 @@ public class MagnetController {
 
     private static final int MAGNET_MODEL_KEY = KEY_BASE + 9001;
     private static final Material MAGNET_MATERIAL = Material.IRON_NUGGET;
-    private BukkitScheduler taskScheduler;
-    private ModdedAdditions instance;
-    private Map<Player, Integer> vacuumInstances;
+    private final BukkitScheduler taskScheduler;
+    private final ModdedAdditions instance;
+    private final Map<Player, Integer> vacuumInstances;
 
     public MagnetController(ModdedAdditions instance) {
         this.instance = instance;

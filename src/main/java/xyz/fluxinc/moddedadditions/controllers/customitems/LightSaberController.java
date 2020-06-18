@@ -24,7 +24,7 @@ public class LightSaberController {
 
     public static final int LS_KEY_BASE = 2020;
     public static final int KC_KEY_BASE = 2010;
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
     public LightSaberController(ModdedAdditions instance) {
         this.instance = instance;

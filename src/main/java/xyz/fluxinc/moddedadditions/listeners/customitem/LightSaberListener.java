@@ -17,7 +17,7 @@ import static xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberCont
 
 public class LightSaberListener implements Listener {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
     public LightSaberListener(ModdedAdditions instance) {
         this.instance = instance;

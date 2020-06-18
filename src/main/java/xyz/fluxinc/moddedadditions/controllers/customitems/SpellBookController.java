@@ -17,8 +17,8 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 public class SpellBookController {
 
     public static final int SB_KEY_BASE = 3000;
-    private ModdedAdditions instance;
-    private SpellRegistry spellRegistry;
+    private final ModdedAdditions instance;
+    private final SpellRegistry spellRegistry;
 
     public SpellBookController(ModdedAdditions instance) {
         this.instance = instance;

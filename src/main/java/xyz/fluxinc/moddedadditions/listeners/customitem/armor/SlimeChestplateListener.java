@@ -15,10 +15,16 @@ public class SlimeChestplateListener implements Listener {
 
     @EventHandler
     public void onFallDamage(EntityDamageByEntityEvent event) {
-        if (event.getEntityType() != EntityType.PLAYER) { return; }
+        if (event.getEntityType() != EntityType.PLAYER) {
+            return;
+        }
         if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK)
-        if (!(event.getDamager() instanceof LivingEntity)) { return; }
-        if (!verifySlimeChestplate(((Player) event.getEntity()).getInventory().getChestplate())) { return; }
+            if (!(event.getDamager() instanceof LivingEntity)) {
+                return;
+            }
+        if (!verifySlimeChestplate(((Player) event.getEntity()).getInventory().getChestplate())) {
+            return;
+        }
         LivingEntity entity = (LivingEntity) event.getDamager();
         entity.setVelocity(entity.getEyeLocation().getDirection().multiply(new Vector(-1, 0, -1)).multiply(new Vector(2, 1, 2)));
     }

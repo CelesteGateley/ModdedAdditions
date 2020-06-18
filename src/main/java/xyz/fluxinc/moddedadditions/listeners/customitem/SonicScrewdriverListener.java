@@ -11,7 +11,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 public class SonicScrewdriverListener implements Listener {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
     public SonicScrewdriverListener(ModdedAdditions instance) {
         this.instance = instance;

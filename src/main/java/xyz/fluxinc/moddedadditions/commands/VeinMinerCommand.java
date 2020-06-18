@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class VeinMinerCommand implements CommandExecutor {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
     public VeinMinerCommand(ModdedAdditions instance) {
         this.instance = instance;

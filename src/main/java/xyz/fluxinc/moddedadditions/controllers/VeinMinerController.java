@@ -19,8 +19,8 @@ public class VeinMinerController {
     private static final String HOE_CONFIG_KEY = "hoe";
     private static final String SHEARS_CONFIG_KEY = "shears";
     private static final String HAND_CONFIG_KEY = "hand";
-    private ModdedAdditions instance;
-    private ConfigurationManager<ModdedAdditions> vmConfiguration;
+    private final ModdedAdditions instance;
+    private final ConfigurationManager<ModdedAdditions> vmConfiguration;
     private List<Material> pickaxeBlocks;
     private List<Material> axeBlocks;
     private List<Material> shovelBlocks;

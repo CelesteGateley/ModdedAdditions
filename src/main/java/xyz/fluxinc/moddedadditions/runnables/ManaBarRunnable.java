@@ -8,8 +8,8 @@ import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookContr
 
 public class ManaBarRunnable implements Runnable {
 
-    private NamespacedKey bossBar;
-    private Player player;
+    private final NamespacedKey bossBar;
+    private final Player player;
 
     public ManaBarRunnable(Player player, NamespacedKey bossBar) {
         this.bossBar = bossBar;

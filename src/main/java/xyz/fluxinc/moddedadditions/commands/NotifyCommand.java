@@ -14,7 +14,7 @@ import static org.bukkit.Bukkit.getServer;
 
 public class NotifyCommand implements CommandExecutor {
 
-    private ModdedAdditions instance;
+    private final ModdedAdditions instance;
 
     public NotifyCommand(ModdedAdditions instance) {
         this.instance = instance;
