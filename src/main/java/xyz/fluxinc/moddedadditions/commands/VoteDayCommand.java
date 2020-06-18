@@ -2,6 +2,7 @@ package xyz.fluxinc.moddedadditions.commands;
 
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -31,11 +32,13 @@ public class VoteDayCommand implements CommandExecutor, Listener {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
+        if (Bukkit.getServer().getOnlinePlayers().size() == 1) { dayWorld.setTime(1000); }
         if (arguments.length < 1) {
             if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) {
                 commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-alreadyDay"));
                 return true;
             }
+            if (Bukkit.getServer().getOnlinePlayers().size() == 1) { dayWorld.setTime(1000); return true; }
             initiateVote();
             if (commandSender instanceof Player) {
                 activeVote.votedPlayers.add((Player) commandSender);
@@ -77,12 +80,9 @@ public class VoteDayCommand implements CommandExecutor, Listener {
 
     @EventHandler
     public void onSleepEvent(PlayerBedEnterEvent event) {
-        if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) {
-            return;
-        }
-        if (activeVote == null) {
-            initiateVote();
-        }
+        if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) { return; }
+        if (Bukkit.getServer().getOnlinePlayers().size() == 1) { return; }
+        if (activeVote == null) { initiateVote(); }
         activeVote.yesVotes++;
         activeVote.votedPlayers.add(event.getPlayer());
     }
