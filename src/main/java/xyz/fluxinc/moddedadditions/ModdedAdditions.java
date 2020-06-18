@@ -83,7 +83,9 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // Register Language and Configuration Managers
         languageManager = new LanguageManager<>(this, "lang.yml");
+        languageManager.verifyKeys();
         configurationManager = new ConfigurationManager<>(this, "config.yml");
+        configurationManager.verifyKeys();
         getCommand("moddedadditions").setExecutor(new ModdedAdditionsCommand(this));
 
         // Register Core Utilities
