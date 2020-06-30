@@ -101,6 +101,7 @@ public class SpellBookCommand implements CommandExecutor {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                return true;
             default:
                 sendUnknownSubCommand(sender, args[0]);
                 return true;

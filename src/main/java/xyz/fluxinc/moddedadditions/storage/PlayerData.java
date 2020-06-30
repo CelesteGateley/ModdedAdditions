@@ -51,6 +51,7 @@ public class PlayerData implements ConfigurationSerializable {
                 maximumMana += 50;
             }
         }
+        currentMana = maximumMana;
     }
 
     public boolean knowsSpell(String spell) {
