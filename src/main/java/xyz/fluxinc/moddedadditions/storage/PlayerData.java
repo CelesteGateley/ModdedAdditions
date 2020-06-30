@@ -27,7 +27,7 @@ public class PlayerData implements ConfigurationSerializable {
         veinMiner = !serializedData.containsKey("veinMiner") || (boolean) serializedData.get("veinMiner");
         sortChests = serializedData.containsKey("sortChests") && (boolean) serializedData.get("sortChests");
         currentMana = serializedData.containsKey("currentMana") ? (int) serializedData.get("currentMana") : 0;
-        maximumMana = serializedData.containsKey("maximumMana") ? (int) serializedData.get("maximumMana") : 300;
+        maximumMana = serializedData.containsKey("maximumMana") ? (int) serializedData.get("maximumMana") : 100;
         knownSpells = serializedData.containsKey("knownSpells") ? (Map<String, Boolean>) serializedData.get("knownSpells") : new HashMap<>();
         initializeSpells();
     }
