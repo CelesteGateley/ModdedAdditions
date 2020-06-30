@@ -143,6 +143,7 @@ public class CustomRecipeUtils implements Listener {
         getServer().addRecipe(generateNewHammerRecipe(ToolLevel.IRON, "IRON_HAMMER", Material.IRON_PICKAXE));
         getServer().addRecipe(generateNewHammerRecipe(ToolLevel.GOLD, "GOLDEN_HAMMER", Material.GOLDEN_PICKAXE));
         getServer().addRecipe(generateNewHammerRecipe(ToolLevel.DIAMOND, "DIAMOND_HAMMER", Material.DIAMOND_PICKAXE));
+        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.DIAMOND, "NETHERITE_HAMMER", Material.NETHERITE_PICKAXE));
     }
 
     private void makeExcavators() {
@@ -151,6 +152,7 @@ public class CustomRecipeUtils implements Listener {
         getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.IRON, "IRON_EXCAVATOR", Material.IRON_SHOVEL));
         getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.GOLD, "GOLDEN_EXCAVATOR", Material.GOLDEN_SHOVEL));
         getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.DIAMOND, "DIAMOND_EXCAVATOR", Material.DIAMOND_SHOVEL));
+        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.DIAMOND, "NETHERITE_EXCAVATOR", Material.NETHERITE_SHOVEL));
     }
 
     private void makeKyberCrystals() {
