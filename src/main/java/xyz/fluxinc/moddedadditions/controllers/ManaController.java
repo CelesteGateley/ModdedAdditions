@@ -123,7 +123,7 @@ public class ManaController implements Listener, Runnable {
     @Override
     public void run() {
         for (Player player : instance.getServer().getOnlinePlayers()) {
-            regeneratePercentMana(player, 2);
+            regeneratePercentMana(player, 10);
             updateManaBar(player);
         }
     }

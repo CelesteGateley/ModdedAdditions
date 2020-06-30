@@ -130,28 +130,35 @@ public class SpellBookListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
-
+        PlayerData data = instance.getPlayerDataController().getPlayerData(event.getPlayer());
         if (verifySpellBook(event.getPlayer().getInventory().getItemInOffHand())) {
             if (event.getPlayer().isSneaking()) {
                 event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
             } else {
                 Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInOffHand());
-                if (spell == null) return;
-                if (!instance.getPlayerDataController().getPlayerData(event.getPlayer()).knowsSpell(spell.getName())) return;
                 if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) return;
-                spell.castSpell(event.getPlayer(), event.getPlayer());
+                if (spell != null) {
+                    if (!data.knowsSpell(getTechnicalName(event.getPlayer().getInventory().getItemInOffHand()))) return;
+                    spell.castSpell(event.getPlayer(), event.getPlayer());
+                }
             }
         } else if (verifySpellBook(event.getPlayer().getInventory().getItemInMainHand())) {
             if (event.getPlayer().isSneaking()) {
                 event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
             } else {
                 Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInMainHand());
-                if (spell == null) return;
-                if (!instance.getPlayerDataController().getPlayerData(event.getPlayer()).knowsSpell(spell.getName())) return;
-                spell.castSpell(event.getPlayer(), event.getPlayer());
+                if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) return;
+                if (spell != null) {
+                    if (!data.knowsSpell(getTechnicalName(event.getPlayer().getInventory().getItemInMainHand()))) return;
+                    spell.castSpell(event.getPlayer(), event.getPlayer());
+                }
             }
         }
+    }
 
+    private String getTechnicalName(ItemStack itemStack) {
+        int id = itemStack.getItemMeta().getCustomModelData();
+        return instance.getSpellBookController().getSpellRegistry().getTechnicalName(id);
     }
 
     @EventHandler
