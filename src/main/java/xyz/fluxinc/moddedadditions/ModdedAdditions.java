@@ -75,7 +75,6 @@ public final class ModdedAdditions extends JavaPlugin {
             }
         }
 
-
         // Initialize PlayerData
         ConfigurationSerialization.registerClass(PlayerData.class);
         playerDataController = new PlayerDataController(this, "storage.yml");
@@ -186,6 +185,7 @@ public final class ModdedAdditions extends JavaPlugin {
     public void reloadConfiguration() {
         languageManager = new LanguageManager<>(this, "lang.yml");
         configurationManager = new ConfigurationManager<>(this, "config.yml");
+        playerDataController.loadConfiguration();
         veinMinerController.loadFromConfiguration();
         areaToolController.loadFromConfiguration();
     }
