@@ -18,7 +18,7 @@ public class PlayerData implements ConfigurationSerializable {
         veinMiner = true;
         sortChests = false;
         currentMana = 0;
-        maximumMana = 300;
+        maximumMana = 100;
         initializeSpells();
     }
 

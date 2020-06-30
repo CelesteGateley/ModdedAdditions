@@ -48,6 +48,18 @@ public class ManaController implements Listener, Runnable {
         updateManaBar(player);
     }
 
+    public void regeneratePercentMana(Player player, int amount) {
+        PlayerData data = instance.getPlayerDataController().getPlayerData(player);
+        int regenAmount = (data.getMaximumMana() / 100) * amount;
+        if (data.getCurrentMana() + regenAmount >= data.getMaximumMana()) {
+            instance.getPlayerDataController().setPlayerData(player, data.setCurrentMana(data.getMaximumMana()));
+        } else {
+            instance.getPlayerDataController().setPlayerData(player, data.addCurrentMana(regenAmount));
+        }
+
+        updateManaBar(player);
+    }
+
     private void updateManaBar(Player player) {
         if (Bukkit.getServer().getBossBar(playerBars.get(player)) == null) {
             generateManaBar(player);
@@ -111,19 +123,7 @@ public class ManaController implements Listener, Runnable {
     @Override
     public void run() {
         for (Player player : instance.getServer().getOnlinePlayers()) {
-            PlayerData data = instance.getPlayerDataController().getPlayerData(player);
-            if (data.getCurrentMana() >= data.getMaximumMana()) {
-                data.setCurrentMana(data.getMaximumMana());
-            } else if (data.getMaximumMana() - data.getCurrentMana() < 5) {
-                data.setCurrentMana(data.getMaximumMana());
-                showManaBar(player, 10);
-            } else {
-                data.addCurrentMana(5);
-                if (data.getCurrentMana() % 50 == 0) {
-                    showManaBar(player, 5);
-                }
-            }
-            instance.getPlayerDataController().setPlayerData(player, data);
+            regeneratePercentMana(player, 2);
             updateManaBar(player);
         }
     }
