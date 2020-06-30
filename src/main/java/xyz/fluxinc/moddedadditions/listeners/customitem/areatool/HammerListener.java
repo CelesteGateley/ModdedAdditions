@@ -133,7 +133,8 @@ public class HammerListener implements Listener {
                 || tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 12
                 || tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 13
                 || tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 14
-                || tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 15);
+                || tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 15
+                || tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 16);
     }
 
     private boolean verifyLore(ItemStack tool) {

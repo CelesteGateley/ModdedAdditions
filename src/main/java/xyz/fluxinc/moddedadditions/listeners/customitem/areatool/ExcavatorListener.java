@@ -133,7 +133,8 @@ public class ExcavatorListener implements Listener {
                 || tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 22
                 || tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 23
                 || tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 24
-                || tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 25);
+                || tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 25
+                || tool.getItemMeta().getCustomModelData() == KEY_BASE + AT_KEY_BASE + 26);
     }
 
     private boolean verifyLore(ItemStack tool) {

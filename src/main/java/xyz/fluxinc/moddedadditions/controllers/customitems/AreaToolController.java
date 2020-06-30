@@ -132,6 +132,10 @@ public class AreaToolController {
                 toolMaterial = Material.DIAMOND_PICKAXE;
                 modelId = 5;
                 break;
+            case NETHERITE:
+                toolMaterial = Material.NETHERITE_PICKAXE;
+                modelId = 6;
+                break;
             default:
                 toolMaterial = Material.WOODEN_PICKAXE;
                 modelId = 1;
@@ -166,6 +170,10 @@ public class AreaToolController {
             case DIAMOND:
                 toolMaterial = Material.DIAMOND_SHOVEL;
                 modelId = 5;
+                break;
+            case NETHERITE:
+                toolMaterial = Material.NETHERITE_SHOVEL;
+                modelId = 6;
                 break;
             default:
                 toolMaterial = Material.WOODEN_SHOVEL;
