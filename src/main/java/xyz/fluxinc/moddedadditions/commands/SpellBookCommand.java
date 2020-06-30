@@ -41,6 +41,8 @@ public class SpellBookCommand implements CommandExecutor {
         }
         switch (args[0]) {
             case "learn":
+                if (!sender.hasPermission("moddedadditions.spells.learn")) { sendPermissionDenied(sender); return true; }
+                if (target != sender && !sender.hasPermission("moddedadditions.spells.learn.others")) { sendPermissionDenied(sender); return true; }
                 if (args.length < 2) {
                     sendNoSpellProvided(sender);
                     return true;
@@ -54,6 +56,8 @@ public class SpellBookCommand implements CommandExecutor {
                 setSpell(target, args[1], true);
                 return true;
             case "unlearn":
+                if (!sender.hasPermission("moddedadditions.spells.unlearn")) { sendPermissionDenied(sender); return true; }
+                if (target != sender && !sender.hasPermission("moddedadditions.spells.unlearn.others")) { sendPermissionDenied(sender); return true; }
                 if (args.length < 2) {
                     sendNoSpellProvided(sender);
                     return true;
@@ -67,8 +71,10 @@ public class SpellBookCommand implements CommandExecutor {
                 setSpell(target, args[1], false);
                 return true;
             case "fillmana":
+                if (!sender.hasPermission("moddedadditions.fillmana")) { sendPermissionDenied(sender); return true; }
                 if (args.length == 2) {
                     Player player = instance.getServer().getPlayer(args[1]);
+                    if (!sender.hasPermission("moddedadditions.fillmana.others")) { sendPermissionDenied(sender); return true; }
                     if (player == null) {
                         sendUnknownPlayer(sender, args[1]);
                         return true;
