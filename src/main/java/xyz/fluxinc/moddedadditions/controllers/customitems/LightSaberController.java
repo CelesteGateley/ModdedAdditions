@@ -45,7 +45,7 @@ public class LightSaberController {
     }
 
     public ItemStack generateNewLightSaber(SaberColor color) {
-        ItemStack itemStack = addLore(new ItemStack(Material.DIAMOND_SWORD), instance.getLanguageManager().getFormattedString("mi-lightsaber"));
+        ItemStack itemStack = addLore(new ItemStack(Material.NETHERITE_SWORD), instance.getLanguageManager().getFormattedString("mi-lightsaber"));
         ItemMeta iMeta = itemStack.getItemMeta();
         iMeta.setCustomModelData(KEY_BASE + LS_KEY_BASE + getColorMod(color));
         iMeta.setDisplayName(getChatColor(color) + toTitleCase(color.toString()) + " Saber");
@@ -67,7 +67,7 @@ public class LightSaberController {
     }
 
     public ItemStack getDefaultLightSaber() {
-        ItemStack lightSaber = addLore(new ItemStack(Material.DIAMOND_SWORD), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getFormattedString("mi-lightsaber")));
+        ItemStack lightSaber = addLore(new ItemStack(Material.NETHERITE_SWORD), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getFormattedString("mi-lightsaber")));
         ItemMeta itemMeta = lightSaber.getItemMeta();
         itemMeta.setCustomModelData(KEY_BASE + LS_KEY_BASE);
         lightSaber.setItemMeta(itemMeta);

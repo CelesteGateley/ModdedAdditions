@@ -37,6 +37,7 @@ public class LightSaberListener implements Listener {
             return;
         }
         if (verifyLightSaber(itemStack)) {
+            if (itemStack.getType() == Material.DIAMOND_SWORD) itemStack.setType(Material.NETHERITE_SWORD);
             ((Player) event.getDamager()).playSound(event.getDamager().getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1, 1);
         }
     }
