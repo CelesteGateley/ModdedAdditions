@@ -44,6 +44,15 @@ public class PlayerData implements ConfigurationSerializable {
 
     }
 
+    public void evaluateMana() {
+        maximumMana = 100;
+        for (String spell : knownSpells.keySet()) {
+            if (knownSpells.get(spell)) {
+                maximumMana += 50;
+            }
+        }
+    }
+
     public boolean knowsSpell(String spell) {
         return knownSpells.getOrDefault(spell, false);
     }

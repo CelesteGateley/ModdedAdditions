@@ -3,9 +3,13 @@ package xyz.fluxinc.moddedadditions.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,6 +88,19 @@ public class SpellBookCommand implements CommandExecutor {
                 instance.getManaController().regenerateMana(target,
                         instance.getManaController().getMaximumMana(target) - instance.getManaController().getMana(target));
                 return true;
+            case "evaluateall":
+                if (!sender.isOp()) { sendUnknownSubCommand(sender, "evaluateall"); return true; }
+                YamlConfiguration dataConfig = instance.getPlayerDataController().getConfiguration();
+                for (String key : dataConfig.getKeys(false)) {
+                    PlayerData data = (PlayerData) dataConfig.get(key);
+                    data.evaluateMana();
+                    dataConfig.set(key, data);
+                }
+                try {
+                    dataConfig.save(new File(instance.getDataFolder(), "storage.yml"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             default:
                 sendUnknownSubCommand(sender, args[0]);
                 return true;
