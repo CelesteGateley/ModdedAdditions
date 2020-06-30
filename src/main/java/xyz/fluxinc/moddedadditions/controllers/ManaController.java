@@ -27,7 +27,7 @@ public class ManaController implements Listener, Runnable {
     public ManaController(ModdedAdditions instance) {
         this.instance = instance;
         playerBars = new HashMap<>();
-        instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, this, 100, 100);
+        instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, this, 40, 40);
     }
 
     public int getMana(Player player) {
@@ -123,7 +123,7 @@ public class ManaController implements Listener, Runnable {
     @Override
     public void run() {
         for (Player player : instance.getServer().getOnlinePlayers()) {
-            regeneratePercentMana(player, 10);
+            regeneratePercentMana(player, 4);
             updateManaBar(player);
         }
     }
