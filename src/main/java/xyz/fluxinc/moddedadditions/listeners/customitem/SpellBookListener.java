@@ -22,6 +22,7 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.castable.Fireball;
 import xyz.fluxinc.moddedadditions.spells.castable.Heal;
 import xyz.fluxinc.moddedadditions.spells.castable.SlowBall;
+import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,21 +136,19 @@ public class SpellBookListener implements Listener {
                 event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
             } else {
                 Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInOffHand());
-                if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    return;
-                }
-                if (spell != null) {
-                    spell.castSpell(event.getPlayer(), event.getPlayer());
-                }
+                if (spell == null) return;
+                if (!instance.getPlayerDataController().getPlayerData(event.getPlayer()).knowsSpell(spell.getName())) return;
+                if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) return;
+                spell.castSpell(event.getPlayer(), event.getPlayer());
             }
         } else if (verifySpellBook(event.getPlayer().getInventory().getItemInMainHand())) {
             if (event.getPlayer().isSneaking()) {
                 event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
             } else {
                 Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInMainHand());
-                if (spell != null) {
-                    spell.castSpell(event.getPlayer(), event.getPlayer());
-                }
+                if (spell == null) return;
+                if (!instance.getPlayerDataController().getPlayerData(event.getPlayer()).knowsSpell(spell.getName())) return;
+                spell.castSpell(event.getPlayer(), event.getPlayer());
             }
         }
 
@@ -228,7 +227,9 @@ public class SpellBookListener implements Listener {
             return;
         }
         String spell = instance.getSpellBookController().getSpellRegistry().getTechnicalName(event.getRecipe().getResult().getItemMeta().getCustomModelData());
-        instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), instance.getPlayerDataController().getPlayerData((Player) event.getWhoClicked()).setSpell(spell, true));
+        PlayerData data = instance.getPlayerDataController().getPlayerData((Player) event.getWhoClicked());
+        if (!data.knowsSpell(spell)) data.addMaximumMana(50);
+        instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), data.setSpell(spell, true));
     }
 
     @EventHandler
