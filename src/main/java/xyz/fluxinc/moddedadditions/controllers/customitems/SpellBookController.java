@@ -33,6 +33,7 @@ public class SpellBookController {
         if (lavaWalkerPlayers.containsKey(player)) {
             if (lavaWalkerPlayers.get(player) + 30*1000 > System.currentTimeMillis()) return true;
             lavaWalkerPlayers.remove(player);
+            player.sendTitle("Lava walk has worn off", "", 10, 70, 20);
         }
         return false;
     }

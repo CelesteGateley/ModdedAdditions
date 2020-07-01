@@ -46,6 +46,7 @@ public class LavaWalk extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
+        caster.sendTitle("You can now walk on lava!", "", 10, 70, 20);
         getInstance().getSpellBookController().addLavaWalk(caster);
         return true;
     }
