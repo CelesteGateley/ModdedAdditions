@@ -41,7 +41,7 @@ public class LavaWalk extends Spell {
 
     @Override
     public String getRiddle() {
-        return "Winters chill slows the body, packing your speed and slowing you to a crawl";
+        return "With frost at your feet and a fiery heart, even you can cross a blazing desert";
     }
 
     @Override

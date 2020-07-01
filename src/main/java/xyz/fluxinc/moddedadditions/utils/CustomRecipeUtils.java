@@ -222,6 +222,8 @@ public class CustomRecipeUtils implements Listener {
         addSpell(8, Material.SNOWBALL, Material.PACKED_ICE);
         // Miners Boon
         addSpell(9, Material.NETHERITE_INGOT, Material.HEART_OF_THE_SEA);
+        // Lava Walk
+        addSpell(10, Material.ICE, Material.BLAZE_ROD);
     }
 
     private void addLongFallBoots() {
