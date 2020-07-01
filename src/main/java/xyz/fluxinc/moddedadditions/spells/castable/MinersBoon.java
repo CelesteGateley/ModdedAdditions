@@ -41,7 +41,7 @@ public class MinersBoon extends Spell {
 
     @Override
     public String getRiddle() {
-        return "The nether's riches, and the seas power, grants one the strength of the ground";
+        return "An ancient metal, and a buried heart, grants one the strength of the earth";
     }
 
     @Override
