@@ -8,7 +8,9 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRegistry;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.fluxcore.utils.StringUtils.toTitleCase;
@@ -19,11 +21,24 @@ public class SpellBookController {
     public static final int SB_KEY_BASE = 3000;
     private final ModdedAdditions instance;
     private final SpellRegistry spellRegistry;
+    private final Map<Player, Long> lavaWalkerPlayers;
 
     public SpellBookController(ModdedAdditions instance) {
         this.instance = instance;
-
         spellRegistry = new SpellRegistry(instance);
+        lavaWalkerPlayers = new HashMap<>();
+    }
+
+    public boolean canLavaWalk(Player player) {
+        if (lavaWalkerPlayers.containsKey(player)) {
+            if (lavaWalkerPlayers.get(player) + 30*1000 > System.currentTimeMillis()) return true;
+            lavaWalkerPlayers.remove(player);
+        }
+        return false;
+    }
+
+    public void addLavaWalk(Player player) {
+        lavaWalkerPlayers.put(player, System.currentTimeMillis());
     }
 
     public static boolean verifySpellBook(ItemStack itemStack) {

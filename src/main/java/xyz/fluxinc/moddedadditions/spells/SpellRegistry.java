@@ -47,6 +47,8 @@ public class SpellRegistry {
         registerSpell(new Smite(instance), "smite", 6);
         registerSpell(new Speed(instance), "speed", 7);
         registerSpell(new SlowBall(instance), "slowball", 8);
+        registerSpell(new SlowBall(instance), "minersboon", 9);
+        registerSpell(new LavaWalk(instance), "lavawalk", 10);
     }
 
     public void registerSpell(Spell spell, String technicalName, int modelId) {
