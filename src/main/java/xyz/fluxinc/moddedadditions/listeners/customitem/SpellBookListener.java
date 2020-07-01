@@ -3,12 +3,14 @@ package xyz.fluxinc.moddedadditions.listeners.customitem;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -246,6 +248,16 @@ public class SpellBookListener implements Listener {
         if (target instanceof LivingEntity) {
             new PotionEffect(PotionEffectType.SLOW, 10 * 20, 2).apply((LivingEntity) target);
             new PotionEffect(PotionEffectType.SLOW_DIGGING, 10 * 20, 2).apply((LivingEntity) target);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerLavaWalk(PlayerMoveEvent event) {
+        if (instance.getSpellBookController().canLavaWalk(event.getPlayer())) {
+            Location feet = event.getTo().add(0, -1, 0);
+            if (feet.getBlock().getType() == Material.LAVA) {
+                feet.getBlock().setType(Material.COBBLESTONE);
+            }
         }
     }
 
