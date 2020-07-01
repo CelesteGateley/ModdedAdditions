@@ -40,7 +40,7 @@ public class Smite extends Spell {
 
     @Override
     public String getRiddle() {
-        return "Poseidon strikes at the riches held in the highest mountains";
+        return "Poseidon strikes at the richest ore held in the highest mountains";
     }
 
     @Override

@@ -215,7 +215,7 @@ public class CustomRecipeUtils implements Listener {
         // AirJet
         addSpell(5, Material.FEATHER, Material.STRING);
         // Smite
-        addSpell(6, Material.EMERALD_BLOCK, Material.TRIDENT);
+        addSpell(6, Material.EMERALD_ORE, Material.TRIDENT);
         // Speed
         addSpell(7, Material.GLOWSTONE_DUST, Material.SUGAR);
         // Slowball
