@@ -204,13 +204,21 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addSpells() {
+        // Fireball
         addSpell(1, Material.BLAZE_POWDER, Material.GHAST_TEAR);
+        // Teleport
         addSpell(2, Material.ENDER_PEARL, Material.ENDER_EYE);
+        // FireArrow
         addSpell(3, Material.BOW, Material.SPECTRAL_ARROW);
+        // Heal (Instant Heal Potion)
         addSpell(4, Material.GOLDEN_APPLE, Material.POTION);
+        // AirJet
         addSpell(5, Material.FEATHER, Material.STRING);
+        // Smite
         addSpell(6, Material.EMERALD_BLOCK, Material.TRIDENT);
+        // Speed
         addSpell(7, Material.GLOWSTONE_DUST, Material.SUGAR);
+        // Slowball
         addSpell(8, Material.SNOWBALL, Material.PACKED_ICE);
     }
 
