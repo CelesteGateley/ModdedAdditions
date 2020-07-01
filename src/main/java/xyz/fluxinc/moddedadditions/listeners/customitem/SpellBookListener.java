@@ -254,7 +254,8 @@ public class SpellBookListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerLavaWalk(PlayerMoveEvent event) {
         if (instance.getSpellBookController().canLavaWalk(event.getPlayer())) {
-            Location feet = event.getTo().add(0, -1, 0);
+            Location feet = event.getTo().clone();
+            feet.add(0,-1,0);
             if (feet.getBlock().getType() == Material.LAVA) {
                 feet.getBlock().setType(Material.COBBLESTONE);
             }
