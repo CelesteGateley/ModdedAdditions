@@ -209,7 +209,7 @@ public class CustomRecipeUtils implements Listener {
         // Teleport
         addSpell(2, Material.ENDER_PEARL, Material.ENDER_EYE);
         // FireArrow
-        addSpell(3, Material.BOW, Material.SPECTRAL_ARROW);
+        addSpell(3, Material.CROSSBOW, Material.SPECTRAL_ARROW);
         // Heal (Instant Heal Potion)
         addSpell(4, Material.GOLDEN_APPLE, Material.POTION);
         // AirJet
