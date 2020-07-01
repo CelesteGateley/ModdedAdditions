@@ -219,7 +219,7 @@ public class CustomRecipeUtils implements Listener {
         // Speed
         addSpell(7, Material.GLOWSTONE_DUST, Material.SUGAR);
         // Slowball
-        addSpell(8, Material.SNOWBALL, Material.PACKED_ICE);
+        addSpell(8, Material.SNOWBALL, Material.SOUL_SAND);
         // Miners Boon
         addSpell(9, Material.NETHERITE_INGOT, Material.HEART_OF_THE_SEA);
         // Lava Walk

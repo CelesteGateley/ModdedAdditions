@@ -43,7 +43,7 @@ public class SlowBall extends Spell {
 
     @Override
     public String getRiddle() {
-        return "Winters chill slows the body, packing your speed and slowing you to a crawl";
+        return "One strike from winter's wrath slows your very soul to a crawl";
     }
 
     @Override
