@@ -42,7 +42,7 @@ public class Teleport extends Spell {
 
     @Override
     public String getRiddle() {
-        return "The portal's key holds the truth as to how the tall ones move.";
+        return "The portal's key holds the truth as to how the tall ones move";
     }
 
     @Override
