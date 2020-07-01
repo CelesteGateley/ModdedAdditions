@@ -205,7 +205,7 @@ public class CustomRecipeUtils implements Listener {
 
     private void addSpells() {
         // Fireball
-        addSpell(1, Material.BLAZE_POWDER, Material.GHAST_TEAR);
+        addSpell(1, Material.FIRE_CHARGE, Material.GHAST_TEAR);
         // Teleport
         addSpell(2, Material.ENDER_PEARL, Material.ENDER_EYE);
         // FireArrow
