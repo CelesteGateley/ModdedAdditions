@@ -38,6 +38,11 @@ public class FillMana extends Spell {
     }
 
     @Override
+    public String getRiddle() {
+        return "";
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         getInstance().getManaController().regenerateMana(caster, 300);
         return true;

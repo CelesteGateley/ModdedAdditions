@@ -41,6 +41,11 @@ public class Teleport extends Spell {
     }
 
     @Override
+    public String getRiddle() {
+        return "The portal's key holds the truth as to how the tall ones move.";
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         Block targetBlock = caster.getTargetBlock(null, 100);
         if (targetBlock.getType() == Material.AIR) {

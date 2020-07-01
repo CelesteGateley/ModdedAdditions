@@ -39,6 +39,11 @@ public class Smite extends Spell {
     }
 
     @Override
+    public String getRiddle() {
+        return "Poseidon strikes at the riches held in the highest mountains";
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         Block targetBlock = caster.getTargetBlock(null, 50);
         if (targetBlock.getType() == Material.AIR) {

@@ -25,6 +25,8 @@ public abstract class Spell {
 
     public abstract int getCost();
 
+    public abstract String getRiddle();
+
     public void castSpell(Player caster, LivingEntity target) {
         if (getInstance().getManaController().getMana(caster) >= getCost()) {
             boolean isCast = enactSpell(caster, target);

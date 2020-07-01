@@ -41,6 +41,11 @@ public class Arrows extends Spell {
     }
 
     @Override
+    public String getRiddle() {
+        return "The eyes of a spectre cause those shot with your firearm to glow to the heavens";
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         Arrow arrow = caster.launchProjectile(Arrow.class);
         arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);

@@ -36,15 +36,9 @@ public class SpellBookListener implements Listener {
 
     private static final String INVENTORY_TITLE = "Select Spell";
     private final ModdedAdditions instance;
-    private final ItemStack blockedItem;
 
     public SpellBookListener(ModdedAdditions instance) {
         this.instance = instance;
-        blockedItem = addLore(new ItemStack(Material.BARRIER), instance.getLanguageManager().getFormattedString("sb-lockedSpell"));
-        ItemMeta itemMeta = blockedItem.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.WHITE + "Locked Spell");
-        itemMeta.setCustomModelData(1);
-        blockedItem.setItemMeta(itemMeta);
     }
 
     @EventHandler
@@ -259,13 +253,13 @@ public class SpellBookListener implements Listener {
         Map<Integer, Spell> spells = instance.getSpellBookController().getSpellRegistry().getRegistryById();
         List<ItemStack> stacks = new ArrayList<>();
         for (Integer key : spells.keySet()) {
-            String spellName = instance.getSpellBookController().getSpellRegistry().getSpellById(key).getName();
+            Spell spell = instance.getSpellBookController().getSpellRegistry().getSpellById(key);
             if (instance.getSpellBookController().knowsSpell(player, instance.getSpellBookController().getSpellRegistry().getTechnicalName(key))) {
                 stacks.add(spells.get(key).getItemStack(key));
             } else {
-                ItemStack iStack = blockedItem.clone();
-                ItemMeta iMeta = blockedItem.getItemMeta();
-                iMeta.setDisplayName(spellName);
+                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), spell.getRiddle());
+                ItemMeta iMeta = iStack.getItemMeta();
+                iMeta.setDisplayName(spell.getName());
                 iStack.setItemMeta(iMeta);
                 stacks.add(iStack);
             }

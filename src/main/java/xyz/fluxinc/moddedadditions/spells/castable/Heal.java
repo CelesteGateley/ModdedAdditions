@@ -41,6 +41,11 @@ public class Heal extends Spell {
     }
 
     @Override
+    public String getRiddle() {
+        return "The elixir of life gathered from the forbidden fruit";
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         if (target.getHealth() != target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
             if (target.getHealth() > target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() - 2) {

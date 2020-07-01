@@ -42,6 +42,11 @@ public class SlowBall extends Spell {
     }
 
     @Override
+    public String getRiddle() {
+        return "Winters chill slows the body, packing your speed and slowing you to a crawl";
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         Entity entity = caster.launchProjectile(Snowball.class);
         entity.setCustomName(SLOWBALL_NAME);

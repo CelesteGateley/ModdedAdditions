@@ -40,6 +40,11 @@ public class Speed extends Spell {
     }
 
     @Override
+    public String getRiddle() {
+        return "Sweetening your life, this will make you faster than light";
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         new PotionEffect(PotionEffectType.SPEED, 20 * 20, 4).apply(caster);
         return true;

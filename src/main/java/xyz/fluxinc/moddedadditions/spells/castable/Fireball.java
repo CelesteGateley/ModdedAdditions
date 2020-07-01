@@ -39,6 +39,11 @@ public class Fireball extends Spell {
     }
 
     @Override
+    public String getRiddle() {
+        return "The tears of your enemies will burn away as you charge forth";
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         org.bukkit.entity.Fireball fireball = caster.launchProjectile(org.bukkit.entity.Fireball.class);
         fireball.setYield(2);
