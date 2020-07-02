@@ -183,7 +183,7 @@ public class AreaToolController {
         modelId = KEY_BASE + AT_KEY_BASE + 20 + modelId;
         ItemStack itemStack = addLore(new ItemStack(toolMaterial), instance.getLanguageManager().getFormattedString("mi-excavator"));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.RESET + ToolLevel.getName(level) + " Hammer");
+        itemMeta.setDisplayName(ChatColor.RESET + ToolLevel.getName(level) + " Excavator");
         itemMeta.setCustomModelData(modelId);
         itemStack.setItemMeta(itemMeta);
 
