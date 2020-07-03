@@ -126,26 +126,16 @@ public class SpellBookListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
+        if (event.getItem() == null) return;
         PlayerData data = instance.getPlayerDataController().getPlayerData(event.getPlayer());
-        if (verifySpellBook(event.getPlayer().getInventory().getItemInOffHand())) {
+        if (verifySpellBook(event.getItem())) {
             if (event.getPlayer().isSneaking()) {
                 event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
             } else {
-                Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInOffHand());
+                Spell spell = instance.getSpellBookController().getSpell(event.getItem());
                 if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) return;
                 if (spell != null) {
-                    if (!data.knowsSpell(getTechnicalName(event.getPlayer().getInventory().getItemInOffHand()))) return;
-                    spell.castSpell(event.getPlayer(), event.getPlayer());
-                }
-            }
-        } else if (verifySpellBook(event.getPlayer().getInventory().getItemInMainHand())) {
-            if (event.getPlayer().isSneaking()) {
-                event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
-            } else {
-                Spell spell = instance.getSpellBookController().getSpell(event.getPlayer().getInventory().getItemInMainHand());
-                if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) return;
-                if (spell != null) {
-                    if (!data.knowsSpell(getTechnicalName(event.getPlayer().getInventory().getItemInMainHand()))) return;
+                    if (!data.knowsSpell(getTechnicalName(event.getItem()))) return;
                     spell.castSpell(event.getPlayer(), event.getPlayer());
                 }
             }
