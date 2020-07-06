@@ -2,6 +2,7 @@ package xyz.fluxinc.moddedadditions.spells.castable;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -27,8 +28,8 @@ public class SlowBall extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(int modelId) {
-        ItemStack slowball = addLore(new ItemStack(Material.SNOWBALL), "Costs: " + getCost() + " Mana");
+    public ItemStack getItemStack(World.Environment environment, int modelId) {
+        ItemStack slowball = addLore(new ItemStack(Material.SNOWBALL), "Costs: " + getCost(environment) + " Mana");
         ItemMeta iMeta = slowball.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -37,7 +38,7 @@ public class SlowBall extends Spell {
     }
 
     @Override
-    public int getCost() {
+    public int getCost(World.Environment environment) {
         return 15;
     }
 

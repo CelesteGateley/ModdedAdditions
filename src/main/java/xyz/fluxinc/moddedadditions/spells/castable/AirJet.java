@@ -2,6 +2,7 @@ package xyz.fluxinc.moddedadditions.spells.castable;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -24,8 +25,8 @@ public class AirJet extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(int modelId) {
-        ItemStack yeet = addLore(new ItemStack(Material.FEATHER), "Costs: " + getCost() + " Mana");
+    public ItemStack getItemStack(World.Environment environment, int modelId) {
+        ItemStack yeet = addLore(new ItemStack(Material.FEATHER), "Costs: " + getCost(environment) + " Mana");
         ItemMeta iMeta = yeet.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -34,7 +35,7 @@ public class AirJet extends Spell {
     }
 
     @Override
-    public int getCost() {
+    public int getCost(World.Environment environment) {
         return 15;
     }
 

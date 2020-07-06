@@ -258,7 +258,7 @@ public class SpellBookListener implements Listener {
         for (Integer key : spells.keySet()) {
             Spell spell = instance.getSpellBookController().getSpellRegistry().getSpellById(key);
             if (instance.getSpellBookController().knowsSpell(player, instance.getSpellBookController().getSpellRegistry().getTechnicalName(key))) {
-                stacks.add(spells.get(key).getItemStack(key));
+                stacks.add(spells.get(key).getItemStack(player.getWorld().getEnvironment(), key));
             } else {
                 ItemStack iStack = addLore(new ItemStack(Material.BARRIER), spell.getRiddle());
                 ItemMeta iMeta = iStack.getItemMeta();

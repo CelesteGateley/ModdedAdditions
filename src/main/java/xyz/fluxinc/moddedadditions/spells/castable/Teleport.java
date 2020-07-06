@@ -1,9 +1,6 @@
 package xyz.fluxinc.moddedadditions.spells.castable;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -26,8 +23,8 @@ public class Teleport extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(int modelId) {
-        ItemStack teleport = addLore(new ItemStack(Material.ENDER_PEARL), "Costs: " + getCost() + " Mana");
+    public ItemStack getItemStack(World.Environment environment, int modelId) {
+        ItemStack teleport = addLore(new ItemStack(Material.ENDER_PEARL), "Costs: " + getCost(environment) + " Mana");
         ItemMeta iMeta = teleport.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -36,7 +33,7 @@ public class Teleport extends Spell {
     }
 
     @Override
-    public int getCost() {
+    public int getCost(World.Environment environment) {
         return 50;
     }
 

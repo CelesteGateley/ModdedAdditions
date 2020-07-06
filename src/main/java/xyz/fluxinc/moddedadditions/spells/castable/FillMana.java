@@ -2,6 +2,7 @@ package xyz.fluxinc.moddedadditions.spells.castable;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -23,8 +24,8 @@ public class FillMana extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(int modelId) {
-        ItemStack fillMana = addLore(new ItemStack(Material.EMERALD), "Costs: " + getCost() + " Mana");
+    public ItemStack getItemStack(World.Environment environment, int modelId) {
+        ItemStack fillMana = addLore(new ItemStack(Material.EMERALD), "Costs: " + getCost(environment) + " Mana");
         ItemMeta iMeta = fillMana.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -33,7 +34,7 @@ public class FillMana extends Spell {
     }
 
     @Override
-    public int getCost() {
+    public int getCost(World.Environment environment) {
         return 0;
     }
 

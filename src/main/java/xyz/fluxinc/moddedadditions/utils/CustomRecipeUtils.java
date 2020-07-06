@@ -26,7 +26,6 @@ public class CustomRecipeUtils implements Listener {
 
     private final Collection<NamespacedKey> recipeKeys;
     private final ModdedAdditions instance;
-    private ShapedRecipe lightSaberRecipe;
 
     /*
      * Furnace Recipe takes 5 Arguments:
@@ -170,7 +169,7 @@ public class CustomRecipeUtils implements Listener {
         NamespacedKey lightSaberKey = new NamespacedKey(this.instance, "LIGHTSABER");
         recipeKeys.add(lightSaberKey);
 
-        lightSaberRecipe = new ShapedRecipe(lightSaberKey, instance.getLightSaberController().getDefaultLightSaber());
+        ShapedRecipe lightSaberRecipe = new ShapedRecipe(lightSaberKey, instance.getLightSaberController().getDefaultLightSaber());
         lightSaberRecipe.shape("IGI", "ICI", "III");
         lightSaberRecipe.setIngredient('G', Material.GLASS_PANE);
         lightSaberRecipe.setIngredient('I', Material.IRON_BLOCK);

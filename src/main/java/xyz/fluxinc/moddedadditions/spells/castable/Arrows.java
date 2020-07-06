@@ -3,6 +3,7 @@ package xyz.fluxinc.moddedadditions.spells.castable;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
@@ -26,8 +27,8 @@ public class Arrows extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(int modelId) {
-        ItemStack arrows = addLore(new ItemStack(Material.BOW), "Costs: " + getCost() + " Mana");
+    public ItemStack getItemStack(World.Environment environment, int modelId) {
+        ItemStack arrows = addLore(new ItemStack(Material.BOW), "Costs: " + getCost(environment) + " Mana");
         ItemMeta iMeta = arrows.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -36,7 +37,7 @@ public class Arrows extends Spell {
     }
 
     @Override
-    public int getCost() {
+    public int getCost(World.Environment environment) {
         return 5;
     }
 
