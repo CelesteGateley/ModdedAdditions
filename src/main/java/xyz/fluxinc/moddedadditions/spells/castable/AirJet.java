@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions.spells.castable;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -37,7 +39,11 @@ public class AirJet extends Spell {
 
     @Override
     public int getCost(World.Environment environment) {
-        return 15;
+        if (environment == World.Environment.NORMAL) {
+            return 15;
+        } else {
+            return 45;
+        }
     }
 
     @Override
@@ -52,6 +58,10 @@ public class AirJet extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
+        if (caster.getWorld().getEnvironment() == World.Environment.NETHER && caster.getLocation().getY() > 127) return false;
+        if (caster.getWorld().getEnvironment() != World.Environment.NORMAL) {
+            caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("The dense atmosphere makes gathering wind harder"));
+        }
         Vector newVector = caster.getEyeLocation().getDirection().multiply(new Vector(2, -2, 2));
         if (newVector.getY() < 0) {
             newVector.multiply(new Vector(1, -1, 1));
