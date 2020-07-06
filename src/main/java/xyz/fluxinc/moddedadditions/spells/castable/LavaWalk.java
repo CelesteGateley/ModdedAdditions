@@ -42,7 +42,7 @@ public class LavaWalk extends Spell {
 
     @Override
     public String getRiddle() {
-        return "With an icy step and a fiery heart, even you can cross a blazing desert";
+        return "With an icy step and a blazing heart, even you can cross a blazing desert";
     }
 
     @Override
