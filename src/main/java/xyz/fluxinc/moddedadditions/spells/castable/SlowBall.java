@@ -48,6 +48,11 @@ public class SlowBall extends Spell {
     }
 
     @Override
+    public long getCooldown() {
+        return 2000;
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         Entity entity = caster.launchProjectile(Snowball.class);
         entity.setCustomName(SLOWBALL_NAME);

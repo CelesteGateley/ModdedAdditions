@@ -46,6 +46,11 @@ public class Speed extends Spell {
     }
 
     @Override
+    public long getCooldown() {
+        return 250;
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         new PotionEffect(PotionEffectType.SPEED, 20 * 20, 4).apply(caster);
         return true;

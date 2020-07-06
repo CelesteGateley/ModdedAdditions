@@ -45,6 +45,11 @@ public class Smite extends Spell {
     }
 
     @Override
+    public long getCooldown() {
+        return 1000;
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         Block targetBlock = caster.getTargetBlock(null, 50);
         if (targetBlock.getType() == Material.AIR) {

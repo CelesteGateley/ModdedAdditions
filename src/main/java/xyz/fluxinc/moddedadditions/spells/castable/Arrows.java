@@ -47,6 +47,11 @@ public class Arrows extends Spell {
     }
 
     @Override
+    public long getCooldown() {
+        return 250;
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         Arrow arrow = caster.launchProjectile(Arrow.class);
         arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);

@@ -45,6 +45,11 @@ public class AirJet extends Spell {
     }
 
     @Override
+    public long getCooldown() {
+        return 250;
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         Vector newVector = caster.getEyeLocation().getDirection().multiply(new Vector(2, -2, 2));
         if (newVector.getY() < 0) {

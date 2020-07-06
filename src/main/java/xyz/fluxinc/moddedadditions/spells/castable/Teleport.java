@@ -43,6 +43,11 @@ public class Teleport extends Spell {
     }
 
     @Override
+    public long getCooldown() {
+        return 500;
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         Block targetBlock = caster.getTargetBlock(null, 100);
         if (targetBlock.getType() == Material.AIR) {

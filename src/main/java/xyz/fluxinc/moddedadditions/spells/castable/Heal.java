@@ -43,6 +43,11 @@ public class Heal extends Spell {
     }
 
     @Override
+    public long getCooldown() {
+        return 250;
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         if (target.getHealth() != target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
             if (target.getHealth() > target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() - 2) {

@@ -46,6 +46,11 @@ public class MinersBoon extends Spell {
     }
 
     @Override
+    public long getCooldown() {
+        return 30000;
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         new PotionEffect(PotionEffectType.NIGHT_VISION, 30 * 20, 0).apply(caster);
         new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 30 * 20, 0).apply(caster);

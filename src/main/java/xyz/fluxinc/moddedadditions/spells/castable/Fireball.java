@@ -45,6 +45,11 @@ public class Fireball extends Spell {
     }
 
     @Override
+    public long getCooldown() {
+        return 1000;
+    }
+
+    @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         org.bukkit.entity.Fireball fireball = caster.launchProjectile(org.bukkit.entity.Fireball.class);
         fireball.setYield(2);
