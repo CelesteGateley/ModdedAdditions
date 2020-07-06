@@ -28,6 +28,7 @@ public class Speed extends Spell {
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
         ItemStack speed = addLore(new ItemStack(Material.GLOWSTONE_DUST), "Costs: " + getCost(environment) + " Mana");
+        speed = addLore(speed, "Cooldown: " + getCooldown()/1000d + " Seconds");
         ItemMeta iMeta = speed.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());

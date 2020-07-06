@@ -27,12 +27,13 @@ public class LavaWalk extends Spell {
 
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack slowball = addLore(new ItemStack(Material.LAVA_BUCKET), "Costs: " + getCost(environment) + " Mana");
-        ItemMeta iMeta = slowball.getItemMeta();
+        ItemStack lavaWalk = addLore(new ItemStack(Material.LAVA_BUCKET), "Costs: " + getCost(environment) + " Mana");
+        lavaWalk = addLore(lavaWalk, "Cooldown: " + getCooldown()/1000 + " Seconds");
+        ItemMeta iMeta = lavaWalk.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
-        slowball.setItemMeta(iMeta);
-        return slowball;
+        lavaWalk.setItemMeta(iMeta);
+        return lavaWalk;
     }
 
     @Override

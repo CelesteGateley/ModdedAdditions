@@ -27,12 +27,13 @@ public class MinersBoon extends Spell {
 
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack speed = addLore(new ItemStack(Material.DIAMOND_PICKAXE), "Costs: " + getCost(environment) + " Mana");
-        ItemMeta iMeta = speed.getItemMeta();
+        ItemStack minersBoon = addLore(new ItemStack(Material.DIAMOND_PICKAXE), "Costs: " + getCost(environment) + " Mana");
+        minersBoon = addLore(minersBoon, "Cooldown: " + getCooldown()/1000 + " Seconds");
+        ItemMeta iMeta = minersBoon.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
-        speed.setItemMeta(iMeta);
-        return speed;
+        minersBoon.setItemMeta(iMeta);
+        return minersBoon;
     }
 
     @Override

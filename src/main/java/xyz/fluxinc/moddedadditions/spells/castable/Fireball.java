@@ -27,6 +27,7 @@ public class Fireball extends Spell {
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
         ItemStack fireball = addLore(new ItemStack(Material.FIRE_CHARGE), "Costs: " + getCost(environment) + " Mana");
+        fireball = addLore(fireball, "Cooldown: " + getCooldown()/1000 + " Seconds");
         ItemMeta iMeta = fireball.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());

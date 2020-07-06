@@ -26,12 +26,13 @@ public class AirJet extends Spell {
 
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack yeet = addLore(new ItemStack(Material.FEATHER), "Costs: " + getCost(environment) + " Mana");
-        ItemMeta iMeta = yeet.getItemMeta();
+        ItemStack airjet = addLore(new ItemStack(Material.FEATHER), "Costs: " + getCost(environment) + " Mana");
+        airjet = addLore(airjet, "Cooldown: " + getCooldown()/1000 + " Seconds");
+        ItemMeta iMeta = airjet.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
-        yeet.setItemMeta(iMeta);
-        return yeet;
+        airjet.setItemMeta(iMeta);
+        return airjet;
     }
 
     @Override

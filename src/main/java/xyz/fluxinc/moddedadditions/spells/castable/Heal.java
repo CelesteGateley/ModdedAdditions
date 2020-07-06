@@ -25,6 +25,7 @@ public class Heal extends Spell {
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
         ItemStack heal = addLore(new ItemStack(Material.GOLDEN_APPLE), "Costs: " + getCost(environment) + " Mana");
+        heal = addLore(heal, "Cooldown: " + getCooldown()/1000d + " Seconds");
         ItemMeta iMeta = heal.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
