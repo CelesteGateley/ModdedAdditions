@@ -53,7 +53,7 @@ public class Speed extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
-        new PotionEffect(PotionEffectType.SPEED, 20 * 20, 4).apply(caster);
+        new PotionEffect(PotionEffectType.SPEED, 20 * 20, 4).apply(target);
         return true;
     }
 }

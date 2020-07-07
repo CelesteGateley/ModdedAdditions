@@ -53,10 +53,9 @@ public class HardenedForm extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
-        new PotionEffect(PotionEffectType.ABSORPTION, 20 * 20, 2).apply(caster);
-        new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 20, 1).apply(caster);
-        new PotionEffect(PotionEffectType.SLOW, 20 * 20, 0).apply(caster);
-
+        new PotionEffect(PotionEffectType.ABSORPTION, 20 * 20, 2).apply(target);
+        new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 20, 1).apply(target);
+        new PotionEffect(PotionEffectType.SLOW, 20 * 20, 0).apply(target);
         return true;
     }
 }

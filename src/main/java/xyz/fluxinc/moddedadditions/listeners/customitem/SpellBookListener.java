@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.*;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -137,6 +138,27 @@ public class SpellBookListener implements Listener {
                 if (spell != null) {
                     if (!data.knowsSpell(getTechnicalName(event.getItem()))) return;
                     spell.castSpell(event.getPlayer(), event.getPlayer());
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onCastAtEntity(PlayerInteractAtEntityEvent event) {
+        ItemStack item = event.getPlayer().getInventory().getItem(event.getHand());
+        PlayerData data = instance.getPlayerDataController().getPlayerData(event.getPlayer());
+        if (verifySpellBook(item)) {
+            if (event.getPlayer().isSneaking()) {
+                event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
+            } else {
+                Spell spell = instance.getSpellBookController().getSpell(item);
+                if (spell != null) {
+                    if (!data.knowsSpell(getTechnicalName(item))) return;
+                    if (event.getRightClicked() instanceof LivingEntity) {
+                        spell.castSpell(event.getPlayer(), (LivingEntity) event.getRightClicked());
+                    } else {
+                        spell.castSpell(event.getPlayer(), event.getPlayer());
+                    }
                 }
             }
         }

@@ -53,9 +53,9 @@ public class MinersBoon extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
-        new PotionEffect(PotionEffectType.NIGHT_VISION, 20 * 20, 0).apply(caster);
-        new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 20, 0).apply(caster);
-        new PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 20, 1).apply(caster);
+        new PotionEffect(PotionEffectType.NIGHT_VISION, 20 * 20, 0).apply(target);
+        new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 20, 0).apply(target);
+        new PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 20, 1).apply(target);
         return true;
     }
 }
