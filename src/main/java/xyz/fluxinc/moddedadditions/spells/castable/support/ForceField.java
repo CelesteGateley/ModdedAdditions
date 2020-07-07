@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions.spells.castable.support;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -51,6 +53,7 @@ public class ForceField extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
+        caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("An energy shield surrounds you, keeping mobs away"));
         getInstance().getForceFieldListener().addForceField(caster, 30);
         return true;
     }
