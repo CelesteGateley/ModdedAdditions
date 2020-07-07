@@ -22,7 +22,7 @@ public class HardenedForm extends Spell {
 
     @Override
     public String getName() {
-        return "ForceField";
+        return "Hardened Form";
     }
 
     @Override
