@@ -52,6 +52,6 @@ public class ForceField extends Spell {
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         getInstance().getForceFieldListener().addForceField(caster, 30);
-        return false;
+        return true;
     }
 }
