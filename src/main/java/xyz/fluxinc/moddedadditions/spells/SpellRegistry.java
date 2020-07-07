@@ -50,21 +50,22 @@ public class SpellRegistry {
 
     private void registerAllSpells(ModdedAdditions instance) {
         // Combat
-        registerSpell(new Arrows(instance), "arrows", 3);
-        registerSpell(new SlowBall(instance), "slowball", 8);
-        registerSpell(new Fireball(instance), "fireball", 1);
-        registerSpell(new Smite(instance), "smite", 6);
+        registerSpell(new Arrows(instance), "arrows", 1);
+        registerSpell(new SlowBall(instance), "slowball", 2);
+        registerSpell(new Fireball(instance), "fireball", 3);
+        registerSpell(new Smite(instance), "smite", 4);
         // Movement
-        registerSpell(new AirJet(instance), "airjet", 5);
-        registerSpell(new Speed(instance), "speed", 7);
-        registerSpell(new Teleport(instance), "teleport", 2);
-        registerSpell(new LavaWalk(instance), "lavawalk", 10);
+        registerSpell(new AirJet(instance), "airjet", 20);
+        registerSpell(new Speed(instance), "speed", 21);
+        registerSpell(new Teleport(instance), "teleport", 22);
+        registerSpell(new LavaWalk(instance), "lavawalk", 23);
         // Support
-        registerSpell(new Heal(instance), "heal", 4);
-        registerSpell(new HardenedForm(instance), "hardenedform", 12);
-        registerSpell(new ForceField(instance), "forcefield", 11);
-        registerSpell(new MinersBoon(instance), "minersboon", 9);
+        registerSpell(new Heal(instance), "heal", 40);
+        registerSpell(new HardenedForm(instance), "hardenedform", 41);
+        registerSpell(new ForceField(instance), "forcefield", 42);
+        registerSpell(new MinersBoon(instance), "minersboon", 43);
         // Illusion
+        registerSpell(new MinersBoon(instance), "minersboon", 60);
         // Debug
         //registerSpell(new FillMana(instance), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
     }

@@ -203,30 +203,35 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addSpells() {
-        // Fireball
-        addSpell(1, Material.FIRE_CHARGE, Material.GHAST_TEAR);
-        // Teleport
-        addSpell(2, Material.ENDER_PEARL, Material.ENDER_EYE);
         // FireArrow
-        addSpell(3, Material.CROSSBOW, Material.SPECTRAL_ARROW);
-        // Heal (Instant Heal Potion)
-        addSpell(4, Material.GOLDEN_APPLE, Material.POTION);
-        // AirJet
-        addSpell(5, Material.FEATHER, Material.STRING);
-        // Smite
-        addSpell(6, Material.EMERALD_ORE, Material.TRIDENT);
-        // Speed
-        addSpell(7, Material.GLOWSTONE_DUST, Material.SUGAR);
+        addSpell(1, Material.CROSSBOW, Material.SPECTRAL_ARROW);
         // Slowball
-        addSpell(8, Material.SNOWBALL, Material.SOUL_SAND);
-        // Miners Boon
-        addSpell(9, Material.NETHERITE_INGOT, Material.HEART_OF_THE_SEA);
+        addSpell(2, Material.SNOWBALL, Material.SOUL_SAND);
+        // Fireball
+        addSpell(3, Material.FIRE_CHARGE, Material.GHAST_TEAR);
+        // Smite
+        addSpell(4, Material.EMERALD_ORE, Material.TRIDENT);
+
+        // AirJet
+        addSpell(20, Material.FEATHER, Material.STRING);
+        // Speed
+        addSpell(21, Material.GLOWSTONE_DUST, Material.SUGAR);
+        // Teleport
+        addSpell(22, Material.ENDER_PEARL, Material.ENDER_EYE);
         // Lava Walk
-        addSpell(10, Material.ICE, Material.BLAZE_ROD);
-        // ForceField
-        addSpell(11, Material.SHIELD, Material.PISTON);
+        addSpell(23, Material.ICE, Material.BLAZE_ROD);
+
+        // Heal (Instant Heal Potion)
+        addSpell(40, Material.GOLDEN_APPLE, Material.POTION);
         // HardenedForm
-        addSpell(12, Material.OBSIDIAN, Material.COBWEB);
+        addSpell(41, Material.OBSIDIAN, Material.COBWEB);
+        // ForceField
+        addSpell(42, Material.SHIELD, Material.PISTON);
+        // Miners Boon
+        addSpell(43, Material.NETHERITE_INGOT, Material.HEART_OF_THE_SEA);
+
+        // Vanish
+        addSpell(60, Material.GOLDEN_CARROT, Material.BLACKSTONE);
     }
 
     private void addLongFallBoots() {
