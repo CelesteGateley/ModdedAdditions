@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions.listeners.customitem.spells;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -42,6 +44,7 @@ public class ForceFieldListener implements Runnable, Listener {
             }
         }
         for (Player player : toRemove) {
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Your force field has lost it's strength"));
             activeFields.remove(player);
         }
     }
@@ -51,6 +54,7 @@ public class ForceFieldListener implements Runnable, Listener {
         if (!(event.getEntity() instanceof Player) || !activeFields.containsKey(event.getEntity())) return;
         if (activeFields.get(event.getEntity()) < System.currentTimeMillis()) {
             activeFields.remove(event.getEntity());
+            ((Player) event.getEntity()).spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Your force field has lost it's strength"));
             return;
         }
         if (event.getCause() != EntityDamageEvent.DamageCause.PROJECTILE) return;
