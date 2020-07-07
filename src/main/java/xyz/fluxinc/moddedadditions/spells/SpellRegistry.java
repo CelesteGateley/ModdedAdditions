@@ -11,7 +11,7 @@ import xyz.fluxinc.moddedadditions.spells.castable.movement.Teleport;
 import xyz.fluxinc.moddedadditions.spells.castable.support.ForceField;
 import xyz.fluxinc.moddedadditions.spells.castable.support.Heal;
 import xyz.fluxinc.moddedadditions.spells.castable.support.MinersBoon;
-import xyz.fluxinc.moddedadditions.spells.castable.support.Speed;
+import xyz.fluxinc.moddedadditions.spells.castable.movement.Speed;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
