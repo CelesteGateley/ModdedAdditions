@@ -28,7 +28,7 @@ public class HardenedForm extends Spell {
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
         ItemStack hardenedForm = addLore(new ItemStack(Material.BEDROCK), "Costs: " + getCost(environment) + " Mana");
-        hardenedForm = addLore(hardenedForm, "Cooldown: " + getCooldown()/1000 + " Seconds");
+        hardenedForm = addLore(hardenedForm, "Cooldown: " + getCooldown()/1000d + " Seconds");
         ItemMeta iMeta = hardenedForm.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
