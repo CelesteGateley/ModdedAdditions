@@ -48,7 +48,7 @@ public class HardenedForm extends Spell {
 
     @Override
     public long getCooldown() {
-        return 30*1000;
+        return 20*1000;
     }
 
     @Override
