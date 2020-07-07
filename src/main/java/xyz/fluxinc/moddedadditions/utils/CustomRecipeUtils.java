@@ -223,6 +223,8 @@ public class CustomRecipeUtils implements Listener {
         addSpell(9, Material.NETHERITE_INGOT, Material.HEART_OF_THE_SEA);
         // Lava Walk
         addSpell(10, Material.ICE, Material.BLAZE_ROD);
+        // ForceField
+        addSpell(11, Material.SHIELD, Material.PISTON);
     }
 
     private void addLongFallBoots() {

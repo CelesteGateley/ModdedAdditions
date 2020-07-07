@@ -29,6 +29,7 @@ import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.HoneyChestplateListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.LongFallBootsListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.SlimeChestplateListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ForceFieldListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.SortChestListener;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
@@ -55,6 +56,7 @@ public final class ModdedAdditions extends JavaPlugin {
 
     private SpellBookController spellBookController;
     private ManaController manaController;
+    private ForceFieldListener forceFieldListener;
 
     @Override
     public void onEnable() {
@@ -143,6 +145,8 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(manaController, this);
         getServer().getPluginManager().registerEvents(new SpellBookListener(this), this);
         getCommand("spellbook").setExecutor(new SpellBookCommand(this));
+        forceFieldListener = new ForceFieldListener(this);
+        getServer().getPluginManager().registerEvents(forceFieldListener, this);
 
         // Tell Player Damage Dealt
         //getServer().getPluginManager().registerEvents(new DamageListener(), this);
@@ -189,6 +193,8 @@ public final class ModdedAdditions extends JavaPlugin {
         veinMinerController.loadFromConfiguration();
         areaToolController.loadFromConfiguration();
     }
+
+    public ForceFieldListener getForceFieldListener() { return forceFieldListener; }
 
     public MagnetController getMagnetController() {
         return magnetController;
