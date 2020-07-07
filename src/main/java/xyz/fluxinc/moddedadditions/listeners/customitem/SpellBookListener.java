@@ -21,9 +21,9 @@ import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
-import xyz.fluxinc.moddedadditions.spells.castable.Fireball;
-import xyz.fluxinc.moddedadditions.spells.castable.Heal;
-import xyz.fluxinc.moddedadditions.spells.castable.SlowBall;
+import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
+import xyz.fluxinc.moddedadditions.spells.castable.support.Heal;
+import xyz.fluxinc.moddedadditions.spells.castable.combat.SlowBall;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.ArrayList;

@@ -1,10 +1,9 @@
-package xyz.fluxinc.moddedadditions.spells.castable;
+package xyz.fluxinc.moddedadditions.spells.castable.combat;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,25 +13,26 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
-public class Smite extends Spell {
-    public Smite(ModdedAdditions instance) {
+public class Fireball extends Spell {
+
+    public Fireball(ModdedAdditions instance) {
         super(instance);
     }
 
     @Override
     public String getName() {
-        return "Smite";
+        return "Fireball";
     }
 
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack smite = addLore(new ItemStack(Material.TRIDENT), "Costs: " + getCost(environment) + " Mana");
-        smite = addLore(smite, "Cooldown: " + getCooldown()/1000d + " Seconds");
-        ItemMeta iMeta = smite.getItemMeta();
+        ItemStack fireball = addLore(new ItemStack(Material.FIRE_CHARGE), "Costs: " + getCost(environment) + " Mana");
+        fireball = addLore(fireball, "Cooldown: " + getCooldown()/1000 + " Seconds");
+        ItemMeta iMeta = fireball.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
-        smite.setItemMeta(iMeta);
-        return smite;
+        fireball.setItemMeta(iMeta);
+        return fireball;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Smite extends Spell {
 
     @Override
     public String getRiddle() {
-        return "Poseidon strikes at the richest ore held in the highest mountains";
+        return "The tears of your enemies will burn away as you charge forth";
     }
 
     @Override
@@ -52,13 +52,9 @@ public class Smite extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
-        Block targetBlock = caster.getTargetBlock(null, 50);
-        if (targetBlock.getType() == Material.AIR) {
-            caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
-            return false;
-        }
-        caster.getWorld().strikeLightning(targetBlock.getLocation());
-        caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1, 1);
+        org.bukkit.entity.Fireball fireball = caster.launchProjectile(org.bukkit.entity.Fireball.class);
+        fireball.setYield(2);
+        caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_GHAST_SHOOT, 1, 1);
         return true;
     }
 }

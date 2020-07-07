@@ -1,4 +1,4 @@
-package xyz.fluxinc.moddedadditions.spells.castable;
+package xyz.fluxinc.moddedadditions.spells.castable.movement;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -14,49 +14,47 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
-public class SlowBall extends Spell {
+public class LavaWalk extends Spell {
 
-    public static final String SLOWBALL_NAME = "abXYZoasDGAdgiQXVSAadsgasnNEFA";
-
-    public SlowBall(ModdedAdditions instance) {
+    public LavaWalk(ModdedAdditions instance) {
         super(instance);
     }
 
     @Override
     public String getName() {
-        return "Slow Ball";
+        return "Lava Walk";
     }
 
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack slowball = addLore(new ItemStack(Material.SNOWBALL), "Costs: " + getCost(environment) + " Mana");
-        slowball = addLore(slowball, "Cooldown: " + getCooldown()/1000d + " Seconds");
-        ItemMeta iMeta = slowball.getItemMeta();
+        ItemStack lavaWalk = addLore(new ItemStack(Material.LAVA_BUCKET), "Costs: " + getCost(environment) + " Mana");
+        lavaWalk = addLore(lavaWalk, "Cooldown: " + getCooldown()/1000 + " Seconds");
+        ItemMeta iMeta = lavaWalk.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
-        slowball.setItemMeta(iMeta);
-        return slowball;
+        lavaWalk.setItemMeta(iMeta);
+        return lavaWalk;
     }
 
     @Override
     public int getCost(World.Environment environment) {
-        return 15;
+        return 50;
     }
 
     @Override
     public String getRiddle() {
-        return "One strike from winter's wrath slows your very soul to a crawl";
+        return "With an icy step and a blazing heart, even you can cross a blazing desert";
     }
 
     @Override
     public long getCooldown() {
-        return 2000;
+        return 25000;
     }
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
-        Entity entity = caster.launchProjectile(Snowball.class);
-        entity.setCustomName(SLOWBALL_NAME);
+        caster.sendTitle("You can now walk on lava!", "", 10, 70, 20);
+        getInstance().getSpellBookController().addLavaWalk(caster);
         return true;
     }
 }

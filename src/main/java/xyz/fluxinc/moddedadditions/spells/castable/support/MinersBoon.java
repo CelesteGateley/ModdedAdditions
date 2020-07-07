@@ -1,4 +1,4 @@
-package xyz.fluxinc.moddedadditions.spells.castable;
+package xyz.fluxinc.moddedadditions.spells.castable.support;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

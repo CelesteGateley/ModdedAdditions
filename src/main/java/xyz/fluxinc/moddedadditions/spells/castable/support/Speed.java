@@ -1,50 +1,49 @@
-package xyz.fluxinc.moddedadditions.spells.castable;
+package xyz.fluxinc.moddedadditions.spells.castable.support;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.World;
-import org.bukkit.entity.AbstractArrow;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
-public class Arrows extends Spell {
+public class Speed extends Spell {
 
-    public Arrows(ModdedAdditions instance) {
+    public Speed(ModdedAdditions instance) {
         super(instance);
     }
 
     @Override
     public String getName() {
-        return "Shoot Arrows";
+        return "Speed";
     }
 
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack arrows = addLore(new ItemStack(Material.BOW), "Costs: " + getCost(environment) + " Mana");
-        arrows = addLore(arrows, "Cooldown: " + getCooldown()/1000d + " Seconds");
-        ItemMeta iMeta = arrows.getItemMeta();
+        ItemStack speed = addLore(new ItemStack(Material.GLOWSTONE_DUST), "Costs: " + getCost(environment) + " Mana");
+        speed = addLore(speed, "Cooldown: " + getCooldown()/1000d + " Seconds");
+        ItemMeta iMeta = speed.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
-        arrows.setItemMeta(iMeta);
-        return arrows;
+        speed.setItemMeta(iMeta);
+        return speed;
     }
 
     @Override
     public int getCost(World.Environment environment) {
-        return 5;
+        return 50;
     }
 
     @Override
     public String getRiddle() {
-        return "The eyes of a spectre cause those shot with your firearm to glow to the heavens";
+        return "Sweetening your life, this will make you faster than light";
     }
 
     @Override
@@ -54,10 +53,7 @@ public class Arrows extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
-        Arrow arrow = caster.launchProjectile(Arrow.class);
-        arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
-        caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 1);
+        new PotionEffect(PotionEffectType.SPEED, 20 * 20, 4).apply(caster);
         return true;
     }
-
 }

@@ -1,6 +1,9 @@
-package xyz.fluxinc.moddedadditions.spells.castable;
+package xyz.fluxinc.moddedadditions.spells.castable.combat;
 
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -11,26 +14,25 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
-public class Teleport extends Spell {
-
-    public Teleport(ModdedAdditions instance) {
+public class Smite extends Spell {
+    public Smite(ModdedAdditions instance) {
         super(instance);
     }
 
     @Override
     public String getName() {
-        return "Teleport";
+        return "Smite";
     }
 
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack teleport = addLore(new ItemStack(Material.ENDER_PEARL), "Costs: " + getCost(environment) + " Mana");
-        teleport = addLore(teleport, "Cooldown: " + getCooldown()/1000d + " Seconds");
-        ItemMeta iMeta = teleport.getItemMeta();
+        ItemStack smite = addLore(new ItemStack(Material.TRIDENT), "Costs: " + getCost(environment) + " Mana");
+        smite = addLore(smite, "Cooldown: " + getCooldown()/1000d + " Seconds");
+        ItemMeta iMeta = smite.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
-        teleport.setItemMeta(iMeta);
-        return teleport;
+        smite.setItemMeta(iMeta);
+        return smite;
     }
 
     @Override
@@ -40,29 +42,23 @@ public class Teleport extends Spell {
 
     @Override
     public String getRiddle() {
-        return "The portal's key holds the truth as to how the tall ones move";
+        return "Poseidon strikes at the richest ore held in the highest mountains";
     }
 
     @Override
     public long getCooldown() {
-        return 500;
+        return 1000;
     }
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
-        Block targetBlock = caster.getTargetBlock(null, 100);
+        Block targetBlock = caster.getTargetBlock(null, 50);
         if (targetBlock.getType() == Material.AIR) {
             caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
             return false;
         }
-        Location targetLocation = targetBlock.getLocation().add(0, 1, 0);
-        if (caster.getWorld().getBlockAt(targetLocation).getType() != Material.AIR) {
-            return false;
-        }
-        targetLocation.setPitch(caster.getLocation().getPitch());
-        targetLocation.setYaw(caster.getLocation().getYaw());
-        caster.teleport(targetLocation);
-        caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
+        caster.getWorld().strikeLightning(targetBlock.getLocation());
+        caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1, 1);
         return true;
     }
 }

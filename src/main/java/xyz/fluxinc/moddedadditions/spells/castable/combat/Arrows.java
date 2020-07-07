@@ -1,9 +1,11 @@
-package xyz.fluxinc.moddedadditions.spells.castable;
+package xyz.fluxinc.moddedadditions.spells.castable.combat;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.entity.AbstractArrow;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -13,48 +15,49 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
-public class Fireball extends Spell {
+public class Arrows extends Spell {
 
-    public Fireball(ModdedAdditions instance) {
+    public Arrows(ModdedAdditions instance) {
         super(instance);
     }
 
     @Override
     public String getName() {
-        return "Fireball";
+        return "Shoot Arrows";
     }
 
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack fireball = addLore(new ItemStack(Material.FIRE_CHARGE), "Costs: " + getCost(environment) + " Mana");
-        fireball = addLore(fireball, "Cooldown: " + getCooldown()/1000 + " Seconds");
-        ItemMeta iMeta = fireball.getItemMeta();
+        ItemStack arrows = addLore(new ItemStack(Material.BOW), "Costs: " + getCost(environment) + " Mana");
+        arrows = addLore(arrows, "Cooldown: " + getCooldown()/1000d + " Seconds");
+        ItemMeta iMeta = arrows.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
-        fireball.setItemMeta(iMeta);
-        return fireball;
+        arrows.setItemMeta(iMeta);
+        return arrows;
     }
 
     @Override
     public int getCost(World.Environment environment) {
-        return 50;
+        return 5;
     }
 
     @Override
     public String getRiddle() {
-        return "The tears of your enemies will burn away as you charge forth";
+        return "The eyes of a spectre cause those shot with your firearm to glow to the heavens";
     }
 
     @Override
     public long getCooldown() {
-        return 1000;
+        return 250;
     }
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
-        org.bukkit.entity.Fireball fireball = caster.launchProjectile(org.bukkit.entity.Fireball.class);
-        fireball.setYield(2);
-        caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_GHAST_SHOOT, 1, 1);
+        Arrow arrow = caster.launchProjectile(Arrow.class);
+        arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
+        caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 1);
         return true;
     }
+
 }
