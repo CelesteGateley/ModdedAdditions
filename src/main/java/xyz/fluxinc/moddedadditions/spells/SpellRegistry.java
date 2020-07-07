@@ -5,6 +5,7 @@ import xyz.fluxinc.moddedadditions.spells.castable.combat.Arrows;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.SlowBall;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Smite;
+import xyz.fluxinc.moddedadditions.spells.castable.illusion.Vanish;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.AirJet;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.LavaWalk;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.Teleport;
@@ -65,7 +66,7 @@ public class SpellRegistry {
         registerSpell(new ForceField(instance), "forcefield", 42);
         registerSpell(new MinersBoon(instance), "minersboon", 43);
         // Illusion
-        registerSpell(new MinersBoon(instance), "minersboon", 60);
+        registerSpell(new Vanish(instance), "vanish", 60);
         // Debug
         //registerSpell(new FillMana(instance), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
     }
