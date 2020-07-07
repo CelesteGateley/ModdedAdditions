@@ -13,12 +13,10 @@ import java.util.*;
 
 public class ForceFieldListener implements Runnable, Listener {
 
-    private final ModdedAdditions instance;
     private final Map<Player, Long> activeFields;
-    private static final int FIELD_DISTANCE = 8;
+    private static final int FIELD_DISTANCE = 4;
 
     public ForceFieldListener(ModdedAdditions instance) {
-        this.instance = instance;
         activeFields = new HashMap<>();
         instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, this, 20, 20);
     }
@@ -38,10 +36,14 @@ public class ForceFieldListener implements Runnable, Listener {
             List<Entity> entityList = player.getNearbyEntities(FIELD_DISTANCE, FIELD_DISTANCE, FIELD_DISTANCE);
             for (Entity entity : entityList) {
                 Vector distance = entity.getLocation().toVector().subtract(player.getLocation().toVector()).multiply(0.5);
-                entity.setVelocity(distance);
+                double x = distance.getX() < 0 ? (-FIELD_DISTANCE + distance.getX()) / 4d : (FIELD_DISTANCE - distance.getX()) / 4d;
+                double z = distance.getZ() < 0 ? (-FIELD_DISTANCE + distance.getZ()) / 4d : (FIELD_DISTANCE - distance.getZ()) / 4d;
+                System.out.println(x + ", " + z);
+                entity.setVelocity(new Vector(x, 0.5, z));
             }
         }
         for (Player player : toRemove) {
+            System.out.println("Removed Player");
             activeFields.remove(player);
         }
     }
