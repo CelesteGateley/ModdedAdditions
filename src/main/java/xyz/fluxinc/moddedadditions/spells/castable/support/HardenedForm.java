@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions.spells.castable.support;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -53,6 +55,14 @@ public class HardenedForm extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
+        if (caster != target) {
+            caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("The body of your target becomes hard as a rock"));
+            if (target instanceof Player) {
+                ((Player) target).spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Your body becomes hard as a rock"));
+            }
+        } else {
+            caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Your body becomes hard as a rock"));
+        }
         new PotionEffect(PotionEffectType.ABSORPTION, 20 * 20, 2).apply(target);
         new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 20, 1).apply(target);
         new PotionEffect(PotionEffectType.SLOW, 20 * 20, 0).apply(target);

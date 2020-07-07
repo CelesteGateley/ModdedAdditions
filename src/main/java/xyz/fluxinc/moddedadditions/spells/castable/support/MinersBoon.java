@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions.spells.castable.support;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -53,6 +55,14 @@ public class MinersBoon extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
+        if (caster != target) {
+            caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You grant your target the power of the earth"));
+            if (target instanceof Player) {
+                ((Player) target).spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You feel the earth's power flow through you"));
+            }
+        } else {
+            caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You feel the earth's power flow through you"));
+        }
         new PotionEffect(PotionEffectType.NIGHT_VISION, 20 * 20, 0).apply(target);
         new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 20, 0).apply(target);
         new PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 20, 1).apply(target);

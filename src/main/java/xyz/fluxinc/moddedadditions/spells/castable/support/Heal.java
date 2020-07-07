@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions.spells.castable.support;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
@@ -50,6 +52,14 @@ public class Heal extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
+        if (caster != target) {
+            caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You heal your targets wounds"));
+            if (target instanceof Player) {
+                ((Player) target).spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You feel your wounds mend"));
+            }
+        } else {
+            caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You feel your wounds mend"));
+        }
         if (target.getHealth() != target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
             if (target.getHealth() > target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() - 2) {
                 target.setHealth(target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());

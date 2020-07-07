@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions.spells.castable.movement;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -53,6 +55,14 @@ public class Speed extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
+        if (caster != target) {
+            caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("The body of your target becomes faster"));
+            if (target instanceof Player) {
+                ((Player) target).spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Your feel your body become faster as mana courses through you"));
+            }
+        } else {
+            caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Your feel your body become faster as mana courses through you"));
+        }
         new PotionEffect(PotionEffectType.SPEED, 20 * 20, 4).apply(target);
         return true;
     }
