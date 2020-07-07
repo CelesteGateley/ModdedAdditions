@@ -9,6 +9,7 @@ import xyz.fluxinc.moddedadditions.spells.castable.movement.AirJet;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.LavaWalk;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.Teleport;
 import xyz.fluxinc.moddedadditions.spells.castable.support.ForceField;
+import xyz.fluxinc.moddedadditions.spells.castable.support.HardenedForm;
 import xyz.fluxinc.moddedadditions.spells.castable.support.Heal;
 import xyz.fluxinc.moddedadditions.spells.castable.support.MinersBoon;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.Speed;
@@ -60,6 +61,7 @@ public class SpellRegistry {
         registerSpell(new MinersBoon(instance), "minersboon", 9);
         registerSpell(new LavaWalk(instance), "lavawalk", 10);
         registerSpell(new ForceField(instance), "forcefield", 11);
+        registerSpell(new HardenedForm(instance), "hardenedform", 12);
     }
 
     public void registerSpell(Spell spell, String technicalName, int modelId) {

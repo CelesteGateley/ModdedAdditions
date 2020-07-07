@@ -225,6 +225,8 @@ public class CustomRecipeUtils implements Listener {
         addSpell(10, Material.ICE, Material.BLAZE_ROD);
         // ForceField
         addSpell(11, Material.SHIELD, Material.PISTON);
+        // HardenedForm
+        addSpell(12, Material.OBSIDIAN, Material.COBWEB);
     }
 
     private void addLongFallBoots() {
