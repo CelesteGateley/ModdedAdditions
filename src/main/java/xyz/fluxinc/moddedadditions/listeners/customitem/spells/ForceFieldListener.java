@@ -38,12 +38,10 @@ public class ForceFieldListener implements Runnable, Listener {
                 Vector distance = entity.getLocation().toVector().subtract(player.getLocation().toVector()).multiply(0.5);
                 double x = distance.getX() < 0 ? (-FIELD_DISTANCE + distance.getX()) / 4d : (FIELD_DISTANCE - distance.getX()) / 4d;
                 double z = distance.getZ() < 0 ? (-FIELD_DISTANCE + distance.getZ()) / 4d : (FIELD_DISTANCE - distance.getZ()) / 4d;
-                System.out.println(x + ", " + z);
                 entity.setVelocity(new Vector(x, 0.5, z));
             }
         }
         for (Player player : toRemove) {
-            System.out.println("Removed Player");
             activeFields.remove(player);
         }
     }
