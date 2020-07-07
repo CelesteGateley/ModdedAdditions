@@ -32,6 +32,12 @@ sb-noSubCommand: "&9You must provide a sub-command: learn / unlearn / fillmana"
 sb-noSpellProvided: "&9You must provide a spell: fireball / teleport / arrows / heal"
 sb-unknownSpell: "&9Unrecognized spell: %spell%. Valid spells: fireball / teleport / arrows / heal"
 sb-unknownSubCommand: "&9Unrecognised sub-command: %command%. Valid sub-commands: learn / unlearn / fillmana"
+sb-learnSpell: "&9You now possess the knowledge to cast: %spell%"
+sb-learnSpellOther: "&f%player%&9 now possesses the knowledge to cast: %spell%"
+sb-unlearnSpell: "&9You no longer possess the knowledge to cast: %spell%"
+sb-unlearnSpellOther: "&f%player%&9 no longer possess the knowledge to cast: %spell%"
+
+
 
 # Veinminer Commands
 vm-unknownSubCommand: "&9Unrecognised sub-command: %command%. Valid sub-commands: add / remove / toggle / save / reload"

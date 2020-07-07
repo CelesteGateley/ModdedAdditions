@@ -54,6 +54,12 @@ public class SpellBookCommand implements CommandExecutor {
                 if (args[1].equals("*")) {
                     for (String spell : instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames()) {
                         setSpell(target, spell, true);
+                        if (target != sender) {
+                            sendLearnSpell(target, spell);
+                            sendLearnSpellOther(sender, spell, target);
+                        } else {
+                            sendLearnSpell(sender, spell);
+                        }
                     }
                     return true;
                 }
@@ -69,6 +75,12 @@ public class SpellBookCommand implements CommandExecutor {
                 if (args[1].equals("*")) {
                     for (String spell : instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames()) {
                         setSpell(target, spell, false);
+                        if (target != sender) {
+                            sendUnlearnSpell(target, spell);
+                            sendUnlearnSpellOther(sender, spell, target);
+                        } else {
+                            sendUnlearnSpell(sender, spell);
+                        }
                     }
                     return true;
                 }
@@ -114,6 +126,11 @@ public class SpellBookCommand implements CommandExecutor {
             sendInvalidSpell(player, spell);
             return;
         }
+        if (!instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell) && value) {
+            instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).addMaximumMana(50));
+        } else if (instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell) && !value) {
+            instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).addMaximumMana(-50));
+        }
         instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).setSpell(spell, value));
     }
 
@@ -149,6 +166,32 @@ public class SpellBookCommand implements CommandExecutor {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("player", player);
         sender.sendMessage(instance.getLanguageManager().generateMessage("ma-unrecognisedPlayer", messageArgs));
+    }
+
+    private void sendLearnSpell(CommandSender sender, String spell) {
+        Map<String, String> messageArgs = new HashMap<>();
+        messageArgs.put("spell", spell);
+        sender.sendMessage(instance.getLanguageManager().generateMessage("sb-learnSpell", messageArgs));
+    }
+
+    private void sendUnlearnSpell(CommandSender sender, String spell) {
+        Map<String, String> messageArgs = new HashMap<>();
+        messageArgs.put("spell", spell);
+        sender.sendMessage(instance.getLanguageManager().generateMessage("sb-unlearnSpell", messageArgs));
+    }
+
+    private void sendLearnSpellOther(CommandSender sender, String spell, Player player) {
+        Map<String, String> messageArgs = new HashMap<>();
+        messageArgs.put("spell", spell);
+        messageArgs.put("player", player.getDisplayName());
+        sender.sendMessage(instance.getLanguageManager().generateMessage("sb-learnSpellOther", messageArgs));
+    }
+
+    private void sendUnlearnSpellOther(CommandSender sender, String spell, Player player) {
+        Map<String, String> messageArgs = new HashMap<>();
+        messageArgs.put("spell", spell);
+        messageArgs.put("player", player.getDisplayName());
+        sender.sendMessage(instance.getLanguageManager().generateMessage("sb-unlearnSpellOther", messageArgs));
     }
 
 }
