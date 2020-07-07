@@ -49,19 +49,24 @@ public class SpellRegistry {
     }
 
     private void registerAllSpells(ModdedAdditions instance) {
-        registerSpell(new Fireball(instance), "fireball", 1);
-        registerSpell(new Teleport(instance), "teleport", 2);
+        // Combat
         registerSpell(new Arrows(instance), "arrows", 3);
-        registerSpell(new Heal(instance), "heal", 4);
-        registerSpell(new AirJet(instance), "airjet", 5);
-        //registerSpell(new FillMana(instance), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
-        registerSpell(new Smite(instance), "smite", 6);
-        registerSpell(new Speed(instance), "speed", 7);
         registerSpell(new SlowBall(instance), "slowball", 8);
-        registerSpell(new MinersBoon(instance), "minersboon", 9);
+        registerSpell(new Fireball(instance), "fireball", 1);
+        registerSpell(new Smite(instance), "smite", 6);
+        // Movement
+        registerSpell(new AirJet(instance), "airjet", 5);
+        registerSpell(new Speed(instance), "speed", 7);
+        registerSpell(new Teleport(instance), "teleport", 2);
         registerSpell(new LavaWalk(instance), "lavawalk", 10);
-        registerSpell(new ForceField(instance), "forcefield", 11);
+        // Support
+        registerSpell(new Heal(instance), "heal", 4);
         registerSpell(new HardenedForm(instance), "hardenedform", 12);
+        registerSpell(new ForceField(instance), "forcefield", 11);
+        registerSpell(new MinersBoon(instance), "minersboon", 9);
+        // Illusion
+        // Debug
+        //registerSpell(new FillMana(instance), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
     }
 
     public void registerSpell(Spell spell, String technicalName, int modelId) {
