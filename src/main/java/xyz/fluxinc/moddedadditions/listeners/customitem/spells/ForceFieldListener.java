@@ -3,6 +3,8 @@ package xyz.fluxinc.moddedadditions.listeners.customitem.spells;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,6 +39,8 @@ public class ForceFieldListener implements Runnable, Listener {
             }
             List<Entity> entityList = player.getNearbyEntities(FIELD_DISTANCE, FIELD_DISTANCE, FIELD_DISTANCE);
             for (Entity entity : entityList) {
+                if (entity.getType() == EntityType.PLAYER) continue;
+                if (!(entity instanceof LivingEntity)) continue;
                 Vector distance = entity.getLocation().toVector().subtract(player.getLocation().toVector()).multiply(0.5);
                 double x = distance.getX() < 0 ? (-FIELD_DISTANCE + distance.getX()) / 4d : (FIELD_DISTANCE - distance.getX()) / 4d;
                 double z = distance.getZ() < 0 ? (-FIELD_DISTANCE + distance.getZ()) / 4d : (FIELD_DISTANCE - distance.getZ()) / 4d;
