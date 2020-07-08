@@ -28,6 +28,9 @@ public class SonicScrewdriverListener implements Listener {
         if (event.getClickedBlock() == null) {
             return;
         }
+        if (!instance.getCoreInstance().getBlockAccessController().checkBlockAccess(event.getPlayer(), event.getClickedBlock().getLocation())) {
+            return;
+        }
         event.setCancelled(true);
         BlockData blockData = event.getClickedBlock().getBlockData();
 
