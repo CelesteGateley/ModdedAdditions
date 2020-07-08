@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions.listeners.customitem;
 
+import org.bukkit.block.Dispenser;
+import org.bukkit.block.Dropper;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Lightable;
 import org.bukkit.block.data.Openable;
@@ -33,6 +35,16 @@ public class SonicScrewdriverListener implements Listener {
         }
         event.setCancelled(true);
         BlockData blockData = event.getClickedBlock().getBlockData();
+
+        if (event.getClickedBlock() instanceof Dispenser && !event.getPlayer().isSneaking()) {
+            ((Dispenser)event.getClickedBlock()).dispense();
+            return;
+        }
+
+        if (event.getClickedBlock() instanceof Dropper && !event.getPlayer().isSneaking()) {
+            ((Dropper) event.getClickedBlock()).drop();
+            return;
+        }
 
         if (blockData instanceof Lightable) {
             ((Lightable) blockData).setLit(!((Lightable) blockData).isLit());
