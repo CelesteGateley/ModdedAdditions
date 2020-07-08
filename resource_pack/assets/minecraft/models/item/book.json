@@ -11,10 +11,10 @@
 		{"predicate": {"custom_model_data": 5123003}, "model": "item/custom/spellbook/fireball_spellbook"},
 		{"predicate": {"custom_model_data": 5123004}, "model": "item/custom/spellbook/smite_spellbook"},
 
-		{"predicate": {"custom_model_data": 5123021}, "model": "item/custom/spellbook/airjet_spellbook"},
-		{"predicate": {"custom_model_data": 5123022}, "model": "item/custom/spellbook/speed_spellbook"},
-		{"predicate": {"custom_model_data": 5123023}, "model": "item/custom/spellbook/teleport_spellbook"},
-		{"predicate": {"custom_model_data": 5123024}, "model": "item/custom/spellbook/fireball_spellbook"},
+		{"predicate": {"custom_model_data": 5123020}, "model": "item/custom/spellbook/airjet_spellbook"},
+		{"predicate": {"custom_model_data": 5123021}, "model": "item/custom/spellbook/speed_spellbook"},
+		{"predicate": {"custom_model_data": 5123022}, "model": "item/custom/spellbook/teleport_spellbook"},
+		{"predicate": {"custom_model_data": 5123023}, "model": "item/custom/spellbook/fireball_spellbook"},
 
 		{"predicate": {"custom_model_data": 5123040}, "model": "item/custom/spellbook/heal_spellbook"},
 		{"predicate": {"custom_model_data": 5123041}, "model": "item/custom/spellbook/default_spellbook"},
