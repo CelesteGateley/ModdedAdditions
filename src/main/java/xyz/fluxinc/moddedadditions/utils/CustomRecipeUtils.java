@@ -184,7 +184,7 @@ public class CustomRecipeUtils implements Listener {
         ShapedRecipe sonicRecipe = new ShapedRecipe(sonicKey, instance.getSonicScrewdriverController().generateNewSonic());
         sonicRecipe.shape("BGB", "IRI", "BEB");
         sonicRecipe.setIngredient('B', Material.IRON_BLOCK);
-        sonicRecipe.setIngredient('G', Material.LIGHT_BLUE_STAINED_GLASS);
+        sonicRecipe.setIngredient('G', Material.LIME_STAINED_GLASS);
         sonicRecipe.setIngredient('I', Material.IRON_INGOT);
         sonicRecipe.setIngredient('R', Material.REDSTONE_TORCH);
         sonicRecipe.setIngredient('E', Material.EMERALD);
