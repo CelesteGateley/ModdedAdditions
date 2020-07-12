@@ -14,8 +14,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class FillMana extends Spell {
 
-    public FillMana(ModdedAdditions instance) {
-        super(instance);
+    public FillMana() {
+        super();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class FillMana extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
-        getInstance().getManaController().regenerateMana(caster, 300);
+        ModdedAdditions.instance.getManaController().regenerateMana(caster, 300);
         return true;
     }
 }

@@ -18,8 +18,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Vanish extends Spell {
 
-    public Vanish(ModdedAdditions instance) {
-        super(instance);
+    public Vanish() {
+        super();
     }
 
     @Override

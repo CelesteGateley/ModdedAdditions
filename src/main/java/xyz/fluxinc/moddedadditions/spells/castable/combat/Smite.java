@@ -15,8 +15,8 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Smite extends Spell {
-    public Smite(ModdedAdditions instance) {
-        super(instance);
+    public Smite() {
+        super();
     }
 
     @Override

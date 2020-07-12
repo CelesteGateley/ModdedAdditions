@@ -16,8 +16,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class ForceField extends Spell {
 
-    public ForceField(ModdedAdditions instance) {
-        super(instance);
+    public ForceField() {
+        super();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ForceField extends Spell {
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("An energy shield surrounds you, keeping mobs away"));
-        getInstance().getForceFieldListener().addForceField(caster, 30);
+        ModdedAdditions.instance.getForceFieldListener().addForceField(caster, 30);
         return true;
     }
 }

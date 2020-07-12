@@ -18,8 +18,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class MinersBoon extends Spell {
 
-    public MinersBoon(ModdedAdditions instance) {
-        super(instance);
+    public MinersBoon() {
+        super();
     }
 
     @Override

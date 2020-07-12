@@ -17,8 +17,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class AirJet extends Spell {
 
-    public AirJet(ModdedAdditions instance) {
-        super(instance);
+    public AirJet() {
+        super();
     }
 
     @Override

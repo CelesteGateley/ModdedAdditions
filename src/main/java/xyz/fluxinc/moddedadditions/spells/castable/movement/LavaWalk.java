@@ -16,8 +16,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class LavaWalk extends Spell {
 
-    public LavaWalk(ModdedAdditions instance) {
-        super(instance);
+    public LavaWalk() {
+        super();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class LavaWalk extends Spell {
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         caster.sendTitle("You can now walk on lava!", "", 10, 70, 20);
-        getInstance().getSpellBookController().addLavaWalk(caster);
+        ModdedAdditions.instance.getSpellBookController().addLavaWalk(caster);
         return true;
     }
 }

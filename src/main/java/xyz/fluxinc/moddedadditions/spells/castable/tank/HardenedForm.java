@@ -18,8 +18,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class HardenedForm extends Spell {
 
-    public HardenedForm(ModdedAdditions instance) {
-        super(instance);
+    public HardenedForm() {
+        super();
     }
 
     @Override

@@ -31,46 +31,37 @@ public class SpellRegistry {
     private final Map<Integer, String> registryToString;
     private final List<String> technicalNames;
 
-    public SpellRegistry(ModdedAdditions instance) {
-        technicalNames = new ArrayList<>();
-        registryById = new LinkedHashMap<>();
-        registryByName = new LinkedHashMap<>();
-        registryToString = new LinkedHashMap<>();
-
-        registerAllSpells(instance);
-
-    }
-
     public SpellRegistry() {
         technicalNames = new ArrayList<>();
         registryById = new LinkedHashMap<>();
         registryByName = new LinkedHashMap<>();
         registryToString = new LinkedHashMap<>();
 
-        registerAllSpells(null);
+        registerAllSpells();
+
     }
 
-    private void registerAllSpells(ModdedAdditions instance) {
+    private void registerAllSpells() {
         // Combat
-        registerSpell(new Arrows(instance), "arrows", 1);
-        registerSpell(new SlowBall(instance), "slowball", 2);
-        registerSpell(new Fireball(instance), "fireball", 3);
-        registerSpell(new Smite(instance), "smite", 4);
+        registerSpell(new Arrows(), "arrows", 1);
+        registerSpell(new SlowBall(), "slowball", 2);
+        registerSpell(new Fireball(), "fireball", 3);
+        registerSpell(new Smite(), "smite", 4);
         // Movement
-        registerSpell(new AirJet(instance), "airjet", 20);
-        registerSpell(new Speed(instance), "speed", 21);
-        registerSpell(new Teleport(instance), "teleport", 22);
-        registerSpell(new LavaWalk(instance), "lavawalk", 23);
+        registerSpell(new AirJet(), "airjet", 20);
+        registerSpell(new Speed(), "speed", 21);
+        registerSpell(new Teleport(), "teleport", 22);
+        registerSpell(new LavaWalk(), "lavawalk", 23);
         // Support
-        registerSpell(new Heal(instance), "heal", 40);
-        registerSpell(new Vanish(instance), "vanish", 41);
-        registerSpell(new MinersBoon(instance), "minersboon", 43);
+        registerSpell(new Heal(), "heal", 40);
+        registerSpell(new Vanish(), "vanish", 41);
+        registerSpell(new MinersBoon(), "minersboon", 43);
         // Tank
-        registerSpell(new HardenedForm(instance), "hardenedform", 60);
-        registerSpell(new ForceField(instance), "forcefield", 61);
-        registerSpell(new Taunt(instance), "taunt", 62);
+        registerSpell(new HardenedForm(), "hardenedform", 60);
+        registerSpell(new ForceField(), "forcefield", 61);
+        registerSpell(new Taunt(), "taunt", 62);
         // Debug
-        //registerSpell(new FillMana(instance), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
+        //registerSpell(new FillMana(), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
     }
 
     public void registerSpell(Spell spell, String technicalName, int modelId) {

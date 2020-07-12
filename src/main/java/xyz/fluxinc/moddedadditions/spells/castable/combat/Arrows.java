@@ -17,8 +17,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Arrows extends Spell {
 
-    public Arrows(ModdedAdditions instance) {
-        super(instance);
+    public Arrows() {
+        super();
     }
 
     @Override

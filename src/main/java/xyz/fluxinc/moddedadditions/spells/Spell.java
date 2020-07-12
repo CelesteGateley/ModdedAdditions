@@ -12,16 +12,10 @@ import java.util.Map;
 
 public abstract class Spell {
 
-    private final ModdedAdditions instance;
     private final Map<Player, Long> cooldowns;
 
-    public Spell(ModdedAdditions instance) {
-        this.instance = instance;
+    public Spell() {
         cooldowns = new HashMap<>();
-    }
-
-    public ModdedAdditions getInstance() {
-        return instance;
     }
 
     public abstract String getName();
@@ -35,11 +29,11 @@ public abstract class Spell {
     public abstract long getCooldown();
 
     public void castSpell(Player caster, LivingEntity target) {
-        if (getInstance().getManaController().getMana(caster) >= getCost(caster.getWorld().getEnvironment())
+        if (ModdedAdditions.instance.getManaController().getMana(caster) >= getCost(caster.getWorld().getEnvironment())
             && cooldowns.getOrDefault(caster, 0L) + getCooldown() < System.currentTimeMillis()) {
             boolean isCast = enactSpell(caster, target);
             if (isCast) {
-                getInstance().getManaController().useMana(caster, getCost(caster.getWorld().getEnvironment()));
+                ModdedAdditions.instance.getManaController().useMana(caster, getCost(caster.getWorld().getEnvironment()));
                 cooldowns.put(caster, System.currentTimeMillis());
             }
         } else {

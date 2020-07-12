@@ -13,8 +13,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Teleport extends Spell {
 
-    public Teleport(ModdedAdditions instance) {
-        super(instance);
+    public Teleport() {
+        super();
     }
 
     @Override

@@ -41,6 +41,7 @@ import java.util.List;
 public final class ModdedAdditions extends JavaPlugin {
 
     public static final int KEY_BASE = 5120000;
+    public static ModdedAdditions instance;
 
     private MagnetController magnetController;
     private LanguageManager<ModdedAdditions> languageManager;
@@ -60,6 +61,7 @@ public final class ModdedAdditions extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
         // Register Core Plugin
         fluxCore = (FluxCore) getServer().getPluginManager().getPlugin("FluxCore");
         if (fluxCore == null) {

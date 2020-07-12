@@ -15,8 +15,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Fireball extends Spell {
 
-    public Fireball(ModdedAdditions instance) {
-        super(instance);
+    public Fireball() {
+        super();
     }
 
     @Override

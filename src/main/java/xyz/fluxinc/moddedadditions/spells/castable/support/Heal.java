@@ -15,8 +15,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Heal extends Spell {
 
-    public Heal(ModdedAdditions instance) {
-        super(instance);
+    public Heal() {
+        super();
     }
 
     @Override

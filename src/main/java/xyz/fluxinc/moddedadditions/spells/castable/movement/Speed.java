@@ -18,8 +18,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Speed extends Spell {
 
-    public Speed(ModdedAdditions instance) {
-        super(instance);
+    public Speed() {
+        super();
     }
 
     @Override

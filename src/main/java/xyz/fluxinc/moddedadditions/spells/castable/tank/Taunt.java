@@ -18,8 +18,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Taunt extends Spell {
 
-    public Taunt(ModdedAdditions instance) {
-        super(instance);
+    public Taunt() {
+        super();
     }
 
     @Override

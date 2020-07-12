@@ -18,8 +18,8 @@ public class SlowBall extends Spell {
 
     public static final String SLOWBALL_NAME = "abXYZoasDGAdgiQXVSAadsgasnNEFA";
 
-    public SlowBall(ModdedAdditions instance) {
-        super(instance);
+    public SlowBall() {
+        super();
     }
 
     @Override
