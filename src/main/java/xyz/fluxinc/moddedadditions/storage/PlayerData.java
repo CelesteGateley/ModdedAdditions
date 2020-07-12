@@ -6,6 +6,7 @@ import xyz.fluxinc.moddedadditions.spells.SpellRegistry;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("UnusedReturnValue")
 public class PlayerData implements ConfigurationSerializable {
 
     private boolean veinMiner;
