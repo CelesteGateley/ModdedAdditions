@@ -223,15 +223,18 @@ public class CustomRecipeUtils implements Listener {
 
         // Heal (Instant Heal Potion)
         addSpell(40, Material.GOLDEN_APPLE, Material.POTION);
-        // HardenedForm
-        addSpell(41, Material.OBSIDIAN, Material.COBWEB);
-        // ForceField
-        addSpell(42, Material.SHIELD, Material.PISTON);
+        // Vanish
+        addSpell(41, Material.GOLDEN_CARROT, Material.BLACKSTONE);
         // Miners Boon
         addSpell(43, Material.NETHERITE_INGOT, Material.HEART_OF_THE_SEA);
 
-        // Vanish
-        addSpell(60, Material.GOLDEN_CARROT, Material.BLACKSTONE);
+
+        // HardenedForm
+        addSpell(60, Material.OBSIDIAN, Material.COBWEB);
+        // ForceField
+        addSpell(61, Material.SHIELD, Material.PISTON);
+        // Taunt
+        addSpell(62, Material.WITHER_SKELETON_SKULL, Material.TURTLE_EGG);
     }
 
     private void addLongFallBoots() {

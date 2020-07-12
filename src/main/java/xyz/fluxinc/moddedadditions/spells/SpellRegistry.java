@@ -14,6 +14,7 @@ import xyz.fluxinc.moddedadditions.spells.castable.tank.HardenedForm;
 import xyz.fluxinc.moddedadditions.spells.castable.support.Heal;
 import xyz.fluxinc.moddedadditions.spells.castable.support.MinersBoon;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.Speed;
+import xyz.fluxinc.moddedadditions.spells.castable.tank.Taunt;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -67,6 +68,7 @@ public class SpellRegistry {
         // Tank
         registerSpell(new HardenedForm(instance), "hardenedform", 60);
         registerSpell(new ForceField(instance), "forcefield", 61);
+        registerSpell(new Taunt(instance), "taunt", 62);
         // Debug
         //registerSpell(new FillMana(instance), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
     }
