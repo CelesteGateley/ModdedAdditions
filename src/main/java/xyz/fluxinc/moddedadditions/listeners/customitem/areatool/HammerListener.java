@@ -27,6 +27,7 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.AreaToolController.AT_KEY_BASE;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class HammerListener implements Listener {
 
     private final String lore;

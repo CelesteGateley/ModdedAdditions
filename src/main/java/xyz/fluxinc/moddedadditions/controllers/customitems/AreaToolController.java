@@ -21,6 +21,7 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class AreaToolController {
 
     public static final int AT_KEY_BASE = 1000;
