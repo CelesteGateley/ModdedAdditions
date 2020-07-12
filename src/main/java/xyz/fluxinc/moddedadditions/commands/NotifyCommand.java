@@ -25,11 +25,10 @@ public class NotifyCommand implements CommandExecutor {
             target.playSound(target.getLocation(), Sound.BLOCK_BELL_USE, 50, 1);
             sender.sendMessage(instance.getLanguageManager().generateMessage("nf-notifySender", getReplaceArray((Player) sender, target)));
             target.sendMessage(instance.getLanguageManager().generateMessage("nf-notifyTarget", getReplaceArray((Player) sender, target)));
-            return true;
         } else {
             sender.sendMessage(instance.getLanguageManager().generateMessage("userNotFound"));
-            return true;
         }
+        return true;
     }
 
     private Map<String, String> getReplaceArray(Player sender, Player target) {
