@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 import static org.bukkit.Bukkit.getServer;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.SB_KEY_BASE;
 import static xyz.fluxinc.moddedadditions.storage.AdditionalRecipeStorage.*;
 import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.*;
@@ -25,7 +26,6 @@ import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.*;
 public class CustomRecipeUtils implements Listener {
 
     private final Collection<NamespacedKey> recipeKeys;
-    private final ModdedAdditions instance;
 
     /*
      * Furnace Recipe takes 5 Arguments:
@@ -36,12 +36,11 @@ public class CustomRecipeUtils implements Listener {
      * Cooking Time (200 ticks by default)
      */
 
-    public CustomRecipeUtils(ModdedAdditions instance) {
+    public CustomRecipeUtils() {
         recipeKeys = new ArrayList<>();
-        this.instance = instance;
 
         SLAB_TO_BLOCK.forEach((slab, block) -> {
-            NamespacedKey nsKey = new NamespacedKey(this.instance, slab.toString() + "_BACK_CONVERSION");
+            NamespacedKey nsKey = new NamespacedKey(instance, slab.toString() + "_BACK_CONVERSION");
             recipeKeys.add(nsKey);
             ShapedRecipe slabToBlock = new ShapedRecipe(nsKey, new ItemStack(block));
             slabToBlock.shape("S", "S");
@@ -58,7 +57,7 @@ public class CustomRecipeUtils implements Listener {
 
         FURNACE_RECIPE.forEach((material, result) -> {
             FurnaceRecipe smeltingRecipe = new FurnaceRecipe(
-                    new NamespacedKey(this.instance, material.toString() + "_TO_" + result.toString()),
+                    new NamespacedKey(instance, material.toString() + "_TO_" + result.toString()),
                     new ItemStack(result),
                     material,
                     (float) 0.2,
@@ -70,7 +69,7 @@ public class CustomRecipeUtils implements Listener {
         makeHammers();
         makeExcavators();
 
-        NamespacedKey magnetKey = new NamespacedKey(this.instance, "MAGNET");
+        NamespacedKey magnetKey = new NamespacedKey(instance, "MAGNET");
         recipeKeys.add(magnetKey);
 
         ShapedRecipe magnetRecipe = new ShapedRecipe(magnetKey, instance.getMagnetController().generateNewMagnet());
@@ -93,7 +92,7 @@ public class CustomRecipeUtils implements Listener {
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
         dyeMap.forEach((block, dye) -> {
             for (Material originBlock : blockList) {
-                NamespacedKey nsKey = new NamespacedKey(this.instance, dye.toString() + "_WITH_" + originBlock.toString());
+                NamespacedKey nsKey = new NamespacedKey(instance, dye.toString() + "_WITH_" + originBlock.toString());
                 recipeKeys.add(nsKey);
                 ShapedRecipe dyeToBlock = new ShapedRecipe(nsKey, new ItemStack(block, 8));
                 dyeToBlock.shape("BBB", "BDB", "BBB");
@@ -105,7 +104,7 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private ShapedRecipe generateNewHammerRecipe(ToolLevel level, String key, Material tool) {
-        NamespacedKey nsKey = new NamespacedKey(this.instance, key);
+        NamespacedKey nsKey = new NamespacedKey(instance, key);
         recipeKeys.add(nsKey);
         ShapedRecipe result = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(level));
         result.shape("PPP", " S ", " S ");
@@ -115,7 +114,7 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private ShapedRecipe generateNewExcavatorRecipe(ToolLevel level, String key, Material tool) {
-        NamespacedKey nsKey = new NamespacedKey(this.instance, key);
+        NamespacedKey nsKey = new NamespacedKey(instance, key);
         recipeKeys.add(nsKey);
         ShapedRecipe result = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(level));
         result.shape("PPP", " S ", " S ");
@@ -125,7 +124,7 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private ShapedRecipe generateKyberCrystalRecipe(SaberColor color, String key) {
-        NamespacedKey nsKey = new NamespacedKey(this.instance, key);
+        NamespacedKey nsKey = new NamespacedKey(instance, key);
         recipeKeys.add(nsKey);
 
         ShapedRecipe result = new ShapedRecipe(nsKey, instance.getLightSaberController().generateNewKyberCrystal(color));
@@ -166,7 +165,7 @@ public class CustomRecipeUtils implements Listener {
 
 
     private void addLightsaber() {
-        NamespacedKey lightSaberKey = new NamespacedKey(this.instance, "LIGHTSABER");
+        NamespacedKey lightSaberKey = new NamespacedKey(instance, "LIGHTSABER");
         recipeKeys.add(lightSaberKey);
 
         ShapedRecipe lightSaberRecipe = new ShapedRecipe(lightSaberKey, instance.getLightSaberController().getDefaultLightSaber());
@@ -178,7 +177,7 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addSonic() {
-        NamespacedKey sonicKey = new NamespacedKey(this.instance, "SONIC");
+        NamespacedKey sonicKey = new NamespacedKey(instance, "SONIC");
         recipeKeys.add(sonicKey);
 
         ShapedRecipe sonicRecipe = new ShapedRecipe(sonicKey, instance.getSonicScrewdriverController().generateNewSonic());
@@ -192,7 +191,7 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addSpell(int spellId, Material item1, Material item2) {
-        NamespacedKey spellKey = new NamespacedKey(this.instance, "SPELL_" + (KEY_BASE + SB_KEY_BASE + spellId));
+        NamespacedKey spellKey = new NamespacedKey(instance, "SPELL_" + (KEY_BASE + SB_KEY_BASE + spellId));
         ItemStack result = instance.getSpellBookController().setSpell(KEY_BASE + SB_KEY_BASE + spellId, instance.getSpellBookController().generateNewSpellBook());
         ShapedRecipe spellRecipe = new ShapedRecipe(spellKey, result);
         spellRecipe.shape("ABA", "BSB", "ABA");
@@ -238,7 +237,7 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addLongFallBoots() {
-        NamespacedKey bootsKey = new NamespacedKey(this.instance, "LONG_FALL_BOOTS");
+        NamespacedKey bootsKey = new NamespacedKey(instance, "LONG_FALL_BOOTS");
         recipeKeys.add(bootsKey);
         ItemStack result = generateNewLongFallBoots();
         ShapedRecipe bootsRecipe = new ShapedRecipe(bootsKey, result);
@@ -251,7 +250,7 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addHoneyChestPlate() {
-        NamespacedKey key = new NamespacedKey(this.instance, "HONEY_CHESTPLATE");
+        NamespacedKey key = new NamespacedKey(instance, "HONEY_CHESTPLATE");
         recipeKeys.add(key);
         ItemStack result = generateHoneyChestplate();
         ShapedRecipe recipe = new ShapedRecipe(key, result);
@@ -261,7 +260,7 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addSlimeChestPlate() {
-        NamespacedKey key = new NamespacedKey(this.instance, "SLIME_CHESTPLATE");
+        NamespacedKey key = new NamespacedKey(instance, "SLIME_CHESTPLATE");
         recipeKeys.add(key);
         ItemStack result = generateSlimeChestplate();
         ShapedRecipe recipe = new ShapedRecipe(key, result);
