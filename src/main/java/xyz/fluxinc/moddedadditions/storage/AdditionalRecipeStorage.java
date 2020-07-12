@@ -11,20 +11,20 @@ public class AdditionalRecipeStorage {
      * Value 1: Slab
      * Value 2: Full Block
      */
-    public static HashMap<Material, Material> SLAB_TO_BLOCK;
-    public static HashMap<Material, Material> FURNACE_RECIPE;
-    public static ArrayList<Material> STAINED_GLASS;
-    public static ArrayList<Material> STAINED_GLASS_PANE;
-    public static ArrayList<Material> TERRACOTTA;
-    public static ArrayList<Material> GLAZED_TERRACOTTA;
-    public static ArrayList<Material> CONCRETE;
-    public static ArrayList<Material> CONCRETE_POWDER;
-    public static HashMap<Material, Material> STAINED_GLASS_TO_DYE;
-    public static HashMap<Material, Material> STAINED_GLASS_PANE_TO_DYE;
-    public static HashMap<Material, Material> TERRACOTTA_TO_DYE;
-    public static HashMap<Material, Material> GLAZED_TERRACOTTA_TO_DYE;
-    public static HashMap<Material, Material> CONCRETE_TO_DYE;
-    public static HashMap<Material, Material> CONCRETE_POWDER_TO_DYE;
+    public static final HashMap<Material, Material> SLAB_TO_BLOCK;
+    public static final HashMap<Material, Material> FURNACE_RECIPE;
+    public static final ArrayList<Material> STAINED_GLASS;
+    public static final ArrayList<Material> STAINED_GLASS_PANE;
+    public static final ArrayList<Material> TERRACOTTA;
+    public static final ArrayList<Material> GLAZED_TERRACOTTA;
+    public static final ArrayList<Material> CONCRETE;
+    public static final ArrayList<Material> CONCRETE_POWDER;
+    public static final HashMap<Material, Material> STAINED_GLASS_TO_DYE;
+    public static final HashMap<Material, Material> STAINED_GLASS_PANE_TO_DYE;
+    public static final HashMap<Material, Material> TERRACOTTA_TO_DYE;
+    public static final HashMap<Material, Material> GLAZED_TERRACOTTA_TO_DYE;
+    public static final HashMap<Material, Material> CONCRETE_TO_DYE;
+    public static final HashMap<Material, Material> CONCRETE_POWDER_TO_DYE;
 
     static {
         SLAB_TO_BLOCK = new HashMap<>();
