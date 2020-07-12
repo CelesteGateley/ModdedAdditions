@@ -29,7 +29,7 @@ public class SlowBall extends Spell {
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
         ItemStack slowball = addLore(new ItemStack(Material.SNOWBALL), "Costs: " + getCost(environment) + " Mana");
-        slowball = addLore(slowball, "Cooldown: " + getCooldown()/1000d + " Seconds");
+        slowball = addLore(slowball, "Cooldown: " + getCooldown() / 1000d + " Seconds");
         ItemMeta iMeta = slowball.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());

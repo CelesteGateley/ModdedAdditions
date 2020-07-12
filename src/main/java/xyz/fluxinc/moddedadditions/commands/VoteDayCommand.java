@@ -20,8 +20,8 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class VoteDayCommand implements CommandExecutor, Listener {
 
-    private DayVote activeVote = null;
     private final World dayWorld;
+    private DayVote activeVote = null;
     private int taskId = -1;
 
     public VoteDayCommand(World world) {
@@ -155,9 +155,9 @@ public class VoteDayCommand implements CommandExecutor, Listener {
     }
 
     private static class DayVote {
+        private final List<Player> votedPlayers;
         private int yesVotes;
         private int noVotes;
-        private final List<Player> votedPlayers;
 
         public DayVote() {
             yesVotes = 0;

@@ -28,7 +28,7 @@ public class Arrows extends Spell {
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
         ItemStack arrows = addLore(new ItemStack(Material.BOW), "Costs: " + getCost(environment) + " Mana");
-        arrows = addLore(arrows, "Cooldown: " + getCooldown()/1000d + " Seconds");
+        arrows = addLore(arrows, "Cooldown: " + getCooldown() / 1000d + " Seconds");
         ItemMeta iMeta = arrows.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());

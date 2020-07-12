@@ -29,7 +29,7 @@ public class Taunt extends Spell {
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
         ItemStack taunt = addLore(new ItemStack(Material.MUSIC_DISC_CAT), "Costs: " + getCost(environment) + " Mana");
-        taunt = addLore(taunt, "Cooldown: " + getCooldown()/1000d + " Seconds");
+        taunt = addLore(taunt, "Cooldown: " + getCooldown() / 1000d + " Seconds");
         ItemMeta iMeta = taunt.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -55,7 +55,7 @@ public class Taunt extends Spell {
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
         caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You taunt all enemies within 8 blocks!"));
-        for (Entity entity : caster.getNearbyEntities(8,8,8)) {
+        for (Entity entity : caster.getNearbyEntities(8, 8, 8)) {
             if (entity instanceof Mob) {
                 ((Mob) entity).setTarget(caster);
             }

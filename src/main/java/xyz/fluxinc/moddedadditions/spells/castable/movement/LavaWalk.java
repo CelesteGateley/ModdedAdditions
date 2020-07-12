@@ -26,7 +26,7 @@ public class LavaWalk extends Spell {
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
         ItemStack lavaWalk = addLore(new ItemStack(Material.LAVA_BUCKET), "Costs: " + getCost(environment) + " Mana");
-        lavaWalk = addLore(lavaWalk, "Cooldown: " + getCooldown()/1000d + " Seconds");
+        lavaWalk = addLore(lavaWalk, "Cooldown: " + getCooldown() / 1000d + " Seconds");
         ItemMeta iMeta = lavaWalk.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());

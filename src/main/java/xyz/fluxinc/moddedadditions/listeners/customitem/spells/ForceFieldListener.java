@@ -19,8 +19,8 @@ import java.util.Map;
 
 public class ForceFieldListener implements Runnable, Listener {
 
-    private final Map<Player, Long> activeFields;
     private static final int FIELD_DISTANCE = 4;
+    private final Map<Player, Long> activeFields;
 
     public ForceFieldListener() {
         activeFields = new HashMap<>();

@@ -30,7 +30,7 @@ public abstract class Spell {
 
     public void castSpell(Player caster, LivingEntity target) {
         if (ModdedAdditions.instance.getManaController().getMana(caster) >= getCost(caster.getWorld().getEnvironment())
-            && cooldowns.getOrDefault(caster, 0L) + getCooldown() < System.currentTimeMillis()) {
+                && cooldowns.getOrDefault(caster, 0L) + getCooldown() < System.currentTimeMillis()) {
             boolean isCast = enactSpell(caster, target);
             if (isCast) {
                 ModdedAdditions.instance.getManaController().useMana(caster, getCost(caster.getWorld().getEnvironment()));

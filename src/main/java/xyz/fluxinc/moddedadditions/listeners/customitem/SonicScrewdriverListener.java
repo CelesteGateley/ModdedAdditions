@@ -32,7 +32,7 @@ public class SonicScrewdriverListener implements Listener {
         BlockData blockData = event.getClickedBlock().getBlockData();
 
         if (event.getClickedBlock() instanceof Dispenser && !event.getPlayer().isSneaking()) {
-            ((Dispenser)event.getClickedBlock()).dispense();
+            ((Dispenser) event.getClickedBlock()).dispense();
             return;
         }
 

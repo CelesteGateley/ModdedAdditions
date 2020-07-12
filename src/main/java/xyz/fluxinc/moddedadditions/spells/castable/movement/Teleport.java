@@ -24,7 +24,7 @@ public class Teleport extends Spell {
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
         ItemStack teleport = addLore(new ItemStack(Material.ENDER_PEARL), "Costs: " + getCost(environment) + " Mana");
-        teleport = addLore(teleport, "Cooldown: " + getCooldown()/1000d + " Seconds");
+        teleport = addLore(teleport, "Cooldown: " + getCooldown() / 1000d + " Seconds");
         ItemMeta iMeta = teleport.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());

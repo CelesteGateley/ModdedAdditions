@@ -40,7 +40,7 @@ public class Vanish extends Spell {
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
         ItemStack speed = addLore(getInvisPotion(), "Costs: " + getCost(environment) + " Mana");
-        speed = addLore(speed, "Cooldown: " + getCooldown()/1000d + " Seconds");
+        speed = addLore(speed, "Cooldown: " + getCooldown() / 1000d + " Seconds");
         ItemMeta iMeta = speed.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());

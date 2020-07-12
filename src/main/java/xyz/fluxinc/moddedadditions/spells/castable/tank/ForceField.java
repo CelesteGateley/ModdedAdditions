@@ -28,7 +28,7 @@ public class ForceField extends Spell {
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
         ItemStack forcefield = addLore(new ItemStack(Material.GLASS), "Costs: " + getCost(environment) + " Mana");
-        forcefield = addLore(forcefield, "Cooldown: " + getCooldown()/1000d + " Seconds");
+        forcefield = addLore(forcefield, "Cooldown: " + getCooldown() / 1000d + " Seconds");
         ItemMeta iMeta = forcefield.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -48,7 +48,7 @@ public class ForceField extends Spell {
 
     @Override
     public long getCooldown() {
-        return 30*1000;
+        return 30 * 1000;
     }
 
     @Override

@@ -194,7 +194,9 @@ public final class ModdedAdditions extends JavaPlugin {
         areaToolController.loadFromConfiguration();
     }
 
-    public ForceFieldListener getForceFieldListener() { return forceFieldListener; }
+    public ForceFieldListener getForceFieldListener() {
+        return forceFieldListener;
+    }
 
     public MagnetController getMagnetController() {
         return magnetController;

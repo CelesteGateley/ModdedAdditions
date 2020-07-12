@@ -28,7 +28,7 @@ public class AirJet extends Spell {
     @Override
     public ItemStack getItemStack(World.Environment environment, int modelId) {
         ItemStack airjet = addLore(new ItemStack(Material.FEATHER), "Costs: " + getCost(environment) + " Mana");
-        airjet = addLore(airjet, "Cooldown: " + getCooldown()/1000d + " Seconds");
+        airjet = addLore(airjet, "Cooldown: " + getCooldown() / 1000d + " Seconds");
         ItemMeta iMeta = airjet.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -57,7 +57,8 @@ public class AirJet extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target) {
-        if (caster.getWorld().getEnvironment() == World.Environment.NETHER && caster.getLocation().getY() > 127) return false;
+        if (caster.getWorld().getEnvironment() == World.Environment.NETHER && caster.getLocation().getY() > 127)
+            return false;
         if (caster.getWorld().getEnvironment() != World.Environment.NORMAL) {
             caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("The dense atmosphere makes gathering wind harder"));
         }

@@ -27,9 +27,16 @@ public class SpellBookController {
         lavaWalkerPlayers = new HashMap<>();
     }
 
+    public static boolean verifySpellBook(ItemStack itemStack) {
+        return itemStack.getItemMeta() != null
+                && itemStack.getItemMeta().hasCustomModelData()
+                && itemStack.getItemMeta().getCustomModelData() >= KEY_BASE + SB_KEY_BASE
+                && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + SB_KEY_BASE + 1000;
+    }
+
     public boolean canLavaWalk(Player player) {
         if (lavaWalkerPlayers.containsKey(player)) {
-            if (lavaWalkerPlayers.get(player) + 30*1000 > System.currentTimeMillis()) return true;
+            if (lavaWalkerPlayers.get(player) + 30 * 1000 > System.currentTimeMillis()) return true;
             lavaWalkerPlayers.remove(player);
             player.sendTitle("Lava walk has worn off", "", 10, 70, 20);
         }
@@ -38,13 +45,6 @@ public class SpellBookController {
 
     public void addLavaWalk(Player player) {
         lavaWalkerPlayers.put(player, System.currentTimeMillis());
-    }
-
-    public static boolean verifySpellBook(ItemStack itemStack) {
-        return itemStack.getItemMeta() != null
-                && itemStack.getItemMeta().hasCustomModelData()
-                && itemStack.getItemMeta().getCustomModelData() >= KEY_BASE + SB_KEY_BASE
-                && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + SB_KEY_BASE + 1000;
     }
 
     public ItemStack generateNewSpellBook() {
