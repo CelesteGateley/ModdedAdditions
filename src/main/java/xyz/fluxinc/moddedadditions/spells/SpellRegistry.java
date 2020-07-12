@@ -5,12 +5,12 @@ import xyz.fluxinc.moddedadditions.spells.castable.combat.Arrows;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.SlowBall;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Smite;
-import xyz.fluxinc.moddedadditions.spells.castable.illusion.Vanish;
+import xyz.fluxinc.moddedadditions.spells.castable.support.Vanish;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.AirJet;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.LavaWalk;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.Teleport;
-import xyz.fluxinc.moddedadditions.spells.castable.support.ForceField;
-import xyz.fluxinc.moddedadditions.spells.castable.support.HardenedForm;
+import xyz.fluxinc.moddedadditions.spells.castable.tank.ForceField;
+import xyz.fluxinc.moddedadditions.spells.castable.tank.HardenedForm;
 import xyz.fluxinc.moddedadditions.spells.castable.support.Heal;
 import xyz.fluxinc.moddedadditions.spells.castable.support.MinersBoon;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.Speed;
@@ -62,11 +62,11 @@ public class SpellRegistry {
         registerSpell(new LavaWalk(instance), "lavawalk", 23);
         // Support
         registerSpell(new Heal(instance), "heal", 40);
-        registerSpell(new HardenedForm(instance), "hardenedform", 41);
-        registerSpell(new ForceField(instance), "forcefield", 42);
+        registerSpell(new Vanish(instance), "vanish", 41);
         registerSpell(new MinersBoon(instance), "minersboon", 43);
-        // Illusion
-        registerSpell(new Vanish(instance), "vanish", 60);
+        // Tank
+        registerSpell(new HardenedForm(instance), "hardenedform", 60);
+        registerSpell(new ForceField(instance), "forcefield", 61);
         // Debug
         //registerSpell(new FillMana(instance), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
     }

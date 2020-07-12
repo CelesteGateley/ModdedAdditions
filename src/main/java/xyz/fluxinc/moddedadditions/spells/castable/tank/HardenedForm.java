@@ -1,4 +1,4 @@
-package xyz.fluxinc.moddedadditions.spells.castable.support;
+package xyz.fluxinc.moddedadditions.spells.castable.tank;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
