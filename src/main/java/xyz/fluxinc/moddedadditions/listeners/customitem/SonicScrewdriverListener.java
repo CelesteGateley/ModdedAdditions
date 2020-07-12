@@ -9,15 +9,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
+
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class SonicScrewdriverListener implements Listener {
-
-    private final ModdedAdditions instance;
-
-    public SonicScrewdriverListener(ModdedAdditions instance) {
-        this.instance = instance;
-    }
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {

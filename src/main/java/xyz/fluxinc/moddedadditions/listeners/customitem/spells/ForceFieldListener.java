@@ -9,20 +9,22 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.util.Vector;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ForceFieldListener implements Runnable, Listener {
 
     private final Map<Player, Long> activeFields;
     private static final int FIELD_DISTANCE = 4;
 
-    public ForceFieldListener(ModdedAdditions instance) {
+    public ForceFieldListener() {
         activeFields = new HashMap<>();
-        instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, this, 20, 20);
+        ModdedAdditions.instance.getServer().getScheduler().scheduleSyncRepeatingTask(ModdedAdditions.instance, this, 20, 20);
     }
 
     public void addForceField(Player player, long duration) {

@@ -5,20 +5,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.bukkit.Bukkit.getServer;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class NotifyCommand implements CommandExecutor {
-
-    private final ModdedAdditions instance;
-
-    public NotifyCommand(ModdedAdditions instance) {
-        this.instance = instance;
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

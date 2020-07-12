@@ -1,19 +1,18 @@
 package xyz.fluxinc.moddedadditions.spells;
 
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Arrows;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.SlowBall;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Smite;
-import xyz.fluxinc.moddedadditions.spells.castable.support.Vanish;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.AirJet;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.LavaWalk;
+import xyz.fluxinc.moddedadditions.spells.castable.movement.Speed;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.Teleport;
-import xyz.fluxinc.moddedadditions.spells.castable.tank.ForceField;
-import xyz.fluxinc.moddedadditions.spells.castable.tank.HardenedForm;
 import xyz.fluxinc.moddedadditions.spells.castable.support.Heal;
 import xyz.fluxinc.moddedadditions.spells.castable.support.MinersBoon;
-import xyz.fluxinc.moddedadditions.spells.castable.movement.Speed;
+import xyz.fluxinc.moddedadditions.spells.castable.support.Vanish;
+import xyz.fluxinc.moddedadditions.spells.castable.tank.ForceField;
+import xyz.fluxinc.moddedadditions.spells.castable.tank.HardenedForm;
 import xyz.fluxinc.moddedadditions.spells.castable.tank.Taunt;
 
 import java.util.ArrayList;

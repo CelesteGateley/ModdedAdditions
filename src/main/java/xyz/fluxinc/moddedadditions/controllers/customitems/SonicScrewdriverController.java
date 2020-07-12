@@ -12,14 +12,9 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 public class SonicScrewdriverController {
 
     private static final int SONIC_MODEL_KEY = KEY_BASE + 9002;
-    private final ModdedAdditions instance;
-
-    public SonicScrewdriverController(ModdedAdditions instance) {
-        this.instance = instance;
-    }
 
     public ItemStack generateNewSonic() {
-        ItemStack sonic = addLore(new ItemStack(Material.STICK), instance.getLanguageManager().getFormattedString("mi-sonic"));
+        ItemStack sonic = addLore(new ItemStack(Material.STICK), ModdedAdditions.instance.getLanguageManager().getFormattedString("mi-sonic"));
         ItemMeta iMeta = sonic.getItemMeta();
         iMeta.setCustomModelData(SONIC_MODEL_KEY);
         iMeta.setDisplayName(ChatColor.WHITE + "Sonic");

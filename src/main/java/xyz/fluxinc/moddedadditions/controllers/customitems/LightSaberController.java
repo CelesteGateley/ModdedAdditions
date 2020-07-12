@@ -9,7 +9,6 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
 import java.util.UUID;
@@ -17,6 +16,7 @@ import java.util.UUID;
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.fluxcore.utils.StringUtils.toTitleCase;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.enums.SaberColor.getChatColor;
 import static xyz.fluxinc.moddedadditions.enums.SaberColor.getColorMod;
 
@@ -24,11 +24,6 @@ public class LightSaberController {
 
     public static final int LS_KEY_BASE = 2020;
     public static final int KC_KEY_BASE = 2010;
-    private final ModdedAdditions instance;
-
-    public LightSaberController(ModdedAdditions instance) {
-        this.instance = instance;
-    }
 
     public static boolean verifyLightSaber(ItemStack itemStack) {
         return itemStack.getItemMeta() != null

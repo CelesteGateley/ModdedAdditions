@@ -5,7 +5,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.io.File;
@@ -14,13 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
+
 public class SpellBookCommand implements CommandExecutor {
-
-    private final ModdedAdditions instance;
-
-    public SpellBookCommand(ModdedAdditions instance) {
-        this.instance = instance;
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {

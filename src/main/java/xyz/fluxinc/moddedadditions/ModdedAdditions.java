@@ -26,9 +26,7 @@ import xyz.fluxinc.moddedadditions.listeners.customitem.SonicScrewdriverListener
 import xyz.fluxinc.moddedadditions.listeners.customitem.SpellBookListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
-import xyz.fluxinc.moddedadditions.listeners.customitem.armor.HoneyChestplateListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.LongFallBootsListener;
-import xyz.fluxinc.moddedadditions.listeners.customitem.armor.SlimeChestplateListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ForceFieldListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.SortChestListener;
@@ -81,7 +79,7 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // Initialize PlayerData
         ConfigurationSerialization.registerClass(PlayerData.class);
-        playerDataController = new PlayerDataController(this, "storage.yml");
+        playerDataController = new PlayerDataController("storage.yml");
         getServer().getPluginManager().registerEvents(playerDataController, this);
 
         // Register Language and Configuration Managers
@@ -89,36 +87,36 @@ public final class ModdedAdditions extends JavaPlugin {
         languageManager.verifyKeys();
         configurationManager = new ConfigurationManager<>(this, "config.yml");
         configurationManager.verifyKeys();
-        getCommand("moddedadditions").setExecutor(new ModdedAdditionsCommand(this));
+        getCommand("moddedadditions").setExecutor(new ModdedAdditionsCommand());
 
         // Register Core Utilities
         blockAccessController = fluxCore.getBlockAccessController();
 
         // Register Crop Harvesting
-        getServer().getPluginManager().registerEvents(new CropHarvestListener(this, configurationManager.getInt("ch-vmblocks")), this);
+        getServer().getPluginManager().registerEvents(new CropHarvestListener(configurationManager.getInt("ch-vmblocks")), this);
 
         // Register Ping Listener and Command
         getServer().getPluginManager().registerEvents(new PingListener(), this);
-        getCommand("notify").setExecutor(new NotifyCommand(this));
+        getCommand("notify").setExecutor(new NotifyCommand());
 
         // Register Colored Anvil Names
         getServer().getPluginManager().registerEvents(new AnvilListener(), this);
 
         // Setup VeinMiner Related Tasks
-        veinMinerController = new VeinMinerController(this);
-        getServer().getPluginManager().registerEvents(new VeinMinerListener(this), this);
-        getCommand("veinminer").setExecutor(new VeinMinerCommand(this));
+        veinMinerController = new VeinMinerController();
+        getServer().getPluginManager().registerEvents(new VeinMinerListener(), this);
+        getCommand("veinminer").setExecutor(new VeinMinerCommand());
 
         // Setup Hammer/Excavator Related Tasks
-        areaToolController = new AreaToolController(this);
-        getServer().getPluginManager().registerEvents(new HammerListener(this, languageManager.getString("mi-hammer")), this);
-        getServer().getPluginManager().registerEvents(new ExcavatorListener(this, languageManager.getString("mi-excavator")), this);
-        getCommand("areatool").setExecutor(new AreaToolCommand(this));
+        areaToolController = new AreaToolController();
+        getServer().getPluginManager().registerEvents(new HammerListener(languageManager.getString("mi-hammer")), this);
+        getServer().getPluginManager().registerEvents(new ExcavatorListener(languageManager.getString("mi-excavator")), this);
+        getCommand("areatool").setExecutor(new AreaToolCommand());
 
         // Setup Magnet Related Tasks
-        magnetController = new MagnetController(this);
-        getServer().getPluginManager().registerEvents(new InventoryChecker(this, new MagnetExecutor(this)), this);
-        getServer().getPluginManager().registerEvents(new InventoryChecker(this, new OldMagnetExecutor(this)), this);
+        magnetController = new MagnetController();
+        getServer().getPluginManager().registerEvents(new InventoryChecker(this, new MagnetExecutor()), this);
+        getServer().getPluginManager().registerEvents(new InventoryChecker(this, new OldMagnetExecutor()), this);
 
         // Setup Book Handling
         getServer().getPluginManager().registerEvents(new BookSignListener(), this);
@@ -126,7 +124,7 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup DayVote Command
         String worldName = configurationManager.getString("dv-dayWorld");
         if (worldName != null && getServer().getWorld(worldName) != null) {
-            VoteDayCommand voteDayCommand = new VoteDayCommand(this, getServer().getWorld(worldName));
+            VoteDayCommand voteDayCommand = new VoteDayCommand(getServer().getWorld(worldName));
             getCommand("voteday").setExecutor(voteDayCommand);
             getServer().getPluginManager().registerEvents(voteDayCommand, this);
         } else {
@@ -134,20 +132,20 @@ public final class ModdedAdditions extends JavaPlugin {
         }
 
         // Setup Chest Sorting
-        getServer().getPluginManager().registerEvents(new SortChestListener(this), this);
+        getServer().getPluginManager().registerEvents(new SortChestListener(), this);
 
         // Sonic Screwdriver Related Functions
-        sonicScrewdriverController = new SonicScrewdriverController(this);
-        getServer().getPluginManager().registerEvents(new SonicScrewdriverListener(this), this);
+        sonicScrewdriverController = new SonicScrewdriverController();
+        getServer().getPluginManager().registerEvents(new SonicScrewdriverListener(), this);
 
         // Magic Related Functionality
-        manaController = new ManaController(this);
+        manaController = new ManaController();
         manaController.initializeAllManaBars();
-        spellBookController = new SpellBookController(this);
+        spellBookController = new SpellBookController();
         getServer().getPluginManager().registerEvents(manaController, this);
-        getServer().getPluginManager().registerEvents(new SpellBookListener(this), this);
-        getCommand("spellbook").setExecutor(new SpellBookCommand(this));
-        forceFieldListener = new ForceFieldListener(this);
+        getServer().getPluginManager().registerEvents(new SpellBookListener(), this);
+        getCommand("spellbook").setExecutor(new SpellBookCommand());
+        forceFieldListener = new ForceFieldListener();
         getServer().getPluginManager().registerEvents(forceFieldListener, this);
 
         // Tell Player Damage Dealt
@@ -155,8 +153,8 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // LightSaber Related Functions
         getServer().getPluginManager().registerEvents(new ResponseListener(), this);
-        lightSaberController = new LightSaberController(this);
-        getServer().getPluginManager().registerEvents(new LightSaberListener(this), this);
+        lightSaberController = new LightSaberController();
+        getServer().getPluginManager().registerEvents(new LightSaberListener(), this);
 
         // Register Custom Armor Listeners
         getServer().getPluginManager().registerEvents(new LongFallBootsListener(), this);
@@ -164,7 +162,7 @@ public final class ModdedAdditions extends JavaPlugin {
         //getServer().getPluginManager().registerEvents(new SlimeChestplateListener(), this);
 
         // Register Crafting Additions (Must Be Last)
-        customRecipeUtils = new CustomRecipeUtils(this);
+        customRecipeUtils = new CustomRecipeUtils();
         getServer().getPluginManager().registerEvents(customRecipeUtils, this);
     }
 

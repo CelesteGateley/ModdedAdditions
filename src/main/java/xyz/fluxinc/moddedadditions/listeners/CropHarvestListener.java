@@ -12,7 +12,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.fluxcore.enums.Direction;
 import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,6 +19,7 @@ import java.util.List;
 
 import static xyz.fluxinc.fluxcore.utils.BlockUtils.getDirectionalBlockList;
 import static xyz.fluxinc.fluxcore.utils.BlockUtils.getVMBlockList;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 @SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class CropHarvestListener implements Listener {
@@ -44,11 +44,9 @@ public class CropHarvestListener implements Listener {
         tallCrops.add(Material.SUGAR_CANE);
     }
 
-    private final ModdedAdditions instance;
     private final int blockLimit;
 
-    public CropHarvestListener(ModdedAdditions pluginInstance, int blockLimit) {
-        this.instance = pluginInstance;
+    public CropHarvestListener(int blockLimit) {
         this.blockLimit = blockLimit;
     }
 

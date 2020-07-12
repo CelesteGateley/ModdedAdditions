@@ -11,21 +11,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 import xyz.fluxinc.fluxcore.utils.BlockUtils;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.List;
 
 import static xyz.fluxinc.fluxcore.utils.MineabilityUtils.verifyBlockMining;
 import static xyz.fluxinc.fluxcore.utils.ToolUtils.*;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class VeinMinerListener implements Listener {
-
-    private final ModdedAdditions instance;
-
-    public VeinMinerListener(ModdedAdditions instance) {
-        this.instance = instance;
-    }
 
     @EventHandler
     public void blockBreakListener(BlockBreakEvent event) {

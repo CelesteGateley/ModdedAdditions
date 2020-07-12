@@ -5,20 +5,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
+
 public class VeinMinerCommand implements CommandExecutor {
-
-    private final ModdedAdditions instance;
-
-    public VeinMinerCommand(ModdedAdditions instance) {
-        this.instance = instance;
-
-    }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {

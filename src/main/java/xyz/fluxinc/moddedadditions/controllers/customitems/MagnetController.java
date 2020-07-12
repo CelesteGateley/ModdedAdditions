@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitScheduler;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.runnables.MagnetRunnable;
 
 import java.util.HashMap;
@@ -14,17 +13,16 @@ import java.util.Map;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class MagnetController {
 
     private static final int MAGNET_MODEL_KEY = KEY_BASE + 9001;
     private static final Material MAGNET_MATERIAL = Material.IRON_NUGGET;
     private final BukkitScheduler taskScheduler;
-    private final ModdedAdditions instance;
     private final Map<Player, Integer> vacuumInstances;
 
-    public MagnetController(ModdedAdditions instance) {
-        this.instance = instance;
+    public MagnetController() {
         this.taskScheduler = instance.getServer().getScheduler();
         vacuumInstances = new HashMap<>();
     }

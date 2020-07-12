@@ -14,7 +14,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.AreaToolController;
 
 import java.util.HashMap;
@@ -24,16 +23,15 @@ import java.util.Map;
 import static xyz.fluxinc.fluxcore.utils.ToolUtils.shovels;
 import static xyz.fluxinc.fluxcore.utils.ToolUtils.takeDurability;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.AreaToolController.AT_KEY_BASE;
 
 public class ExcavatorListener implements Listener {
 
-    private final ModdedAdditions instance;
     private final String lore;
     private final Map<Player, BlockFace> playerBlockFaceMap;
 
-    public ExcavatorListener(ModdedAdditions instance, String lore) {
-        this.instance = instance;
+    public ExcavatorListener(String lore) {
         this.lore = ChatColor.translateAlternateColorCodes('&', lore);
         playerBlockFaceMap = new HashMap<>();
     }

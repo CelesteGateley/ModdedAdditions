@@ -19,12 +19,11 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
-import xyz.fluxinc.moddedadditions.spells.castable.support.Heal;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.SlowBall;
+import xyz.fluxinc.moddedadditions.spells.castable.support.Heal;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.ArrayList;
@@ -33,16 +32,13 @@ import java.util.Map;
 
 import static xyz.fluxinc.fluxcore.utils.InventoryUtils.generateDistributedInventory;
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.verifySpellBook;
 
 public class SpellBookListener implements Listener {
 
     private static final String INVENTORY_TITLE = "Select Spell";
-    private final ModdedAdditions instance;
 
-    public SpellBookListener(ModdedAdditions instance) {
-        this.instance = instance;
-    }
 
     @EventHandler
     public void onInventoryMoveItem(InventoryMoveItemEvent event) {

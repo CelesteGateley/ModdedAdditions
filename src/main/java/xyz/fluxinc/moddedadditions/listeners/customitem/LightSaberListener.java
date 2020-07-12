@@ -9,19 +9,14 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController.*;
 
 public class LightSaberListener implements Listener {
 
-    private final ModdedAdditions instance;
-
-    public LightSaberListener(ModdedAdditions instance) {
-        this.instance = instance;
-    }
 
     @EventHandler
     public void onLightSaberHit(EntityDamageByEntityEvent event) {

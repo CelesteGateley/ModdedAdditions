@@ -7,17 +7,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import static xyz.fluxinc.fluxcore.utils.InventoryUtils.sortItemStacks;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class SortChestListener implements Listener {
-
-    private final ModdedAdditions instance;
-
-    public SortChestListener(ModdedAdditions instance) {
-        this.instance = instance;
-    }
 
     @EventHandler
     public void onOpenInventoryEvent(PlayerInteractEvent event) {

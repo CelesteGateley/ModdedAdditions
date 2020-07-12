@@ -5,22 +5,16 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.*;
 
 public class ModdedAdditionsCommand implements CommandExecutor {
-
-    private final ModdedAdditions instance;
-
-    public ModdedAdditionsCommand(ModdedAdditions instance) {
-        this.instance = instance;
-    }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {

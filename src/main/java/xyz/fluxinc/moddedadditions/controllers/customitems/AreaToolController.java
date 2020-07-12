@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ import java.util.List;
 import static xyz.fluxinc.fluxcore.utils.BlockUtils.convertStringToMaterial;
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class AreaToolController {
 
@@ -27,15 +27,13 @@ public class AreaToolController {
     private static final String CONFIG_NAME = "areatool.yml";
     private static final String HAMMER_CONFIG_KEY = "hammer";
     private static final String EXCAVATOR_CONFIG_KEY = "excavator";
-    private final ModdedAdditions instance;
     private final YamlConfiguration areaToolConfiguration;
     private List<Material> hammerBlocks;
     private List<Material> excavatorBlocks;
 
 
-    public AreaToolController(ModdedAdditions instance) {
-        this.instance = instance;
-        areaToolConfiguration = new ConfigurationManager<>(this.instance, CONFIG_NAME).getConfiguration();
+    public AreaToolController() {
+        areaToolConfiguration = new ConfigurationManager<>(instance, CONFIG_NAME).getConfiguration();
         loadFromConfiguration();
     }
 
@@ -203,7 +201,7 @@ public class AreaToolController {
             areaToolConfiguration.save(CONFIG_NAME);
         } catch (IOException e) {
             Bukkit.getLogger().severe("An error occurred whilst saving " + CONFIG_NAME + ": " + e.getMessage());
-            Bukkit.getServer().getPluginManager().disablePlugin(this.instance);
+            Bukkit.getServer().getPluginManager().disablePlugin(instance);
         }
     }
 

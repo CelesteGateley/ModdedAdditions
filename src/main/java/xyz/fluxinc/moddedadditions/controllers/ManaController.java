@@ -12,20 +12,19 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.runnables.ManaBarRunnable;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
+
 public class ManaController implements Listener, Runnable {
 
-    private final ModdedAdditions instance;
     private Map<Player, NamespacedKey> playerBars;
 
-    public ManaController(ModdedAdditions instance) {
-        this.instance = instance;
+    public ManaController() {
         playerBars = new HashMap<>();
         instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, this, 40, 40);
     }

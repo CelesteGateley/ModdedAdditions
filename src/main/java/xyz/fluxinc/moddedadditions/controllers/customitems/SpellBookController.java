@@ -19,13 +19,11 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 public class SpellBookController {
 
     public static final int SB_KEY_BASE = 3000;
-    private final ModdedAdditions instance;
     private final SpellRegistry spellRegistry;
     private final Map<Player, Long> lavaWalkerPlayers;
 
-    public SpellBookController(ModdedAdditions instance) {
-        this.instance = instance;
-        spellRegistry = new SpellRegistry(instance);
+    public SpellBookController() {
+        spellRegistry = new SpellRegistry();
         lavaWalkerPlayers = new HashMap<>();
     }
 
@@ -50,7 +48,7 @@ public class SpellBookController {
     }
 
     public ItemStack generateNewSpellBook() {
-        ItemStack itemStack = addLore(new ItemStack(Material.BOOK), instance.getLanguageManager().getFormattedString("mi-spellbook"));
+        ItemStack itemStack = addLore(new ItemStack(Material.BOOK), ModdedAdditions.instance.getLanguageManager().getFormattedString("mi-spellbook"));
         return setSpell(KEY_BASE + SB_KEY_BASE, itemStack);
     }
 
@@ -89,7 +87,7 @@ public class SpellBookController {
     }
 
     public boolean knowsSpell(Player player, String spell) {
-        return instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell);
+        return ModdedAdditions.instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell);
     }
 
     public Spell getSpell(int modelId) {

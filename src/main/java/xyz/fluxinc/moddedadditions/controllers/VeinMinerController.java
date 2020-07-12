@@ -19,7 +19,6 @@ public class VeinMinerController {
     private static final String HOE_CONFIG_KEY = "hoe";
     private static final String SHEARS_CONFIG_KEY = "shears";
     private static final String HAND_CONFIG_KEY = "hand";
-    private final ModdedAdditions instance;
     private final ConfigurationManager<ModdedAdditions> vmConfiguration;
     private List<Material> pickaxeBlocks;
     private List<Material> axeBlocks;
@@ -28,9 +27,8 @@ public class VeinMinerController {
     private List<Material> shearsBlocks;
     private List<Material> handBlocks;
 
-    public VeinMinerController(ModdedAdditions instance) {
-        this.instance = instance;
-        vmConfiguration = new ConfigurationManager<>(this.instance, CONFIG_NAME);
+    public VeinMinerController() {
+        vmConfiguration = new ConfigurationManager<>(ModdedAdditions.instance, CONFIG_NAME);
         loadFromConfiguration();
     }
 

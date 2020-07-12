@@ -12,21 +12,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
+
 public class VoteDayCommand implements CommandExecutor, Listener {
 
-    private final ModdedAdditions instance;
     private DayVote activeVote = null;
     private final World dayWorld;
     private int taskId = -1;
 
-    public VoteDayCommand(ModdedAdditions instance, World world) {
+    public VoteDayCommand(World world) {
         this.dayWorld = world;
-        this.instance = instance;
     }
 
     @Override

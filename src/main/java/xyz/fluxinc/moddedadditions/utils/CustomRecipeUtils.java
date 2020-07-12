@@ -9,7 +9,6 @@ import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
 import java.util.ArrayList;

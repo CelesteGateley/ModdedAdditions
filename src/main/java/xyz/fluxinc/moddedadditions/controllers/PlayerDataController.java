@@ -16,14 +16,12 @@ import java.util.Map;
 
 public class PlayerDataController extends ConfigurationManager implements Listener, Runnable {
 
-    private final ModdedAdditions instance;
     private final Map<Player, PlayerData> cachedData;
 
-    public PlayerDataController(ModdedAdditions instance, String configuration) {
-        super(instance, configuration);
-        this.instance = instance;
+    public PlayerDataController(String configuration) {
+        super(ModdedAdditions.instance, configuration);
         this.cachedData = new HashMap<>();
-        this.instance.getServer().getScheduler().scheduleSyncRepeatingTask(this.instance, this, 6000, 6000);
+        ModdedAdditions.instance.getServer().getScheduler().scheduleSyncRepeatingTask(ModdedAdditions.instance, this, 6000, 6000);
     }
 
     public PlayerData getPlayerData(Player player) {
