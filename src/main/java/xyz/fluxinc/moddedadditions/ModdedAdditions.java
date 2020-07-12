@@ -204,11 +204,11 @@ public final class ModdedAdditions extends JavaPlugin {
         return fluxCore;
     }
 
-    public LanguageManager getLanguageManager() {
+    public LanguageManager<ModdedAdditions> getLanguageManager() {
         return this.languageManager;
     }
 
-    public ConfigurationManager getConfigurationManager() {
+    public ConfigurationManager<ModdedAdditions> getConfigurationManager() {
         return this.configurationManager;
     }
 
