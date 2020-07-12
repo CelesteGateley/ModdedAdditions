@@ -14,7 +14,7 @@ import xyz.fluxinc.moddedadditions.storage.PlayerData;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PlayerDataController extends ConfigurationManager implements Listener, Runnable {
+public class PlayerDataController extends ConfigurationManager<ModdedAdditions> implements Listener, Runnable {
 
     private final Map<Player, PlayerData> cachedData;
 
@@ -32,7 +32,7 @@ public class PlayerDataController extends ConfigurationManager implements Listen
     }
 
     private PlayerData initializePlayerData(Player player) {
-        PlayerData playerData = (PlayerData) getGeneric("" + player.getUniqueId());
+        PlayerData playerData = getGeneric("" + player.getUniqueId());
         if (playerData == null) {
             playerData = new PlayerData();
             getConfiguration().set("" + player.getUniqueId(), playerData);
