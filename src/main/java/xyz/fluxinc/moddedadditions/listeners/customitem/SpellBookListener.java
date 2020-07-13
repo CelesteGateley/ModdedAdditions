@@ -132,8 +132,8 @@ public class SpellBookListener implements Listener {
                 Spell spell = instance.getSpellBookController().getSpell(event.getItem());
                 if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) return;
                 if (spell != null) {
-                    if (!data.knowsSpell(getTechnicalName(event.getItem()))) return;
-                    spell.castSpell(event.getPlayer(), event.getPlayer(), data.getSpellLevel(getTechnicalName(event.getItem())));
+                    if (!data.knowsSpell(spell.getTechnicalName())) return;
+                    spell.castSpell(event.getPlayer(), event.getPlayer(), data.getSpellLevel(spell.getTechnicalName()));
                 }
             }
         }
@@ -149,20 +149,15 @@ public class SpellBookListener implements Listener {
             } else {
                 Spell spell = instance.getSpellBookController().getSpell(item);
                 if (spell != null) {
-                    if (!data.knowsSpell(getTechnicalName(item))) return;
+                    if (!data.knowsSpell(spell.getTechnicalName())) return;
                     if (event.getRightClicked() instanceof LivingEntity) {
-                        spell.castSpell(event.getPlayer(), (LivingEntity) event.getRightClicked(), data.getSpellLevel(getTechnicalName(item)));
+                        spell.castSpell(event.getPlayer(), (LivingEntity) event.getRightClicked(), data.getSpellLevel(spell.getTechnicalName()));
                     } else {
-                        spell.castSpell(event.getPlayer(), event.getPlayer(), data.getSpellLevel(getTechnicalName(item)));
+                        spell.castSpell(event.getPlayer(), event.getPlayer(), data.getSpellLevel(spell.getTechnicalName()));
                     }
                 }
             }
         }
-    }
-
-    private String getTechnicalName(ItemStack itemStack) {
-        int id = itemStack.getItemMeta().getCustomModelData();
-        return instance.getSpellBookController().getSpellRegistry().getTechnicalName(id);
     }
 
     @EventHandler
