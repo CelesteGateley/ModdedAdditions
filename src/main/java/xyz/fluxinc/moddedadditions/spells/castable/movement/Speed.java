@@ -27,9 +27,9 @@ public class Speed extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack speed = addLore(new ItemStack(Material.GLOWSTONE_DUST), "Costs: " + getCost(environment) + " Mana");
-        speed = addLore(speed, "Cooldown: " + getCooldown() / 1000d + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack speed = addLore(new ItemStack(Material.GLOWSTONE_DUST), "Costs: " + getCost(environment, level) + " Mana");
+        speed = addLore(speed, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = speed.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -38,22 +38,22 @@ public class Speed extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 50;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "Sweetening your life, this will make you faster than light";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 250;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         if (caster != target) {
             caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("The body of your target becomes faster"));
             if (target instanceof Player) {

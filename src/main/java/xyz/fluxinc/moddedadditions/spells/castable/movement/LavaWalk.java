@@ -24,9 +24,9 @@ public class LavaWalk extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack lavaWalk = addLore(new ItemStack(Material.LAVA_BUCKET), "Costs: " + getCost(environment) + " Mana");
-        lavaWalk = addLore(lavaWalk, "Cooldown: " + getCooldown() / 1000d + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack lavaWalk = addLore(new ItemStack(Material.LAVA_BUCKET), "Costs: " + getCost(environment, level) + " Mana");
+        lavaWalk = addLore(lavaWalk, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = lavaWalk.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -35,22 +35,22 @@ public class LavaWalk extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 50;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "With an icy step and a blazing heart, even you can cross a blazing desert";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 25000;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         caster.sendTitle("You can now walk on lava!", "", 10, 70, 20);
         ModdedAdditions.instance.getSpellBookController().addLavaWalk(caster);
         return true;

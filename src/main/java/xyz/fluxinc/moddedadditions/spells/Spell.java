@@ -20,20 +20,20 @@ public abstract class Spell {
 
     public abstract String getName();
 
-    public abstract ItemStack getItemStack(World.Environment environment, int modelId);
+    public abstract ItemStack getItemStack(World.Environment environment, int modelId, int level);
 
-    public abstract int getCost(World.Environment environment);
+    public abstract int getCost(World.Environment environment, int level);
 
-    public abstract String getRiddle();
+    public abstract String getRiddle(int level);
 
-    public abstract long getCooldown();
+    public abstract long getCooldown(int level);
 
-    public void castSpell(Player caster, LivingEntity target) {
-        if (ModdedAdditions.instance.getManaController().getMana(caster) >= getCost(caster.getWorld().getEnvironment())
-                && cooldowns.getOrDefault(caster, 0L) + getCooldown() < System.currentTimeMillis()) {
-            boolean isCast = enactSpell(caster, target);
+    public void castSpell(Player caster, LivingEntity target, int level) {
+        if (ModdedAdditions.instance.getManaController().getMana(caster) >= getCost(caster.getWorld().getEnvironment(), level)
+                && cooldowns.getOrDefault(caster, 0L) + getCooldown(level) < System.currentTimeMillis()) {
+            boolean isCast = enactSpell(caster, target, level);
             if (isCast) {
-                ModdedAdditions.instance.getManaController().useMana(caster, getCost(caster.getWorld().getEnvironment()));
+                ModdedAdditions.instance.getManaController().useMana(caster, getCost(caster.getWorld().getEnvironment(), level));
                 cooldowns.put(caster, System.currentTimeMillis());
             }
         } else {
@@ -41,6 +41,6 @@ public abstract class Spell {
         }
     }
 
-    public abstract boolean enactSpell(Player caster, LivingEntity target);
+    public abstract boolean enactSpell(Player caster, LivingEntity target, int level);
 
 }

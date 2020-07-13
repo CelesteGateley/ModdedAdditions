@@ -24,9 +24,9 @@ public class Heal extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack heal = addLore(new ItemStack(Material.GOLDEN_APPLE), "Costs: " + getCost(environment) + " Mana");
-        heal = addLore(heal, "Cooldown: " + getCooldown() / 1000d + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack heal = addLore(new ItemStack(Material.GOLDEN_APPLE), "Costs: " + getCost(environment, level) + " Mana");
+        heal = addLore(heal, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = heal.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -35,22 +35,22 @@ public class Heal extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 25;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "The elixir of life gathered from the forbidden fruit";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 250;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         if (caster != target) {
             caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You heal your targets wounds"));
             if (target instanceof Player) {

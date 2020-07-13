@@ -22,9 +22,9 @@ public class Teleport extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack teleport = addLore(new ItemStack(Material.ENDER_PEARL), "Costs: " + getCost(environment) + " Mana");
-        teleport = addLore(teleport, "Cooldown: " + getCooldown() / 1000d + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack teleport = addLore(new ItemStack(Material.ENDER_PEARL), "Costs: " + getCost(environment, level) + " Mana");
+        teleport = addLore(teleport, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = teleport.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -33,22 +33,22 @@ public class Teleport extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 50;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "The portal's key holds the truth as to how the tall ones move";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 500;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         Block targetBlock = caster.getTargetBlock(null, 100);
         if (targetBlock.getType() == Material.AIR) {
             caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);

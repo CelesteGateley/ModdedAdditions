@@ -26,9 +26,9 @@ public class AirJet extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack airjet = addLore(new ItemStack(Material.FEATHER), "Costs: " + getCost(environment) + " Mana");
-        airjet = addLore(airjet, "Cooldown: " + getCooldown() / 1000d + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack airjet = addLore(new ItemStack(Material.FEATHER), "Costs: " + getCost(environment, level) + " Mana");
+        airjet = addLore(airjet, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = airjet.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -37,7 +37,7 @@ public class AirJet extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         if (environment == World.Environment.NORMAL) {
             return 15;
         } else {
@@ -46,17 +46,17 @@ public class AirJet extends Spell {
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "Tied up tight, the chicken may not fly free";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 250;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         if (caster.getWorld().getEnvironment() == World.Environment.NETHER && caster.getLocation().getY() > 127)
             return false;
         if (caster.getWorld().getEnvironment() != World.Environment.NORMAL) {

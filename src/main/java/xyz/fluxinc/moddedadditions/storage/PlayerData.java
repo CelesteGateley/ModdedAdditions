@@ -13,7 +13,9 @@ public class PlayerData implements ConfigurationSerializable {
     private boolean sortChests;
     private int currentMana;
     private int maximumMana;
-    private Map<String, Boolean> knownSpells;
+    private int dataVersion;
+    private Map<String, Boolean> knownSpellsOld;
+    private Map<String, Integer> knownSpells;
 
     public PlayerData() {
         veinMiner = true;
@@ -25,11 +27,18 @@ public class PlayerData implements ConfigurationSerializable {
 
     @SuppressWarnings("unchecked")
     public PlayerData(Map<String, Object> serializedData) {
+        dataVersion = (int) serializedData.getOrDefault("version", 0);
         veinMiner = !serializedData.containsKey("veinMiner") || (boolean) serializedData.get("veinMiner");
         sortChests = serializedData.containsKey("sortChests") && (boolean) serializedData.get("sortChests");
         currentMana = serializedData.containsKey("currentMana") ? (int) serializedData.get("currentMana") : 0;
         maximumMana = serializedData.containsKey("maximumMana") ? (int) serializedData.get("maximumMana") : 100;
-        knownSpells = serializedData.containsKey("knownSpells") ? (Map<String, Boolean>) serializedData.get("knownSpells") : new HashMap<>();
+        if (dataVersion == 0) {
+            knownSpellsOld = serializedData.containsKey("knownSpells") ? (Map<String, Boolean>) serializedData.get("knownSpells") : new HashMap<>();
+            upgradeSpellSystem();
+            dataVersion = 1;
+        } else {
+            knownSpells = serializedData.containsKey("knownSpells") ? (Map<String, Integer>) serializedData.get("knownSpells") : new HashMap<>();
+        }
         initializeSpells();
     }
 
@@ -37,10 +46,9 @@ public class PlayerData implements ConfigurationSerializable {
         if (knownSpells == null) {
             knownSpells = new HashMap<>();
         }
-
         SpellRegistry registry = new SpellRegistry();
         for (String spell : registry.getAllTechnicalNames()) {
-            knownSpells.putIfAbsent(spell, false);
+            knownSpells.putIfAbsent(spell, 0);
         }
 
     }
@@ -48,23 +56,34 @@ public class PlayerData implements ConfigurationSerializable {
     public void evaluateMana() {
         maximumMana = 100;
         for (String spell : knownSpells.keySet()) {
-            if (knownSpells.get(spell)) {
+            if (knownSpells.get(spell) > 0) {
                 maximumMana += 50;
             }
         }
         currentMana = maximumMana;
     }
 
+    public void upgradeSpellSystem() {
+        for (String spell : knownSpellsOld.keySet()) {
+            int value = knownSpellsOld.getOrDefault("spell", false) ? 1 : 0;
+            knownSpells.put("spell", value);
+        }
+    }
+
     public boolean knowsSpell(String spell) {
-        return knownSpells.getOrDefault(spell, false);
+        return knownSpells.getOrDefault(spell, 0) > 0;
+    }
+
+    public int getSpellLevel(String spell) {
+        return knownSpells.getOrDefault(spell, 0);
     }
 
     public PlayerData learnSpell(String spell) {
-        knownSpells.put(spell, true);
+        knownSpells.put(spell, 1);
         return this;
     }
 
-    public PlayerData setSpell(String spell, boolean value) {
+    public PlayerData setSpell(String spell, int value) {
         knownSpells.put(spell, value);
         return this;
     }

@@ -27,9 +27,9 @@ public class HardenedForm extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack hardenedForm = addLore(new ItemStack(Material.BEDROCK), "Costs: " + getCost(environment) + " Mana");
-        hardenedForm = addLore(hardenedForm, "Cooldown: " + getCooldown() / 1000d + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack hardenedForm = addLore(new ItemStack(Material.BEDROCK), "Costs: " + getCost(environment, level) + " Mana");
+        hardenedForm = addLore(hardenedForm, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = hardenedForm.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -38,22 +38,22 @@ public class HardenedForm extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 75;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "Hard as the rocks closest to the core, you stand strong but slow, as if held by a sticky thread";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 20 * 1000;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         if (caster != target) {
             caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("The body of your target becomes hard as a rock"));
             if (target instanceof Player) {

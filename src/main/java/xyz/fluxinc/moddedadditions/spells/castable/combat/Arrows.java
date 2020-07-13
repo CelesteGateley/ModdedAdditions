@@ -26,9 +26,9 @@ public class Arrows extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack arrows = addLore(new ItemStack(Material.BOW), "Costs: " + getCost(environment) + " Mana");
-        arrows = addLore(arrows, "Cooldown: " + getCooldown() / 1000d + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack arrows = addLore(new ItemStack(Material.BOW), "Costs: " + getCost(environment, level) + " Mana");
+        arrows = addLore(arrows, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = arrows.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -37,22 +37,22 @@ public class Arrows extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 5;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "The eyes of a spectre cause those shot with your firearm to glow to the heavens";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 250;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         Arrow arrow = caster.launchProjectile(Arrow.class);
         arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
         caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 1);

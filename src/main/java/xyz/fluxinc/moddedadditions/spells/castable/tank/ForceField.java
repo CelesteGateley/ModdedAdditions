@@ -26,9 +26,9 @@ public class ForceField extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack forcefield = addLore(new ItemStack(Material.GLASS), "Costs: " + getCost(environment) + " Mana");
-        forcefield = addLore(forcefield, "Cooldown: " + getCooldown() / 1000d + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack forcefield = addLore(new ItemStack(Material.GLASS), "Costs: " + getCost(environment, level) + " Mana");
+        forcefield = addLore(forcefield, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = forcefield.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -37,22 +37,22 @@ public class ForceField extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 100;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "An invisible shield protects you, and pushes away all those who come close";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 30 * 1000;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("An energy shield surrounds you, keeping mobs away"));
         ModdedAdditions.instance.getForceFieldListener().addForceField(caster, 30);
         return true;

@@ -122,6 +122,7 @@ public class SpellBookCommand implements CommandExecutor {
                 for (String key : dataConfig.getKeys(false)) {
                     PlayerData data = (PlayerData) dataConfig.get(key);
                     data.evaluateMana();
+                    data.upgradeSpellSystem();
                     dataConfig.set(key, data);
                 }
                 try {
@@ -147,7 +148,8 @@ public class SpellBookCommand implements CommandExecutor {
         } else if (instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell) && !value) {
             instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).addMaximumMana(-50));
         }
-        instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).setSpell(spell, value));
+        int val = value ? 1 : 0;
+        instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).setSpell(spell, val));
     }
 
     private void sendNoSubCommand(CommandSender sender) {

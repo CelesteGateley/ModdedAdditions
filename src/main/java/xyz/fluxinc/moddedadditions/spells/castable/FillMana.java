@@ -24,8 +24,8 @@ public class FillMana extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack fillMana = addLore(new ItemStack(Material.EMERALD), "Costs: " + getCost(environment) + " Mana");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack fillMana = addLore(new ItemStack(Material.EMERALD), "Costs: " + getCost(environment, level) + " Mana");
         ItemMeta iMeta = fillMana.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -34,22 +34,22 @@ public class FillMana extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 0;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 0;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         ModdedAdditions.instance.getManaController().regenerateMana(caster, 300);
         return true;
     }

@@ -24,9 +24,9 @@ public class Smite extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack smite = addLore(new ItemStack(Material.TRIDENT), "Costs: " + getCost(environment) + " Mana");
-        smite = addLore(smite, "Cooldown: " + getCooldown() / 1000d + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack smite = addLore(new ItemStack(Material.TRIDENT), "Costs: " + getCost(environment, level) + " Mana");
+        smite = addLore(smite, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = smite.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -35,22 +35,22 @@ public class Smite extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 50;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "Poseidon strikes at the richest ore held in the highest mountains";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 1000;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         Block targetBlock = caster.getTargetBlock(null, 50);
         if (targetBlock.getType() == Material.AIR) {
             caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);

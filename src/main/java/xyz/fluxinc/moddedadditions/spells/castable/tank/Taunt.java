@@ -27,9 +27,9 @@ public class Taunt extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack taunt = addLore(new ItemStack(Material.MUSIC_DISC_CAT), "Costs: " + getCost(environment) + " Mana");
-        taunt = addLore(taunt, "Cooldown: " + getCooldown() / 1000d + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack taunt = addLore(new ItemStack(Material.MUSIC_DISC_CAT), "Costs: " + getCost(environment, level) + " Mana");
+        taunt = addLore(taunt, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = taunt.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -38,22 +38,22 @@ public class Taunt extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 75;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "Wearing the darkened skull of your enemies, and holding the child of the sea, all enemies will want you dead";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 15;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You taunt all enemies within 8 blocks!"));
         for (Entity entity : caster.getNearbyEntities(8, 8, 8)) {
             if (entity instanceof Mob) {

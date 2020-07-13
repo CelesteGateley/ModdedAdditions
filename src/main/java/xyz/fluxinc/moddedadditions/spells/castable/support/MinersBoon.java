@@ -27,9 +27,9 @@ public class MinersBoon extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack minersBoon = addLore(new ItemStack(Material.DIAMOND_PICKAXE), "Costs: " + getCost(environment) + " Mana");
-        minersBoon = addLore(minersBoon, "Cooldown: " + getCooldown() / 1000d + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack minersBoon = addLore(new ItemStack(Material.DIAMOND_PICKAXE), "Costs: " + getCost(environment, level) + " Mana");
+        minersBoon = addLore(minersBoon, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = minersBoon.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -38,22 +38,22 @@ public class MinersBoon extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 100;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "An ancient metal, and a buried heart, grants one the strength of the earth";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 30000;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         if (caster != target) {
             caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You grant your target the power of the earth"));
             if (target instanceof Player) {

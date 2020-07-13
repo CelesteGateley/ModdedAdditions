@@ -27,9 +27,9 @@ public class SlowBall extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack slowball = addLore(new ItemStack(Material.SNOWBALL), "Costs: " + getCost(environment) + " Mana");
-        slowball = addLore(slowball, "Cooldown: " + getCooldown() / 1000d + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack slowball = addLore(new ItemStack(Material.SNOWBALL), "Costs: " + getCost(environment, level) + " Mana");
+        slowball = addLore(slowball, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = slowball.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -38,22 +38,22 @@ public class SlowBall extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 15;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "One strike from winter's wrath slows your very soul to a crawl";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 2000;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         Entity entity = caster.launchProjectile(Snowball.class);
         entity.setCustomName(SLOWBALL_NAME);
         return true;

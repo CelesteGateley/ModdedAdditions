@@ -24,9 +24,9 @@ public class Fireball extends Spell {
     }
 
     @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId) {
-        ItemStack fireball = addLore(new ItemStack(Material.FIRE_CHARGE), "Costs: " + getCost(environment) + " Mana");
-        fireball = addLore(fireball, "Cooldown: " + getCooldown() / 1000 + " Seconds");
+    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
+        ItemStack fireball = addLore(new ItemStack(Material.FIRE_CHARGE), "Costs: " + getCost(environment, level) + " Mana");
+        fireball = addLore(fireball, "Cooldown: " + getCooldown(level) / 1000 + " Seconds");
         ItemMeta iMeta = fireball.getItemMeta();
         iMeta.setCustomModelData(modelId);
         iMeta.setDisplayName(ChatColor.WHITE + getName());
@@ -35,22 +35,22 @@ public class Fireball extends Spell {
     }
 
     @Override
-    public int getCost(World.Environment environment) {
+    public int getCost(World.Environment environment, int level) {
         return 50;
     }
 
     @Override
-    public String getRiddle() {
+    public String getRiddle(int level) {
         return "The tears of your enemies will burn away as you charge forth";
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(int level) {
         return 1000;
     }
 
     @Override
-    public boolean enactSpell(Player caster, LivingEntity target) {
+    public boolean enactSpell(Player caster, LivingEntity target, int level) {
         org.bukkit.entity.Fireball fireball = caster.launchProjectile(org.bukkit.entity.Fireball.class);
         fireball.setYield(2);
         caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_GHAST_SHOOT, 1, 1);

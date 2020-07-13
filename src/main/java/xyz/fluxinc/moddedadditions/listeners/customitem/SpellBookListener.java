@@ -19,6 +19,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
+import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
@@ -133,7 +134,7 @@ public class SpellBookListener implements Listener {
                 if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) return;
                 if (spell != null) {
                     if (!data.knowsSpell(getTechnicalName(event.getItem()))) return;
-                    spell.castSpell(event.getPlayer(), event.getPlayer());
+                    spell.castSpell(event.getPlayer(), event.getPlayer(), data.getSpellLevel(getTechnicalName(event.getItem())));
                 }
             }
         }
@@ -151,9 +152,9 @@ public class SpellBookListener implements Listener {
                 if (spell != null) {
                     if (!data.knowsSpell(getTechnicalName(item))) return;
                     if (event.getRightClicked() instanceof LivingEntity) {
-                        spell.castSpell(event.getPlayer(), (LivingEntity) event.getRightClicked());
+                        spell.castSpell(event.getPlayer(), (LivingEntity) event.getRightClicked(), data.getSpellLevel(getTechnicalName(item)));
                     } else {
-                        spell.castSpell(event.getPlayer(), event.getPlayer());
+                        spell.castSpell(event.getPlayer(), event.getPlayer(), data.getSpellLevel(getTechnicalName(item)));
                     }
                 }
             }
@@ -240,7 +241,7 @@ public class SpellBookListener implements Listener {
         String spell = instance.getSpellBookController().getSpellRegistry().getTechnicalName(event.getRecipe().getResult().getItemMeta().getCustomModelData());
         PlayerData data = instance.getPlayerDataController().getPlayerData((Player) event.getWhoClicked());
         if (!data.knowsSpell(spell)) data.addMaximumMana(50);
-        instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), data.setSpell(spell, true));
+        instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), data.setSpell(spell, 1));
     }
 
     @EventHandler
@@ -272,13 +273,15 @@ public class SpellBookListener implements Listener {
 
     private Inventory generateSpellInventory(Player player) {
         Map<Integer, Spell> spells = instance.getSpellBookController().getSpellRegistry().getRegistryById();
+        PlayerData data = instance.getPlayerDataController().getPlayerData(player);
         List<ItemStack> stacks = new ArrayList<>();
         for (Integer key : spells.keySet()) {
             Spell spell = instance.getSpellBookController().getSpellRegistry().getSpellById(key);
+            String technicalName = instance.getSpellBookController().getSpellRegistry().getTechnicalName(key);
             if (instance.getSpellBookController().knowsSpell(player, instance.getSpellBookController().getSpellRegistry().getTechnicalName(key))) {
-                stacks.add(spells.get(key).getItemStack(player.getWorld().getEnvironment(), key));
+                stacks.add(spells.get(key).getItemStack(player.getWorld().getEnvironment(), key, data.getSpellLevel(technicalName)));
             } else {
-                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), spell.getRiddle());
+                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), spell.getRiddle(data.getSpellLevel(technicalName)));
                 ItemMeta iMeta = iStack.getItemMeta();
                 iMeta.setDisplayName(spell.getName());
                 iStack.setItemMeta(iMeta);
