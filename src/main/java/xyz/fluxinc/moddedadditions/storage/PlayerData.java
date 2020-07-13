@@ -22,6 +22,7 @@ public class PlayerData implements ConfigurationSerializable {
         sortChests = false;
         currentMana = 0;
         maximumMana = 100;
+        dataVersion = 1;
         initializeSpells();
     }
 
@@ -172,6 +173,7 @@ public class PlayerData implements ConfigurationSerializable {
         map.put("currentMana", currentMana);
         map.put("maximumMana", maximumMana);
         map.put("knownSpells", knownSpells);
+        map.put("version", dataVersion);
         return map;
     }
 }
