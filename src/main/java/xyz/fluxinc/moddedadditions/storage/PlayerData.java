@@ -34,6 +34,7 @@ public class PlayerData implements ConfigurationSerializable {
         maximumMana = serializedData.containsKey("maximumMana") ? (int) serializedData.get("maximumMana") : 100;
         if (dataVersion == 0) {
             knownSpellsOld = serializedData.containsKey("knownSpells") ? (Map<String, Boolean>) serializedData.get("knownSpells") : new HashMap<>();
+            knownSpells = new HashMap<>();
             upgradeSpellSystem();
             dataVersion = 1;
         } else {
@@ -64,9 +65,10 @@ public class PlayerData implements ConfigurationSerializable {
     }
 
     public void upgradeSpellSystem() {
+        if (knownSpellsOld == null) return;
         for (String spell : knownSpellsOld.keySet()) {
-            int value = knownSpellsOld.getOrDefault("spell", false) ? 1 : 0;
-            knownSpells.put("spell", value);
+            int value = knownSpellsOld.getOrDefault(spell, false) ? 1 : 0;
+            knownSpells.put(spell, value);
         }
     }
 
