@@ -16,13 +16,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class ForceField extends Spell {
 
-    public ForceField() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "ForceField";
     }
 
     @Override
-    public String getName() {
-        return "ForceField";
+    public String getTechnicalName() {
+        return "forcefield";
     }
 
     @Override
@@ -31,7 +32,7 @@ public class ForceField extends Spell {
         forcefield = addLore(forcefield, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = forcefield.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         forcefield.setItemMeta(iMeta);
         return forcefield;
     }

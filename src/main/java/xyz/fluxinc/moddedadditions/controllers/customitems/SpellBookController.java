@@ -75,11 +75,11 @@ public class SpellBookController {
 
         Spell spell = spellRegistry.getSpellById(spellId);
         if (lore.size() < 2) {
-            lore.add("Current Spell: " + toTitleCase(spell.getName()));
+            lore.add("Current Spell: " + toTitleCase(spell.getLocalizedName()));
         } else {
-            lore.set(lore.size() - 1, "Current Spell: " + toTitleCase(spell.getName()));
+            lore.set(lore.size() - 1, "Current Spell: " + toTitleCase(spell.getLocalizedName()));
         }
-        iMeta.setDisplayName("Spellbook: " + toTitleCase(spell.getName()));
+        iMeta.setDisplayName("Spellbook: " + toTitleCase(spell.getLocalizedName()));
         iMeta.setCustomModelData(spellId);
         iMeta.setLore(lore);
         spellBook.setItemMeta(iMeta);

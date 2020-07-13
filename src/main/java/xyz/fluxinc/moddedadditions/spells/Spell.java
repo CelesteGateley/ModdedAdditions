@@ -18,7 +18,9 @@ public abstract class Spell {
         cooldowns = new HashMap<>();
     }
 
-    public abstract String getName();
+    public abstract String getLocalizedName();
+
+    public abstract String getTechnicalName();
 
     public abstract ItemStack getItemStack(World.Environment environment, int modelId, int level);
 

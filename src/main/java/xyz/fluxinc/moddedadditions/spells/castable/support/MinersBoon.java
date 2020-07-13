@@ -17,13 +17,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class MinersBoon extends Spell {
 
-    public MinersBoon() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Miners Boon";
     }
 
     @Override
-    public String getName() {
-        return "Miners Boon";
+    public String getTechnicalName() {
+        return "minersboon";
     }
 
     @Override
@@ -32,7 +33,7 @@ public class MinersBoon extends Spell {
         minersBoon = addLore(minersBoon, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = minersBoon.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         minersBoon.setItemMeta(iMeta);
         return minersBoon;
     }

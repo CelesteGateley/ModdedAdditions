@@ -16,13 +16,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Arrows extends Spell {
 
-    public Arrows() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Shoot Arrows";
     }
 
     @Override
-    public String getName() {
-        return "Shoot Arrows";
+    public String getTechnicalName() {
+        return "arrows";
     }
 
     @Override
@@ -31,7 +32,7 @@ public class Arrows extends Spell {
         arrows = addLore(arrows, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = arrows.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         arrows.setItemMeta(iMeta);
         return arrows;
     }

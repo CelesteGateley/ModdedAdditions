@@ -17,13 +17,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class HardenedForm extends Spell {
 
-    public HardenedForm() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Hardened Form";
     }
 
     @Override
-    public String getName() {
-        return "Hardened Form";
+    public String getTechnicalName() {
+        return "hardenedform";
     }
 
     @Override
@@ -32,7 +33,7 @@ public class HardenedForm extends Spell {
         hardenedForm = addLore(hardenedForm, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = hardenedForm.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         hardenedForm.setItemMeta(iMeta);
         return hardenedForm;
     }

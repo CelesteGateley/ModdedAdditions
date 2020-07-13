@@ -20,13 +20,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Vanish extends Spell {
 
-    public Vanish() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Cloak of the Night";
     }
 
     @Override
-    public String getName() {
-        return "Cloak of the Night";
+    public String getTechnicalName() {
+        return "vanish";
     }
 
     private ItemStack getInvisPotion() {
@@ -43,7 +44,7 @@ public class Vanish extends Spell {
         speed = addLore(speed, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = speed.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         speed.setItemMeta(iMeta);
         return speed;
     }

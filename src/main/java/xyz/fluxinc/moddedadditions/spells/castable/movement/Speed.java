@@ -17,13 +17,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Speed extends Spell {
 
-    public Speed() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Speed";
     }
 
     @Override
-    public String getName() {
-        return "Speed";
+    public String getTechnicalName() {
+        return "speed";
     }
 
     @Override
@@ -32,7 +33,7 @@ public class Speed extends Spell {
         speed = addLore(speed, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = speed.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         speed.setItemMeta(iMeta);
         return speed;
     }

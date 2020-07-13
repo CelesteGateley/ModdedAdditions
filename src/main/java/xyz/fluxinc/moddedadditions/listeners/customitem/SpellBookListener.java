@@ -19,7 +19,6 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
@@ -283,7 +282,7 @@ public class SpellBookListener implements Listener {
             } else {
                 ItemStack iStack = addLore(new ItemStack(Material.BARRIER), spell.getRiddle(data.getSpellLevel(technicalName)));
                 ItemMeta iMeta = iStack.getItemMeta();
-                iMeta.setDisplayName(spell.getName());
+                iMeta.setDisplayName(spell.getLocalizedName());
                 iStack.setItemMeta(iMeta);
                 stacks.add(iStack);
             }

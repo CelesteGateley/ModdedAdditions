@@ -14,13 +14,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Fireball extends Spell {
 
-    public Fireball() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Fireball";
     }
 
     @Override
-    public String getName() {
-        return "Fireball";
+    public String getTechnicalName() {
+        return "fireball";
     }
 
     @Override
@@ -29,7 +30,7 @@ public class Fireball extends Spell {
         fireball = addLore(fireball, "Cooldown: " + getCooldown(level) / 1000 + " Seconds");
         ItemMeta iMeta = fireball.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         fireball.setItemMeta(iMeta);
         return fireball;
     }

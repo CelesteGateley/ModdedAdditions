@@ -16,13 +16,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class AirJet extends Spell {
 
-    public AirJet() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Air Jet";
     }
 
     @Override
-    public String getName() {
-        return "Air Jet";
+    public String getTechnicalName() {
+        return "airjet";
     }
 
     @Override
@@ -31,7 +32,7 @@ public class AirJet extends Spell {
         airjet = addLore(airjet, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = airjet.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         airjet.setItemMeta(iMeta);
         return airjet;
     }

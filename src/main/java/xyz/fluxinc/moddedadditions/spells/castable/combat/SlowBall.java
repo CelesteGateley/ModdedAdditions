@@ -17,13 +17,14 @@ public class SlowBall extends Spell {
 
     public static final String SLOWBALL_NAME = "abXYZoasDGAdgiQXVSAadsgasnNEFA";
 
-    public SlowBall() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Slow Ball";
     }
 
     @Override
-    public String getName() {
-        return "Slow Ball";
+    public String getTechnicalName() {
+        return "slowball";
     }
 
     @Override
@@ -32,7 +33,7 @@ public class SlowBall extends Spell {
         slowball = addLore(slowball, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = slowball.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         slowball.setItemMeta(iMeta);
         return slowball;
     }

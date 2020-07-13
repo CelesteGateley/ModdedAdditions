@@ -14,13 +14,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class FillMana extends Spell {
 
-    public FillMana() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Fill Mana";
     }
 
     @Override
-    public String getName() {
-        return "Fill Mana";
+    public String getTechnicalName() {
+        return "fillmana";
     }
 
     @Override
@@ -28,7 +29,7 @@ public class FillMana extends Spell {
         ItemStack fillMana = addLore(new ItemStack(Material.EMERALD), "Costs: " + getCost(environment, level) + " Mana");
         ItemMeta iMeta = fillMana.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         fillMana.setItemMeta(iMeta);
         return fillMana;
     }

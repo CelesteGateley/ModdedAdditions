@@ -12,13 +12,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Teleport extends Spell {
 
-    public Teleport() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Teleport";
     }
 
     @Override
-    public String getName() {
-        return "Teleport";
+    public String getTechnicalName() {
+        return "teleport";
     }
 
     @Override
@@ -27,7 +28,7 @@ public class Teleport extends Spell {
         teleport = addLore(teleport, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = teleport.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         teleport.setItemMeta(iMeta);
         return teleport;
     }

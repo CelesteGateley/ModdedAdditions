@@ -14,13 +14,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class LavaWalk extends Spell {
 
-    public LavaWalk() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Lava Walk";
     }
 
     @Override
-    public String getName() {
-        return "Lava Walk";
+    public String getTechnicalName() {
+        return "lavawalk";
     }
 
     @Override
@@ -29,7 +30,7 @@ public class LavaWalk extends Spell {
         lavaWalk = addLore(lavaWalk, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = lavaWalk.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         lavaWalk.setItemMeta(iMeta);
         return lavaWalk;
     }

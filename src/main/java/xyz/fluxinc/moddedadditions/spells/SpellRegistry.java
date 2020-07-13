@@ -26,48 +26,41 @@ import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookContr
 public class SpellRegistry {
 
     private final Map<Integer, Spell> registryById;
-    private final Map<String, Spell> registryByName;
-    private final Map<Integer, String> registryToString;
     private final List<String> technicalNames;
 
     public SpellRegistry() {
         technicalNames = new ArrayList<>();
         registryById = new LinkedHashMap<>();
-        registryByName = new LinkedHashMap<>();
-        registryToString = new LinkedHashMap<>();
-
         registerAllSpells();
 
     }
 
     private void registerAllSpells() {
         // Combat
-        registerSpell(new Arrows(), "arrows", 1);
-        registerSpell(new SlowBall(), "slowball", 2);
-        registerSpell(new Fireball(), "fireball", 3);
-        registerSpell(new Smite(), "smite", 4);
+        registerSpell(new Arrows(), 1);
+        registerSpell(new SlowBall(), 2);
+        registerSpell(new Fireball(), 3);
+        registerSpell(new Smite(), 4);
         // Movement
-        registerSpell(new AirJet(), "airjet", 20);
-        registerSpell(new Speed(), "speed", 21);
-        registerSpell(new Teleport(), "teleport", 22);
-        registerSpell(new LavaWalk(), "lavawalk", 23);
+        registerSpell(new AirJet(), 20);
+        registerSpell(new Speed(), 21);
+        registerSpell(new Teleport(), 22);
+        registerSpell(new LavaWalk(), 23);
         // Support
-        registerSpell(new Heal(), "heal", 40);
-        registerSpell(new Vanish(), "vanish", 41);
-        registerSpell(new MinersBoon(), "minersboon", 43);
+        registerSpell(new Heal(), 40);
+        registerSpell(new Vanish(), 41);
+        registerSpell(new MinersBoon(), 43);
         // Tank
-        registerSpell(new HardenedForm(), "hardenedform", 60);
-        registerSpell(new ForceField(), "forcefield", 61);
-        registerSpell(new Taunt(), "taunt", 62);
+        registerSpell(new HardenedForm(), 60);
+        registerSpell(new ForceField(), 61);
+        registerSpell(new Taunt(), 62);
         // Debug
         //registerSpell(new FillMana(), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
     }
 
-    public void registerSpell(Spell spell, String technicalName, int modelId) {
-        technicalNames.add(technicalName);
-        registryByName.put(technicalName, spell);
+    public void registerSpell(Spell spell, int modelId) {
         registryById.put(KEY_BASE + SB_KEY_BASE + modelId, spell);
-        registryToString.put(KEY_BASE + SB_KEY_BASE + modelId, technicalName);
+        technicalNames.add(spell.getTechnicalName());
     }
 
     public List<String> getAllTechnicalNames() {
@@ -76,8 +69,8 @@ public class SpellRegistry {
 
     public List<Spell> getAllSpells() {
         List<Spell> spells = new ArrayList<>();
-        for (String name : registryByName.keySet()) {
-            spells.add(registryByName.get(name));
+        for (Integer model : registryById.keySet()) {
+            spells.add(registryById.get(model));
         }
         return spells;
     }
@@ -90,11 +83,8 @@ public class SpellRegistry {
         return registryById;
     }
 
-    public Map<String, Spell> getRegistryByName() {
-        return registryByName;
-    }
 
     public String getTechnicalName(int modelId) {
-        return registryToString.getOrDefault(modelId, null);
+        return registryById.getOrDefault(modelId, null) == null ? null : registryById.get(modelId).getTechnicalName();
     }
 }

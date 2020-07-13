@@ -14,13 +14,15 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Smite extends Spell {
-    public Smite() {
-        super();
+
+    @Override
+    public String getLocalizedName() {
+        return "Smite";
     }
 
     @Override
-    public String getName() {
-        return "Smite";
+    public String getTechnicalName() {
+        return "smite";
     }
 
     @Override
@@ -29,7 +31,7 @@ public class Smite extends Spell {
         smite = addLore(smite, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = smite.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         smite.setItemMeta(iMeta);
         return smite;
     }

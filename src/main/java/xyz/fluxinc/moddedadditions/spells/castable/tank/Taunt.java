@@ -17,13 +17,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Taunt extends Spell {
 
-    public Taunt() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Taunt";
     }
 
     @Override
-    public String getName() {
-        return "ForceField";
+    public String getTechnicalName() {
+        return "taunt";
     }
 
     @Override
@@ -32,7 +33,7 @@ public class Taunt extends Spell {
         taunt = addLore(taunt, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = taunt.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         taunt.setItemMeta(iMeta);
         return taunt;
     }

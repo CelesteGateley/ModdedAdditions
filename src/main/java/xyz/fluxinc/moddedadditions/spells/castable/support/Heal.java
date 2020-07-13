@@ -14,13 +14,14 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Heal extends Spell {
 
-    public Heal() {
-        super();
+    @Override
+    public String getLocalizedName() {
+        return "Heal";
     }
 
     @Override
-    public String getName() {
-        return "Heal";
+    public String getTechnicalName() {
+        return "heal";
     }
 
     @Override
@@ -29,7 +30,7 @@ public class Heal extends Spell {
         heal = addLore(heal, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
         ItemMeta iMeta = heal.getItemMeta();
         iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getName());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
         heal.setItemMeta(iMeta);
         return heal;
     }
