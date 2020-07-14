@@ -132,6 +132,7 @@ public class CustomRecipeUtils implements Listener {
         result.setIngredient('G', SaberColor.getStainedGlass(color));
         result.setIngredient('E', Material.EMERALD);
         result.setIngredient('C', Material.END_CRYSTAL);
+        result.setGroup("Kyber Crystals");
         return result;
     }
 
