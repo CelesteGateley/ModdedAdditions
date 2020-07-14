@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -15,6 +16,7 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController.*;
 
+@SuppressWarnings("ConstantConditions")
 public class LightSaberListener implements Listener {
 
 
@@ -64,4 +66,22 @@ public class LightSaberListener implements Listener {
             }
         }
     }
+
+    @EventHandler
+    public void onLightSaberUpgrade(PrepareItemCraftEvent event) {
+        if (event.getInventory().getItem(4) == null) return;
+        if (event.getRecipe() != null
+                && event.getRecipe().getResult().getItemMeta() != null
+                && event.getRecipe().getResult().getItemMeta().hasCustomModelData()
+                && event.getRecipe().getResult().getItemMeta().getCustomModelData() == KEY_BASE + DC_KEY_BASE) {
+            if (!verifyLightSaber(event.getInventory().getMatrix()[4])) {
+                event.getInventory().setResult(null);
+                return;
+            }
+            System.out.println("Reached");
+            SaberColor color = SaberColor.getModColor(event.getInventory().getMatrix()[4].getItemMeta().getCustomModelData() - LS_KEY_BASE - KEY_BASE);
+            event.getInventory().setResult(upgradeSaber(event.getInventory().getMatrix()[4], color));
+        }
+    }
+
 }

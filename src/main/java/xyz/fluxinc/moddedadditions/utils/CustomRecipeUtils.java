@@ -5,9 +5,8 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.FurnaceRecipe;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.*;
+import sun.rmi.rmic.Names;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
@@ -18,6 +17,7 @@ import java.util.HashMap;
 import static org.bukkit.Bukkit.getServer;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
+import static xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController.getDefaultDCLightSaber;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.SB_KEY_BASE;
 import static xyz.fluxinc.moddedadditions.storage.AdditionalRecipeStorage.*;
 import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.*;
@@ -86,6 +86,7 @@ public class CustomRecipeUtils implements Listener {
         addLongFallBoots();
         addHoneyChestPlate();
         addSlimeChestPlate();
+        upgradeLightsaber();
     }
 
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
@@ -173,6 +174,17 @@ public class CustomRecipeUtils implements Listener {
         lightSaberRecipe.setIngredient('I', Material.IRON_BLOCK);
         lightSaberRecipe.setIngredient('C', Material.EMERALD);
         getServer().addRecipe(lightSaberRecipe);
+    }
+
+    private void upgradeLightsaber() {
+        NamespacedKey darkCoreKey = new NamespacedKey(instance, "DCSABER");
+        recipeKeys.add(darkCoreKey);
+
+        ShapedRecipe darkCoreRecipe = new ShapedRecipe(darkCoreKey, getDefaultDCLightSaber());
+        darkCoreRecipe.shape("SSS","SLS","SSS");
+        darkCoreRecipe.setIngredient('S', Material.NETHERITE_SCRAP);
+        darkCoreRecipe.setIngredient('L', Material.NETHERITE_SWORD);
+        getServer().addRecipe(darkCoreRecipe);
     }
 
     private void addSonic() {

@@ -22,6 +22,7 @@ import static xyz.fluxinc.moddedadditions.enums.SaberColor.getColorMod;
 
 public class LightSaberController {
 
+    public static final int DC_KEY_BASE = 2030;
     public static final int LS_KEY_BASE = 2020;
     public static final int KC_KEY_BASE = 2010;
 
@@ -50,6 +51,18 @@ public class LightSaberController {
         return itemStack;
     }
 
+    public static ItemStack upgradeSaber(ItemStack iStack, SaberColor color) {
+        ItemStack itemStack = iStack.clone();
+        ItemMeta iMeta = itemStack.getItemMeta();
+        iMeta.setCustomModelData(KEY_BASE + DC_KEY_BASE + getColorMod(color));
+        iMeta.setDisplayName(ChatColor.DARK_GRAY + "Black-Cored " + getChatColor(color) + toTitleCase(color.toString()) + " Saber");
+        iMeta.addEnchant(Enchantment.FIRE_ASPECT, 2, false);
+        iMeta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
+        iMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "Attack_damage", 15, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        itemStack.setItemMeta(iMeta);
+        return itemStack;
+    }
+
     public ItemStack generateNewKyberCrystal(SaberColor color) {
         ItemStack itemStack = addLore(new ItemStack(Material.EMERALD), instance.getLanguageManager().getFormattedString("mi-kybercrystal"));
         ItemMeta iMeta = itemStack.getItemMeta();
@@ -65,6 +78,14 @@ public class LightSaberController {
         ItemStack lightSaber = addLore(new ItemStack(Material.NETHERITE_SWORD), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getFormattedString("mi-lightsaber")));
         ItemMeta itemMeta = lightSaber.getItemMeta();
         itemMeta.setCustomModelData(KEY_BASE + LS_KEY_BASE);
+        lightSaber.setItemMeta(itemMeta);
+        return lightSaber;
+    }
+
+    public static ItemStack getDefaultDCLightSaber() {
+        ItemStack lightSaber = addLore(new ItemStack(Material.NETHERITE_SWORD), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getFormattedString("mi-lightsaber")));
+        ItemMeta itemMeta = lightSaber.getItemMeta();
+        itemMeta.setCustomModelData(KEY_BASE + DC_KEY_BASE);
         lightSaber.setItemMeta(itemMeta);
         return lightSaber;
     }
