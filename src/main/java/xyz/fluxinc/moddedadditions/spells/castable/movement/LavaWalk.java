@@ -8,7 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
+import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
+import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
@@ -22,6 +25,11 @@ public class LavaWalk extends Spell {
     @Override
     public String getTechnicalName() {
         return "lavawalk";
+    }
+
+    @Override
+    public int getModelId() {
+        return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 23;
     }
 
     @Override
@@ -48,6 +56,13 @@ public class LavaWalk extends Spell {
     @Override
     public long getCooldown(int level) {
         return 25000;
+    }
+
+    @Override
+    public SpellRecipe getRecipe(int level) {
+        if (level != 1) return null;
+        return new SpellRecipe(new MaterialRecipeIngredient(Material.REDSTONE),
+                new MaterialRecipeIngredient(Material.ICE), new MaterialRecipeIngredient(Material.BLAZE_ROD));
     }
 
     @Override

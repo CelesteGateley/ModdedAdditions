@@ -22,6 +22,8 @@ public abstract class Spell {
 
     public abstract String getTechnicalName();
 
+    public abstract int getModelId();
+
     public abstract ItemStack getItemStack(World.Environment environment, int modelId, int level);
 
     public abstract int getCost(World.Environment environment, int level);
@@ -29,6 +31,8 @@ public abstract class Spell {
     public abstract String getRiddle(int level);
 
     public abstract long getCooldown(int level);
+
+    public abstract SpellRecipe getRecipe(int level);
 
     public void castSpell(Player caster, LivingEntity target, int level) {
         if (ModdedAdditions.instance.getManaController().getMana(caster) >= getCost(caster.getWorld().getEnvironment(), level)

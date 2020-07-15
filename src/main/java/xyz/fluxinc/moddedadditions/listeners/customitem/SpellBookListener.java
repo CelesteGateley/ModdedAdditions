@@ -20,9 +20,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
+import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ResearchInventoryListener;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
-import xyz.fluxinc.moddedadditions.spells.castable.combat.SlowBall;
+import xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball;
 import xyz.fluxinc.moddedadditions.spells.castable.support.Heal;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
@@ -79,18 +80,17 @@ public class SpellBookListener implements Listener {
         if (event.getCurrentItem() == null) {
             return;
         }
-        if (event.getCurrentItem().getItemMeta() == null || !event.getCurrentItem().getItemMeta().hasCustomModelData()) {
-            return;
-        }
-
         if (event.getClickedInventory().getType() == InventoryType.PLAYER) {
             event.setCancelled(true);
             return;
         }
-
+        System.out.println(event.getCurrentItem().getType());
         if (event.getCurrentItem().getType() == Material.BARRIER) {
             event.getWhoClicked().sendMessage(instance.getLanguageManager().generateMessage("sb-lockedSpell"));
             event.getView().close();
+        } else if (event.getCurrentItem().getType() == Material.ENCHANTED_BOOK) {
+            event.getView().close();
+            Bukkit.getScheduler().scheduleSyncDelayedTask(instance, () -> ResearchInventoryListener.openInventory((Player) event.getWhoClicked()));
         } else {
             Player player = (Player) event.getWhoClicked();
             if (verifySpellBook(player.getInventory().getItemInMainHand())) {
@@ -99,7 +99,6 @@ public class SpellBookListener implements Listener {
                 instance.getSpellBookController().setSpell(event.getCurrentItem().getItemMeta().getCustomModelData(), player.getInventory().getItemInOffHand());
             }
         }
-
         event.getView().close();
     }
 
@@ -185,49 +184,6 @@ public class SpellBookListener implements Listener {
     }
 
     @EventHandler
-    public void onSpecialCraft(PrepareItemCraftEvent event) {
-        if (event.getRecipe() == null) {
-            return;
-        }
-        ItemStack result = event.getRecipe().getResult();
-        if (!verifySpellBook(result)) {
-            return;
-        }
-        Spell spell = instance.getSpellBookController().getSpell(event.getRecipe().getResult());
-        if (spell instanceof Heal) {
-            ItemStack pot1 = event.getInventory().getItem(2);
-            ItemStack pot2 = event.getInventory().getItem(4);
-            ItemStack pot3 = event.getInventory().getItem(6);
-            ItemStack pot4 = event.getInventory().getItem(8);
-            if (pot1 == null
-                    || pot2 == null
-                    || pot3 == null
-                    || pot4 == null) {
-                event.getInventory().setResult(null);
-                return;
-            }
-            if (!(pot1.getItemMeta() instanceof PotionMeta)
-                    || !(pot2.getItemMeta() instanceof PotionMeta)
-                    || !(pot3.getItemMeta() instanceof PotionMeta)
-                    || !(pot4.getItemMeta() instanceof PotionMeta)) {
-                event.getInventory().setResult(null);
-                return;
-            }
-            PotionMeta pM1 = (PotionMeta) pot1.getItemMeta();
-            PotionMeta pM2 = (PotionMeta) pot2.getItemMeta();
-            PotionMeta pM3 = (PotionMeta) pot3.getItemMeta();
-            PotionMeta pM4 = (PotionMeta) pot4.getItemMeta();
-            if (pM1.getBasePotionData().getType() != PotionType.INSTANT_HEAL
-                    || pM2.getBasePotionData().getType() != PotionType.INSTANT_HEAL
-                    || pM3.getBasePotionData().getType() != PotionType.INSTANT_HEAL
-                    || pM4.getBasePotionData().getType() != PotionType.INSTANT_HEAL) {
-                event.getInventory().setResult(null);
-                return;
-            }
-        }
-    }
-
-    @EventHandler
     public void onSpellBookCraft(CraftItemEvent event) {
         if (!verifySpellBook(event.getRecipe().getResult())) {
             return;
@@ -244,7 +200,7 @@ public class SpellBookListener implements Listener {
             return;
         }
         if (event.getEntity().getCustomName() == null
-                || !event.getEntity().getCustomName().equals(SlowBall.SLOWBALL_NAME)) {
+                || !event.getEntity().getCustomName().equals(Slowball.SLOWBALL_NAME)) {
             return;
         }
         Entity target = event.getHitEntity();
@@ -266,22 +222,30 @@ public class SpellBookListener implements Listener {
     }
 
     private Inventory generateSpellInventory(Player player) {
-        Map<Integer, Spell> spells = instance.getSpellBookController().getSpellRegistry().getRegistryById();
+        List<Spell> spells = instance.getSpellBookController().getSpellRegistry().getAllSpells();
         PlayerData data = instance.getPlayerDataController().getPlayerData(player);
         List<ItemStack> stacks = new ArrayList<>();
-        for (Integer key : spells.keySet()) {
-            Spell spell = instance.getSpellBookController().getSpellRegistry().getSpellById(key);
-            String technicalName = instance.getSpellBookController().getSpellRegistry().getTechnicalName(key);
-            if (instance.getSpellBookController().knowsSpell(player, instance.getSpellBookController().getSpellRegistry().getTechnicalName(key))) {
-                stacks.add(spells.get(key).getItemStack(player.getWorld().getEnvironment(), key, data.getSpellLevel(technicalName)));
+        for (Spell spell : spells) {
+            if (instance.getSpellBookController().knowsSpell(player, spell.getTechnicalName())) {
+                stacks.add(spell.getItemStack(player.getWorld().getEnvironment(), spell.getModelId(), data.getSpellLevel(spell.getTechnicalName())));
             } else {
-                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), spell.getRiddle(data.getSpellLevel(technicalName)));
+                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), spell.getRiddle(data.getSpellLevel(spell.getTechnicalName())));
                 ItemMeta iMeta = iStack.getItemMeta();
                 iMeta.setDisplayName(spell.getLocalizedName());
                 iStack.setItemMeta(iMeta);
                 stacks.add(iStack);
             }
         }
-        return generateDistributedInventory(INVENTORY_TITLE, stacks);
+        Inventory dummy = generateDistributedInventory(INVENTORY_TITLE, stacks);
+        Inventory master = Bukkit.createInventory(null, dummy.getSize() + 9, INVENTORY_TITLE);
+        for (int i = 0; i < dummy.getSize(); i++) {
+            master.setItem(i, dummy.getItem(i));
+        }
+        ItemStack itemStack = addLore(new ItemStack(Material.ENCHANTED_BOOK), "Research new Spells!");
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(ChatColor.RESET + "Research");
+        itemStack.setItemMeta(itemMeta);
+        master.setItem(master.getSize() - 5, itemStack);
+        return master;
     }
 }

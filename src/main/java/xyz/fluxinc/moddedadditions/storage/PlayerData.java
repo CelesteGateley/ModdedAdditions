@@ -1,6 +1,7 @@
 package xyz.fluxinc.moddedadditions.storage;
 
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRegistry;
 
 import java.util.HashMap;
@@ -49,8 +50,8 @@ public class PlayerData implements ConfigurationSerializable {
             knownSpells = new HashMap<>();
         }
         SpellRegistry registry = new SpellRegistry();
-        for (String spell : registry.getAllTechnicalNames()) {
-            knownSpells.putIfAbsent(spell, 0);
+        for (Spell spell : registry.getAllSpells()) {
+            knownSpells.putIfAbsent(spell.getTechnicalName(), 0);
         }
 
     }

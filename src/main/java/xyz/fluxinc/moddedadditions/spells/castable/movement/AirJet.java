@@ -10,7 +10,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
+import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
+import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
+import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
@@ -24,6 +28,11 @@ public class AirJet extends Spell {
     @Override
     public String getTechnicalName() {
         return "airjet";
+    }
+
+    @Override
+    public int getModelId() {
+        return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 20;
     }
 
     @Override
@@ -54,6 +63,13 @@ public class AirJet extends Spell {
     @Override
     public long getCooldown(int level) {
         return 250;
+    }
+
+    @Override
+    public SpellRecipe getRecipe(int level) {
+        if (level != 1) return null;
+        return new SpellRecipe(new MaterialRecipeIngredient(Material.REDSTONE),
+                new MaterialRecipeIngredient(Material.FEATHER), new MaterialRecipeIngredient(Material.STRING));
     }
 
     @Override

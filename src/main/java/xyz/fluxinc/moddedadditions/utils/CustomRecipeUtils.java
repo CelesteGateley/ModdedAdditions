@@ -82,7 +82,6 @@ public class CustomRecipeUtils implements Listener {
         addLightsaber();
         makeKyberCrystals();
         addSonic();
-        addSpells();
         addLongFallBoots();
         addHoneyChestPlate();
         addSlimeChestPlate();
@@ -164,7 +163,6 @@ public class CustomRecipeUtils implements Listener {
         getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.WHITE, "WHITE_KYBER_CRYSTAL"));
     }
 
-
     private void addLightsaber() {
         NamespacedKey lightSaberKey = new NamespacedKey(instance, "LIGHTSABER");
         recipeKeys.add(lightSaberKey);
@@ -211,41 +209,6 @@ public class CustomRecipeUtils implements Listener {
         spellRecipe.setIngredient('B', item2);
         spellRecipe.setIngredient('S', Material.BOOK);
         getServer().addRecipe(spellRecipe);
-    }
-
-    private void addSpells() {
-        // FireArrow
-        addSpell(1, Material.CROSSBOW, Material.SPECTRAL_ARROW);
-        // Slowball
-        addSpell(2, Material.SNOWBALL, Material.SOUL_SAND);
-        // Fireball
-        addSpell(3, Material.FIRE_CHARGE, Material.GHAST_TEAR);
-        // Smite
-        addSpell(4, Material.EMERALD_ORE, Material.TRIDENT);
-
-        // AirJet
-        addSpell(20, Material.FEATHER, Material.STRING);
-        // Speed
-        addSpell(21, Material.GLOWSTONE_DUST, Material.SUGAR);
-        // Teleport
-        addSpell(22, Material.ENDER_PEARL, Material.ENDER_EYE);
-        // Lava Walk
-        addSpell(23, Material.ICE, Material.BLAZE_ROD);
-
-        // Heal (Instant Heal Potion)
-        addSpell(40, Material.GOLDEN_APPLE, Material.POTION);
-        // Vanish
-        addSpell(41, Material.GOLDEN_CARROT, Material.BLACKSTONE);
-        // Miners Boon
-        addSpell(43, Material.NETHERITE_INGOT, Material.HEART_OF_THE_SEA);
-
-
-        // HardenedForm
-        addSpell(60, Material.OBSIDIAN, Material.COBWEB);
-        // ForceField
-        addSpell(61, Material.SHIELD, Material.PISTON);
-        // Taunt
-        addSpell(62, Material.WITHER_SKELETON_SKULL, Material.TURTLE_EGG);
     }
 
     private void addLongFallBoots() {

@@ -1,8 +1,10 @@
 package xyz.fluxinc.moddedadditions.spells;
 
+import org.bukkit.Material;
+import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Arrows;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
-import xyz.fluxinc.moddedadditions.spells.castable.combat.SlowBall;
+import xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Smite;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.AirJet;
 import xyz.fluxinc.moddedadditions.spells.castable.movement.LavaWalk;
@@ -14,77 +16,65 @@ import xyz.fluxinc.moddedadditions.spells.castable.support.Vanish;
 import xyz.fluxinc.moddedadditions.spells.castable.tank.ForceField;
 import xyz.fluxinc.moddedadditions.spells.castable.tank.HardenedForm;
 import xyz.fluxinc.moddedadditions.spells.castable.tank.Taunt;
+import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
+import xyz.fluxinc.moddedadditions.spells.recipe.PotionRecipeIngredient;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
-import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.SB_KEY_BASE;
+import java.util.*;
 
 public class SpellRegistry {
 
-    private final Map<Integer, Spell> registryById;
-    private final List<String> technicalNames;
+    private final List<Spell> spells;
+    private final Map<Spell, Map<Integer, SpellRecipe>> recipesMap;
 
     public SpellRegistry() {
-        technicalNames = new ArrayList<>();
-        registryById = new LinkedHashMap<>();
+        spells = new ArrayList<>();
         registerAllSpells();
 
+        recipesMap = new HashMap<>();
     }
 
     private void registerAllSpells() {
-        // Combat
-        registerSpell(new Arrows(), 1);
-        registerSpell(new SlowBall(), 2);
-        registerSpell(new Fireball(), 3);
-        registerSpell(new Smite(), 4);
+        // Combat 
+        spells.add(new Arrows());
+        spells.add(new Fireball());
+        spells.add(new Slowball());
+        spells.add(new Smite());
         // Movement
-        registerSpell(new AirJet(), 20);
-        registerSpell(new Speed(), 21);
-        registerSpell(new Teleport(), 22);
-        registerSpell(new LavaWalk(), 23);
+        spells.add(new AirJet());
+        spells.add(new Speed());
+        spells.add(new Teleport());
+        spells.add(new LavaWalk());
         // Support
-        registerSpell(new Heal(), 40);
-        registerSpell(new Vanish(), 41);
-        registerSpell(new MinersBoon(), 43);
+        spells.add(new Heal());
+        spells.add(new Vanish());
+        spells.add(new MinersBoon());
         // Tank
-        registerSpell(new HardenedForm(), 60);
-        registerSpell(new ForceField(), 61);
-        registerSpell(new Taunt(), 62);
+        spells.add(new HardenedForm());
+        spells.add(new ForceField());
+        spells.add(new Taunt());
         // Debug
         //registerSpell(new FillMana(), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
     }
 
-    public void registerSpell(Spell spell, int modelId) {
-        registryById.put(KEY_BASE + SB_KEY_BASE + modelId, spell);
-        technicalNames.add(spell.getTechnicalName());
-    }
-
-    public List<String> getAllTechnicalNames() {
-        return technicalNames;
-    }
-
     public List<Spell> getAllSpells() {
-        List<Spell> spells = new ArrayList<>();
-        for (Integer model : registryById.keySet()) {
-            spells.add(registryById.get(model));
-        }
         return spells;
     }
 
     public Spell getSpellById(int modelId) {
-        return registryById.getOrDefault(modelId, null);
+        for (Spell spell : spells) {
+            if (spell.getModelId() == modelId) {
+                return spell;
+            }
+        }
+        return null;
     }
-
-    public Map<Integer, Spell> getRegistryById() {
-        return registryById;
-    }
-
 
     public String getTechnicalName(int modelId) {
-        return registryById.getOrDefault(modelId, null) == null ? null : registryById.get(modelId).getTechnicalName();
+        for (Spell spell : spells) {
+            if (spell.getModelId() == modelId) {
+                return spell.getTechnicalName();
+            }
+        }
+        return null;
     }
 }

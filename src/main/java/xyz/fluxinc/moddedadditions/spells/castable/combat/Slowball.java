@@ -9,11 +9,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
+import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
+import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
-public class SlowBall extends Spell {
+public class Slowball extends Spell {
 
     public static final String SLOWBALL_NAME = "abXYZoasDGAdgiQXVSAadsgasnNEFA";
 
@@ -25,6 +29,11 @@ public class SlowBall extends Spell {
     @Override
     public String getTechnicalName() {
         return "slowball";
+    }
+
+    @Override
+    public int getModelId() {
+        return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 2;
     }
 
     @Override
@@ -51,6 +60,14 @@ public class SlowBall extends Spell {
     @Override
     public long getCooldown(int level) {
         return 2000;
+    }
+
+    @Override
+    public SpellRecipe getRecipe(int level) {
+        if (level == 1)
+        return new SpellRecipe(new MaterialRecipeIngredient(Material.REDSTONE),
+                new MaterialRecipeIngredient(Material.SNOWBALL), new MaterialRecipeIngredient(Material.SOUL_SAND));
+        return null;
     }
 
     @Override

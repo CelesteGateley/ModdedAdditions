@@ -11,9 +11,14 @@ import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
+import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
+import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 
 public class Taunt extends Spell {
 
@@ -25,6 +30,11 @@ public class Taunt extends Spell {
     @Override
     public String getTechnicalName() {
         return "taunt";
+    }
+
+    @Override
+    public int getModelId() {
+        return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 62;
     }
 
     @Override
@@ -51,6 +61,15 @@ public class Taunt extends Spell {
     @Override
     public long getCooldown(int level) {
         return 15;
+    }
+
+    @Override
+    public SpellRecipe getRecipe(int level) {
+        if (level == 1)
+        return new SpellRecipe(new MaterialRecipeIngredient(Material.REDSTONE),
+                new MaterialRecipeIngredient(Material.WITHER_SKELETON_SKULL), new MaterialRecipeIngredient(Material.TURTLE_EGG));
+
+        return null;
     }
 
     @Override

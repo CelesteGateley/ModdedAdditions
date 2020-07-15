@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.io.File;
@@ -53,13 +54,13 @@ public class SpellBookCommand implements CommandExecutor {
                     return true;
                 }
                 if (args[1].equals("*")) {
-                    for (String spell : instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames()) {
-                        setSpell(target, spell, true);
+                    for (Spell spell : instance.getSpellBookController().getSpellRegistry().getAllSpells()) {
+                        setSpell(target, spell.getTechnicalName(), true);
                         if (target != sender) {
-                            sendLearnSpell(target, spell);
-                            sendLearnSpellOther(sender, spell, target);
+                            sendLearnSpell(target, spell.getTechnicalName());
+                            sendLearnSpellOther(sender, spell.getTechnicalName(), target);
                         } else {
-                            sendLearnSpell(sender, spell);
+                            sendLearnSpell(sender, spell.getTechnicalName());
                         }
                     }
                     return true;
@@ -80,13 +81,13 @@ public class SpellBookCommand implements CommandExecutor {
                     return true;
                 }
                 if (args[1].equals("*")) {
-                    for (String spell : instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames()) {
-                        setSpell(target, spell, false);
+                    for (Spell spell : instance.getSpellBookController().getSpellRegistry().getAllSpells()) {
+                        setSpell(target, spell.getTechnicalName(), false);
                         if (target != sender) {
-                            sendUnlearnSpell(target, spell);
-                            sendUnlearnSpellOther(sender, spell, target);
+                            sendUnlearnSpell(target, spell.getTechnicalName());
+                            sendUnlearnSpellOther(sender, spell.getTechnicalName(), target);
                         } else {
-                            sendUnlearnSpell(sender, spell);
+                            sendUnlearnSpell(sender, spell.getTechnicalName());
                         }
                     }
                     return true;
@@ -138,18 +139,19 @@ public class SpellBookCommand implements CommandExecutor {
     }
 
     private void setSpell(Player player, String spell, boolean value) {
-        List<String> spells = instance.getSpellBookController().getSpellRegistry().getAllTechnicalNames();
-        if (!spells.contains(spell)) {
-            sendInvalidSpell(player, spell);
+        List<Spell> spells = instance.getSpellBookController().getSpellRegistry().getAllSpells();
+        for (Spell spel : spells) {
+            if (!spel.getTechnicalName().equals(spell)) continue;
+            if (!instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell) && value) {
+                instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).addMaximumMana(50));
+            } else if (instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell) && !value) {
+                instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).addMaximumMana(-50));
+            }
+            int val = value ? 1 : 0;
+            instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).setSpell(spell, val));
             return;
         }
-        if (!instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell) && value) {
-            instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).addMaximumMana(50));
-        } else if (instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell) && !value) {
-            instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).addMaximumMana(-50));
-        }
-        int val = value ? 1 : 0;
-        instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).setSpell(spell, val));
+        sendInvalidSpell(player, spell);
     }
 
     private void sendNoSubCommand(CommandSender sender) {

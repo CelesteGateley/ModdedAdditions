@@ -8,7 +8,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
+import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
@@ -22,6 +24,11 @@ public class FillMana extends Spell {
     @Override
     public String getTechnicalName() {
         return "fillmana";
+    }
+
+    @Override
+    public int getModelId() {
+        return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 100;
     }
 
     @Override
@@ -47,6 +54,11 @@ public class FillMana extends Spell {
     @Override
     public long getCooldown(int level) {
         return 0;
+    }
+
+    @Override
+    public SpellRecipe getRecipe(int level) {
+        return null;
     }
 
     @Override

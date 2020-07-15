@@ -11,7 +11,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
+import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
+import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
@@ -25,6 +29,11 @@ public class HardenedForm extends Spell {
     @Override
     public String getTechnicalName() {
         return "hardenedform";
+    }
+
+    @Override
+    public int getModelId() {
+        return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 60;
     }
 
     @Override
@@ -51,6 +60,13 @@ public class HardenedForm extends Spell {
     @Override
     public long getCooldown(int level) {
         return 20 * 1000;
+    }
+
+    @Override
+    public SpellRecipe getRecipe(int level) {
+        if (level != 1) return null;
+        return new SpellRecipe(new MaterialRecipeIngredient(Material.REDSTONE),
+                new MaterialRecipeIngredient(Material.OBSIDIAN), new MaterialRecipeIngredient(Material.COBWEB));
     }
 
     @Override

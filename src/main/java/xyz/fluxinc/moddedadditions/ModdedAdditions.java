@@ -28,6 +28,7 @@ import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListen
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.LongFallBootsListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ForceFieldListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ResearchInventoryListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.SortChestListener;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
@@ -144,6 +145,7 @@ public final class ModdedAdditions extends JavaPlugin {
         spellBookController = new SpellBookController();
         getServer().getPluginManager().registerEvents(manaController, this);
         getServer().getPluginManager().registerEvents(new SpellBookListener(), this);
+        getServer().getPluginManager().registerEvents(new ResearchInventoryListener(), this);
         getCommand("spellbook").setExecutor(new SpellBookCommand());
         forceFieldListener = new ForceFieldListener();
         getServer().getPluginManager().registerEvents(forceFieldListener, this);

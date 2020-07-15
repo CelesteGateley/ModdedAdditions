@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
+import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ResearchInventoryListener;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.HashMap;
@@ -23,6 +24,11 @@ public class ModdedAdditionsCommand implements CommandExecutor {
             return true;
         }
         switch (arguments[0].toLowerCase()) {
+            case "research":
+                if (commandSender instanceof Player) {
+                    ResearchInventoryListener.openInventory((Player) commandSender);
+                }
+                return true;
             case "sort":
                 if (commandSender instanceof Player && !commandSender.hasPermission("moddedadditions.sort")) {
                     sendPermissionDenied(commandSender);
