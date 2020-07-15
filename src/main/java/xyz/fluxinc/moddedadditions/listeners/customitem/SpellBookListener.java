@@ -84,7 +84,6 @@ public class SpellBookListener implements Listener {
             event.setCancelled(true);
             return;
         }
-        System.out.println(event.getCurrentItem().getType());
         if (event.getCurrentItem().getType() == Material.BARRIER) {
             event.getWhoClicked().sendMessage(instance.getLanguageManager().generateMessage("sb-lockedSpell"));
             event.getView().close();
