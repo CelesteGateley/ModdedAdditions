@@ -75,6 +75,7 @@ public class ResearchInventoryListener implements Listener {
                 emptyInventory(event.getClickedInventory(), (Player) event.getWhoClicked());
             } else {
                 data.setSpell(spell.getTechnicalName(), 1);
+                data.evaluateMana();
                 instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), data);
                 emptyInventory(event.getClickedInventory(), (Player) event.getWhoClicked());
                 for (int i = 45; i < 54; i++) {
