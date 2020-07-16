@@ -1,0 +1,6 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "item/custom/blackcore_saber/blackcore_blue_saber"
+	}
+}
