@@ -5,6 +5,7 @@
     },
 	
 	"overrides": [
+		{"predicate": {"custom_model_data": 5122020}, "model": "item/custom/saber/saber_hilt"},
 		{"predicate": {"custom_model_data": 5122021}, "model": "item/custom/saber/blue_saber"},
 		{"predicate": {"custom_model_data": 5122022}, "model": "item/custom/saber/green_saber"},
 		{"predicate": {"custom_model_data": 5122023}, "model": "item/custom/saber/purple_saber"},
@@ -13,12 +14,16 @@
 		{"predicate": {"custom_model_data": 5122026}, "model": "item/custom/saber/orange_saber"},
 		{"predicate": {"custom_model_data": 5122027}, "model": "item/custom/saber/white_saber"},
 		{"predicate": {"custom_model_data": 5122028}, "model": "item/custom/saber/dark_saber"},
+		{"predicate": {"custom_model_data": 5122030}, "model": "item/custom/blackcore_saber/black_saber_hilt"},
 		{"predicate": {"custom_model_data": 5122031}, "model": "item/custom/blackcore_saber/blackcore_blue_saber"},
 		{"predicate": {"custom_model_data": 5122032}, "model": "item/custom/blackcore_saber/blackcore_green_saber"},
 		{"predicate": {"custom_model_data": 5122033}, "model": "item/custom/blackcore_saber/blackcore_purple_saber"},
 		{"predicate": {"custom_model_data": 5122034}, "model": "item/custom/blackcore_saber/blackcore_red_saber"},
 		{"predicate": {"custom_model_data": 5122035}, "model": "item/custom/blackcore_saber/blackcore_yellow_saber"},
 		{"predicate": {"custom_model_data": 5122036}, "model": "item/custom/blackcore_saber/blackcore_orange_saber"},
-		{"predicate": {"custom_model_data": 5122037}, "model": "item/custom/blackcore_saber/blackcore_white_saber"}
+		{"predicate": {"custom_model_data": 5122037}, "model": "item/custom/blackcore_saber/blackcore_white_saber"},
+		{"predicate": {"custom_model_data": 5122038}, "model": "item/netherite_sword"}
+
+
 	]
 }
