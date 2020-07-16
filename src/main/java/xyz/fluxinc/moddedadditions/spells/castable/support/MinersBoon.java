@@ -66,7 +66,7 @@ public class MinersBoon extends Spell {
     public SpellRecipe getRecipe(int level) {
         if (level != 1) return null;
         return new SpellRecipe(new MaterialRecipeIngredient(Material.REDSTONE),
-                new MaterialRecipeIngredient(Material.NETHERITE_INGOT), new MaterialRecipeIngredient(Material.STRING));
+                new MaterialRecipeIngredient(Material.NETHERITE_INGOT), new MaterialRecipeIngredient(Material.HEART_OF_THE_SEA));
     }
 
     @Override
