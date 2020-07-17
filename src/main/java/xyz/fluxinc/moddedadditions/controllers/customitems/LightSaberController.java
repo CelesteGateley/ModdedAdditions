@@ -78,6 +78,7 @@ public class LightSaberController {
         ItemStack lightSaber = addLore(new ItemStack(Material.NETHERITE_SWORD), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getFormattedString("mi-lightsaber")));
         ItemMeta itemMeta = lightSaber.getItemMeta();
         itemMeta.setCustomModelData(KEY_BASE + LS_KEY_BASE);
+        itemMeta.setDisplayName("LightSaber");
         lightSaber.setItemMeta(itemMeta);
         return lightSaber;
     }
@@ -86,6 +87,7 @@ public class LightSaberController {
         ItemStack lightSaber = addLore(new ItemStack(Material.NETHERITE_SWORD), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getFormattedString("mi-lightsaber")));
         ItemMeta itemMeta = lightSaber.getItemMeta();
         itemMeta.setCustomModelData(KEY_BASE + DC_KEY_BASE);
+        itemMeta.setDisplayName(ChatColor.DARK_GRAY + "Black-Cored " + ChatColor.WHITE + "Saber");
         lightSaber.setItemMeta(itemMeta);
         return lightSaber;
     }
