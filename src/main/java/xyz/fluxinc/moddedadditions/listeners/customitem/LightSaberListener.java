@@ -3,28 +3,20 @@ package xyz.fluxinc.moddedadditions.listeners.customitem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
-import org.bukkit.inventory.AnvilInventory;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
-import xyz.fluxinc.fluxcore.utils.InventoryUtils;
 import xyz.fluxinc.fluxcore.utils.ToolUtils;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.UUID;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.fluxcore.utils.StringUtils.toTitleCase;
@@ -35,18 +27,6 @@ import static xyz.fluxinc.moddedadditions.enums.SaberColor.getChatColor;
 
 @SuppressWarnings("ConstantConditions")
 public class LightSaberListener implements Listener {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @EventHandler
@@ -67,7 +47,6 @@ public class LightSaberListener implements Listener {
     }
 
 
-
     @EventHandler
     public void onLightSaberHit(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player)) {
@@ -77,9 +56,11 @@ public class LightSaberListener implements Listener {
         if (!verifyLightSaber(itemStack) && !verifyDCSaber(itemStack)) return;
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta.getCustomModelData() == KEY_BASE + LS_KEY_BASE || itemMeta.getCustomModelData() == KEY_BASE + DC_KEY_BASE) {
-            event.setCancelled(true); return; }
-        if (itemMeta instanceof Damageable){
-            if (((Damageable) itemMeta).getDamage() + 1 == itemStack.getType().getMaxDurability()){
+            event.setCancelled(true);
+            return;
+        }
+        if (itemMeta instanceof Damageable) {
+            if (((Damageable) itemMeta).getDamage() + 1 == itemStack.getType().getMaxDurability()) {
                 itemMeta.setLore(new ArrayList<>());
                 itemMeta.setDisplayName(ChatColor.GRAY + "Depleted " + ChatColor.WHITE + "Saber");
                 itemMeta.setUnbreakable(true);
@@ -105,9 +86,10 @@ public class LightSaberListener implements Listener {
     }
 
     @EventHandler
-    public void onLightSaberRepair(PrepareAnvilEvent event){
+    public void onLightSaberRepair(PrepareAnvilEvent event) {
         if (event.getInventory().getItem(0) == null || event.getInventory().getItem(1) == null) return;
-        if (!verifyLightSaber(event.getInventory().getItem(0)) && !verifyDCSaber(event.getInventory().getItem(0))) return;
+        if (!verifyLightSaber(event.getInventory().getItem(0)) && !verifyDCSaber(event.getInventory().getItem(0)))
+            return;
         if (event.getInventory().getItem(1).getType() == Material.NETHERITE_SWORD) {
             event.setResult(ToolUtils.transferEnchantments(event.getInventory().getItem(1), event.getInventory().getItem(0)));
             return;
@@ -157,7 +139,6 @@ public class LightSaberListener implements Listener {
             }
         }
     }
-
 
 
     @EventHandler

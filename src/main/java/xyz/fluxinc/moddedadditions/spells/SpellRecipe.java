@@ -2,12 +2,13 @@ package xyz.fluxinc.moddedadditions.spells;
 
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.moddedadditions.spells.recipe.RecipeIngredient;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class SpellRecipe {
 
-    private List<RecipeIngredient> ingredients = new ArrayList<>();
+    private final List<RecipeIngredient> ingredients = new ArrayList<>();
     private final RecipeIngredient catalyst;
 
     public SpellRecipe(RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2) {
@@ -34,6 +35,7 @@ public class SpellRecipe {
         ingredients.add(ingredient4);
         ingredients.add(ingredient4);
     }
+
     public SpellRecipe(RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2,
                        RecipeIngredient ingredient3, RecipeIngredient ingredient4, RecipeIngredient ingredient5,
                        RecipeIngredient ingredient6, RecipeIngredient ingredient7, RecipeIngredient ingredient8) {

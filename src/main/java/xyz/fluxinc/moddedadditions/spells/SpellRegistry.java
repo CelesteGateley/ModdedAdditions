@@ -1,7 +1,5 @@
 package xyz.fluxinc.moddedadditions.spells;
 
-import org.bukkit.Material;
-import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Arrows;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball;
@@ -16,10 +14,9 @@ import xyz.fluxinc.moddedadditions.spells.castable.support.Vanish;
 import xyz.fluxinc.moddedadditions.spells.castable.tank.ForceField;
 import xyz.fluxinc.moddedadditions.spells.castable.tank.HardenedForm;
 import xyz.fluxinc.moddedadditions.spells.castable.tank.Taunt;
-import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
-import xyz.fluxinc.moddedadditions.spells.recipe.PotionRecipeIngredient;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpellRegistry {
 

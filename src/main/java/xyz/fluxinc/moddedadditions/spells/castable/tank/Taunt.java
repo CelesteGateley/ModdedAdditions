@@ -18,7 +18,6 @@ import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
-import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 
 public class Taunt extends Spell {
 
@@ -66,8 +65,8 @@ public class Taunt extends Spell {
     @Override
     public SpellRecipe getRecipe(int level) {
         if (level == 1)
-        return new SpellRecipe(new MaterialRecipeIngredient(Material.REDSTONE),
-                new MaterialRecipeIngredient(Material.WITHER_SKELETON_SKULL), new MaterialRecipeIngredient(Material.TURTLE_EGG));
+            return new SpellRecipe(new MaterialRecipeIngredient(Material.REDSTONE),
+                    new MaterialRecipeIngredient(Material.WITHER_SKELETON_SKULL), new MaterialRecipeIngredient(Material.TURTLE_EGG));
 
         return null;
     }

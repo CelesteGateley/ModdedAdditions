@@ -3,7 +3,7 @@ package xyz.fluxinc.moddedadditions.spells.recipe;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class CustomItemRecipeIngredient extends RecipeIngredient{
+public class CustomItemRecipeIngredient extends RecipeIngredient {
 
     private final Material type;
     private final int modelId;

@@ -5,12 +5,11 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
@@ -22,7 +21,7 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 public class ResearchInventoryListener implements Listener {
 
     private static final List<Player> openInventories = new ArrayList<>();
-    private static final int[] skipSlots = {3,5,10,16,22,28,34,39,41};
+    private static final int[] skipSlots = {3, 5, 10, 16, 22, 28, 34, 39, 41};
 
     public static Inventory generateBlankInventory() {
         Inventory blankInventory = Bukkit.createInventory(null, 54);
@@ -30,7 +29,10 @@ public class ResearchInventoryListener implements Listener {
             boolean skip = false;
             for (int x : skipSlots) {
                 if (x > i) break;
-                if (x == i) { skip = true; break; }
+                if (x == i) {
+                    skip = true;
+                    break;
+                }
             }
             if (!skip) {
                 blankInventory.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
