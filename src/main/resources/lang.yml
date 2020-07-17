@@ -18,7 +18,8 @@ nf-notifyTarget: "&9You have been pinged by %sender%"
 nf-notifySender: "&9Successfully sent ping to %target%"
 
 # Modded Item Lore
-mi-lightsaber: "&9A violent weapon, for a less civilised age!"
+mi-lightsaber: "&9A violent weapon, for a less civilised &9age!"
+mi-depletedsaber: "&9This Saber's Kyber crystal has been completely &9depleted and needs replacing and &9recharging"
 mi-kybercrystal: "&9A Force attuned crystal, used in crafting lightsabers!"
 mi-magnet: "&9A Magnet to draw items towards you!"
 mi-hammer: "&9A Hammer to mine a 3x3 area!"
