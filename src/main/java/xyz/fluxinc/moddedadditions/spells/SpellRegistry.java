@@ -24,13 +24,10 @@ import java.util.*;
 public class SpellRegistry {
 
     private final List<Spell> spells;
-    private final Map<Spell, Map<Integer, SpellRecipe>> recipesMap;
 
     public SpellRegistry() {
         spells = new ArrayList<>();
         registerAllSpells();
-
-        recipesMap = new HashMap<>();
     }
 
     private void registerAllSpells() {
