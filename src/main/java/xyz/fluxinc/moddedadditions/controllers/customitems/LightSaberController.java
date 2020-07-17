@@ -29,8 +29,15 @@ public class LightSaberController {
     public static boolean verifyLightSaber(ItemStack itemStack) {
         return itemStack.getItemMeta() != null
                 && itemStack.getItemMeta().hasCustomModelData()
-                && itemStack.getItemMeta().getCustomModelData() > KEY_BASE + LS_KEY_BASE
+                && itemStack.getItemMeta().getCustomModelData() >= KEY_BASE + LS_KEY_BASE
                 && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + LS_KEY_BASE + 10;
+    }
+
+    public static boolean verifyDCSaber(ItemStack itemStack) {
+        return itemStack.getItemMeta() != null
+                && itemStack.getItemMeta().hasCustomModelData()
+                && itemStack.getItemMeta().getCustomModelData() >= KEY_BASE + DC_KEY_BASE
+                && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + DC_KEY_BASE + 10;
     }
 
     public static boolean verifyKyberCrystal(ItemStack itemStack) {
@@ -78,6 +85,7 @@ public class LightSaberController {
         ItemStack lightSaber = addLore(new ItemStack(Material.NETHERITE_SWORD), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getFormattedString("mi-lightsaber")));
         ItemMeta itemMeta = lightSaber.getItemMeta();
         itemMeta.setCustomModelData(KEY_BASE + LS_KEY_BASE);
+        itemMeta.setDisplayName("LightSaber");
         lightSaber.setItemMeta(itemMeta);
         return lightSaber;
     }
@@ -86,6 +94,7 @@ public class LightSaberController {
         ItemStack lightSaber = addLore(new ItemStack(Material.NETHERITE_SWORD), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getFormattedString("mi-lightsaber")));
         ItemMeta itemMeta = lightSaber.getItemMeta();
         itemMeta.setCustomModelData(KEY_BASE + DC_KEY_BASE);
+        itemMeta.setDisplayName(ChatColor.DARK_GRAY + "Black-Cored " + ChatColor.WHITE + "Saber");
         lightSaber.setItemMeta(itemMeta);
         return lightSaber;
     }
