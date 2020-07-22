@@ -21,17 +21,16 @@ import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.*;
 
 public class ModdedAdditionsCommand implements TabExecutor {
 
-    //used for tab completion {
-    public ArrayList<String> mainCommands(){
-        ArrayList<String> mainCommands = new ArrayList<>();
+    public List<String> mainCommands(){
+        List<String> mainCommands = new ArrayList<>();
         mainCommands.add("give");
         mainCommands.add("giveother");
         mainCommands.add("sort");
         mainCommands.add("reload");
         return mainCommands;
     }
-    public ArrayList<String> giveResults(){
-        ArrayList<String> list = new ArrayList<>();
+    public List<String> giveResults(){
+        List<String> list = new ArrayList<>();
         list.add("hammer");
         list.add("excavator");
         list.add("spellbook");
@@ -45,8 +44,8 @@ public class ModdedAdditionsCommand implements TabExecutor {
         list.add("longfallboots");
         return list;
     }
-    public ArrayList<String> toolVariants() {
-        ArrayList<String> list = new ArrayList<>();
+    public List<String> toolVariants() {
+        List<String> list = new ArrayList<>();
         list.add("diamond");
         list.add("wood");
         list.add("stone");
@@ -55,8 +54,8 @@ public class ModdedAdditionsCommand implements TabExecutor {
         list.add("netherite");
         return list;
     }
-    public ArrayList<String> kyberColors(){
-        ArrayList<String> list = new ArrayList<>();
+    public List<String> kyberColors(){
+        List<String> list = new ArrayList<>();
         list.add("blue");
         list.add("green");
         list.add("purple");
@@ -67,8 +66,8 @@ public class ModdedAdditionsCommand implements TabExecutor {
         list.add("dark");
         return list;
     }
-    public ArrayList<String> tabResults(ArrayList<String> options, String arg){
-        ArrayList<String> results = new ArrayList<>();
+    public List<String> tabResults(List<String> options, String arg){
+        List<String> results = new ArrayList<>();
         for (String option : options) {
             if (option.startsWith(arg)) {
                 results.add(option);
@@ -76,8 +75,9 @@ public class ModdedAdditionsCommand implements TabExecutor {
         }
         return results;
     }
+
     @Override
-    public List<String>onTabComplete(CommandSender commandSender, Command command, String alias, String[] arguments){
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String alias, String[] arguments){
         if (arguments.length == 1){
             return tabResults(mainCommands(),arguments[0]);
         }
@@ -98,7 +98,6 @@ public class ModdedAdditionsCommand implements TabExecutor {
         }
         return null;
     }
-    //                         }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
