@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -199,7 +200,7 @@ public class AreaToolController {
 
     public void saveConfiguration() {
         try {
-            areaToolConfiguration.save(CONFIG_NAME);
+            areaToolConfiguration.save(new File(instance.getDataFolder(), CONFIG_NAME));
         } catch (IOException e) {
             Bukkit.getLogger().severe("An error occurred whilst saving " + CONFIG_NAME + ": " + e.getMessage());
             Bukkit.getServer().getPluginManager().disablePlugin(instance);
