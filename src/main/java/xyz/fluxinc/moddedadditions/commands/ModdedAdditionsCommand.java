@@ -1,21 +1,104 @@
 package xyz.fluxinc.moddedadditions.commands;
 
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
+import xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ResearchInventoryListener;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
+import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.*;
 
-public class ModdedAdditionsCommand implements CommandExecutor {
+public class ModdedAdditionsCommand implements TabExecutor {
+
+    //used for tab completion {
+    public ArrayList<String> mainCommands(){
+        ArrayList<String> mainCommands = new ArrayList<>();
+        mainCommands.add("give");
+        mainCommands.add("giveother");
+        mainCommands.add("sort");
+        mainCommands.add("reload");
+        return mainCommands;
+    }
+    public ArrayList<String> giveResults(){
+        ArrayList<String> list = new ArrayList<>();
+        list.add("hammer");
+        list.add("excavator");
+        list.add("spellbook");
+        list.add("elytrakit");
+        list.add("sonic");
+        list.add("magnet");
+        list.add("longfallboots");
+        list.add("kybercrystal");
+        list.add("lightsaber");
+        list.add("darklightsaber");
+        list.add("longfallboots");
+        return list;
+    }
+    public ArrayList<String> toolVariants() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("diamond");
+        list.add("wood");
+        list.add("stone");
+        list.add("iron");
+        list.add("gold");
+        list.add("netherite");
+        return list;
+    }
+    public ArrayList<String> kyberColors(){
+        ArrayList<String> list = new ArrayList<>();
+        list.add("blue");
+        list.add("green");
+        list.add("purple");
+        list.add("red");
+        list.add("yellow");
+        list.add("orange");
+        list.add("white");
+        list.add("dark");
+        return list;
+    }
+    public ArrayList<String> tabResults(ArrayList<String> options, String arg){
+        ArrayList<String> results = new ArrayList<>();
+        for (String option : options) {
+            if (option.startsWith(arg)) {
+                results.add(option);
+            }
+        }
+        return results;
+    }
+    @Override
+    public List<String>onTabComplete(CommandSender commandSender, Command command, String alias, String[] arguments){
+        if (arguments.length == 1){
+            return tabResults(mainCommands(),arguments[0]);
+        }
+        else if (arguments.length == 2) {
+            if (arguments[0].equalsIgnoreCase("give")) {
+                return tabResults(giveResults(),arguments[1]);
+            }
+        }
+        else if (arguments.length == 3) {
+            if (arguments[1].equalsIgnoreCase("hammer") || arguments[1].equalsIgnoreCase("excavator")){
+                return tabResults(toolVariants(),arguments[2]);
+            }
+            else if (arguments[1].equalsIgnoreCase("lightsaber") ||
+                    arguments[1].equalsIgnoreCase("darklightsaber") ||
+                    arguments[1].equalsIgnoreCase("kybercrystal")) {
+                return tabResults(kyberColors(),arguments[2]);
+            }
+        }
+        return null;
+    }
+    //                         }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
@@ -135,6 +218,9 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                     case "diamond":
                         player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.DIAMOND));
                         break;
+                    case "netherite":
+                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.NETHERITE));
+                        break;
                     default:
                         sendInvalidType(sender, type);
                         break;
@@ -160,6 +246,9 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                         break;
                     case "diamond":
                         player.getInventory().addItem(instance.getAreaToolController().generateExcavator(ToolLevel.DIAMOND));
+                        break;
+                    case "netherite":
+                        player.getInventory().addItem(instance.getAreaToolController().generateHammer(ToolLevel.NETHERITE));
                         break;
                     default:
                         sendInvalidType(sender, type);
@@ -207,6 +296,45 @@ public class ModdedAdditionsCommand implements CommandExecutor {
                         break;
                     default:
                         sendInvalidColor(sender, type);
+                        break;
+                }
+                break;
+            case "elytrakit":
+                player.getInventory().addItem(CustomRecipeUtils.generateElytraKit());
+                break;
+            case "darklightsaber":
+                if (type == null) {
+                    sendNoColorProvided(sender);
+                    break;
+                }
+                switch (type){
+                    case "blue":
+                        player.getInventory().addItem(LightSaberController.generateNewDarkLightSaber(SaberColor.BLUE));
+                        break;
+                    case "green":
+                        player.getInventory().addItem(LightSaberController.generateNewDarkLightSaber(SaberColor.GREEN));
+                        break;
+                    case "purple":
+                        player.getInventory().addItem(LightSaberController.generateNewDarkLightSaber(SaberColor.PURPLE));
+                        break;
+                    case "red":
+                        player.getInventory().addItem(LightSaberController.generateNewDarkLightSaber(SaberColor.RED));
+                        break;
+                    case "yellow":
+                        player.getInventory().addItem(LightSaberController.generateNewDarkLightSaber(SaberColor.YELLOW));
+                        break;
+                    case "orange":
+                        player.getInventory().addItem(LightSaberController.generateNewDarkLightSaber(SaberColor.ORANGE));
+                        break;
+                    case "white":
+                        player.getInventory().addItem(LightSaberController.generateNewDarkLightSaber(SaberColor.WHITE));
+                        break;
+                    case "dark":
+                        player.getInventory().addItem(LightSaberController.generateNewDarkLightSaber(SaberColor.DARK));
+                        break;
+                    default:
+                        sendInvalidColor(sender, type);
+                        break;
                 }
                 break;
             case "kybercrystal":

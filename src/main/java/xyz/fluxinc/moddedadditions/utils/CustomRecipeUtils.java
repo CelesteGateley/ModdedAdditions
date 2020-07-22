@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions.utils;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
@@ -8,6 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
@@ -16,6 +18,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import static org.bukkit.Bukkit.getServer;
+import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController.getDefaultDCLightSaber;
@@ -87,6 +90,7 @@ public class CustomRecipeUtils implements Listener {
         addHoneyChestPlate();
         addSlimeChestPlate();
         upgradeLightsaber();
+        addElytraRepairKit();
     }
 
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
@@ -134,6 +138,27 @@ public class CustomRecipeUtils implements Listener {
         result.setIngredient('C', Material.END_CRYSTAL);
         result.setGroup("Kyber Crystals");
         return result;
+    }
+
+
+    public static ItemStack generateElytraKit() {
+        ItemStack iStack = addLore(new ItemStack(Material.PHANTOM_MEMBRANE), "A set of materials for repairing damaged elytra");
+        ItemMeta iMeta = iStack.getItemMeta();
+        iMeta.setDisplayName((ChatColor.RESET + "Elytra Repair Kit"));
+        iMeta.setCustomModelData(KEY_BASE + 9000 + 3);
+        iStack.setItemMeta(iMeta);
+        return iStack;
+    }
+
+    private void addElytraRepairKit() {
+        NamespacedKey ElytraRepairKey = new NamespacedKey(instance, "ElytraRepair");
+        recipeKeys.add(ElytraRepairKey);
+        ItemStack kit = generateElytraKit();
+        ShapedRecipe ElytraRepairRecipe = new ShapedRecipe(ElytraRepairKey, kit);
+        ElytraRepairRecipe.shape("LLL","LCL","LLL");
+        ElytraRepairRecipe.setIngredient('L', Material.LEATHER);
+        ElytraRepairRecipe.setIngredient('C',Material.CHORUS_FRUIT);
+        getServer().addRecipe(ElytraRepairRecipe);
     }
 
     private void makeHammers() {

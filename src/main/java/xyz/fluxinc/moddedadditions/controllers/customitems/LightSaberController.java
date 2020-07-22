@@ -63,9 +63,19 @@ public class LightSaberController {
         ItemStack lightSaber = addLore(new ItemStack(Material.NETHERITE_SWORD), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getFormattedString("mi-lightsaber")));
         ItemMeta itemMeta = lightSaber.getItemMeta();
         itemMeta.setCustomModelData(KEY_BASE + DC_KEY_BASE);
-        itemMeta.setDisplayName(ChatColor.DARK_GRAY + "Black-Cored " + ChatColor.WHITE + "Saber");
+        itemMeta.setDisplayName(ChatColor.DARK_GRAY + "Dark-Cored " + ChatColor.WHITE + "Saber");
         lightSaber.setItemMeta(itemMeta);
         return lightSaber;
+    }
+
+    public static ItemStack generateNewDarkLightSaber(SaberColor color) {
+        ItemStack itemStack = getDefaultDCLightSaber();
+        ItemMeta iMeta = itemStack.getItemMeta();
+        iMeta.setCustomModelData(iMeta.getCustomModelData() + getColorMod(color));
+        iMeta.addEnchant(Enchantment.FIRE_ASPECT, 2, false);
+        iMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "Attack_damage", 15, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        itemStack.setItemMeta(iMeta);
+        return itemStack;
     }
 
     public ItemStack generateNewLightSaber(SaberColor color) {
