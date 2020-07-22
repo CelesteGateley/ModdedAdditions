@@ -13,7 +13,7 @@ public class SonicScrewdriverController {
 
     private static final int SONIC_MODEL_KEY = KEY_BASE + 9002;
 
-    public ItemStack generateNewSonic() {
+    public static ItemStack generateNewSonic() {
         ItemStack sonic = addLore(new ItemStack(Material.STICK), ModdedAdditions.instance.getLanguageManager().getFormattedString("mi-sonic"));
         ItemMeta iMeta = sonic.getItemMeta();
         iMeta.setCustomModelData(SONIC_MODEL_KEY);
@@ -22,7 +22,7 @@ public class SonicScrewdriverController {
         return sonic;
     }
 
-    public boolean isSonic(ItemStack item) {
+    public static boolean isSonic(ItemStack item) {
         return item != null
                 && item.getItemMeta() != null
                 && item.getItemMeta().hasCustomModelData()

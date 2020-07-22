@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
+import xyz.fluxinc.moddedadditions.controllers.customitems.SonicScrewdriverController;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
 import java.util.ArrayList;
@@ -216,7 +217,7 @@ public class CustomRecipeUtils implements Listener {
         NamespacedKey sonicKey = new NamespacedKey(instance, "SONIC");
         recipeKeys.add(sonicKey);
 
-        ShapedRecipe sonicRecipe = new ShapedRecipe(sonicKey, instance.getSonicScrewdriverController().generateNewSonic());
+        ShapedRecipe sonicRecipe = new ShapedRecipe(sonicKey, SonicScrewdriverController.generateNewSonic());
         sonicRecipe.shape("BGB", "IRI", "BEB");
         sonicRecipe.setIngredient('B', Material.IRON_BLOCK);
         sonicRecipe.setIngredient('G', Material.LIME_STAINED_GLASS);
