@@ -9,7 +9,8 @@ import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
-import xyz.fluxinc.moddedadditions.commands.*;
+import xyz.fluxinc.moddedadditions.commands.SpellBookCommand;
+import xyz.fluxinc.moddedadditions.commands.old.*;
 import xyz.fluxinc.moddedadditions.controllers.ManaController;
 import xyz.fluxinc.moddedadditions.controllers.PlayerDataController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
@@ -146,7 +147,8 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(manaController, this);
         getServer().getPluginManager().registerEvents(new SpellBookListener(), this);
         getServer().getPluginManager().registerEvents(new ResearchInventoryListener(), this);
-        getCommand("spellbook").setExecutor(new SpellBookCommand());
+        //getCommand("spellbook").setExecutor(new SpellBookCommand());
+        SpellBookCommand.registerCommands();
         forceFieldListener = new ForceFieldListener();
         getServer().getPluginManager().registerEvents(forceFieldListener, this);
 

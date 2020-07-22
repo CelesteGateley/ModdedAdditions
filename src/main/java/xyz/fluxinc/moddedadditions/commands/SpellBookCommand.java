@@ -1,217 +1,157 @@
 package xyz.fluxinc.moddedadditions.commands;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
+import dev.jorel.commandapi.CommandAPI;
+import dev.jorel.commandapi.CommandAPICommand;
+import dev.jorel.commandapi.arguments.Argument;
+import dev.jorel.commandapi.arguments.EntitySelectorArgument;
+import dev.jorel.commandapi.arguments.LiteralArgument;
+import dev.jorel.commandapi.arguments.StringArgument;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import xyz.fluxinc.moddedadditions.spells.Spell;
+import xyz.fluxinc.moddedadditions.storage.ExecutorStorage;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
-public class SpellBookCommand implements CommandExecutor {
+public class SpellBookCommand {
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length < 1) {
-            sendNoSubCommand(sender);
-            return true;
+    private static final int LEARN_SPELL_LEVEL = 1;
+
+    private static List<String> getSpellList() {
+        List<String> spells = new ArrayList<>();
+        spells.add("all");
+        for (Spell spell : instance.getSpellBookController().getSpellRegistry().getAllSpells()) {
+            spells.add(spell.getTechnicalName());
         }
-        Player target;
-        if (args.length == 3) {
-            Player player = instance.getServer().getPlayer(args[2]);
-            if (player == null) {
-                sendUnknownPlayer(sender, args[2]);
-                return true;
+        return spells;
+    }
+
+    private static HashMap<String, ExecutorStorage> getCommands() {
+        HashMap<String, ExecutorStorage> returnVal = new HashMap<>();
+        // Learn Command
+        LinkedHashMap<String, Argument> arguments = new LinkedHashMap<>();
+        arguments.put("learn", new LiteralArgument("learn"));
+        arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
+        arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        returnVal.put("learn", new ExecutorStorage((sender, args) -> {
+            Collection<Player> targets = new ArrayList<>();
+            if (args[1] == null && sender instanceof Player) { targets.add((Player) sender); }
+            else if (args[1] == null) { CommandAPI.fail("Sender must be a player"); }
+            else if (args[1] instanceof List) { targets = (Collection<Player>) args[1]; }
+            else { CommandAPI.fail("Invalid List of Players"); }
+            if (args[0].equals("all"))  {
+                for (Player player : targets) {
+                    PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
+                    for (String spell : getSpellList()) {
+                        if (spell.equals("all")) continue;
+                        playerData.setSpell(spell, LEARN_SPELL_LEVEL);
+                        sendLearnSpell(sender, spell);
+                    }
+                    instance.getPlayerDataController().setPlayerData(player, playerData);
+                }
+            } else {
+                for (Player player : targets) {
+                    PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
+                    playerData.setSpell((String) args[0], LEARN_SPELL_LEVEL);
+                    sendLearnSpell(sender, (String) args[0]);
+                    instance.getPlayerDataController().setPlayerData(player, playerData);
+                }
             }
-            target = player;
-        } else {
-            if (!(sender instanceof Player)) {
-                sendMustBePlayer(sender);
-                return true;
+        }, arguments, "moddedadditions.spellbook.learn"));
+
+        // Unlearn Command
+        arguments = new LinkedHashMap<>();
+        arguments.put("unlearn", new LiteralArgument("unlearn"));
+        arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
+        arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        returnVal.put("unlearn", new ExecutorStorage((sender, args) -> {
+            Collection<Player> targets = new ArrayList<>();
+            if (args[1] == null && sender instanceof Player) { targets.add((Player) sender); }
+            else if (args[1] == null) { CommandAPI.fail("Sender must be a player"); }
+            else if (args[1] instanceof List) { targets = (Collection<Player>) args[1]; }
+            else { CommandAPI.fail("Invalid List of Players"); }
+            if (args[0].equals("all")) {
+                for (Player player : targets) {
+                    PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
+                    for (String spell : getSpellList()) {
+                        if (spell.equals("all")) continue;
+                        playerData.setSpell(spell, 0);
+                        sendUnlearnSpell(sender, spell);
+                    }
+                    instance.getPlayerDataController().setPlayerData(player, playerData);
+                }
+            } else {
+                for (Player player : targets) {
+                    PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
+                    playerData.setSpell((String) args[0], 0);
+                    sendUnlearnSpell(sender, (String) args[0]);
+                    instance.getPlayerDataController().setPlayerData(player, playerData);
+                }
             }
-            target = (Player) sender;
-        }
-        switch (args[0]) {
-            case "learn":
-                if (!sender.hasPermission("moddedadditions.spells.learn")) {
-                    sendPermissionDenied(sender);
-                    return true;
-                }
-                if (target != sender && !sender.hasPermission("moddedadditions.spells.learn.others")) {
-                    sendPermissionDenied(sender);
-                    return true;
-                }
-                if (args.length < 2) {
-                    sendNoSpellProvided(sender);
-                    return true;
-                }
-                if (args[1].equals("*")) {
-                    for (Spell spell : instance.getSpellBookController().getSpellRegistry().getAllSpells()) {
-                        setSpell(target, spell.getTechnicalName(), true);
-                        if (target != sender) {
-                            sendLearnSpell(target, spell.getTechnicalName());
-                            sendLearnSpellOther(sender, spell.getTechnicalName(), target);
-                        } else {
-                            sendLearnSpell(sender, spell.getTechnicalName());
-                        }
-                    }
-                    return true;
-                }
-                setSpell(target, args[1], true);
-                return true;
-            case "unlearn":
-                if (!sender.hasPermission("moddedadditions.spells.unlearn")) {
-                    sendPermissionDenied(sender);
-                    return true;
-                }
-                if (target != sender && !sender.hasPermission("moddedadditions.spells.unlearn.others")) {
-                    sendPermissionDenied(sender);
-                    return true;
-                }
-                if (args.length < 2) {
-                    sendNoSpellProvided(sender);
-                    return true;
-                }
-                if (args[1].equals("*")) {
-                    for (Spell spell : instance.getSpellBookController().getSpellRegistry().getAllSpells()) {
-                        setSpell(target, spell.getTechnicalName(), false);
-                        if (target != sender) {
-                            sendUnlearnSpell(target, spell.getTechnicalName());
-                            sendUnlearnSpellOther(sender, spell.getTechnicalName(), target);
-                        } else {
-                            sendUnlearnSpell(sender, spell.getTechnicalName());
-                        }
-                    }
-                    return true;
-                }
-                setSpell(target, args[1], false);
-                return true;
-            case "fillmana":
-                if (!sender.hasPermission("moddedadditions.fillmana")) {
-                    sendPermissionDenied(sender);
-                    return true;
-                }
-                if (args.length == 2) {
-                    Player player = instance.getServer().getPlayer(args[1]);
-                    if (!sender.hasPermission("moddedadditions.fillmana.others")) {
-                        sendPermissionDenied(sender);
-                        return true;
-                    }
-                    if (player == null) {
-                        sendUnknownPlayer(sender, args[1]);
-                        return true;
-                    }
-                    target = player;
-                }
-                instance.getManaController().regenerateMana(target,
-                        instance.getManaController().getMaximumMana(target) - instance.getManaController().getMana(target));
-                return true;
-            case "evaluateall":
-                if (!sender.isOp()) {
-                    sendUnknownSubCommand(sender, "evaluateall");
-                    return true;
-                }
-                YamlConfiguration dataConfig = instance.getPlayerDataController().getConfiguration();
-                for (String key : dataConfig.getKeys(false)) {
-                    PlayerData data = (PlayerData) dataConfig.get(key);
-                    data.evaluateMana();
-                    data.upgradeSpellSystem();
-                    dataConfig.set(key, data);
-                }
-                try {
-                    dataConfig.save(new File(instance.getDataFolder(), "storage.yml"));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return true;
-            default:
-                sendUnknownSubCommand(sender, args[0]);
-                return true;
-        }
-    }
+        }, arguments, "moddedadditions.spellbook.unlearn"));
 
-    private void setSpell(Player player, String spell, boolean value) {
-        List<Spell> spells = instance.getSpellBookController().getSpellRegistry().getAllSpells();
-        for (Spell spel : spells) {
-            if (!spel.getTechnicalName().equals(spell)) continue;
-            if (!instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell) && value) {
-                instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).addMaximumMana(50));
-            } else if (instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell) && !value) {
-                instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).addMaximumMana(-50));
+        // FillMana
+        arguments = new LinkedHashMap<>();
+        arguments.put("fillmana", new LiteralArgument("fillmana"));
+        arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        returnVal.put("fillmana", new ExecutorStorage((sender, args) -> {
+            Collection<Player> targets = new ArrayList<>();
+            if (args[0] == null && sender instanceof Player) { targets.add((Player) sender); }
+            else if (args[0] == null) { CommandAPI.fail("Sender must be a player"); }
+            else if (args[0] instanceof List) { targets = (Collection<Player>) args[0]; }
+            else { CommandAPI.fail("Invalid List of Players"); }
+            for (Player player : targets) {
+                PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
+                playerData.setCurrentMana(playerData.getMaximumMana());
+                instance.getPlayerDataController().setPlayerData(player, playerData);
             }
-            int val = value ? 1 : 0;
-            instance.getPlayerDataController().setPlayerData(player, instance.getPlayerDataController().getPlayerData(player).setSpell(spell, val));
-            return;
+        }, arguments, "moddedadditions.spellbook.fillmana"));
+
+        // Evaluate
+        arguments = new LinkedHashMap<>();
+        arguments.put("evaluate", new LiteralArgument("evaluate"));
+        arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        returnVal.put("evaluate", new ExecutorStorage((sender, args) -> {
+            Collection<Player> targets = new ArrayList<>();
+            if (args[0] == null && sender instanceof Player) { targets.add((Player) sender); }
+            else if (args[0] == null) { CommandAPI.fail("Sender must be a player"); }
+            else if (args[0] instanceof List) { targets = (Collection<Player>) args[0]; }
+            else { CommandAPI.fail("Invalid List of Players"); }
+            for (Player player : targets) {
+                PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
+                playerData.upgradeSpellSystem();
+                playerData.evaluateMana();
+                instance.getPlayerDataController().setPlayerData(player, playerData);
+            }
+        }, arguments, "moddedadditions.spellbook.evaluate"));
+
+        return returnVal;
+    }
+
+    public static void registerCommands() {
+        HashMap<String, ExecutorStorage> commands = getCommands();
+        for (String key : commands.keySet()) {
+            new CommandAPICommand("spellbook")
+                    .withAliases("sb", "sbook", "spellb")
+                    .withPermission(commands.get(key).getPermission())
+                    .withArguments(commands.get(key).getArguments())
+                    .executes(commands.get(key).getExecutor())
+                    .register();
         }
-        sendInvalidSpell(player, spell);
     }
 
-    private void sendNoSubCommand(CommandSender sender) {
-        sender.sendMessage(instance.getLanguageManager().generateMessage("sb-noSubCommand"));
-    }
-
-    private void sendNoSpellProvided(CommandSender sender) {
-        sender.sendMessage(instance.getLanguageManager().generateMessage("sb-noSpellProvided"));
-    }
-
-    private void sendInvalidSpell(CommandSender sender, String spell) {
-        Map<String, String> messageArgs = new HashMap<>();
-        messageArgs.put("spell", spell);
-        sender.sendMessage(instance.getLanguageManager().generateMessage("sb-unknownSpell", messageArgs));
-    }
-
-    private void sendUnknownSubCommand(CommandSender sender, String subcommand) {
-        Map<String, String> messageArgs = new HashMap<>();
-        messageArgs.put("command", subcommand);
-        sender.sendMessage(instance.getLanguageManager().generateMessage("sb-unknownSubCommand", messageArgs));
-    }
-
-    private void sendPermissionDenied(CommandSender sender) {
-        sender.sendMessage(instance.getLanguageManager().generateMessage("permissionDenied"));
-    }
-
-    private void sendMustBePlayer(CommandSender sender) {
-        sender.sendMessage(instance.getLanguageManager().generateMessage("mustBePlayer"));
-    }
-
-    private void sendUnknownPlayer(CommandSender sender, String player) {
-        Map<String, String> messageArgs = new HashMap<>();
-        messageArgs.put("player", player);
-        sender.sendMessage(instance.getLanguageManager().generateMessage("ma-unrecognisedPlayer", messageArgs));
-    }
-
-    private void sendLearnSpell(CommandSender sender, String spell) {
+    private static void sendLearnSpell(CommandSender sender, String spell) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("spell", spell);
         sender.sendMessage(instance.getLanguageManager().generateMessage("sb-learnSpell", messageArgs));
     }
 
-    private void sendUnlearnSpell(CommandSender sender, String spell) {
+    private static void sendUnlearnSpell(CommandSender sender, String spell) {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("spell", spell);
         sender.sendMessage(instance.getLanguageManager().generateMessage("sb-unlearnSpell", messageArgs));
     }
-
-    private void sendLearnSpellOther(CommandSender sender, String spell, Player player) {
-        Map<String, String> messageArgs = new HashMap<>();
-        messageArgs.put("spell", spell);
-        messageArgs.put("player", player.getDisplayName());
-        sender.sendMessage(instance.getLanguageManager().generateMessage("sb-learnSpellOther", messageArgs));
-    }
-
-    private void sendUnlearnSpellOther(CommandSender sender, String spell, Player player) {
-        Map<String, String> messageArgs = new HashMap<>();
-        messageArgs.put("spell", spell);
-        messageArgs.put("player", player.getDisplayName());
-        sender.sendMessage(instance.getLanguageManager().generateMessage("sb-unlearnSpellOther", messageArgs));
-    }
-
 }

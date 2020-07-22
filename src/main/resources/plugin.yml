@@ -2,8 +2,8 @@ name: ModdedAdditions
 version: ${full.project.version}
 main: xyz.fluxinc.moddedadditions.ModdedAdditions
 api-version: 1.13
-depend: [FluxCore]
-authors: [CelesteMagisteel]
+depend: [FluxCore, CommandAPI]
+authors: [CelesteMagisteel, monoOokami]
 description: Adds some cool tools/features that aren't in vanilla
 commands:
   notify:
@@ -20,9 +20,6 @@ commands:
   voteday:
     usage: dayvote <yes/no>
     aliases: [dv, dayvote]
-  spellbook:
-    usage: spellbook <learn/unlearn/fillmana> [spell] [player]
-    aliases: [sb, spellb, sbook]
 permissions:
   moddedadditions.*:
     description: Grants all permissions from the plugin
@@ -102,11 +99,5 @@ permissions:
     description: Learn a spell
     default: op
   moddedadditions.spells.unlearn:
-    description: Learn a spell
-    default: op
-  moddedadditions.spells.learn.others:
-    description: Learn a spell
-    default: op
-  moddedadditions.spells.unlearn.others:
     description: Learn a spell
     default: op

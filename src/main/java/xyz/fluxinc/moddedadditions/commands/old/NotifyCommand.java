@@ -1,4 +1,4 @@
-package xyz.fluxinc.moddedadditions.commands;
+package xyz.fluxinc.moddedadditions.commands.old;
 
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
