@@ -33,7 +33,7 @@ public class AreaToolCommand {
         // Add Command
         LinkedHashMap<String, Argument> arguments = new LinkedHashMap<>();
         arguments.put("add", new LiteralArgument("add"));
-        arguments.put("tool", new StringArgument().overrideSuggestions(new String[]{"hammer","excavator"}));
+        arguments.put("tool", new StringArgument().overrideSuggestions("hammer","excavator"));
         arguments.put("material", new StringArgument().overrideSuggestions(materials));
         returnVal.put("add", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.add"))) { sendPermissionDenied(sender); return; }
@@ -52,7 +52,7 @@ public class AreaToolCommand {
         // Remove Command
         arguments = new LinkedHashMap<>();
         arguments.put("remove", new LiteralArgument("remove"));
-        arguments.put("tool", new StringArgument().overrideSuggestions(new String[]{"hammer","excavator"}));
+        arguments.put("tool", new StringArgument().overrideSuggestions("hammer","excavator"));
         arguments.put("material", new StringArgument().overrideSuggestions(materials));
         returnVal.put("remove", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.remove"))) { sendPermissionDenied(sender); return; }
