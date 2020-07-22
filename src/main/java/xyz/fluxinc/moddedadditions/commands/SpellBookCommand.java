@@ -133,7 +133,27 @@ public class SpellBookCommand {
                 playerData.evaluateMana();
                 instance.getPlayerDataController().setPlayerData(player, playerData);
             }
-        }, arguments, "moddedadditions.spellbook.evaluate"));
+        }, arguments));
+
+        // Evaluate All
+        arguments = new LinkedHashMap<>();
+        arguments.put("evaluate", new LiteralArgument("evaluate"));
+        arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        returnVal.put("evaluate", new ExecutorStorage((sender, args) -> {
+            if (sender.hasPermission("moddedadditions.spells.evaluateall")) { sendPermissionDenied(sender); return; }
+            YamlConfiguration dataConfig = instance.getPlayerDataController().getConfiguration();
+            for (String key : dataConfig.getKeys(false)) {
+                PlayerData data = (PlayerData) dataConfig.get(key);
+                data.evaluateMana();
+                data.upgradeSpellSystem();
+                dataConfig.set(key, data);
+            }
+            try {
+                dataConfig.save(new File(instance.getDataFolder(), "storage.yml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }, arguments));
 
         return returnVal;
     }
