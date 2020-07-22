@@ -6,7 +6,6 @@ import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.EntitySelectorArgument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
 import dev.jorel.commandapi.arguments.StringArgument;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -29,12 +28,20 @@ public class ModdedAdditionsCommand {
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         arguments.put("item", new StringArgument().overrideSuggestions(CustomItemRegistry.getAllItemNames().toArray(new String[0])));
         returnVal.put("give", new ExecutorStorage((sender, args) -> {
-            if (!(sender.hasPermission("moddedadditions.give"))) { sendPermissionDenied(sender); return; }
+            if (!(sender.hasPermission("moddedadditions.give"))) {
+                sendPermissionDenied(sender);
+                return;
+            }
             Collection<Player> targets = new ArrayList<>();
-            if (args[0] == null && sender instanceof Player) { targets.add((Player) sender); }
-            else if (args[0] == null) { CommandAPI.fail("Sender must be a player"); }
-            else if (args[0] instanceof List) { targets = (Collection<Player>) args[0]; }
-            else { CommandAPI.fail("Invalid List of Players"); }
+            if (args[0] == null && sender instanceof Player) {
+                targets.add((Player) sender);
+            } else if (args[0] == null) {
+                CommandAPI.fail("Sender must be a player");
+            } else if (args[0] instanceof List) {
+                targets = (Collection<Player>) args[0];
+            } else {
+                CommandAPI.fail("Invalid List of Players");
+            }
             ItemStack itemStack = CustomItemRegistry.getItem((String) args[1]);
             if (itemStack == null) {
                 sendInvalidItem(sender, (String) args[1]);
@@ -49,8 +56,14 @@ public class ModdedAdditionsCommand {
         arguments = new LinkedHashMap<>();
         arguments.put("sort", new LiteralArgument("sort"));
         returnVal.put("sort", new ExecutorStorage((sender, args) -> {
-            if (!(sender.hasPermission("moddedadditions.sort"))) { sendPermissionDenied(sender); return; }
-            if (!(sender instanceof Player)) { sendMustBePlayer(sender); return; }
+            if (!(sender.hasPermission("moddedadditions.sort"))) {
+                sendPermissionDenied(sender);
+                return;
+            }
+            if (!(sender instanceof Player)) {
+                sendMustBePlayer(sender);
+                return;
+            }
             PlayerData data = instance.getPlayerDataController().getPlayerData((Player) sender);
             data.toggleSortChests();
             sendSortInventory((Player) sender, data.sortChests());
@@ -61,7 +74,10 @@ public class ModdedAdditionsCommand {
         arguments = new LinkedHashMap<>();
         arguments.put("reload", new LiteralArgument("reload"));
         returnVal.put("reload", new ExecutorStorage((sender, args) -> {
-            if (!(sender.hasPermission("moddedadditions.reload"))) { sendPermissionDenied(sender); return; }
+            if (!(sender.hasPermission("moddedadditions.reload"))) {
+                sendPermissionDenied(sender);
+                return;
+            }
             instance.reloadConfiguration();
             sender.sendMessage(instance.getLanguageManager().generateMessage("configurationReloaded"));
         }, arguments));

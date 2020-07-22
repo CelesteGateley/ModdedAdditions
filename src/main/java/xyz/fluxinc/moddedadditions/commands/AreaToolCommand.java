@@ -33,10 +33,13 @@ public class AreaToolCommand {
         // Add Command
         LinkedHashMap<String, Argument> arguments = new LinkedHashMap<>();
         arguments.put("add", new LiteralArgument("add"));
-        arguments.put("tool", new StringArgument().overrideSuggestions("hammer","excavator"));
+        arguments.put("tool", new StringArgument().overrideSuggestions("hammer", "excavator"));
         arguments.put("material", new StringArgument().overrideSuggestions(materials));
         returnVal.put("add", new ExecutorStorage((sender, args) -> {
-            if (!(sender.hasPermission("moddedadditions.areatool.add"))) { sendPermissionDenied(sender); return; }
+            if (!(sender.hasPermission("moddedadditions.areatool.add"))) {
+                sendPermissionDenied(sender);
+                return;
+            }
             String tool = (String) args[0];
             if (tool.equals("hammer")) {
                 instance.getAreaToolController().addHammerBlock(Material.valueOf(((String) args[1]).toUpperCase()));
@@ -52,10 +55,13 @@ public class AreaToolCommand {
         // Remove Command
         arguments = new LinkedHashMap<>();
         arguments.put("remove", new LiteralArgument("remove"));
-        arguments.put("tool", new StringArgument().overrideSuggestions("hammer","excavator"));
+        arguments.put("tool", new StringArgument().overrideSuggestions("hammer", "excavator"));
         arguments.put("material", new StringArgument().overrideSuggestions(materials));
         returnVal.put("remove", new ExecutorStorage((sender, args) -> {
-            if (!(sender.hasPermission("moddedadditions.areatool.remove"))) { sendPermissionDenied(sender); return; }
+            if (!(sender.hasPermission("moddedadditions.areatool.remove"))) {
+                sendPermissionDenied(sender);
+                return;
+            }
             String tool = (String) args[0];
             if (tool.equals("hammer")) {
                 instance.getAreaToolController().removeHammerBlock(Material.valueOf(((String) args[1]).toUpperCase()));
@@ -72,7 +78,10 @@ public class AreaToolCommand {
         arguments = new LinkedHashMap<>();
         arguments.put("save", new LiteralArgument("save"));
         returnVal.put("save", new ExecutorStorage((sender, args) -> {
-            if (!(sender.hasPermission("moddedadditions.areatool.save"))) { sendPermissionDenied(sender); return; }
+            if (!(sender.hasPermission("moddedadditions.areatool.save"))) {
+                sendPermissionDenied(sender);
+                return;
+            }
             instance.getAreaToolController().saveConfiguration();
             sender.sendMessage(instance.getLanguageManager().generateMessage("vm-configSaved"));
         }, arguments));
@@ -81,7 +90,10 @@ public class AreaToolCommand {
         arguments = new LinkedHashMap<>();
         arguments.put("reload", new LiteralArgument("reload"));
         returnVal.put("reload", new ExecutorStorage((sender, args) -> {
-            if (!(sender.hasPermission("moddedadditions.areatool.reload"))) { sendPermissionDenied(sender); return; }
+            if (!(sender.hasPermission("moddedadditions.areatool.reload"))) {
+                sendPermissionDenied(sender);
+                return;
+            }
             instance.getAreaToolController().loadFromConfiguration();
             sender.sendMessage(instance.getLanguageManager().generateMessage("vm-configReloaded"));
         }, arguments));

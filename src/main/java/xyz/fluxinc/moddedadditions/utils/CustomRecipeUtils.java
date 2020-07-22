@@ -94,6 +94,15 @@ public class CustomRecipeUtils implements Listener {
         addElytraRepairKit();
     }
 
+    public static ItemStack generateElytraKit() {
+        ItemStack iStack = addLore(new ItemStack(Material.PHANTOM_MEMBRANE), "A set of materials for repairing damaged elytra");
+        ItemMeta iMeta = iStack.getItemMeta();
+        iMeta.setDisplayName((ChatColor.RESET + "Elytra Repair Kit"));
+        iMeta.setCustomModelData(KEY_BASE + 9000 + 3);
+        iStack.setItemMeta(iMeta);
+        return iStack;
+    }
+
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
         dyeMap.forEach((block, dye) -> {
             for (Material originBlock : blockList) {
@@ -141,24 +150,14 @@ public class CustomRecipeUtils implements Listener {
         return result;
     }
 
-
-    public static ItemStack generateElytraKit() {
-        ItemStack iStack = addLore(new ItemStack(Material.PHANTOM_MEMBRANE), "A set of materials for repairing damaged elytra");
-        ItemMeta iMeta = iStack.getItemMeta();
-        iMeta.setDisplayName((ChatColor.RESET + "Elytra Repair Kit"));
-        iMeta.setCustomModelData(KEY_BASE + 9000 + 3);
-        iStack.setItemMeta(iMeta);
-        return iStack;
-    }
-
     private void addElytraRepairKit() {
         NamespacedKey ElytraRepairKey = new NamespacedKey(instance, "ElytraRepair");
         recipeKeys.add(ElytraRepairKey);
         ItemStack kit = generateElytraKit();
         ShapedRecipe ElytraRepairRecipe = new ShapedRecipe(ElytraRepairKey, kit);
-        ElytraRepairRecipe.shape("LLL","LCL","LLL");
+        ElytraRepairRecipe.shape("LLL", "LCL", "LLL");
         ElytraRepairRecipe.setIngredient('L', Material.LEATHER);
-        ElytraRepairRecipe.setIngredient('C',Material.CHORUS_FRUIT);
+        ElytraRepairRecipe.setIngredient('C', Material.CHORUS_FRUIT);
         getServer().addRecipe(ElytraRepairRecipe);
     }
 

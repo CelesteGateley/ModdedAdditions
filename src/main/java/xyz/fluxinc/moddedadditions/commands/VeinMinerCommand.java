@@ -34,10 +34,13 @@ public class VeinMinerCommand {
         // Add Command
         LinkedHashMap<String, Argument> arguments = new LinkedHashMap<>();
         arguments.put("add", new LiteralArgument("add"));
-        arguments.put("tool", new StringArgument().overrideSuggestions("pickaxe","axe","shovel","hoe","shears","hand"));
+        arguments.put("tool", new StringArgument().overrideSuggestions("pickaxe", "axe", "shovel", "hoe", "shears", "hand"));
         arguments.put("material", new StringArgument().overrideSuggestions(materials));
         returnVal.put("add", new ExecutorStorage((sender, args) -> {
-            if (!(sender.hasPermission("moddedadditions.veinminer.add"))) { sendPermissionDenied(sender); return; }
+            if (!(sender.hasPermission("moddedadditions.veinminer.add"))) {
+                sendPermissionDenied(sender);
+                return;
+            }
             String tool = (String) args[0];
             switch (tool) {
                 case "pickaxe":
@@ -68,10 +71,13 @@ public class VeinMinerCommand {
         // Remove Command
         arguments = new LinkedHashMap<>();
         arguments.put("remove", new LiteralArgument("remove"));
-        arguments.put("tool", new StringArgument().overrideSuggestions("pickaxe","axe","shovel","hoe","shears","hand"));
+        arguments.put("tool", new StringArgument().overrideSuggestions("pickaxe", "axe", "shovel", "hoe", "shears", "hand"));
         arguments.put("material", new StringArgument().overrideSuggestions(materials));
         returnVal.put("remove", new ExecutorStorage((sender, args) -> {
-            if (!(sender.hasPermission("moddedadditions.veinminer.remove"))) { sendPermissionDenied(sender); return; }
+            if (!(sender.hasPermission("moddedadditions.veinminer.remove"))) {
+                sendPermissionDenied(sender);
+                return;
+            }
             String tool = (String) args[0];
             switch (tool) {
                 case "pickaxe":
@@ -103,8 +109,14 @@ public class VeinMinerCommand {
         arguments = new LinkedHashMap<>();
         arguments.put("toggle", new LiteralArgument("toggle"));
         returnVal.put("toggle", new ExecutorStorage((sender, args) -> {
-            if (!(sender instanceof Player)) { sendMustBePlayer(sender); return; }
-            if (!sender.hasPermission("moddedadditions.veinminer.toggle")) { sendPermissionDenied(sender); return; }
+            if (!(sender instanceof Player)) {
+                sendMustBePlayer(sender);
+                return;
+            }
+            if (!sender.hasPermission("moddedadditions.veinminer.toggle")) {
+                sendPermissionDenied(sender);
+                return;
+            }
             PlayerData data = instance.getPlayerDataController().getPlayerData((Player) sender);
             data.toggleVeinMiner();
             instance.getPlayerDataController().setPlayerData((Player) sender, data);
@@ -119,7 +131,10 @@ public class VeinMinerCommand {
         arguments = new LinkedHashMap<>();
         arguments.put("save", new LiteralArgument("save"));
         returnVal.put("save", new ExecutorStorage((sender, args) -> {
-            if (!(sender.hasPermission("moddedadditions.veinminer.save"))) { sendPermissionDenied(sender); return; }
+            if (!(sender.hasPermission("moddedadditions.veinminer.save"))) {
+                sendPermissionDenied(sender);
+                return;
+            }
             instance.getVeinMinerController().saveConfiguration();
             sender.sendMessage(instance.getLanguageManager().generateMessage("vm-configSaved"));
         }, arguments));
@@ -128,7 +143,10 @@ public class VeinMinerCommand {
         arguments = new LinkedHashMap<>();
         arguments.put("reload", new LiteralArgument("reload"));
         returnVal.put("reload", new ExecutorStorage((sender, args) -> {
-            if (!(sender.hasPermission("moddedadditions.veinminer.reload"))) { sendPermissionDenied(sender); return; }
+            if (!(sender.hasPermission("moddedadditions.veinminer.reload"))) {
+                sendPermissionDenied(sender);
+                return;
+            }
             instance.getVeinMinerController().loadFromConfiguration();
             sender.sendMessage(instance.getLanguageManager().generateMessage("vm-configReloaded"));
         }, arguments));

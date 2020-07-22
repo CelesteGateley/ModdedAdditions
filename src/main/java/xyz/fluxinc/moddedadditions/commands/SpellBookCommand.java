@@ -40,13 +40,21 @@ public class SpellBookCommand {
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
         returnVal.put("learn", new ExecutorStorage((sender, args) -> {
-            if (sender.hasPermission("moddedadditions.spells.learn")) { sendPermissionDenied(sender); return; }
+            if (sender.hasPermission("moddedadditions.spells.learn")) {
+                sendPermissionDenied(sender);
+                return;
+            }
             Collection<Player> targets = new ArrayList<>();
-            if (args[1] == null && sender instanceof Player) { targets.add((Player) sender); }
-            else if (args[1] == null) { CommandAPI.fail("Sender must be a player"); }
-            else if (args[1] instanceof List) { targets = (Collection<Player>) args[1]; }
-            else { CommandAPI.fail("Invalid List of Players"); }
-            if (args[0].equals("all"))  {
+            if (args[1] == null && sender instanceof Player) {
+                targets.add((Player) sender);
+            } else if (args[1] == null) {
+                CommandAPI.fail("Sender must be a player");
+            } else if (args[1] instanceof List) {
+                targets = (Collection<Player>) args[1];
+            } else {
+                CommandAPI.fail("Invalid List of Players");
+            }
+            if (args[0].equals("all")) {
                 for (Player player : targets) {
                     PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
                     for (String spell : getSpellList()) {
@@ -72,12 +80,20 @@ public class SpellBookCommand {
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
         returnVal.put("unlearn", new ExecutorStorage((sender, args) -> {
-            if (sender.hasPermission("moddedadditions.spells.unlearn")) { sendPermissionDenied(sender); return; }
+            if (sender.hasPermission("moddedadditions.spells.unlearn")) {
+                sendPermissionDenied(sender);
+                return;
+            }
             Collection<Player> targets = new ArrayList<>();
-            if (args[1] == null && sender instanceof Player) { targets.add((Player) sender); }
-            else if (args[1] == null) { CommandAPI.fail("Sender must be a player"); }
-            else if (args[1] instanceof List) { targets = (Collection<Player>) args[1]; }
-            else { CommandAPI.fail("Invalid List of Players"); }
+            if (args[1] == null && sender instanceof Player) {
+                targets.add((Player) sender);
+            } else if (args[1] == null) {
+                CommandAPI.fail("Sender must be a player");
+            } else if (args[1] instanceof List) {
+                targets = (Collection<Player>) args[1];
+            } else {
+                CommandAPI.fail("Invalid List of Players");
+            }
             if (args[0].equals("all")) {
                 for (Player player : targets) {
                     PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
@@ -103,12 +119,20 @@ public class SpellBookCommand {
         arguments.put("fillmana", new LiteralArgument("fillmana"));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("fillmana", new ExecutorStorage((sender, args) -> {
-            if (sender.hasPermission("moddedadditions.spells.fillmana")) { sendPermissionDenied(sender); return; }
+            if (sender.hasPermission("moddedadditions.spells.fillmana")) {
+                sendPermissionDenied(sender);
+                return;
+            }
             Collection<Player> targets = new ArrayList<>();
-            if (args[0] == null && sender instanceof Player) { targets.add((Player) sender); }
-            else if (args[0] == null) { CommandAPI.fail("Sender must be a player"); }
-            else if (args[0] instanceof List) { targets = (Collection<Player>) args[0]; }
-            else { CommandAPI.fail("Invalid List of Players"); }
+            if (args[0] == null && sender instanceof Player) {
+                targets.add((Player) sender);
+            } else if (args[0] == null) {
+                CommandAPI.fail("Sender must be a player");
+            } else if (args[0] instanceof List) {
+                targets = (Collection<Player>) args[0];
+            } else {
+                CommandAPI.fail("Invalid List of Players");
+            }
             for (Player player : targets) {
                 PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
                 playerData.setCurrentMana(playerData.getMaximumMana());
@@ -121,12 +145,20 @@ public class SpellBookCommand {
         arguments.put("evaluate", new LiteralArgument("evaluate"));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("evaluate", new ExecutorStorage((sender, args) -> {
-            if (sender.hasPermission("moddedadditions.spells.evaluate")) { sendPermissionDenied(sender); return; }
+            if (sender.hasPermission("moddedadditions.spells.evaluate")) {
+                sendPermissionDenied(sender);
+                return;
+            }
             Collection<Player> targets = new ArrayList<>();
-            if (args[0] == null && sender instanceof Player) { targets.add((Player) sender); }
-            else if (args[0] == null) { CommandAPI.fail("Sender must be a player"); }
-            else if (args[0] instanceof List) { targets = (Collection<Player>) args[0]; }
-            else { CommandAPI.fail("Invalid List of Players"); }
+            if (args[0] == null && sender instanceof Player) {
+                targets.add((Player) sender);
+            } else if (args[0] == null) {
+                CommandAPI.fail("Sender must be a player");
+            } else if (args[0] instanceof List) {
+                targets = (Collection<Player>) args[0];
+            } else {
+                CommandAPI.fail("Invalid List of Players");
+            }
             for (Player player : targets) {
                 PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
                 playerData.upgradeSpellSystem();
@@ -140,7 +172,10 @@ public class SpellBookCommand {
         arguments.put("evaluate", new LiteralArgument("evaluate"));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("evaluate", new ExecutorStorage((sender, args) -> {
-            if (sender.hasPermission("moddedadditions.spells.evaluateall")) { sendPermissionDenied(sender); return; }
+            if (sender.hasPermission("moddedadditions.spells.evaluateall")) {
+                sendPermissionDenied(sender);
+                return;
+            }
             YamlConfiguration dataConfig = instance.getPlayerDataController().getConfiguration();
             for (String key : dataConfig.getKeys(false)) {
                 PlayerData data = (PlayerData) dataConfig.get(key);

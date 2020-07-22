@@ -13,7 +13,8 @@ import xyz.fluxinc.moddedadditions.commands.AreaToolCommand;
 import xyz.fluxinc.moddedadditions.commands.ModdedAdditionsCommand;
 import xyz.fluxinc.moddedadditions.commands.SpellBookCommand;
 import xyz.fluxinc.moddedadditions.commands.VeinMinerCommand;
-import xyz.fluxinc.moddedadditions.commands.legacy.*;
+import xyz.fluxinc.moddedadditions.commands.legacy.NotifyCommand;
+import xyz.fluxinc.moddedadditions.commands.legacy.VoteDayCommand;
 import xyz.fluxinc.moddedadditions.controllers.ManaController;
 import xyz.fluxinc.moddedadditions.controllers.PlayerDataController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
@@ -92,7 +93,6 @@ public final class ModdedAdditions extends JavaPlugin {
         languageManager.verifyKeys();
         configurationManager = new ConfigurationManager<>(this, "config.yml");
         configurationManager.verifyKeys();
-        //getCommand("moddedadditions").setExecutor(new ModdedAdditionsCommand());
         ModdedAdditionsCommand.registerCommands();
 
         // Register Core Utilities
@@ -111,14 +111,12 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup VeinMiner Related Tasks
         veinMinerController = new VeinMinerController();
         getServer().getPluginManager().registerEvents(new VeinMinerListener(), this);
-        //getCommand("veinminer").setExecutor(new VeinMinerCommand());
         VeinMinerCommand.registerCommands();
 
         // Setup Hammer/Excavator Related Tasks
         areaToolController = new AreaToolController();
         getServer().getPluginManager().registerEvents(new HammerListener(languageManager.getString("mi-hammer")), this);
         getServer().getPluginManager().registerEvents(new ExcavatorListener(languageManager.getString("mi-excavator")), this);
-        //getCommand("areatool").setExecutor(new AreaToolCommand());
         AreaToolCommand.registerCommands();
 
         // Setup Magnet Related Tasks
@@ -153,7 +151,6 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(manaController, this);
         getServer().getPluginManager().registerEvents(new SpellBookListener(), this);
         getServer().getPluginManager().registerEvents(new ResearchInventoryListener(), this);
-        //getCommand("spellbook").setExecutor(new SpellBookCommand());
         SpellBookCommand.registerCommands();
         forceFieldListener = new ForceFieldListener();
         getServer().getPluginManager().registerEvents(forceFieldListener, this);

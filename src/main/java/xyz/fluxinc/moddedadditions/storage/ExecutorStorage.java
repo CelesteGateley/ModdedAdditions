@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions.storage;
 
-import dev.jorel.commandapi.CommandPermission;
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.executors.CommandExecutor;
 

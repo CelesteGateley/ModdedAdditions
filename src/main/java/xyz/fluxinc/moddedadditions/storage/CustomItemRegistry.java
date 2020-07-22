@@ -3,9 +3,7 @@ package xyz.fluxinc.moddedadditions.storage;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController;
-import xyz.fluxinc.moddedadditions.controllers.customitems.MagnetController;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SonicScrewdriverController;
-import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
 import xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils;
@@ -19,6 +17,7 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 public class CustomItemRegistry {
 
     private static final Map<String, ItemStack> defaultItems;
+
     static {
         defaultItems = new LinkedHashMap<>();
         defaultItems.put("sonic_screwdriver", SonicScrewdriverController.generateNewSonic());
