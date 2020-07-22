@@ -10,7 +10,7 @@ import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.SpellBookCommand;
-import xyz.fluxinc.moddedadditions.commands.old.*;
+import xyz.fluxinc.moddedadditions.commands.legacy.*;
 import xyz.fluxinc.moddedadditions.controllers.ManaController;
 import xyz.fluxinc.moddedadditions.controllers.PlayerDataController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;

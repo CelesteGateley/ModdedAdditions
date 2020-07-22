@@ -1,4 +1,4 @@
-package xyz.fluxinc.moddedadditions.commands.old;
+package xyz.fluxinc.moddedadditions.commands.legacy;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

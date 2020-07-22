@@ -1,4 +1,4 @@
-package xyz.fluxinc.moddedadditions.commands.old;
+package xyz.fluxinc.moddedadditions.commands.legacy;
 
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
