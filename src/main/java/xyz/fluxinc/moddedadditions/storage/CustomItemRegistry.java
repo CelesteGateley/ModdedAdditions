@@ -10,6 +10,7 @@ import xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
@@ -36,8 +37,8 @@ public class CustomItemRegistry {
         }
     }
 
-    public static List<String> getAllItemNames() {
-        return (List<String>) defaultItems.keySet();
+    public static Set<String> getAllItemNames() {
+        return defaultItems.keySet();
     }
 
     public static Map<String, ItemStack> getAllItems() {
