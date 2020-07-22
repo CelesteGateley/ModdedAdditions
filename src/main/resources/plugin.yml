@@ -11,9 +11,6 @@ commands:
   veinminer:
     usage: veinminer <add/remove/save/reload> [tool] [block]
     aliases: [vm, veinm, vminer]
-  areatool:
-    usage: areatool <add/remove/save/reload> [tool] [block]
-    aliases: [at, areat, atool]
   moddedadditions:
     usage: moddedadditions reload
     aliases: [ma, moddeda, madditions, madd, modadd]

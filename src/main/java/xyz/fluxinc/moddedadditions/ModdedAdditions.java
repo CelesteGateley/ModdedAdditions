@@ -9,6 +9,7 @@ import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
+import xyz.fluxinc.moddedadditions.commands.AreaToolCommand;
 import xyz.fluxinc.moddedadditions.commands.SpellBookCommand;
 import xyz.fluxinc.moddedadditions.commands.legacy.*;
 import xyz.fluxinc.moddedadditions.controllers.ManaController;
@@ -113,7 +114,8 @@ public final class ModdedAdditions extends JavaPlugin {
         areaToolController = new AreaToolController();
         getServer().getPluginManager().registerEvents(new HammerListener(languageManager.getString("mi-hammer")), this);
         getServer().getPluginManager().registerEvents(new ExcavatorListener(languageManager.getString("mi-excavator")), this);
-        getCommand("areatool").setExecutor(new AreaToolCommand());
+        //getCommand("areatool").setExecutor(new AreaToolCommand());
+        AreaToolCommand.registerCommands();
 
         // Setup Magnet Related Tasks
         magnetController = new MagnetController();
