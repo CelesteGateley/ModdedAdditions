@@ -8,14 +8,12 @@ import java.util.LinkedHashMap;
 
 public class ExecutorStorage {
 
-    private final CommandPermission permission;
     private final CommandExecutor executor;
     private final LinkedHashMap<String, Argument> arguments;
 
-    public ExecutorStorage(CommandExecutor executor, LinkedHashMap<String, Argument> arguments, String permission) {
+    public ExecutorStorage(CommandExecutor executor, LinkedHashMap<String, Argument> arguments) {
         this.executor = executor;
         this.arguments = arguments;
-        this.permission = CommandPermission.fromString(permission);
     }
 
     public CommandExecutor getExecutor() {
@@ -26,7 +24,4 @@ public class ExecutorStorage {
         return arguments;
     }
 
-    public CommandPermission getPermission() {
-        return permission;
-    }
 }

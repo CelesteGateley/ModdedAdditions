@@ -7,11 +7,14 @@ import dev.jorel.commandapi.arguments.EntitySelectorArgument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
 import dev.jorel.commandapi.arguments.StringArgument;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.storage.ExecutorStorage;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
@@ -37,6 +40,7 @@ public class SpellBookCommand {
         arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("learn", new ExecutorStorage((sender, args) -> {
+            if (sender.hasPermission("moddedadditions.spells.learn")) { sendPermissionDenied(sender); return; }
             Collection<Player> targets = new ArrayList<>();
             if (args[1] == null && sender instanceof Player) { targets.add((Player) sender); }
             else if (args[1] == null) { CommandAPI.fail("Sender must be a player"); }
@@ -60,7 +64,7 @@ public class SpellBookCommand {
                     instance.getPlayerDataController().setPlayerData(player, playerData);
                 }
             }
-        }, arguments, "moddedadditions.spellbook.learn"));
+        }, arguments));
 
         // Unlearn Command
         arguments = new LinkedHashMap<>();
@@ -68,6 +72,7 @@ public class SpellBookCommand {
         arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("unlearn", new ExecutorStorage((sender, args) -> {
+            if (sender.hasPermission("moddedadditions.spells.unlearn")) { sendPermissionDenied(sender); return; }
             Collection<Player> targets = new ArrayList<>();
             if (args[1] == null && sender instanceof Player) { targets.add((Player) sender); }
             else if (args[1] == null) { CommandAPI.fail("Sender must be a player"); }
@@ -91,13 +96,14 @@ public class SpellBookCommand {
                     instance.getPlayerDataController().setPlayerData(player, playerData);
                 }
             }
-        }, arguments, "moddedadditions.spellbook.unlearn"));
+        }, arguments));
 
         // FillMana
         arguments = new LinkedHashMap<>();
         arguments.put("fillmana", new LiteralArgument("fillmana"));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("fillmana", new ExecutorStorage((sender, args) -> {
+            if (sender.hasPermission("moddedadditions.spells.fillmana")) { sendPermissionDenied(sender); return; }
             Collection<Player> targets = new ArrayList<>();
             if (args[0] == null && sender instanceof Player) { targets.add((Player) sender); }
             else if (args[0] == null) { CommandAPI.fail("Sender must be a player"); }
@@ -108,13 +114,14 @@ public class SpellBookCommand {
                 playerData.setCurrentMana(playerData.getMaximumMana());
                 instance.getPlayerDataController().setPlayerData(player, playerData);
             }
-        }, arguments, "moddedadditions.spellbook.fillmana"));
+        }, arguments));
 
         // Evaluate
         arguments = new LinkedHashMap<>();
         arguments.put("evaluate", new LiteralArgument("evaluate"));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("evaluate", new ExecutorStorage((sender, args) -> {
+            if (sender.hasPermission("moddedadditions.spells.evaluate")) { sendPermissionDenied(sender); return; }
             Collection<Player> targets = new ArrayList<>();
             if (args[0] == null && sender instanceof Player) { targets.add((Player) sender); }
             else if (args[0] == null) { CommandAPI.fail("Sender must be a player"); }
@@ -136,7 +143,6 @@ public class SpellBookCommand {
         for (String key : commands.keySet()) {
             new CommandAPICommand("spellbook")
                     .withAliases("sb", "sbook", "spellb")
-                    .withPermission(commands.get(key).getPermission())
                     .withArguments(commands.get(key).getArguments())
                     .executes(commands.get(key).getExecutor())
                     .register();
@@ -153,5 +159,9 @@ public class SpellBookCommand {
         Map<String, String> messageArgs = new HashMap<>();
         messageArgs.put("spell", spell);
         sender.sendMessage(instance.getLanguageManager().generateMessage("sb-unlearnSpell", messageArgs));
+    }
+
+    private static void sendPermissionDenied(CommandSender sender) {
+        sender.sendMessage(instance.getLanguageManager().generateMessage("permissionDenied"));
     }
 }
