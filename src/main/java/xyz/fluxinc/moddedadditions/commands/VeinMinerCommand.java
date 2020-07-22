@@ -7,7 +7,9 @@ import dev.jorel.commandapi.arguments.LiteralArgument;
 import dev.jorel.commandapi.arguments.StringArgument;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import xyz.fluxinc.moddedadditions.storage.ExecutorStorage;
+import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.*;
 
@@ -97,6 +99,22 @@ public class VeinMinerCommand {
             sendBlockRemoved(sender, (String) args[1], tool);
         }, arguments));
 
+        // Reload Command
+        arguments = new LinkedHashMap<>();
+        arguments.put("toggle", new LiteralArgument("toggle"));
+        returnVal.put("toggle", new ExecutorStorage((sender, args) -> {
+            if (!(sender instanceof Player)) { sendMustBePlayer(sender); return; }
+            if (!sender.hasPermission("moddedadditions.veinminer.toggle")) { sendPermissionDenied(sender); return; }
+            PlayerData data = instance.getPlayerDataController().getPlayerData((Player) sender);
+            data.toggleVeinMiner();
+            instance.getPlayerDataController().setPlayerData((Player) sender, data);
+            if (data.veinMiner()) {
+                sender.sendMessage(instance.getLanguageManager().generateMessage("vm-toggleOn"));
+            } else {
+                sender.sendMessage(instance.getLanguageManager().generateMessage("vm-toggleOff"));
+            }
+        }, arguments));
+
         // Save Command
         arguments = new LinkedHashMap<>();
         arguments.put("save", new LiteralArgument("save"));
@@ -145,6 +163,10 @@ public class VeinMinerCommand {
         messageArgs.put("tool", tool);
         messageArgs.put("block", material);
         sender.sendMessage(instance.getLanguageManager().generateMessage("vm-blockRemoved", messageArgs));
+    }
+
+    private static void sendMustBePlayer(CommandSender sender) {
+        sender.sendMessage(instance.getLanguageManager().generateMessage("mustBePlayer"));
     }
 
 }
