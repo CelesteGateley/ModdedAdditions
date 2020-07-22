@@ -37,8 +37,8 @@ public class SpellBookCommand {
         // Learn Command
         LinkedHashMap<String, Argument> arguments = new LinkedHashMap<>();
         arguments.put("learn", new LiteralArgument("learn"));
-        arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
         returnVal.put("learn", new ExecutorStorage((sender, args) -> {
             if (sender.hasPermission("moddedadditions.spells.learn")) { sendPermissionDenied(sender); return; }
             Collection<Player> targets = new ArrayList<>();
@@ -69,8 +69,8 @@ public class SpellBookCommand {
         // Unlearn Command
         arguments = new LinkedHashMap<>();
         arguments.put("unlearn", new LiteralArgument("unlearn"));
-        arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
         returnVal.put("unlearn", new ExecutorStorage((sender, args) -> {
             if (sender.hasPermission("moddedadditions.spells.unlearn")) { sendPermissionDenied(sender); return; }
             Collection<Player> targets = new ArrayList<>();
