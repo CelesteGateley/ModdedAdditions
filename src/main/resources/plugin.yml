@@ -30,6 +30,7 @@ permissions:
       moddedadditions.give.others: true
       moddedadditions.sort: true
       moddedadditions.reload: true
+      moddedadditions.spells.*: true
   moddedadditions.areatool.*:
     description: Grants all permissions for modifying areatools
     children:
@@ -44,6 +45,14 @@ permissions:
       moddedadditions.veinminer.remove: true
       moddedadditions.veinminer.save: true
       moddedadditions.veinminer.reload: true
+  moddedadditions.spells.*:
+    description: Grants all spell permissions
+    children:
+      moddedadditions.spells.learn: true
+      moddedadditions.spells.unlearn: true
+      moddedadditions.spells.fillmana: true
+      moddedadditions.spells.evaluate: true
+      moddedadditions.spells.evaluateall: true
   moddedadditions.books.color:
     description: Allows you to use color codes in books
     default: op
@@ -92,12 +101,15 @@ permissions:
   moddedadditions.fillmana:
     description: Fill your mana to full
     default: op
-  moddedadditions.fillmana.others:
-    description: Fill anothers mana to full
-    default: op
   moddedadditions.spells.learn:
     description: Learn a spell
     default: op
   moddedadditions.spells.unlearn:
     description: Learn a spell
     default: op
+  moddedadditions.spells.evaluate:
+    description: Evaluate a players data
+    default: op
+  moddedadditions.spells.evaluateall:
+      description: Evaluate all player data
+      default: op
