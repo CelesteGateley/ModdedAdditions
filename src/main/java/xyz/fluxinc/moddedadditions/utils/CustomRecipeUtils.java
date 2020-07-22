@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
-import xyz.fluxinc.moddedadditions.controllers.customitems.SonicScrewdriverController;
+import xyz.fluxinc.moddedadditions.controllers.customitems.*;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
 import java.util.ArrayList;
@@ -76,7 +76,7 @@ public class CustomRecipeUtils implements Listener {
         NamespacedKey magnetKey = new NamespacedKey(instance, "MAGNET");
         recipeKeys.add(magnetKey);
 
-        ShapedRecipe magnetRecipe = new ShapedRecipe(magnetKey, instance.getMagnetController().generateNewMagnet());
+        ShapedRecipe magnetRecipe = new ShapedRecipe(magnetKey, MagnetController.generateNewMagnet());
         magnetRecipe.shape("REL", "IEI", "III");
         magnetRecipe.setIngredient('R', Material.REDSTONE_BLOCK);
         magnetRecipe.setIngredient('E', Material.EMERALD_BLOCK);
@@ -120,7 +120,7 @@ public class CustomRecipeUtils implements Listener {
     private ShapedRecipe generateNewHammerRecipe(ToolLevel level, String key, Material tool) {
         NamespacedKey nsKey = new NamespacedKey(instance, key);
         recipeKeys.add(nsKey);
-        ShapedRecipe result = new ShapedRecipe(nsKey, instance.getAreaToolController().generateHammer(level));
+        ShapedRecipe result = new ShapedRecipe(nsKey, AreaToolController.generateHammer(level));
         result.shape("PPP", " S ", " S ");
         result.setIngredient('S', Material.STICK);
         result.setIngredient('P', tool);
@@ -130,7 +130,7 @@ public class CustomRecipeUtils implements Listener {
     private ShapedRecipe generateNewExcavatorRecipe(ToolLevel level, String key, Material tool) {
         NamespacedKey nsKey = new NamespacedKey(instance, key);
         recipeKeys.add(nsKey);
-        ShapedRecipe result = new ShapedRecipe(nsKey, instance.getAreaToolController().generateExcavator(level));
+        ShapedRecipe result = new ShapedRecipe(nsKey, AreaToolController.generateExcavator(level));
         result.shape("PPP", " S ", " S ");
         result.setIngredient('S', Material.STICK);
         result.setIngredient('P', tool);
@@ -141,7 +141,7 @@ public class CustomRecipeUtils implements Listener {
         NamespacedKey nsKey = new NamespacedKey(instance, key);
         recipeKeys.add(nsKey);
 
-        ShapedRecipe result = new ShapedRecipe(nsKey, instance.getLightSaberController().generateNewKyberCrystal(color));
+        ShapedRecipe result = new ShapedRecipe(nsKey, LightSaberController.generateNewKyberCrystal(color));
         result.shape("GEG", "ECE", "GEG");
         result.setIngredient('G', SaberColor.getStainedGlass(color));
         result.setIngredient('E', Material.EMERALD);
@@ -193,7 +193,7 @@ public class CustomRecipeUtils implements Listener {
         NamespacedKey lightSaberKey = new NamespacedKey(instance, "LIGHTSABER");
         recipeKeys.add(lightSaberKey);
 
-        ShapedRecipe lightSaberRecipe = new ShapedRecipe(lightSaberKey, instance.getLightSaberController().getDefaultLightSaber());
+        ShapedRecipe lightSaberRecipe = new ShapedRecipe(lightSaberKey, LightSaberController.getDefaultLightSaber());
         lightSaberRecipe.shape("IGI", "ICI", "III");
         lightSaberRecipe.setIngredient('G', Material.GLASS_PANE);
         lightSaberRecipe.setIngredient('I', Material.IRON_BLOCK);
@@ -228,7 +228,7 @@ public class CustomRecipeUtils implements Listener {
 
     private void addSpell(int spellId, Material item1, Material item2) {
         NamespacedKey spellKey = new NamespacedKey(instance, "SPELL_" + (KEY_BASE + SB_KEY_BASE + spellId));
-        ItemStack result = instance.getSpellBookController().setSpell(KEY_BASE + SB_KEY_BASE + spellId, instance.getSpellBookController().generateNewSpellBook());
+        ItemStack result = SpellBookController.setSpell(KEY_BASE + SB_KEY_BASE + spellId, SpellBookController.generateNewSpellBook());
         ShapedRecipe spellRecipe = new ShapedRecipe(spellKey, result);
         spellRecipe.shape("ABA", "BSB", "ABA");
         spellRecipe.setIngredient('A', item1);

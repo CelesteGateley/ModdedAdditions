@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.utils.ToolUtils;
+import xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
 import java.util.ArrayList;
@@ -135,7 +136,7 @@ public class LightSaberListener implements Listener {
             if (!containsKyberCrystal) {
                 event.getInventory().setResult(null);
             } else {
-                event.getInventory().setResult(instance.getLightSaberController().generateNewLightSaber(color));
+                event.getInventory().setResult(generateNewLightSaber(color));
             }
         }
     }

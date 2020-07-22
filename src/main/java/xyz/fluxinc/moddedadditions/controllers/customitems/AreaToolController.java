@@ -112,7 +112,7 @@ public class AreaToolController {
         saveConfiguration();
     }
 
-    public ItemStack generateHammer(ToolLevel level) {
+    public static ItemStack generateHammer(ToolLevel level) {
         Material toolMaterial;
         int modelId;
         switch (level) {
@@ -151,7 +151,7 @@ public class AreaToolController {
         return itemStack;
     }
 
-    public ItemStack generateExcavator(ToolLevel level) {
+    public static ItemStack generateExcavator(ToolLevel level) {
         Material toolMaterial;
         int modelId;
         switch (level) {

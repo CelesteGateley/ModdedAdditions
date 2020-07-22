@@ -10,6 +10,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
@@ -101,7 +102,7 @@ public class ResearchInventoryListener implements Listener {
             if (i == 22) catalyst = iStack;
             else items.add(iStack);
         }
-        for (Spell spell : instance.getSpellBookController().getSpellRegistry().getAllSpells()) {
+        for (Spell spell : SpellBookController.getSpellRegistry().getAllSpells()) {
             System.out.println(spell.getTechnicalName());
             if (spell.getRecipe(1).verifyItems(catalyst, items)) {
                 return spell;

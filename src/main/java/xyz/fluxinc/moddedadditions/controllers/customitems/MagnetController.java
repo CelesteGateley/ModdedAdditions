@@ -27,11 +27,11 @@ public class MagnetController {
         vacuumInstances = new HashMap<>();
     }
 
-    public Material getMagnetMaterial() {
+    public static Material getMagnetMaterial() {
         return MAGNET_MATERIAL;
     }
 
-    public boolean isMagnet(ItemStack item) {
+    public static boolean isMagnet(ItemStack item) {
         return item != null
                 && item.getType() == MAGNET_MATERIAL
                 && item.getItemMeta() != null
@@ -43,7 +43,7 @@ public class MagnetController {
         return vacuumInstances.containsKey(player);
     }
 
-    public ItemStack generateNewMagnet() {
+    public static ItemStack generateNewMagnet() {
         ItemStack magnet = addLore(new ItemStack(MAGNET_MATERIAL), instance.getLanguageManager().getFormattedString("mi-magnet"));
         ItemMeta itemMeta = magnet.getItemMeta();
         itemMeta.setCustomModelData(MAGNET_MODEL_KEY);
@@ -66,7 +66,7 @@ public class MagnetController {
         }
     }
 
-    public boolean verifyOldMagnet(ItemStack item) {
+    public static boolean verifyOldMagnet(ItemStack item) {
         return item != null
                 && item.getType() == Material.COMPASS
                 && item.getItemMeta() != null
@@ -74,7 +74,7 @@ public class MagnetController {
                 && item.getItemMeta().getLore().contains(instance.getLanguageManager().getFormattedString("mi-magnet"));
     }
 
-    public ItemStack updateOldMagnet(ItemStack itemStack) {
+    public static ItemStack updateOldMagnet(ItemStack itemStack) {
         ItemMeta iMeta = itemStack.getItemMeta();
         itemStack.setType(Material.IRON_NUGGET);
         iMeta.setCustomModelData(MAGNET_MODEL_KEY);

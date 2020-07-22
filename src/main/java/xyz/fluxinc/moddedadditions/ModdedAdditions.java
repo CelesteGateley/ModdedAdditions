@@ -54,9 +54,7 @@ public final class ModdedAdditions extends JavaPlugin {
     private BlockAccessController blockAccessController;
     private VeinMinerController veinMinerController;
     private AreaToolController areaToolController;
-    private LightSaberController lightSaberController;
     private CustomRecipeUtils customRecipeUtils;
-    private SonicScrewdriverController sonicScrewdriverController;
     private PlayerDataController playerDataController;
 
     private SpellBookController spellBookController;
@@ -141,7 +139,6 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SortChestListener(), this);
 
         // Sonic Screwdriver Related Functions
-        sonicScrewdriverController = new SonicScrewdriverController();
         getServer().getPluginManager().registerEvents(new SonicScrewdriverListener(), this);
 
         // Magic Related Functionality
@@ -160,7 +157,6 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // LightSaber Related Functions
         getServer().getPluginManager().registerEvents(new ResponseListener(), this);
-        lightSaberController = new LightSaberController();
         getServer().getPluginManager().registerEvents(new LightSaberListener(), this);
 
         // Register Custom Armor Listeners
@@ -235,14 +231,6 @@ public final class ModdedAdditions extends JavaPlugin {
 
     public CustomRecipeUtils getCustomRecipeUtils() {
         return customRecipeUtils;
-    }
-
-    public LightSaberController getLightSaberController() {
-        return lightSaberController;
-    }
-
-    public SonicScrewdriverController getSonicScrewdriverController() {
-        return sonicScrewdriverController;
     }
 
     public PlayerDataController getPlayerDataController() {
