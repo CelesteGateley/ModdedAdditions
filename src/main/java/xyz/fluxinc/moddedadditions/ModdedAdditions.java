@@ -10,6 +10,7 @@ import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.AreaToolCommand;
+import xyz.fluxinc.moddedadditions.commands.ModdedAdditionsCommand;
 import xyz.fluxinc.moddedadditions.commands.SpellBookCommand;
 import xyz.fluxinc.moddedadditions.commands.VeinMinerCommand;
 import xyz.fluxinc.moddedadditions.commands.legacy.*;
@@ -91,7 +92,8 @@ public final class ModdedAdditions extends JavaPlugin {
         languageManager.verifyKeys();
         configurationManager = new ConfigurationManager<>(this, "config.yml");
         configurationManager.verifyKeys();
-        getCommand("moddedadditions").setExecutor(new ModdedAdditionsCommand());
+        //getCommand("moddedadditions").setExecutor(new ModdedAdditionsCommand());
+        ModdedAdditionsCommand.registerCommands();
 
         // Register Core Utilities
         blockAccessController = fluxCore.getBlockAccessController();
