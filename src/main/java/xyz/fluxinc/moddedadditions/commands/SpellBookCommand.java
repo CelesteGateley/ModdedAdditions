@@ -41,7 +41,7 @@ public class SpellBookCommand {
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
         returnVal.put("learn", new ExecutorStorage((sender, args) -> {
-            if (sender.hasPermission("moddedadditions.spells.learn")) {
+            if (!sender.hasPermission("moddedadditions.spells.learn")) {
                 sendPermissionDenied(sender);
                 return;
             }
@@ -81,7 +81,7 @@ public class SpellBookCommand {
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
         returnVal.put("unlearn", new ExecutorStorage((sender, args) -> {
-            if (sender.hasPermission("moddedadditions.spells.unlearn")) {
+            if (!sender.hasPermission("moddedadditions.spells.unlearn")) {
                 sendPermissionDenied(sender);
                 return;
             }
@@ -120,7 +120,7 @@ public class SpellBookCommand {
         arguments.put("fillmana", new LiteralArgument("fillmana"));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("fillmana", new ExecutorStorage((sender, args) -> {
-            if (sender.hasPermission("moddedadditions.spells.fillmana")) {
+            if (!sender.hasPermission("moddedadditions.spells.fillmana")) {
                 sendPermissionDenied(sender);
                 return;
             }
@@ -146,7 +146,7 @@ public class SpellBookCommand {
         arguments.put("evaluate", new LiteralArgument("evaluate"));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("evaluate", new ExecutorStorage((sender, args) -> {
-            if (sender.hasPermission("moddedadditions.spells.evaluate")) {
+            if (!sender.hasPermission("moddedadditions.spells.evaluate")) {
                 sendPermissionDenied(sender);
                 return;
             }
@@ -173,7 +173,7 @@ public class SpellBookCommand {
         arguments.put("evaluate", new LiteralArgument("evaluate"));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("evaluate", new ExecutorStorage((sender, args) -> {
-            if (sender.hasPermission("moddedadditions.spells.evaluateall")) {
+            if (!sender.hasPermission("moddedadditions.spells.evaluateall")) {
                 sendPermissionDenied(sender);
                 return;
             }
