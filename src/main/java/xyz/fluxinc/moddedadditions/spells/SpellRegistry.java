@@ -20,14 +20,8 @@ import java.util.List;
 
 public class SpellRegistry {
 
-    private final List<Spell> spells;
-
-    public SpellRegistry() {
-        spells = new ArrayList<>();
-        registerAllSpells();
-    }
-
-    private void registerAllSpells() {
+    private static final List<Spell> spells = new ArrayList<>();
+    static {
         // Combat 
         spells.add(new Arrows());
         spells.add(new Fireball());
@@ -50,11 +44,11 @@ public class SpellRegistry {
         //registerSpell(new FillMana(), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
     }
 
-    public List<Spell> getAllSpells() {
+    public static List<Spell> getAllSpells() {
         return spells;
     }
 
-    public Spell getSpellById(int modelId) {
+    public static Spell getSpellById(int modelId) {
         for (Spell spell : spells) {
             if (spell.getModelId() == modelId) {
                 return spell;
@@ -63,7 +57,7 @@ public class SpellRegistry {
         return null;
     }
 
-    public String getTechnicalName(int modelId) {
+    public static String getTechnicalName(int modelId) {
         for (Spell spell : spells) {
             if (spell.getModelId() == modelId) {
                 return spell.getTechnicalName();

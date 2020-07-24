@@ -23,6 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ResearchInventoryListener;
 import xyz.fluxinc.moddedadditions.spells.Spell;
+import xyz.fluxinc.moddedadditions.spells.SpellRegistry;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
@@ -186,7 +187,7 @@ public class SpellBookListener implements Listener {
         if (!verifySpellBook(event.getRecipe().getResult())) {
             return;
         }
-        String spell = instance.getSpellBookController().getSpellRegistry().getTechnicalName(event.getRecipe().getResult().getItemMeta().getCustomModelData());
+        String spell = SpellRegistry.getTechnicalName(event.getRecipe().getResult().getItemMeta().getCustomModelData());
         PlayerData data = instance.getPlayerDataController().getPlayerData((Player) event.getWhoClicked());
         if (!data.knowsSpell(spell)) data.addMaximumMana(50);
         instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), data.setSpell(spell, 1));
@@ -220,7 +221,7 @@ public class SpellBookListener implements Listener {
     }
 
     private Inventory generateSpellInventory(Player player) {
-        List<Spell> spells = instance.getSpellBookController().getSpellRegistry().getAllSpells();
+        List<Spell> spells = SpellRegistry.getAllSpells();
         PlayerData data = instance.getPlayerDataController().getPlayerData(player);
         List<ItemStack> stacks = new ArrayList<>();
         for (Spell spell : spells) {
