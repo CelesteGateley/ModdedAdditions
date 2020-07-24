@@ -54,7 +54,12 @@ public class Teleport extends Spell {
 
     @Override
     public long getCooldown(int level) {
-        return 500;
+        if (level == 4) {
+            return 250;
+        }
+        else {
+            return 500;
+        }
     }
 
     @Override
@@ -66,7 +71,16 @@ public class Teleport extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target, int level) {
-        Block targetBlock = caster.getTargetBlock(null, 100);
+        int dist = 100;
+        switch (level) {
+            case 2:
+                dist = 150;
+                break;
+            case 3:
+                dist = 200;
+                break;
+        }
+        Block targetBlock = caster.getTargetBlock(null, dist);
         if (targetBlock.getType() == Material.AIR) {
             caster.getWorld().playSound(caster.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
             return false;
