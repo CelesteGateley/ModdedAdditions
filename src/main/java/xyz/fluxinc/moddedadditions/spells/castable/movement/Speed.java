@@ -79,7 +79,19 @@ public class Speed extends Spell {
         } else {
             caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Your feel your body become faster as mana courses through you"));
         }
-        new PotionEffect(PotionEffectType.SPEED, 20 * 20, 4).apply(target);
+        int dur = 20;
+        int amp = 4;
+        switch (level) {
+            case 4:
+                dur = 40;
+            case 3:
+                amp = 5;
+                break;
+            case 2:
+                dur = 30;
+                break;
+        }
+        new PotionEffect(PotionEffectType.SPEED, 20 * dur, amp).apply(target);
         return true;
     }
 }
