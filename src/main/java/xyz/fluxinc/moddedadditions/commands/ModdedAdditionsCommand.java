@@ -89,8 +89,8 @@ public class ModdedAdditionsCommand {
     public static void registerCommands() {
         HashMap<String, ExecutorStorage> commands = getCommands();
         for (String key : commands.keySet()) {
-            new CommandAPICommand("areatool")
-                    .withAliases("at", "atool", "areat")
+            new CommandAPICommand("moddedadditions")
+                    .withAliases("ma", "madditions", "moddeda")
                     .withArguments(commands.get(key).getArguments())
                     .executes(commands.get(key).getExecutor())
                     .register();
