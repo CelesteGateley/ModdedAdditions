@@ -3,10 +3,7 @@ package xyz.fluxinc.moddedadditions.spells.castable.combat;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Snowball;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
@@ -20,6 +17,8 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class Slowball extends Spell {
 
     public static final String SLOWBALL_NAME = "abXYZoasDGAdgiQXVSAadsgasnNEFA";
+    public static final String LONGER_SLOWBALL_NAME = "abXYZBBDEXZsadfDGAdgiQXadsgasnNEFA";
+    public static final String POTENT_SLOWBALL_NAME = "sadfasZFFDGVEasdeNEFA";
 
     @Override
     public String getLocalizedName() {
@@ -72,8 +71,23 @@ public class Slowball extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target, int level) {
-        Entity entity = caster.launchProjectile(Snowball.class);
+        Projectile entity = caster.launchProjectile(Snowball.class);
         entity.setCustomName(SLOWBALL_NAME);
-        return true;
+        switch (level) {
+            case 1:
+                return true;
+            case 2:
+                entity.getVelocity().multiply(2);
+                return true;
+            case 3:
+                entity.getVelocity().multiply(2);
+                entity.setCustomName(LONGER_SLOWBALL_NAME);
+                return true;
+            case 4:
+                entity.getVelocity().multiply(2);
+                entity.setCustomName(POTENT_SLOWBALL_NAME);
+                return true;
+            default: return false;
+        }
     }
 }

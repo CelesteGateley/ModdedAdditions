@@ -35,6 +35,7 @@ import static xyz.fluxinc.fluxcore.utils.InventoryUtils.generateDistributedInven
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.verifySpellBook;
+import static xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball.*;
 
 public class SpellBookListener implements Listener {
 
@@ -198,14 +199,26 @@ public class SpellBookListener implements Listener {
         if (event.getEntity().getType() != EntityType.SNOWBALL) {
             return;
         }
-        if (event.getEntity().getCustomName() == null
-                || !event.getEntity().getCustomName().equals(Slowball.SLOWBALL_NAME)) {
+        if (event.getEntity().getCustomName() == null) {
             return;
         }
         Entity target = event.getHitEntity();
         if (target instanceof LivingEntity) {
-            new PotionEffect(PotionEffectType.SLOW, 10 * 20, 2).apply((LivingEntity) target);
-            new PotionEffect(PotionEffectType.SLOW_DIGGING, 10 * 20, 2).apply((LivingEntity) target);
+            switch (event.getEntity().getCustomName()) {
+                case SLOWBALL_NAME:
+                    new PotionEffect(PotionEffectType.SLOW, 10 * 20, 2).apply((LivingEntity) target);
+                    new PotionEffect(PotionEffectType.SLOW_DIGGING, 10 * 20, 2).apply((LivingEntity) target);
+                    return;
+                case LONGER_SLOWBALL_NAME:
+                    new PotionEffect(PotionEffectType.SLOW, 10 * 30, 2).apply((LivingEntity) target);
+                    new PotionEffect(PotionEffectType.SLOW_DIGGING, 10 * 30, 2).apply((LivingEntity) target);
+                    return;
+                case POTENT_SLOWBALL_NAME:
+                    new PotionEffect(PotionEffectType.SLOW, 10 * 30, 4).apply((LivingEntity) target);
+                    new PotionEffect(PotionEffectType.SLOW_DIGGING, 10 * 30, 4).apply((LivingEntity) target);
+                    return;
+                default:
+            }
         }
     }
 
