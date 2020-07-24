@@ -55,7 +55,7 @@ public class SpellBookCommand {
             } else {
                 CommandAPI.fail("Invalid List of Players");
             }
-            if (args[0].equals("all")) {
+            if (args[1].equals("all")) {
                 for (Player player : targets) {
                     PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
                     for (String spell : getSpellList()) {
@@ -95,7 +95,7 @@ public class SpellBookCommand {
             } else {
                 CommandAPI.fail("Invalid List of Players");
             }
-            if (args[0].equals("all")) {
+            if (args[1].equals("all")) {
                 for (Player player : targets) {
                     PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
                     for (String spell : getSpellList()) {
