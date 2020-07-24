@@ -69,8 +69,23 @@ public class Fireball extends Spell {
     @Override
     public boolean enactSpell(Player caster, LivingEntity target, int level) {
         org.bukkit.entity.Fireball fireball = caster.launchProjectile(org.bukkit.entity.Fireball.class);
-        fireball.setYield(2);
         caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_GHAST_SHOOT, 1, 1);
+        switch (level) {
+            case 1:
+                fireball.setYield(2);
+                return true;
+            case 2:
+                fireball.setYield(3);
+                return true;
+            case 3:
+                fireball.getVelocity().multiply(2);
+                fireball.setYield(3);
+                return true;
+            case 4:
+                fireball.getVelocity().multiply(2);
+                fireball.setYield(4);
+                return true;
+        }
         return true;
     }
 }
