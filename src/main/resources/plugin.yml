@@ -8,9 +8,6 @@ description: Adds some cool tools/features that aren't in vanilla
 commands:
   notify:
     usage: notify <name>
-  moddedadditions:
-    usage: moddedadditions reload
-    aliases: [ma, moddeda, madditions, madd, modadd]
   voteday:
     usage: dayvote <yes/no>
     aliases: [dv, dayvote]
