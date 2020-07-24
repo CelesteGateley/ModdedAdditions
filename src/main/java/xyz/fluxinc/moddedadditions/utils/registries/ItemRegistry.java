@@ -8,11 +8,8 @@ import xyz.fluxinc.moddedadditions.utils.CustomRecipeUtils;
 import xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class ItemRegistry {
 
@@ -25,6 +22,8 @@ public class ItemRegistry {
         defaultItems.put("long_fall_boots", SpecialArmorUtils.generateNewLongFallBoots());
         defaultItems.put("magnet", MagnetController.generateNewMagnet());
         defaultItems.put("elytra_repair_kit", CustomRecipeUtils.generateElytraKit());
+        defaultItems.put("honey_chestplate", SpecialArmorUtils.generateHoneyChestplate());
+        defaultItems.put("slime_chestplate", SpecialArmorUtils.generateSlimeChestplate());
         for (SaberColor color : SaberColor.values()) {
             defaultItems.put(color.toString().toLowerCase() + "_kyber_crystal", LightSaberController.generateNewKyberCrystal(color));
             defaultItems.put(color.toString().toLowerCase() + "_lightsaber", LightSaberController.generateNewLightSaber(color));
