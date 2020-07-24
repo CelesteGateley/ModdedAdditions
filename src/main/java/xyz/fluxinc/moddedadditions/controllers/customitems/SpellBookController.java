@@ -19,7 +19,6 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 public class SpellBookController {
 
     public static final int SB_KEY_BASE = 3000;
-    private static final SpellRegistry spellRegistry = new SpellRegistry();
     private final Map<Player, Long> lavaWalkerPlayers;
 
     public SpellBookController() {
@@ -58,7 +57,7 @@ public class SpellBookController {
         if (spellBook.getItemMeta().getCustomModelData() == KEY_BASE + SB_KEY_BASE) {
             return null;
         }
-        return spellRegistry.getSpellById(spellBook.getItemMeta().getCustomModelData());
+        return SpellRegistry.getSpellById(spellBook.getItemMeta().getCustomModelData());
     }
 
     public static ItemStack setSpell(int spellId, ItemStack spellBook) {
@@ -72,7 +71,7 @@ public class SpellBookController {
             return spellBook;
         }
 
-        Spell spell = spellRegistry.getSpellById(spellId);
+        Spell spell = SpellRegistry.getSpellById(spellId);
         if (lore.size() < 2) {
             lore.add("Current Spell: " + toTitleCase(spell.getLocalizedName()));
         } else {
@@ -89,11 +88,4 @@ public class SpellBookController {
         return ModdedAdditions.instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell);
     }
 
-    public static Spell getSpell(int modelId) {
-        return spellRegistry.getSpellById(modelId);
-    }
-
-    public static SpellRegistry getSpellRegistry() {
-        return spellRegistry;
-    }
 }
