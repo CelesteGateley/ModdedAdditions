@@ -86,12 +86,12 @@ public class SpellBookCommand {
                 return;
             }
             Collection<Player> targets = new ArrayList<>();
-            if (args[1] == null && sender instanceof Player) {
+            if (args[0] == null && sender instanceof Player) {
                 targets.add((Player) sender);
-            } else if (args[1] == null) {
+            } else if (args[0] == null) {
                 CommandAPI.fail("Sender must be a player");
-            } else if (args[1] instanceof List) {
-                targets = (Collection<Player>) args[1];
+            } else if (args[0] instanceof List) {
+                targets = (Collection<Player>) args[0];
             } else {
                 CommandAPI.fail("Invalid List of Players");
             }
