@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.moddedadditions.spells.Spell;
-import xyz.fluxinc.moddedadditions.spells.SpellRegistry;
+import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.ArrayList;

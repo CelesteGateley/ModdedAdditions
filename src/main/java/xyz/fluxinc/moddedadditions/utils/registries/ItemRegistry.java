@@ -1,4 +1,4 @@
-package xyz.fluxinc.moddedadditions.storage;
+package xyz.fluxinc.moddedadditions.utils.registries;
 
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
@@ -14,7 +14,7 @@ import java.util.Set;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
-public class CustomItemRegistry {
+public class ItemRegistry {
 
     private static final Map<String, ItemStack> defaultItems;
 

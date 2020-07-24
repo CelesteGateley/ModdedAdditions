@@ -1,5 +1,6 @@
-package xyz.fluxinc.moddedadditions.spells;
+package xyz.fluxinc.moddedadditions.utils.registries;
 
+import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Arrows;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball;

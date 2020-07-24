@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import xyz.fluxinc.moddedadditions.spells.Spell;
-import xyz.fluxinc.moddedadditions.spells.SpellRegistry;
+import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 import xyz.fluxinc.moddedadditions.storage.ExecutorStorage;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 

@@ -23,7 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ResearchInventoryListener;
 import xyz.fluxinc.moddedadditions.spells.Spell;
-import xyz.fluxinc.moddedadditions.spells.SpellRegistry;
+import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;

@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.spells.Spell;
-import xyz.fluxinc.moddedadditions.spells.SpellRegistry;
+import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 
 import java.util.HashMap;
 import java.util.List;

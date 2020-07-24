@@ -9,7 +9,7 @@ import dev.jorel.commandapi.arguments.StringArgument;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import xyz.fluxinc.moddedadditions.storage.CustomItemRegistry;
+import xyz.fluxinc.moddedadditions.utils.registries.ItemRegistry;
 import xyz.fluxinc.moddedadditions.storage.ExecutorStorage;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
@@ -26,7 +26,7 @@ public class ModdedAdditionsCommand {
         LinkedHashMap<String, Argument> arguments = new LinkedHashMap<>();
         arguments.put("give", new LiteralArgument("give"));
         arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
-        arguments.put("item", new StringArgument().overrideSuggestions(CustomItemRegistry.getAllItemNames().toArray(new String[0])));
+        arguments.put("item", new StringArgument().overrideSuggestions(ItemRegistry.getAllItemNames().toArray(new String[0])));
         returnVal.put("give", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.give"))) {
                 sendPermissionDenied(sender);
@@ -42,7 +42,7 @@ public class ModdedAdditionsCommand {
             } else {
                 CommandAPI.fail("Invalid List of Players");
             }
-            ItemStack itemStack = CustomItemRegistry.getItem((String) args[1]);
+            ItemStack itemStack = ItemRegistry.getItem((String) args[1]);
             if (itemStack == null) {
                 sendInvalidItem(sender, (String) args[1]);
             } else {
