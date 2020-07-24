@@ -46,12 +46,12 @@ public class SpellBookCommand {
                 return;
             }
             Collection<Player> targets = new ArrayList<>();
-            if (args[1] == null && sender instanceof Player) {
+            if (args[0] == null && sender instanceof Player) {
                 targets.add((Player) sender);
-            } else if (args[1] == null) {
+            } else if (args[0] == null) {
                 CommandAPI.fail("Sender must be a player");
-            } else if (args[1] instanceof List) {
-                targets = (Collection<Player>) args[1];
+            } else if (args[0] instanceof List) {
+                targets = (Collection<Player>) args[0];
             } else {
                 CommandAPI.fail("Invalid List of Players");
             }
@@ -108,8 +108,8 @@ public class SpellBookCommand {
             } else {
                 for (Player player : targets) {
                     PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
-                    playerData.setSpell((String) args[0], 0);
-                    sendUnlearnSpell(sender, (String) args[0]);
+                    playerData.setSpell((String) args[1], 0);
+                    sendUnlearnSpell(sender, (String) args[1]);
                     instance.getPlayerDataController().setPlayerData(player, playerData);
                 }
             }
