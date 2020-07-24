@@ -68,8 +68,8 @@ public class SpellBookCommand {
             } else {
                 for (Player player : targets) {
                     PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
-                    playerData.setSpell((String) args[0], LEARN_SPELL_LEVEL);
-                    sendLearnSpell(sender, (String) args[0]);
+                    playerData.setSpell((String) args[1], LEARN_SPELL_LEVEL);
+                    sendLearnSpell(sender, (String) args[1]);
                     instance.getPlayerDataController().setPlayerData(player, playerData);
                 }
             }
