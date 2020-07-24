@@ -51,7 +51,12 @@ public class AirJet extends Spell {
         if (environment == World.Environment.NORMAL) {
             return 15;
         } else {
-            return 45;
+            if (level < 3) {
+                return 45;
+            }
+            else {
+                return 30;
+            }
         }
     }
 
@@ -62,7 +67,12 @@ public class AirJet extends Spell {
 
     @Override
     public long getCooldown(int level) {
-        return 250;
+        if (level == 1) {
+            return 250;
+        }
+        else {
+            return 150;
+        }
     }
 
     @Override
@@ -82,6 +92,10 @@ public class AirJet extends Spell {
         Vector newVector = caster.getEyeLocation().getDirection().multiply(new Vector(2, -2, 2));
         if (newVector.getY() < 0) {
             newVector.multiply(new Vector(1, -1, 1));
+        }
+        System.out.println(newVector);
+        if (level == 4){
+            newVector.multiply(2);
         }
         caster.setVelocity(newVector);
         return true;
