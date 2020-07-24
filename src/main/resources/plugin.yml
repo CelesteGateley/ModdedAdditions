@@ -103,4 +103,4 @@ permissions:
     default: op
   moddedadditions.spells.evaluateall:
     description: Evaluate all player data
-     default: op
+    default: op
