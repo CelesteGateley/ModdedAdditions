@@ -19,6 +19,7 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 public class SpellBookController {
 
     public static final int SB_KEY_BASE = 3000;
+    private static final SpellRegistry spellRegistry = new SpellRegistry();
     private final Map<Player, Long> lavaWalkerPlayers;
 
     public SpellBookController() {
@@ -45,22 +46,22 @@ public class SpellBookController {
         lavaWalkerPlayers.put(player, System.currentTimeMillis());
     }
 
-    public ItemStack generateNewSpellBook() {
+    public static ItemStack generateNewSpellBook() {
         ItemStack itemStack = addLore(new ItemStack(Material.BOOK), ModdedAdditions.instance.getLanguageManager().getFormattedString("mi-spellbook"));
         return setSpell(KEY_BASE + SB_KEY_BASE, itemStack);
     }
 
-    public Spell getSpell(ItemStack spellBook) {
+    public static Spell getSpell(ItemStack spellBook) {
         if (!verifySpellBook(spellBook)) {
             return null;
         }
         if (spellBook.getItemMeta().getCustomModelData() == KEY_BASE + SB_KEY_BASE) {
             return null;
         }
-        return SpellRegistry.getSpellById(spellBook.getItemMeta().getCustomModelData());
+        return spellRegistry.getSpellById(spellBook.getItemMeta().getCustomModelData());
     }
 
-    public ItemStack setSpell(int spellId, ItemStack spellBook) {
+    public static ItemStack setSpell(int spellId, ItemStack spellBook) {
         ItemMeta iMeta = spellBook.getItemMeta();
         List<String> lore = iMeta.getLore();
 
@@ -71,7 +72,7 @@ public class SpellBookController {
             return spellBook;
         }
 
-        Spell spell = SpellRegistry.getSpellById(spellId);
+        Spell spell = spellRegistry.getSpellById(spellId);
         if (lore.size() < 2) {
             lore.add("Current Spell: " + toTitleCase(spell.getLocalizedName()));
         } else {
@@ -84,8 +85,15 @@ public class SpellBookController {
         return spellBook;
     }
 
-    public boolean knowsSpell(Player player, String spell) {
+    public static boolean knowsSpell(Player player, String spell) {
         return ModdedAdditions.instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell);
     }
 
+    public static Spell getSpell(int modelId) {
+        return spellRegistry.getSpellById(modelId);
+    }
+
+    public static SpellRegistry getSpellRegistry() {
+        return spellRegistry;
+    }
 }

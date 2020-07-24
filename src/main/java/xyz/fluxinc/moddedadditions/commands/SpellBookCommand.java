@@ -10,7 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import xyz.fluxinc.moddedadditions.spells.Spell;
-import xyz.fluxinc.moddedadditions.spells.SpellRegistry;
 import xyz.fluxinc.moddedadditions.storage.ExecutorStorage;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
@@ -27,7 +26,7 @@ public class SpellBookCommand {
     private static List<String> getSpellList() {
         List<String> spells = new ArrayList<>();
         spells.add("all");
-        for (Spell spell : SpellRegistry.getAllSpells()) {
+        for (Spell spell : instance.getSpellBookController().getSpellRegistry().getAllSpells()) {
             spells.add(spell.getTechnicalName());
         }
         return spells;

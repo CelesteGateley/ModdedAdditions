@@ -11,7 +11,6 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.moddedadditions.spells.Spell;
-import xyz.fluxinc.moddedadditions.spells.SpellRegistry;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.ArrayList;
@@ -102,7 +101,7 @@ public class ResearchInventoryListener implements Listener {
             if (i == 22) catalyst = iStack;
             else items.add(iStack);
         }
-        for (Spell spell : SpellRegistry.getAllSpells()) {
+        for (Spell spell : instance.getSpellBookController().getSpellRegistry().getAllSpells()) {
             System.out.println(spell.getTechnicalName());
             if (spell.getRecipe(1).verifyItems(catalyst, items)) {
                 return spell;

@@ -23,7 +23,6 @@ import org.bukkit.potion.PotionEffectType;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ResearchInventoryListener;
 import xyz.fluxinc.moddedadditions.spells.Spell;
-import xyz.fluxinc.moddedadditions.spells.SpellRegistry;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
@@ -93,9 +92,9 @@ public class SpellBookListener implements Listener {
         } else {
             Player player = (Player) event.getWhoClicked();
             if (verifySpellBook(player.getInventory().getItemInMainHand())) {
-                instance.getSpellBookController().setSpell(event.getCurrentItem().getItemMeta().getCustomModelData(), player.getInventory().getItemInMainHand());
+                SpellBookController.setSpell(event.getCurrentItem().getItemMeta().getCustomModelData(), player.getInventory().getItemInMainHand());
             } else if (verifySpellBook(player.getInventory().getItemInOffHand())) {
-                instance.getSpellBookController().setSpell(event.getCurrentItem().getItemMeta().getCustomModelData(), player.getInventory().getItemInOffHand());
+                SpellBookController.setSpell(event.getCurrentItem().getItemMeta().getCustomModelData(), player.getInventory().getItemInOffHand());
             }
         }
         event.getView().close();
@@ -127,7 +126,7 @@ public class SpellBookListener implements Listener {
             if (event.getPlayer().isSneaking()) {
                 event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
             } else {
-                Spell spell = instance.getSpellBookController().getSpell(event.getItem());
+                Spell spell = SpellBookController.getSpell(event.getItem());
                 if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) return;
                 if (spell != null) {
                     if (!data.knowsSpell(spell.getTechnicalName())) return;
@@ -145,7 +144,7 @@ public class SpellBookListener implements Listener {
             if (event.getPlayer().isSneaking()) {
                 event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
             } else {
-                Spell spell = instance.getSpellBookController().getSpell(item);
+                Spell spell = SpellBookController.getSpell(item);
                 if (spell != null) {
                     if (!data.knowsSpell(spell.getTechnicalName())) return;
                     if (event.getRightClicked() instanceof LivingEntity) {
@@ -179,7 +178,7 @@ public class SpellBookListener implements Listener {
         World world = event.getClickedBlock().getWorld();
         world.spawnParticle(Particle.VILLAGER_HAPPY, event.getClickedBlock().getLocation(), 5, 3, 3, 3);
         event.getPlayer().setLevel(event.getPlayer().getLevel() - 8);
-        event.getPlayer().getInventory().setItemInMainHand(instance.getSpellBookController().generateNewSpellBook());
+        event.getPlayer().getInventory().setItemInMainHand(SpellBookController.generateNewSpellBook());
     }
 
     @EventHandler
@@ -187,7 +186,7 @@ public class SpellBookListener implements Listener {
         if (!verifySpellBook(event.getRecipe().getResult())) {
             return;
         }
-        String spell = SpellRegistry.getTechnicalName(event.getRecipe().getResult().getItemMeta().getCustomModelData());
+        String spell = SpellBookController.getSpellRegistry().getTechnicalName(event.getRecipe().getResult().getItemMeta().getCustomModelData());
         PlayerData data = instance.getPlayerDataController().getPlayerData((Player) event.getWhoClicked());
         if (!data.knowsSpell(spell)) data.addMaximumMana(50);
         instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), data.setSpell(spell, 1));
@@ -221,11 +220,11 @@ public class SpellBookListener implements Listener {
     }
 
     private Inventory generateSpellInventory(Player player) {
-        List<Spell> spells = SpellRegistry.getAllSpells();
+        List<Spell> spells = SpellBookController.getSpellRegistry().getAllSpells();
         PlayerData data = instance.getPlayerDataController().getPlayerData(player);
         List<ItemStack> stacks = new ArrayList<>();
         for (Spell spell : spells) {
-            if (instance.getSpellBookController().knowsSpell(player, spell.getTechnicalName())) {
+            if (SpellBookController.knowsSpell(player, spell.getTechnicalName())) {
                 stacks.add(spell.getItemStack(player.getWorld().getEnvironment(), spell.getModelId(), data.getSpellLevel(spell.getTechnicalName())));
             } else {
                 ItemStack iStack = addLore(new ItemStack(Material.BARRIER), spell.getRiddle(data.getSpellLevel(spell.getTechnicalName())));

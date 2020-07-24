@@ -78,7 +78,7 @@ public class LightSaberController {
         return itemStack;
     }
 
-    public ItemStack generateNewLightSaber(SaberColor color) {
+    public static ItemStack generateNewLightSaber(SaberColor color) {
         ItemStack itemStack = addLore(new ItemStack(Material.NETHERITE_SWORD), instance.getLanguageManager().getFormattedString("mi-lightsaber"));
         ItemMeta iMeta = itemStack.getItemMeta();
         iMeta.setCustomModelData(KEY_BASE + LS_KEY_BASE + getColorMod(color));
@@ -89,7 +89,7 @@ public class LightSaberController {
         return itemStack;
     }
 
-    public ItemStack generateNewKyberCrystal(SaberColor color) {
+    public static ItemStack generateNewKyberCrystal(SaberColor color) {
         ItemStack itemStack = addLore(new ItemStack(Material.EMERALD), instance.getLanguageManager().getFormattedString("mi-kybercrystal"));
         ItemMeta iMeta = itemStack.getItemMeta();
         iMeta.addEnchant(Enchantment.LUCK, 1, true);
@@ -100,7 +100,7 @@ public class LightSaberController {
         return itemStack;
     }
 
-    public ItemStack getDefaultLightSaber() {
+    public static ItemStack getDefaultLightSaber() {
         ItemStack lightSaber = addLore(new ItemStack(Material.NETHERITE_SWORD), ChatColor.translateAlternateColorCodes('&', instance.getLanguageManager().getFormattedString("mi-lightsaber")));
         ItemMeta itemMeta = lightSaber.getItemMeta();
         itemMeta.setCustomModelData(KEY_BASE + LS_KEY_BASE);
