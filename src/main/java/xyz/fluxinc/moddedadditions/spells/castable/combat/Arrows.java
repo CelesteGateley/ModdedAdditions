@@ -4,12 +4,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
-import org.bukkit.entity.AbstractArrow;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
@@ -71,9 +72,20 @@ public class Arrows extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target, int level) {
+        caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 1);
         Arrow arrow = caster.launchProjectile(Arrow.class);
         arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
-        caster.getWorld().playSound(caster.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 1);
+        switch (level) {
+            case 1:
+                return true;
+            case 4:
+                arrow.setBasePotionData(new PotionData(PotionType.POISON));
+            case 3:
+                arrow.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING,100,1),true);
+            case 2:
+                arrow.setDamage(arrow.getDamage()*2);
+                return true;
+        }
         return true;
     }
 
