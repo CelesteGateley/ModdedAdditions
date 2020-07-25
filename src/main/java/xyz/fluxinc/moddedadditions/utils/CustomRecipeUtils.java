@@ -84,6 +84,7 @@ public class CustomRecipeUtils implements Listener {
         magnetRecipe.setIngredient('L', Material.LAPIS_BLOCK);
         getServer().addRecipe(magnetRecipe);
 
+        System.out.println("Reached!");
         addLightsaber();
         makeKyberCrystals();
         addSonic();
@@ -167,7 +168,7 @@ public class CustomRecipeUtils implements Listener {
         getServer().addRecipe(generateNewHammerRecipe(ToolLevel.IRON, "IRON_HAMMER", Material.IRON_PICKAXE));
         getServer().addRecipe(generateNewHammerRecipe(ToolLevel.GOLD, "GOLDEN_HAMMER", Material.GOLDEN_PICKAXE));
         getServer().addRecipe(generateNewHammerRecipe(ToolLevel.DIAMOND, "DIAMOND_HAMMER", Material.DIAMOND_PICKAXE));
-        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.DIAMOND, "NETHERITE_HAMMER", Material.NETHERITE_PICKAXE));
+        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.NETHERITE, "NETHERITE_HAMMER", Material.NETHERITE_PICKAXE));
     }
 
     private void makeExcavators() {
@@ -176,7 +177,7 @@ public class CustomRecipeUtils implements Listener {
         getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.IRON, "IRON_EXCAVATOR", Material.IRON_SHOVEL));
         getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.GOLD, "GOLDEN_EXCAVATOR", Material.GOLDEN_SHOVEL));
         getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.DIAMOND, "DIAMOND_EXCAVATOR", Material.DIAMOND_SHOVEL));
-        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.DIAMOND, "NETHERITE_EXCAVATOR", Material.NETHERITE_SHOVEL));
+        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.NETHERITE, "NETHERITE_EXCAVATOR", Material.NETHERITE_SHOVEL));
     }
 
     private void makeKyberCrystals() {
@@ -224,17 +225,6 @@ public class CustomRecipeUtils implements Listener {
         sonicRecipe.setIngredient('R', Material.REDSTONE_TORCH);
         sonicRecipe.setIngredient('E', Material.EMERALD);
         getServer().addRecipe(sonicRecipe);
-    }
-
-    private void addSpell(int spellId, Material item1, Material item2) {
-        NamespacedKey spellKey = new NamespacedKey(instance, "SPELL_" + (KEY_BASE + SB_KEY_BASE + spellId));
-        ItemStack result = SpellBookController.setSpell(KEY_BASE + SB_KEY_BASE + spellId, SpellBookController.generateNewSpellBook());
-        ShapedRecipe spellRecipe = new ShapedRecipe(spellKey, result);
-        spellRecipe.shape("ABA", "BSB", "ABA");
-        spellRecipe.setIngredient('A', item1);
-        spellRecipe.setIngredient('B', item2);
-        spellRecipe.setIngredient('S', Material.BOOK);
-        getServer().addRecipe(spellRecipe);
     }
 
     private void addLongFallBoots() {

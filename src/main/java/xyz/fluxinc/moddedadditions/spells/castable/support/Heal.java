@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions.spells.castable.support;
 
-import com.sun.org.apache.xerces.internal.impl.dv.dtd.ENTITYDatatypeValidator;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
@@ -17,8 +16,6 @@ import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.PotionRecipeIngredient;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
