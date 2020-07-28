@@ -81,6 +81,7 @@ public class Heal extends Spell {
             case 2:
                 ++heal;
         }
+        System.out.println(target);
         List<Entity> targets = getNear(caster, target, level);
         System.out.println(heal);
         System.out.println(targets);
@@ -130,6 +131,7 @@ public class Heal extends Spell {
         ArrayList<Entity> entities;
         ArrayList<Entity> toremove = new ArrayList<Entity>() {
         };
+
         if (level == 4) {
             entities = (ArrayList<Entity>) caster.getWorld().getNearbyEntities(caster.getLocation(), 5, 5, 5);
             for (Entity E:entities){
@@ -142,8 +144,9 @@ public class Heal extends Spell {
             }
             entities.removeAll(toremove);
         }
+
         else {
-            entities = null;
+            entities = new ArrayList<>();
             if (caster != target) {
                 caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You heal your targets wounds"));
                 if (target instanceof Player) {
