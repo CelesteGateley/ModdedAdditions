@@ -54,7 +54,11 @@ public class Speed extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "Sweetening your life, this will make you faster than light";
+        switch (level) {
+            case 0: return "&9Catalyst: &4Redstone\n\n&9Sweetening your life, this will make you faster than light";
+            default: return null;
+        }
+
     }
 
     @Override
@@ -64,9 +68,12 @@ public class Speed extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level != 1) return null;
-        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                new MaterialRecipeIngredient(Material.GLOWSTONE_DUST), new MaterialRecipeIngredient(Material.SUGAR));
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                        new MaterialRecipeIngredient(Material.GLOWSTONE_DUST), new MaterialRecipeIngredient(Material.SUGAR));
+            default: return null;
+        }
     }
 
     @Override

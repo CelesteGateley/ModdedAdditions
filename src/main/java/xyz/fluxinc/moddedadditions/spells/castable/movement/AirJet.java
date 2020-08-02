@@ -62,7 +62,10 @@ public class AirJet extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "Tied up tight, the chicken may not fly free";
+        switch (level) {
+            case 0: return "&9Catalyst: &4Redstone\n\n&9Tied up tight, the chicken may not fly free";
+            default: return null;
+        }
     }
 
     @Override
@@ -77,9 +80,13 @@ public class AirJet extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level != 1) return null;
-        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                new MaterialRecipeIngredient(Material.FEATHER), new MaterialRecipeIngredient(Material.STRING));
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                        new MaterialRecipeIngredient(Material.FEATHER), new MaterialRecipeIngredient(Material.STRING));
+            default: return null;
+        }
+
     }
 
     @Override

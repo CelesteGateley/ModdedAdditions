@@ -56,7 +56,11 @@ public class Heal extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "The elixir of life gathered from the forbidden fruit";
+        switch (level) {
+            case 0: return "&9Catalyst: &4Redstone\n\n&9The elixir of life gathered from the forbidden fruit";
+            default: return null;
+        }
+
     }
 
     @Override
@@ -66,9 +70,12 @@ public class Heal extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level != 1) return null;
-        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                new PotionRecipeIngredient(PotionType.INSTANT_HEAL), new MaterialRecipeIngredient(Material.GOLDEN_APPLE));
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                    new PotionRecipeIngredient(PotionType.INSTANT_HEAL), new MaterialRecipeIngredient(Material.GOLDEN_APPLE));
+            default: return null;
+        }
     }
 
     @Override

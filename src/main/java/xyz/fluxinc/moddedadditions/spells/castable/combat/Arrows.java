@@ -57,7 +57,10 @@ public class Arrows extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "The eyes of a spectre cause those shot with your firearm to glow to the heavens";
+        switch (level) {
+            case 0: return "&9Catalyst: &4Redstone\n\n&9The eyes of a spectre cause those shot with your firearm to glow to the heavens";
+            default: return null;
+        }
     }
 
     @Override
@@ -67,10 +70,12 @@ public class Arrows extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level == 1)
-            return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                     new MaterialRecipeIngredient(Material.SPECTRAL_ARROW), new MaterialRecipeIngredient(Material.CROSSBOW));
-        return null;
+            default: return null;
+        }
     }
 
     @Override

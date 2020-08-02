@@ -56,7 +56,10 @@ public class Slowball extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "One strike from winter's wrath slows your very soul to a crawl";
+        switch (level) {
+            case 0: return "&9Catalyst: &4Redstone\n\n&9One strie from winter's wrath slows your very soul to a crawl";
+            default: return null;
+        }
     }
 
     @Override
@@ -66,10 +69,12 @@ public class Slowball extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level == 1)
-            return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                     new MaterialRecipeIngredient(Material.SNOWBALL), new MaterialRecipeIngredient(Material.SOUL_SAND));
-        return null;
+            default: return null;
+        }
     }
 
     @Override

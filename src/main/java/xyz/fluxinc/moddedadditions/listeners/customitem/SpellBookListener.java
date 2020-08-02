@@ -280,15 +280,19 @@ public class SpellBookListener implements Listener {
             if (SpellBookController.hasSchool(player, school.getTechnicalName())) {
                 stacks.add(school.getItemStack());
             } else {
-                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), school.getRiddle());
+                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), ChatColor.translateAlternateColorCodes('&', school.getRiddle()));
                 ItemMeta iMeta = iStack.getItemMeta();
                 iMeta.setDisplayName(school.getLocalizedName());
                 iStack.setItemMeta(iMeta);
                 stacks.add(iStack);
             }
         }
-        Inventory dummy = generateDistributedInventory(SELECT_SCHOOL, stacks);
-        Inventory master = Bukkit.createInventory(null, dummy.getSize() + 9, SELECT_SCHOOL);
+        return addResearchButton(stacks, SELECT_SCHOOL);
+    }
+
+    private Inventory addResearchButton(List<ItemStack> stacks, String selectSchool) {
+        Inventory dummy = generateDistributedInventory(selectSchool, stacks);
+        Inventory master = Bukkit.createInventory(null, dummy.getSize() + 9, selectSchool);
         for (int i = 0; i < dummy.getSize(); i++) {
             master.setItem(i, dummy.getItem(i));
         }
@@ -315,16 +319,6 @@ public class SpellBookListener implements Listener {
                 stacks.add(iStack);
             }
         }
-        Inventory dummy = generateDistributedInventory(SELECT_SPELL, stacks);
-        Inventory master = Bukkit.createInventory(null, dummy.getSize() + 9, SELECT_SPELL);
-        for (int i = 0; i < dummy.getSize(); i++) {
-            master.setItem(i, dummy.getItem(i));
-        }
-        ItemStack itemStack = addLore(new ItemStack(Material.ENCHANTED_BOOK), "Research new Spells!");
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.RESET + "Research");
-        itemStack.setItemMeta(itemMeta);
-        master.setItem(master.getSize() - 5, itemStack);
-        return master;
+        return addResearchButton(stacks, SELECT_SPELL);
     }
 }

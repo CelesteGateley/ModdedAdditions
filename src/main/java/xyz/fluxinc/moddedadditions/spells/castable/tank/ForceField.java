@@ -52,7 +52,11 @@ public class ForceField extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "An invisible shield protects you, and pushes away all those who come close";
+        switch (level) {
+            case 0: return "&9Catalyst: &4Redstone\n\n&9An invisible shield protects you, and pushes away all those who come close";
+            default: return null;
+        }
+
     }
 
     @Override
@@ -62,9 +66,12 @@ public class ForceField extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level != 1) return null;
-        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                new MaterialRecipeIngredient(Material.SHIELD), new MaterialRecipeIngredient(Material.PISTON));
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                    new MaterialRecipeIngredient(Material.SHIELD), new MaterialRecipeIngredient(Material.PISTON));
+            default: return null;
+        }
     }
 
     @Override
