@@ -2,12 +2,13 @@ package xyz.fluxinc.moddedadditions.storage;
 
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import xyz.fluxinc.moddedadditions.spells.Spell;
+import xyz.fluxinc.moddedadditions.spells.SpellSchool;
 import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({"UnusedReturnValue", "unchecked"})
 public class PlayerData implements ConfigurationSerializable {
 
     private boolean veinMiner;
@@ -15,42 +16,57 @@ public class PlayerData implements ConfigurationSerializable {
     private int currentMana;
     private int maximumMana;
     private int dataVersion;
+    private static final int DATA_VERSION = 1;
     private Map<String, Boolean> knownSpellsOld;
     private Map<String, Integer> knownSpells;
+    private Map<String, Boolean> unlockedSchools;
 
     public PlayerData() {
         veinMiner = true;
         sortChests = false;
         currentMana = 0;
         maximumMana = 100;
-        dataVersion = 1;
+        dataVersion = DATA_VERSION;
         initializeSpells();
     }
 
-    @SuppressWarnings("unchecked")
     public PlayerData(Map<String, Object> serializedData) {
         dataVersion = (int) serializedData.getOrDefault("version", 0);
         veinMiner = !serializedData.containsKey("veinMiner") || (boolean) serializedData.get("veinMiner");
         sortChests = serializedData.containsKey("sortChests") && (boolean) serializedData.get("sortChests");
         currentMana = serializedData.containsKey("currentMana") ? (int) serializedData.get("currentMana") : 0;
         maximumMana = serializedData.containsKey("maximumMana") ? (int) serializedData.get("maximumMana") : 100;
+        unlockedSchools = serializedData.containsKey("unlockedSchools") ? (Map<String, Boolean>) serializedData.get("unlockedSchools") : new HashMap<>();
+        if (dataVersion == DATA_VERSION) {
+            knownSpells = serializedData.containsKey("knownSpells") ? (Map<String, Integer>) serializedData.get("knownSpells") : new HashMap<>();
+        } else {
+            upgradeData(serializedData);
+        }
+
+        initializeSpells();
+    }
+
+    private void upgradeData(Map<String, Object> serializedData) {
         if (dataVersion == 0) {
             knownSpellsOld = serializedData.containsKey("knownSpells") ? (Map<String, Boolean>) serializedData.get("knownSpells") : new HashMap<>();
             knownSpells = new HashMap<>();
             upgradeSpellSystem();
             dataVersion = 1;
-        } else {
-            knownSpells = serializedData.containsKey("knownSpells") ? (Map<String, Integer>) serializedData.get("knownSpells") : new HashMap<>();
         }
-        initializeSpells();
     }
 
     private void initializeSpells() {
         if (knownSpells == null) {
             knownSpells = new HashMap<>();
         }
+        if (unlockedSchools == null) {
+            unlockedSchools = new HashMap<>();
+        }
         for (Spell spell : SpellRegistry.getAllSpells()) {
             knownSpells.putIfAbsent(spell.getTechnicalName(), 0);
+        }
+        for (SpellSchool school : SpellRegistry.getAllSchools()) {
+            unlockedSchools.putIfAbsent(school.getTechnicalName(), false);
         }
 
     }
@@ -165,6 +181,15 @@ public class PlayerData implements ConfigurationSerializable {
         return this;
     }
 
+    public PlayerData setSchool(String school, boolean value) {
+        unlockedSchools.put(school, value);
+        return this;
+    }
+
+    public boolean checkSchool(String school) {
+        return unlockedSchools.getOrDefault(school, false);
+    }
+
     @Override
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>();
@@ -173,6 +198,7 @@ public class PlayerData implements ConfigurationSerializable {
         map.put("currentMana", currentMana);
         map.put("maximumMana", maximumMana);
         map.put("knownSpells", knownSpells);
+        map.put("unlockedSchools", unlockedSchools);
         map.put("version", dataVersion);
         return map;
     }

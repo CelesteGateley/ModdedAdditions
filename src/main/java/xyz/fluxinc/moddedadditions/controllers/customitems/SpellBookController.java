@@ -88,4 +88,8 @@ public class SpellBookController {
         return ModdedAdditions.instance.getPlayerDataController().getPlayerData(player).knowsSpell(spell);
     }
 
+    public static boolean hasSchool(Player player, String school) {
+        return ModdedAdditions.instance.getPlayerDataController().getPlayerData(player).checkSchool(school);
+    }
+
 }

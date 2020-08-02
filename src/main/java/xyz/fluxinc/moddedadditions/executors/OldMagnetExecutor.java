@@ -6,8 +6,6 @@ import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.fluxcore.inventory.CheckExecutor;
 import xyz.fluxinc.moddedadditions.controllers.customitems.MagnetController;
 
-import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
-
 public class OldMagnetExecutor extends CheckExecutor {
 
     @Override

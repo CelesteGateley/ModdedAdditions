@@ -11,7 +11,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
-import xyz.fluxinc.moddedadditions.controllers.customitems.*;
+import xyz.fluxinc.moddedadditions.controllers.customitems.AreaToolController;
+import xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController;
+import xyz.fluxinc.moddedadditions.controllers.customitems.MagnetController;
+import xyz.fluxinc.moddedadditions.controllers.customitems.SonicScrewdriverController;
 import xyz.fluxinc.moddedadditions.enums.SaberColor;
 
 import java.util.ArrayList;
@@ -23,7 +26,6 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.LightSaberController.getDefaultDCLightSaber;
-import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.SB_KEY_BASE;
 import static xyz.fluxinc.moddedadditions.storage.AdditionalRecipeStorage.*;
 import static xyz.fluxinc.moddedadditions.utils.SpecialArmorUtils.*;
 

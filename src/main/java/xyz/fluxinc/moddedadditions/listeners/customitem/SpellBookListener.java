@@ -23,10 +23,10 @@ import org.bukkit.potion.PotionEffectType;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ResearchInventoryListener;
 import xyz.fluxinc.moddedadditions.spells.Spell;
-import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
+import xyz.fluxinc.moddedadditions.spells.SpellSchool;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
-import xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
+import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +34,15 @@ import java.util.List;
 import static xyz.fluxinc.fluxcore.utils.InventoryUtils.generateDistributedInventory;
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
+import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.generateNewSpellBook;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.verifySpellBook;
 import static xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball.*;
 
+@SuppressWarnings("ConstantConditions")
 public class SpellBookListener implements Listener {
 
-    private static final String INVENTORY_TITLE = "Select Spell";
+    private static final String SELECT_SPELL = "Select Spell";
+    private static final String SELECT_SCHOOL = "Select School";
 
 
     @EventHandler
@@ -70,8 +73,8 @@ public class SpellBookListener implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent event) {
-        if (!event.getView().getTitle().equals(INVENTORY_TITLE)) {
+    public void onSpellSelect(InventoryClickEvent event) {
+        if (!event.getView().getTitle().equals(SELECT_SPELL)) {
             return;
         }
         if (event.getClickedInventory() == null) {
@@ -103,6 +106,36 @@ public class SpellBookListener implements Listener {
     }
 
     @EventHandler
+    public void onSchoolSelect(InventoryClickEvent event) {
+        if (!event.getView().getTitle().equals(SELECT_SCHOOL)) {
+            return;
+        }
+        if (event.getClickedInventory() == null) {
+            return;
+        }
+        event.setCancelled(true);
+        if (event.getCurrentItem() == null) {
+            return;
+        }
+        if (event.getClickedInventory().getType() == InventoryType.PLAYER) {
+            event.setCancelled(true);
+            return;
+        }
+        if (event.getCurrentItem().getType() == Material.BARRIER) {
+            event.getWhoClicked().sendMessage(instance.getLanguageManager().generateMessage("sb-lockedSpell"));
+            event.getView().close();
+        } else if (event.getCurrentItem().getType() == Material.ENCHANTED_BOOK) {
+            event.getView().close();
+            Bukkit.getScheduler().scheduleSyncDelayedTask(instance, () -> ResearchInventoryListener.openInventory((Player) event.getWhoClicked()));
+        } else {
+            event.getView().close();
+            SpellSchool school = SpellRegistry.getSchoolById(event.getCurrentItem().getItemMeta().getCustomModelData());
+            Bukkit.getScheduler().scheduleSyncDelayedTask(instance, () -> event.getWhoClicked().openInventory(generateSpellInventory(school, (Player) event.getWhoClicked())));
+        }
+        event.getView().close();
+    }
+
+    @EventHandler
     public void onSlotChange(PlayerItemHeldEvent event) {
         ItemStack newStack = event.getPlayer().getInventory().getItem(event.getNewSlot());
         if (newStack == null) {
@@ -126,7 +159,7 @@ public class SpellBookListener implements Listener {
         PlayerData data = instance.getPlayerDataController().getPlayerData(event.getPlayer());
         if (verifySpellBook(event.getItem())) {
             if (event.getPlayer().isSneaking()) {
-                event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
+                event.getPlayer().openInventory(generateSchoolInventory(event.getPlayer()));
             } else {
                 Spell spell = SpellBookController.getSpell(event.getItem());
                 if (spell instanceof Fireball && event.getAction() == Action.RIGHT_CLICK_BLOCK) return;
@@ -144,7 +177,7 @@ public class SpellBookListener implements Listener {
         PlayerData data = instance.getPlayerDataController().getPlayerData(event.getPlayer());
         if (verifySpellBook(item)) {
             if (event.getPlayer().isSneaking()) {
-                event.getPlayer().openInventory(generateSpellInventory(event.getPlayer()));
+                event.getPlayer().openInventory(generateSchoolInventory(event.getPlayer()));
             } else {
                 Spell spell = SpellBookController.getSpell(item);
                 if (spell != null) {
@@ -180,7 +213,14 @@ public class SpellBookListener implements Listener {
         World world = event.getClickedBlock().getWorld();
         world.spawnParticle(Particle.VILLAGER_HAPPY, event.getClickedBlock().getLocation(), 5, 3, 3, 3);
         event.getPlayer().setLevel(event.getPlayer().getLevel() - 8);
-        event.getPlayer().getInventory().setItemInMainHand(SpellBookController.generateNewSpellBook());
+        if (event.getPlayer().getInventory().getItemInMainHand().getAmount() == 1) {
+            event.getPlayer().getInventory().setItemInMainHand(SpellBookController.generateNewSpellBook());
+        } else {
+            ItemStack bookStack = event.getPlayer().getInventory().getItemInMainHand();
+            bookStack.setAmount(bookStack.getAmount()-1);
+            event.getPlayer().getInventory().setItemInMainHand(bookStack);
+            event.getPlayer().getInventory().addItem(SpellBookController.generateNewSpellBook());
+        }
     }
 
     @EventHandler
@@ -233,8 +273,35 @@ public class SpellBookListener implements Listener {
         }
     }
 
-    private Inventory generateSpellInventory(Player player) {
-        List<Spell> spells = SpellRegistry.getAllSpells();
+    private Inventory generateSchoolInventory(Player player) {
+        PlayerData data = instance.getPlayerDataController().getPlayerData(player);
+        List<ItemStack> stacks = new ArrayList<>();
+        for (SpellSchool school : SpellRegistry.getAllSchools()) {
+            if (SpellBookController.hasSchool(player, school.getTechnicalName())) {
+                stacks.add(school.getItemStack());
+            } else {
+                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), school.getRiddle());
+                ItemMeta iMeta = iStack.getItemMeta();
+                iMeta.setDisplayName(school.getLocalizedName());
+                iStack.setItemMeta(iMeta);
+                stacks.add(iStack);
+            }
+        }
+        Inventory dummy = generateDistributedInventory(SELECT_SCHOOL, stacks);
+        Inventory master = Bukkit.createInventory(null, dummy.getSize() + 9, SELECT_SCHOOL);
+        for (int i = 0; i < dummy.getSize(); i++) {
+            master.setItem(i, dummy.getItem(i));
+        }
+        ItemStack itemStack = addLore(new ItemStack(Material.ENCHANTED_BOOK), "Research new Spells!");
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(ChatColor.RESET + "Research");
+        itemStack.setItemMeta(itemMeta);
+        master.setItem(master.getSize() - 5, itemStack);
+        return master;
+    }
+
+    private Inventory generateSpellInventory(SpellSchool school, Player player) {
+        List<Spell> spells = school.getSpells();
         PlayerData data = instance.getPlayerDataController().getPlayerData(player);
         List<ItemStack> stacks = new ArrayList<>();
         for (Spell spell : spells) {
@@ -248,8 +315,8 @@ public class SpellBookListener implements Listener {
                 stacks.add(iStack);
             }
         }
-        Inventory dummy = generateDistributedInventory(INVENTORY_TITLE, stacks);
-        Inventory master = Bukkit.createInventory(null, dummy.getSize() + 9, INVENTORY_TITLE);
+        Inventory dummy = generateDistributedInventory(SELECT_SPELL, stacks);
+        Inventory master = Bukkit.createInventory(null, dummy.getSize() + 9, SELECT_SPELL);
         for (int i = 0; i < dummy.getSize(); i++) {
             master.setItem(i, dummy.getItem(i));
         }
