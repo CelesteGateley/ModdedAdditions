@@ -10,8 +10,10 @@ public class SpellRecipe {
 
     private final List<RecipeIngredient> ingredients = new ArrayList<>();
     private final RecipeIngredient catalyst;
+    private final Spell spell;
 
-    public SpellRecipe(RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2) {
+    public SpellRecipe(Spell spell, RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2) {
+        this.spell = spell;
         this.catalyst = catalyst;
         ingredients.add(ingredient1);
         ingredients.add(ingredient1);
@@ -23,8 +25,9 @@ public class SpellRecipe {
         ingredients.add(ingredient2);
     }
 
-    public SpellRecipe(RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2,
+    public SpellRecipe(Spell spell, RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2,
                        RecipeIngredient ingredient3, RecipeIngredient ingredient4) {
+        this.spell = spell;
         this.catalyst = catalyst;
         ingredients.add(ingredient1);
         ingredients.add(ingredient1);
@@ -36,9 +39,10 @@ public class SpellRecipe {
         ingredients.add(ingredient4);
     }
 
-    public SpellRecipe(RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2,
+    public SpellRecipe(Spell spell, RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2,
                        RecipeIngredient ingredient3, RecipeIngredient ingredient4, RecipeIngredient ingredient5,
                        RecipeIngredient ingredient6, RecipeIngredient ingredient7, RecipeIngredient ingredient8) {
+        this.spell = spell;
         this.catalyst = catalyst;
         ingredients.add(ingredient1);
         ingredients.add(ingredient2);
@@ -49,6 +53,8 @@ public class SpellRecipe {
         ingredients.add(ingredient7);
         ingredients.add(ingredient8);
     }
+
+    public Spell getSpell() { return spell; }
 
     public boolean verifyItems(ItemStack catalyst, List<ItemStack> items) {
         if (!this.catalyst.verifyItem(catalyst)) return false;

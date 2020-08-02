@@ -65,7 +65,7 @@ public class Arrows extends Spell {
     @Override
     public SpellRecipe getRecipe(int level) {
         if (level == 1)
-            return new SpellRecipe(new MaterialRecipeIngredient(Material.REDSTONE),
+            return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                     new MaterialRecipeIngredient(Material.SPECTRAL_ARROW), new MaterialRecipeIngredient(Material.CROSSBOW));
         return null;
     }

@@ -11,6 +11,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.moddedadditions.spells.Spell;
+import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
@@ -64,7 +65,7 @@ public class ResearchInventoryListener implements Listener {
         } else if (type == Material.RED_STAINED_GLASS_PANE || type == Material.YELLOW_STAINED_GLASS_PANE || type == Material.GREEN_STAINED_GLASS_PANE) {
             event.setCancelled(true);
             PlayerData data = instance.getPlayerDataController().getPlayerData((Player) event.getWhoClicked());
-            Spell spell = verifyInventory(event.getClickedInventory());
+            Spell spell = verifyInventory((Player) event.getWhoClicked(), event.getClickedInventory());
             if (spell == null || data.getSpellLevel(spell.getTechnicalName()) + 1 != 1) {
                 for (int i = 45; i < 54; i++) {
                     event.getClickedInventory().setItem(i, new ItemStack(Material.RED_STAINED_GLASS_PANE));
@@ -92,7 +93,7 @@ public class ResearchInventoryListener implements Listener {
         }
     }
 
-    private Spell verifyInventory(Inventory inventory) {
+    private Spell verifyInventory(Player player, Inventory inventory) {
         ItemStack catalyst = new ItemStack(Material.STONE);
         List<ItemStack> items = new ArrayList<>();
         for (int i : skipSlots) {
@@ -102,10 +103,9 @@ public class ResearchInventoryListener implements Listener {
             if (i == 22) catalyst = iStack;
             else items.add(iStack);
         }
-        for (Spell spell : SpellRegistry.getAllSpells()) {
-            System.out.println(spell.getTechnicalName());
-            if (spell.getRecipe(1).verifyItems(catalyst, items)) {
-                return spell;
+        for (SpellRecipe recipe : SpellRegistry.getAvailableRecipes(player)) {
+            if (recipe.verifyItems(catalyst, items)) {
+                return recipe.getSpell();
             }
         }
         return null;
@@ -128,6 +128,7 @@ public class ResearchInventoryListener implements Listener {
     private void emptyInventory(Inventory inventory, Player player) {
         for (int i : skipSlots) {
             ItemStack iStack = inventory.getItem(i);
+            if (iStack == null) continue;
             if (iStack.getAmount() > 1) {
                 iStack.setAmount(iStack.getAmount() - 1);
                 if (player != null) {

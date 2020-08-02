@@ -64,7 +64,7 @@ public class Slowball extends Spell {
     @Override
     public SpellRecipe getRecipe(int level) {
         if (level == 1)
-            return new SpellRecipe(new MaterialRecipeIngredient(Material.REDSTONE),
+            return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                     new MaterialRecipeIngredient(Material.SNOWBALL), new MaterialRecipeIngredient(Material.SOUL_SAND));
         return null;
     }

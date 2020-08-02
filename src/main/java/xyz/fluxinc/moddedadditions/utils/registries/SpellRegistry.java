@@ -1,6 +1,9 @@
 package xyz.fluxinc.moddedadditions.utils.registries;
 
+import org.bukkit.entity.Player;
+import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.spells.Spell;
+import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Arrows;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball;
@@ -15,6 +18,7 @@ import xyz.fluxinc.moddedadditions.spells.castable.support.Vanish;
 import xyz.fluxinc.moddedadditions.spells.castable.tank.ForceField;
 import xyz.fluxinc.moddedadditions.spells.castable.tank.HardenedForm;
 import xyz.fluxinc.moddedadditions.spells.castable.tank.Taunt;
+import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +47,16 @@ public class SpellRegistry {
         spells.add(new Taunt());
         // Debug
         //registerSpell(new FillMana(), "fillmana", KEY_BASE + SB_KEY_BASE + 100);
+    }
+
+    public static List<SpellRecipe> getAvailableRecipes(Player player) {
+        List<SpellRecipe> recipes = new ArrayList<>();
+        PlayerData playerData = ModdedAdditions.instance.getPlayerDataController().getPlayerData(player);
+        for (Spell spell : spells) {
+            SpellRecipe recipe = spell.getRecipe(playerData.getSpellLevel(spell.getTechnicalName())+1);
+            if (recipe != null) recipes.add(recipe);
+        }
+        return recipes;
     }
 
     public static List<Spell> getAllSpells() {

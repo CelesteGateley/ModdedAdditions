@@ -65,7 +65,7 @@ public class Taunt extends Spell {
     @Override
     public SpellRecipe getRecipe(int level) {
         if (level == 1)
-            return new SpellRecipe(new MaterialRecipeIngredient(Material.REDSTONE),
+            return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                     new MaterialRecipeIngredient(Material.WITHER_SKELETON_SKULL), new MaterialRecipeIngredient(Material.TURTLE_EGG));
 
         return null;

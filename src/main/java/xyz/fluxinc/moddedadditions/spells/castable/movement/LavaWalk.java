@@ -61,7 +61,7 @@ public class LavaWalk extends Spell {
     @Override
     public SpellRecipe getRecipe(int level) {
         if (level != 1) return null;
-        return new SpellRecipe(new MaterialRecipeIngredient(Material.REDSTONE),
+        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                 new MaterialRecipeIngredient(Material.ICE), new MaterialRecipeIngredient(Material.BLAZE_ROD));
     }
 
