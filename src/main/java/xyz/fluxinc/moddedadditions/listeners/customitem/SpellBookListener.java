@@ -312,7 +312,7 @@ public class SpellBookListener implements Listener {
             if (SpellBookController.knowsSpell(player, spell.getTechnicalName())) {
                 stacks.add(spell.getItemStack(player.getWorld().getEnvironment(), spell.getModelId(), data.getSpellLevel(spell.getTechnicalName())));
             } else {
-                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), spell.getRiddle(data.getSpellLevel(spell.getTechnicalName())));
+                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), ChatColor.translateAlternateColorCodes('&', spell.getRiddle(data.getSpellLevel(spell.getTechnicalName()))));
                 ItemMeta iMeta = iStack.getItemMeta();
                 iMeta.setDisplayName(spell.getLocalizedName());
                 iStack.setItemMeta(iMeta);
