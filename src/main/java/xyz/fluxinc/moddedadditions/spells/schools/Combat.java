@@ -58,7 +58,7 @@ public class Combat extends SpellSchool {
     @Override
     public String getRiddle() {
         return "The weapons you wield, the range, " +
-                "the glimmering blade and projectile, " +
+                "the glimmering blade, projectile, " +
                 "and the protection you hold, " +
                 "catalysed by the knowledge held within pages";
     }
