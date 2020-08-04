@@ -57,7 +57,7 @@ public class Slowball extends Spell {
     @Override
     public String getRiddle(int level) {
         switch (level) {
-            case 0: return "&9Catalyst: &4Redstone\n\n&9One strie from winter's wrath slows your very soul to a crawl";
+            case 0: return "&9Catalyst: &4Redstone\n\n&9One strike from winter's wrath slows your very soul to a crawl";
             default: return null;
         }
     }
