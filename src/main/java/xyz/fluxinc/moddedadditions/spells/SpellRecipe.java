@@ -58,22 +58,19 @@ public class SpellRecipe<T> {
         return result;
     }
 
-    public boolean verifyItems(ItemStack catalyst, List<ItemStack> items) {
-        if (!this.catalyst.verifyItem(catalyst)) return false;
-        if (items.size() != 8) return false;
+    public int verifyItems(List<ItemStack> items, ItemStack catalyst) {
+        if (!this.catalyst.verifyItem(catalyst)) return 0;
+        if (items.size() != 8) return 0;
+        int count = 0;
         for (RecipeIngredient ingredient : ingredients) {
-            boolean found = false;
             for (int i = 0; i < items.size(); i++) {
                 if (ingredient.verifyItem(items.get(i))) {
-                    found = true;
+                    count ++;
                     items.remove(i);
                     break;
                 }
             }
-            if (!found) {
-                return false;
-            }
         }
-        return true;
+        return count;
     }
 }

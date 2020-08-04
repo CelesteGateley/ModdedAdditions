@@ -10,6 +10,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.SpellSchool;
@@ -17,7 +18,10 @@ import xyz.fluxinc.moddedadditions.storage.PlayerData;
 import xyz.fluxinc.moddedadditions.storage.ResultContainer;
 import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 
+import javax.xml.transform.Result;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
@@ -45,7 +49,10 @@ public class ResearchInventoryListener implements Listener {
         for (int i = 45; i < 54; i++) {
             blankInventory.setItem(i, new ItemStack(Material.YELLOW_STAINED_GLASS_PANE));
         }
-        return blankInventory;
+        for (int i = 18; i < 27; i++){
+            if (i == 22) continue;
+            blankInventory.setItem(i, new ItemStack(Material.BLACK_TERRACOTTA));
+        }        return blankInventory;
     }
 
 
@@ -62,15 +69,25 @@ public class ResearchInventoryListener implements Listener {
         if (event.getClickedInventory().getType() != InventoryType.CHEST) return;
         if (event.getCurrentItem() == null) return;
         Material type = event.getCurrentItem().getType();
-        if (type == Material.BLACK_STAINED_GLASS_PANE) {
+        if (type == Material.BLACK_STAINED_GLASS_PANE|| type == Material.RED_TERRACOTTA || type == Material.LIME_TERRACOTTA || type == Material.BLACK_TERRACOTTA) {
             event.setCancelled(true);
         } else if (type == Material.RED_STAINED_GLASS_PANE || type == Material.YELLOW_STAINED_GLASS_PANE || type == Material.GREEN_STAINED_GLASS_PANE) {
             event.setCancelled(true);
             PlayerData data = instance.getPlayerDataController().getPlayerData((Player) event.getWhoClicked());
-            ResultContainer result = verifyInventory((Player) event.getWhoClicked(), event.getClickedInventory());
-            if (result == null) {
+            StorageContainer result = verifyInventory((Player) event.getWhoClicked(), event.getClickedInventory());
+            if (result == null || result.count < 8) {
                 for (int i = 45; i < 54; i++) {
                     event.getClickedInventory().setItem(i, new ItemStack(Material.RED_STAINED_GLASS_PANE));
+                }
+                if (result != null) {
+                    for (int i = 18; i < 27; i++) {
+                        if (i == 22) continue;
+                        if (result.count > 0) {
+                            event.getClickedInventory().setItem(i, new ItemStack(Material.LIME_TERRACOTTA));
+                            result.count--;
+                        }
+                        else event.getClickedInventory().setItem(i, new ItemStack(Material.RED_TERRACOTTA));
+                    }
                 }
                 for (int i : skipSlots) {
                     ItemStack iStack = event.getInventory().getItem(i);
@@ -79,22 +96,30 @@ public class ResearchInventoryListener implements Listener {
                     }
                 }
                 emptyInventory(event.getClickedInventory(), (Player) event.getWhoClicked());
-            } else if (result.getResult() instanceof Spell) {
-                Spell spell = (Spell) result.getResult();
+            } else if (result.result instanceof Spell) {
+                Spell spell = (Spell) result.result;
                 data.setSpell(spell.getTechnicalName(), data.getSpellLevel(spell.getTechnicalName()) + 1);
                 data.evaluateMana();
                 instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), data);
                 emptyInventory(event.getClickedInventory(), (Player) event.getWhoClicked());
+                for (int i = 18; i < 27; i++){
+                    if (i == 22) continue;
+                    event.getClickedInventory().setItem(i, new ItemStack(Material.LIME_TERRACOTTA));
+                }
                 for (int i = 45; i < 54; i++) {
                     event.getClickedInventory().setItem(i, new ItemStack(Material.GREEN_STAINED_GLASS_PANE));
                 }
-            } else if (result.getResult() instanceof SpellSchool) {
-                SpellSchool school = (SpellSchool) result.getResult();
+            } else if (result.result instanceof SpellSchool) {
+                SpellSchool school = (SpellSchool) result.result;
                 data.setSchool(school.getTechnicalName(), true);
                 instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), data);
                 emptyInventory(event.getClickedInventory(), (Player) event.getWhoClicked());
                 for (int i = 45; i < 54; i++) {
                     event.getClickedInventory().setItem(i, new ItemStack(Material.GREEN_STAINED_GLASS_PANE));
+                }
+                for (int i = 18; i < 27; i++){
+                    if (i == 22) continue;
+                    event.getClickedInventory().setItem(i, new ItemStack(Material.LIME_TERRACOTTA));
                 }
             } else {
                 for (int i = 45; i < 54; i++) {
@@ -104,7 +129,7 @@ public class ResearchInventoryListener implements Listener {
         }
     }
 
-    private ResultContainer verifyInventory(Player player, Inventory inventory) {
+    private StorageContainer verifyInventory(Player player, Inventory inventory) {
         ItemStack catalyst = new ItemStack(Material.STONE);
         List<ItemStack> items = new ArrayList<>();
         for (int i : skipSlots) {
@@ -114,12 +139,21 @@ public class ResearchInventoryListener implements Listener {
             if (i == 22) catalyst = iStack;
             else items.add(iStack);
         }
+
+        SpellRecipe closestfit = null;
+        int strength = 0;
         for (SpellRecipe recipe : SpellRegistry.getAvailableRecipes(player)) {
-            if (recipe.verifyItems(catalyst, items)) {
-                return new ResultContainer(recipe.getResult());
-            }
+            int tempstrength = recipe.verifyItems(items, catalyst);
+            if (tempstrength > strength) {closestfit = recipe; strength = tempstrength;}
         }
-        return null;
+
+        return new StorageContainer<>(strength, closestfit.getResult());
+    }
+
+    private static class StorageContainer<T> {
+        public int count;
+        public T result;
+        public StorageContainer(int count, T result) {this.count = count; this.result = result;}
     }
 
     @EventHandler
