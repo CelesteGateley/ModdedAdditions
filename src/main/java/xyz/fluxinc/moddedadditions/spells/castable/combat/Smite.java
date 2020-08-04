@@ -54,7 +54,7 @@ public class Smite extends Spell {
     @Override
     public String getRiddle(int level) {
         switch (level) {
-            case 0: return "&9Catalyst: &4Redstone\n\n&9oseidon strikes at the richest ore held in the highest mountains";
+            case 0: return "&9Catalyst: &4Redstone\n\n&9Poseidon strikes at the richest ore held in the highest mountains";
             default: return null;
         }
     }
