@@ -6,13 +6,13 @@ import xyz.fluxinc.moddedadditions.spells.recipe.RecipeIngredient;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpellRecipe<T> {
+public class SpellRecipe {
 
     private final List<RecipeIngredient> ingredients = new ArrayList<>();
     private final RecipeIngredient catalyst;
-    private final T result;
+    private final Magic result;
 
-    public SpellRecipe(T result, RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2) {
+    public SpellRecipe(Magic result, RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2) {
         this.result = result;
         this.catalyst = catalyst;
         ingredients.add(ingredient1);
@@ -25,7 +25,7 @@ public class SpellRecipe<T> {
         ingredients.add(ingredient2);
     }
 
-    public SpellRecipe(T result, RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2,
+    public SpellRecipe(Magic result, RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2,
                        RecipeIngredient ingredient3, RecipeIngredient ingredient4) {
         this.result = result;
         this.catalyst = catalyst;
@@ -39,7 +39,7 @@ public class SpellRecipe<T> {
         ingredients.add(ingredient4);
     }
 
-    public SpellRecipe(T result, RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2,
+    public SpellRecipe(Magic result, RecipeIngredient catalyst, RecipeIngredient ingredient1, RecipeIngredient ingredient2,
                        RecipeIngredient ingredient3, RecipeIngredient ingredient4, RecipeIngredient ingredient5,
                        RecipeIngredient ingredient6, RecipeIngredient ingredient7, RecipeIngredient ingredient8) {
         this.result = result;
@@ -54,7 +54,7 @@ public class SpellRecipe<T> {
         ingredients.add(ingredient8);
     }
 
-    public T getResult() {
+    public Magic getResult() {
         return result;
     }
 

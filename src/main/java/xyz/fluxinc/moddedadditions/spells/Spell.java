@@ -10,7 +10,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Spell {
+public abstract class Spell extends Magic {
 
     private final Map<Player, Long> cooldowns;
 

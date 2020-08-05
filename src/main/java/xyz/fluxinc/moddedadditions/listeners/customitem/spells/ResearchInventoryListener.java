@@ -10,22 +10,19 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.RecipeChoice;
+import xyz.fluxinc.moddedadditions.spells.Magic;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.SpellSchool;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
-import xyz.fluxinc.moddedadditions.storage.ResultContainer;
 import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 
-import javax.xml.transform.Result;
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
+@SuppressWarnings("SuspiciousMethodCalls")
 public class ResearchInventoryListener implements Listener {
 
     private static final List<Player> openInventories = new ArrayList<>();
@@ -130,30 +127,29 @@ public class ResearchInventoryListener implements Listener {
     }
 
     private StorageContainer verifyInventory(Player player, Inventory inventory) {
-        ItemStack catalyst = new ItemStack(Material.STONE);
+        ItemStack catalyst = null;
         List<ItemStack> items = new ArrayList<>();
         for (int i : skipSlots) {
             ItemStack iStack = inventory.getItem(i);
             if (iStack == null) return null;
-            System.out.println(iStack.getType());
             if (i == 22) catalyst = iStack;
             else items.add(iStack);
         }
 
-        SpellRecipe closestfit = null;
+        SpellRecipe closestFit = null;
         int strength = 0;
         for (SpellRecipe recipe : SpellRegistry.getAvailableRecipes(player)) {
-            int tempstrength = recipe.verifyItems(items, catalyst);
-            if (tempstrength > strength) {closestfit = recipe; strength = tempstrength;}
+            int recipeStrength = recipe.verifyItems(items, catalyst);
+            if (recipeStrength > strength) { closestFit = recipe; strength = recipeStrength; }
         }
 
-        return new StorageContainer<>(strength, closestfit.getResult());
+        return new StorageContainer(strength, closestFit.getResult());
     }
 
-    private static class StorageContainer<T> {
+    private static class StorageContainer {
         public int count;
-        public T result;
-        public StorageContainer(int count, T result) {this.count = count; this.result = result;}
+        public Magic result;
+        public StorageContainer(int count, Magic result) {this.count = count; this.result = result;}
     }
 
     @EventHandler

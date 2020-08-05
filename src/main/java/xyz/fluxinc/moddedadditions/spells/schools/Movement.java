@@ -67,8 +67,8 @@ public class Movement extends SpellSchool {
     }
 
     @Override
-    public SpellRecipe<SpellSchool> getRecipe() {
-        return new SpellRecipe<>(this, new MaterialRecipeIngredient(Material.BOOK),
+    public SpellRecipe getRecipe() {
+        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.BOOK),
                 new MaterialRecipeIngredient(Material.SHULKER_SHELL), new PotionRecipeIngredient(PotionType.SPEED),
                 new MaterialRecipeIngredient(Material.SLIME_BLOCK), new MaterialRecipeIngredient(Material.DIAMOND_BOOTS));
     }
