@@ -1,43 +1,29 @@
 package xyz.fluxinc.moddedadditions.listeners.customitem;
 
-import org.bukkit.*;
-import org.bukkit.entity.*;
+import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.inventory.CraftItemEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
-import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ResearchInventoryListener;
 import xyz.fluxinc.moddedadditions.spells.Spell;
-import xyz.fluxinc.moddedadditions.spells.SpellSchool;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
-import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static xyz.fluxinc.fluxcore.utils.InventoryUtils.generateDistributedInventory;
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
-import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.generateNewSpellBook;
 import static xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController.verifySpellBook;
-import static xyz.fluxinc.moddedadditions.listeners.customitem.SpellControlListener.*;
-import static xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball.*;
+import static xyz.fluxinc.moddedadditions.listeners.customitem.SpellControlListener.generateSchoolInventory;
 
 @SuppressWarnings("ConstantConditions")
 public class SpellBookListener implements Listener {
@@ -139,7 +125,7 @@ public class SpellBookListener implements Listener {
             event.getPlayer().getInventory().setItemInMainHand(SpellBookController.generateNewSpellBook());
         } else {
             ItemStack bookStack = event.getPlayer().getInventory().getItemInMainHand();
-            bookStack.setAmount(bookStack.getAmount()-1);
+            bookStack.setAmount(bookStack.getAmount() - 1);
             event.getPlayer().getInventory().setItemInMainHand(bookStack);
             event.getPlayer().getInventory().addItem(SpellBookController.generateNewSpellBook());
         }

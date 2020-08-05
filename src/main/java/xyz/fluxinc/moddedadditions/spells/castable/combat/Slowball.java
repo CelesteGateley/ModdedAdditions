@@ -57,8 +57,10 @@ public class Slowball extends Spell {
     @Override
     public String getRiddle(int level) {
         switch (level) {
-            case 0: return "&9Catalyst: &4Redstone\n\n&9One strike from winter's wrath slows your very soul to a crawl";
-            default: return null;
+            case 0:
+                return "&9Catalyst: &4Redstone\n\n&9One strike from winter's wrath slows your very soul to a crawl";
+            default:
+                return null;
         }
     }
 
@@ -72,8 +74,9 @@ public class Slowball extends Spell {
         switch (level) {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                    new MaterialRecipeIngredient(Material.SNOWBALL), new MaterialRecipeIngredient(Material.SOUL_SAND));
-            default: return null;
+                        new MaterialRecipeIngredient(Material.SNOWBALL), new MaterialRecipeIngredient(Material.SOUL_SAND));
+            default:
+                return null;
         }
     }
 
@@ -95,7 +98,8 @@ public class Slowball extends Spell {
                 entity.getVelocity().multiply(2);
                 entity.setCustomName(POTENT_SLOWBALL_NAME);
                 return true;
-            default: return false;
+            default:
+                return false;
         }
     }
 }

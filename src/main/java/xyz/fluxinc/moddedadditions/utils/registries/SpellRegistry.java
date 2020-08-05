@@ -17,6 +17,7 @@ import java.util.List;
 public class SpellRegistry {
 
     private static final List<SpellSchool> schools = new ArrayList<>();
+
     static {
         schools.add(new Combat());
         schools.add(new Movement());

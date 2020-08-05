@@ -65,7 +65,7 @@ public class SpellRecipe {
         for (RecipeIngredient ingredient : ingredients) {
             for (int i = 0; i < items.size(); i++) {
                 if (ingredient.verifyItem(items.get(i))) {
-                    count ++;
+                    count++;
                     items.remove(i);
                     break;
                 }

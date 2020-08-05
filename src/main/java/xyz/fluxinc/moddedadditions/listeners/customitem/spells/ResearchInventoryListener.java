@@ -46,10 +46,11 @@ public class ResearchInventoryListener implements Listener {
         for (int i = 45; i < 54; i++) {
             blankInventory.setItem(i, new ItemStack(Material.YELLOW_STAINED_GLASS_PANE));
         }
-        for (int i = 18; i < 27; i++){
+        for (int i = 18; i < 27; i++) {
             if (i == 22) continue;
             blankInventory.setItem(i, new ItemStack(Material.BLACK_TERRACOTTA));
-        }        return blankInventory;
+        }
+        return blankInventory;
     }
 
 
@@ -66,7 +67,7 @@ public class ResearchInventoryListener implements Listener {
         if (event.getClickedInventory().getType() != InventoryType.CHEST) return;
         if (event.getCurrentItem() == null) return;
         Material type = event.getCurrentItem().getType();
-        if (type == Material.BLACK_STAINED_GLASS_PANE|| type == Material.RED_TERRACOTTA || type == Material.LIME_TERRACOTTA || type == Material.BLACK_TERRACOTTA) {
+        if (type == Material.BLACK_STAINED_GLASS_PANE || type == Material.RED_TERRACOTTA || type == Material.LIME_TERRACOTTA || type == Material.BLACK_TERRACOTTA) {
             event.setCancelled(true);
         } else if (type == Material.RED_STAINED_GLASS_PANE || type == Material.YELLOW_STAINED_GLASS_PANE || type == Material.GREEN_STAINED_GLASS_PANE) {
             event.setCancelled(true);
@@ -82,8 +83,7 @@ public class ResearchInventoryListener implements Listener {
                         if (result.count > 0) {
                             event.getClickedInventory().setItem(i, new ItemStack(Material.LIME_TERRACOTTA));
                             result.count--;
-                        }
-                        else event.getClickedInventory().setItem(i, new ItemStack(Material.RED_TERRACOTTA));
+                        } else event.getClickedInventory().setItem(i, new ItemStack(Material.RED_TERRACOTTA));
                     }
                 }
                 for (int i : skipSlots) {
@@ -99,7 +99,7 @@ public class ResearchInventoryListener implements Listener {
                 data.evaluateMana();
                 instance.getPlayerDataController().setPlayerData((Player) event.getWhoClicked(), data);
                 emptyInventory(event.getClickedInventory(), (Player) event.getWhoClicked());
-                for (int i = 18; i < 27; i++){
+                for (int i = 18; i < 27; i++) {
                     if (i == 22) continue;
                     event.getClickedInventory().setItem(i, new ItemStack(Material.LIME_TERRACOTTA));
                 }
@@ -114,7 +114,7 @@ public class ResearchInventoryListener implements Listener {
                 for (int i = 45; i < 54; i++) {
                     event.getClickedInventory().setItem(i, new ItemStack(Material.GREEN_STAINED_GLASS_PANE));
                 }
-                for (int i = 18; i < 27; i++){
+                for (int i = 18; i < 27; i++) {
                     if (i == 22) continue;
                     event.getClickedInventory().setItem(i, new ItemStack(Material.LIME_TERRACOTTA));
                 }
@@ -140,16 +140,13 @@ public class ResearchInventoryListener implements Listener {
         int strength = 0;
         for (SpellRecipe recipe : SpellRegistry.getAvailableRecipes(player)) {
             int recipeStrength = recipe.verifyItems(items, catalyst);
-            if (recipeStrength > strength) { closestFit = recipe; strength = recipeStrength; }
+            if (recipeStrength > strength) {
+                closestFit = recipe;
+                strength = recipeStrength;
+            }
         }
 
         return new StorageContainer(strength, closestFit.getResult());
-    }
-
-    private static class StorageContainer {
-        public int count;
-        public Magic result;
-        public StorageContainer(int count, Magic result) {this.count = count; this.result = result;}
     }
 
     @EventHandler
@@ -177,6 +174,16 @@ public class ResearchInventoryListener implements Listener {
                 }
             }
             inventory.setItem(i, null);
+        }
+    }
+
+    private static class StorageContainer {
+        public int count;
+        public Magic result;
+
+        public StorageContainer(int count, Magic result) {
+            this.count = count;
+            this.result = result;
         }
     }
 }

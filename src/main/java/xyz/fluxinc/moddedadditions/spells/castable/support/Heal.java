@@ -57,8 +57,10 @@ public class Heal extends Spell {
     @Override
     public String getRiddle(int level) {
         switch (level) {
-            case 0: return "&9Catalyst: &4Redstone\n\n&9The elixir of life gathered from the forbidden fruit";
-            default: return null;
+            case 0:
+                return "&9Catalyst: &4Redstone\n\n&9The elixir of life gathered from the forbidden fruit";
+            default:
+                return null;
         }
 
     }
@@ -73,8 +75,9 @@ public class Heal extends Spell {
         switch (level) {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                    new PotionRecipeIngredient(PotionType.INSTANT_HEAL), new MaterialRecipeIngredient(Material.GOLDEN_APPLE));
-            default: return null;
+                        new PotionRecipeIngredient(PotionType.INSTANT_HEAL), new MaterialRecipeIngredient(Material.GOLDEN_APPLE));
+            default:
+                return null;
         }
     }
 
@@ -95,16 +98,16 @@ public class Heal extends Spell {
         int counter = 0;
         for (LivingEntity entity : targets) {
             boolean hungerCheck = true;
-            if (entity instanceof Player)  hungerCheck = ((Player) entity).getFoodLevel() >= 20;
-            if (entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() == entity.getHealth() && hungerCheck) continue;
+            if (entity instanceof Player) hungerCheck = ((Player) entity).getFoodLevel() >= 20;
+            if (entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() == entity.getHealth() && hungerCheck)
+                continue;
             if (healTarget(entity, heal)) counter++;
         }
         if (counter > 0) {
             target.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, target.getLocation(), 50, 0.5, 1, 0.5);
             target.getWorld().playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -124,14 +127,22 @@ public class Heal extends Spell {
         boolean doneHealth = true;
 
         if (target instanceof Player) {
-            if (((Player) target).getFoodLevel() == 20) { doneHunger = false; }
-            else if (((Player) target).getFoodLevel() >= 20-amount) { ((Player) target).setFoodLevel(20); }
-            else { ((Player) target).setFoodLevel(((Player) target).getFoodLevel() + amount);}
+            if (((Player) target).getFoodLevel() == 20) {
+                doneHunger = false;
+            } else if (((Player) target).getFoodLevel() >= 20 - amount) {
+                ((Player) target).setFoodLevel(20);
+            } else {
+                ((Player) target).setFoodLevel(((Player) target).getFoodLevel() + amount);
+            }
         }
 
-        if (target.getHealth() == target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) { doneHealth = false;}
-        else if (target.getHealth() >= target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-amount) { target.setHealth(target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()); }
-        else { target.setHealth(target.getHealth() + amount); }
+        if (target.getHealth() == target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
+            doneHealth = false;
+        } else if (target.getHealth() >= target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() - amount) {
+            target.setHealth(target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+        } else {
+            target.setHealth(target.getHealth() + amount);
+        }
 
         return doneHealth || doneHunger;
 

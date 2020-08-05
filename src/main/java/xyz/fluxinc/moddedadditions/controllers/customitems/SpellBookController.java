@@ -32,19 +32,6 @@ public class SpellBookController {
                 && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + SB_KEY_BASE + 1000;
     }
 
-    public boolean canLavaWalk(Player player) {
-        if (lavaWalkerPlayers.containsKey(player)) {
-            if (lavaWalkerPlayers.get(player) + 30 * 1000 > System.currentTimeMillis()) return true;
-            lavaWalkerPlayers.remove(player);
-            player.sendTitle("Lava walk has worn off", "", 10, 70, 20);
-        }
-        return false;
-    }
-
-    public void addLavaWalk(Player player) {
-        lavaWalkerPlayers.put(player, System.currentTimeMillis());
-    }
-
     public static ItemStack generateNewSpellBook() {
         ItemStack itemStack = addLore(new ItemStack(Material.BOOK), ModdedAdditions.instance.getLanguageManager().getFormattedString("mi-spellbook"));
         return setSpell(KEY_BASE + SB_KEY_BASE, itemStack);
@@ -90,6 +77,19 @@ public class SpellBookController {
 
     public static boolean hasSchool(Player player, String school) {
         return ModdedAdditions.instance.getPlayerDataController().getPlayerData(player).checkSchool(school);
+    }
+
+    public boolean canLavaWalk(Player player) {
+        if (lavaWalkerPlayers.containsKey(player)) {
+            if (lavaWalkerPlayers.get(player) + 30 * 1000 > System.currentTimeMillis()) return true;
+            lavaWalkerPlayers.remove(player);
+            player.sendTitle("Lava walk has worn off", "", 10, 70, 20);
+        }
+        return false;
+    }
+
+    public void addLavaWalk(Player player) {
+        lavaWalkerPlayers.put(player, System.currentTimeMillis());
     }
 
 }

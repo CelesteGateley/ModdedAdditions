@@ -66,8 +66,10 @@ public class Vanish extends Spell {
     @Override
     public String getRiddle(int level) {
         switch (level) {
-            case 0: return "&9Catalyst: &4Redstone\n\n&9With a root of gold, you can become as dark as the blackest stone";
-            default: return null;
+            case 0:
+                return "&9Catalyst: &4Redstone\n\n&9With a root of gold, you can become as dark as the blackest stone";
+            default:
+                return null;
         }
 
     }
@@ -83,7 +85,8 @@ public class Vanish extends Spell {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                         new MaterialRecipeIngredient(Material.GOLDEN_CARROT), new MaterialRecipeIngredient(Material.BLACKSTONE));
-            default: return null;
+            default:
+                return null;
         }
     }
 

@@ -39,10 +39,6 @@ public class MagnetController {
                 && item.getItemMeta().getCustomModelData() == MAGNET_MODEL_KEY;
     }
 
-    public boolean hasVacuumInstance(Player player) {
-        return vacuumInstances.containsKey(player);
-    }
-
     public static ItemStack generateNewMagnet() {
         ItemStack magnet = addLore(new ItemStack(MAGNET_MATERIAL), instance.getLanguageManager().getFormattedString("mi-magnet"));
         ItemMeta itemMeta = magnet.getItemMeta();
@@ -50,20 +46,6 @@ public class MagnetController {
         itemMeta.setDisplayName(ChatColor.AQUA + "Item " + ChatColor.RED + "Magnet");
         magnet.setItemMeta(itemMeta);
         return magnet;
-    }
-
-    public void registerVacuumInstance(Player player) {
-        if (!hasVacuumInstance(player)) {
-            int taskId = taskScheduler.scheduleSyncRepeatingTask(instance, new MagnetRunnable(player), 0L, 10L);
-            vacuumInstances.put(player, taskId);
-        }
-    }
-
-    public void deregisterVacuumInstance(Player player) {
-        if (hasVacuumInstance(player)) {
-            taskScheduler.cancelTask(vacuumInstances.get(player));
-            vacuumInstances.remove(player);
-        }
     }
 
     public static boolean verifyOldMagnet(ItemStack item) {
@@ -80,6 +62,24 @@ public class MagnetController {
         iMeta.setCustomModelData(MAGNET_MODEL_KEY);
         itemStack.setItemMeta(iMeta);
         return itemStack;
+    }
+
+    public boolean hasVacuumInstance(Player player) {
+        return vacuumInstances.containsKey(player);
+    }
+
+    public void registerVacuumInstance(Player player) {
+        if (!hasVacuumInstance(player)) {
+            int taskId = taskScheduler.scheduleSyncRepeatingTask(instance, new MagnetRunnable(player), 0L, 10L);
+            vacuumInstances.put(player, taskId);
+        }
+    }
+
+    public void deregisterVacuumInstance(Player player) {
+        if (hasVacuumInstance(player)) {
+            taskScheduler.cancelTask(vacuumInstances.get(player));
+            vacuumInstances.remove(player);
+        }
     }
 
 }

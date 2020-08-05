@@ -31,6 +31,54 @@ public class SpellControlListener implements Listener {
     public static final String SELECT_SPELL = "Select Spell";
     public static final String SELECT_SCHOOL = "Select School";
 
+    public static Inventory generateSchoolInventory(Player player) {
+        List<ItemStack> stacks = new ArrayList<>();
+        for (SpellSchool school : SpellRegistry.getAllSchools()) {
+            if (SpellBookController.hasSchool(player, school.getTechnicalName())) {
+                stacks.add(school.getItemStack());
+            } else {
+                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), ChatColor.translateAlternateColorCodes('&', school.getRiddle()));
+                ItemMeta iMeta = iStack.getItemMeta();
+                iMeta.setDisplayName(school.getLocalizedName());
+                iStack.setItemMeta(iMeta);
+                stacks.add(iStack);
+            }
+        }
+        return addResearchButton(stacks, SELECT_SCHOOL);
+    }
+
+    private static Inventory addResearchButton(List<ItemStack> stacks, String selectSchool) {
+        Inventory dummy = generateDistributedInventory(selectSchool, stacks);
+        Inventory master = Bukkit.createInventory(null, dummy.getSize() + 9, selectSchool);
+        for (int i = 0; i < dummy.getSize(); i++) {
+            master.setItem(i, dummy.getItem(i));
+        }
+        ItemStack itemStack = addLore(new ItemStack(Material.ENCHANTED_BOOK), "Research new Spells!");
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(ChatColor.RESET + "Research");
+        itemStack.setItemMeta(itemMeta);
+        master.setItem(master.getSize() - 5, itemStack);
+        return master;
+    }
+
+    public static Inventory generateSpellInventory(SpellSchool school, Player player) {
+        List<Spell> spells = school.getSpells();
+        PlayerData data = instance.getPlayerDataController().getPlayerData(player);
+        List<ItemStack> stacks = new ArrayList<>();
+        for (Spell spell : spells) {
+            if (SpellBookController.knowsSpell(player, spell.getTechnicalName())) {
+                stacks.add(spell.getItemStack(player.getWorld().getEnvironment(), spell.getModelId(), data.getSpellLevel(spell.getTechnicalName())));
+            } else {
+                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), ChatColor.translateAlternateColorCodes('&', spell.getRiddle(data.getSpellLevel(spell.getTechnicalName()))));
+                ItemMeta iMeta = iStack.getItemMeta();
+                iMeta.setDisplayName(spell.getLocalizedName());
+                iStack.setItemMeta(iMeta);
+                stacks.add(iStack);
+            }
+        }
+        return addResearchButton(stacks, SELECT_SPELL);
+    }
+
     @EventHandler
     public void onSchoolSelect(InventoryClickEvent event) {
         if (!event.getView().getTitle().equals(SpellControlListener.SELECT_SCHOOL)) return;
@@ -80,53 +128,5 @@ public class SpellControlListener implements Listener {
             }
         }
         event.getView().close();
-    }
-
-    public static Inventory generateSchoolInventory(Player player) {
-        List<ItemStack> stacks = new ArrayList<>();
-        for (SpellSchool school : SpellRegistry.getAllSchools()) {
-            if (SpellBookController.hasSchool(player, school.getTechnicalName())) {
-                stacks.add(school.getItemStack());
-            } else {
-                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), ChatColor.translateAlternateColorCodes('&', school.getRiddle()));
-                ItemMeta iMeta = iStack.getItemMeta();
-                iMeta.setDisplayName(school.getLocalizedName());
-                iStack.setItemMeta(iMeta);
-                stacks.add(iStack);
-            }
-        }
-        return addResearchButton(stacks, SELECT_SCHOOL);
-    }
-
-    private static Inventory addResearchButton(List<ItemStack> stacks, String selectSchool) {
-        Inventory dummy = generateDistributedInventory(selectSchool, stacks);
-        Inventory master = Bukkit.createInventory(null, dummy.getSize() + 9, selectSchool);
-        for (int i = 0; i < dummy.getSize(); i++) {
-            master.setItem(i, dummy.getItem(i));
-        }
-        ItemStack itemStack = addLore(new ItemStack(Material.ENCHANTED_BOOK), "Research new Spells!");
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.RESET + "Research");
-        itemStack.setItemMeta(itemMeta);
-        master.setItem(master.getSize() - 5, itemStack);
-        return master;
-    }
-
-    public static Inventory generateSpellInventory(SpellSchool school, Player player) {
-        List<Spell> spells = school.getSpells();
-        PlayerData data = instance.getPlayerDataController().getPlayerData(player);
-        List<ItemStack> stacks = new ArrayList<>();
-        for (Spell spell : spells) {
-            if (SpellBookController.knowsSpell(player, spell.getTechnicalName())) {
-                stacks.add(spell.getItemStack(player.getWorld().getEnvironment(), spell.getModelId(), data.getSpellLevel(spell.getTechnicalName())));
-            } else {
-                ItemStack iStack = addLore(new ItemStack(Material.BARRIER), ChatColor.translateAlternateColorCodes('&', spell.getRiddle(data.getSpellLevel(spell.getTechnicalName()))));
-                ItemMeta iMeta = iStack.getItemMeta();
-                iMeta.setDisplayName(spell.getLocalizedName());
-                iStack.setItemMeta(iMeta);
-                stacks.add(iStack);
-            }
-        }
-        return addResearchButton(stacks, SELECT_SPELL);
     }
 }
