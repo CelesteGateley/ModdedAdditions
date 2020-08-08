@@ -100,7 +100,7 @@ public class Vanish extends Spell {
         } else {
             caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You feel the darkness surround you"));
         }
-        new PotionEffect(PotionEffectType.INVISIBILITY, 20 * 20, 0).apply(target);
+        new PotionEffect(PotionEffectType.INVISIBILITY, 20 * 20 * level, 0).apply(target);
         return true;
     }
 }
