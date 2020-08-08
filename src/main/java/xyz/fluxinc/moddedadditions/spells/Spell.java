@@ -34,16 +34,16 @@ public abstract class Spell extends Magic {
     public abstract String getDescription(int level);
 
     public ItemStack getItemStack(World.Environment environment, int level) {
-        ItemStack itemStack = addLore(getDefaultItem(environment, level), getDescription(0));
-        itemStack = addLore(itemStack, "Costs: " + getCost(environment, level) + " Mana");
-        itemStack = addLore(itemStack, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
+        ItemStack itemStack = addLore(getDefaultItem(environment, level), ChatColor.BLUE + getDescription(0));
+        itemStack = addLore(itemStack, ChatColor.BLUE + "Costs: " + getCost(environment, level) + " Mana");
+        itemStack = addLore(itemStack, ChatColor.BLUE + "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
+        if (getRecipe(level) != null) {
+            itemStack = addLore(itemStack, ChatColor.translateAlternateColorCodes('&', "\n\n&9Next Level: " + getDescription(level)));
+            itemStack = addLore(itemStack, "\n" + ChatColor.translateAlternateColorCodes('&', getRiddle(level)));
+        }
         ItemMeta iMeta = itemStack.getItemMeta();
         iMeta.setCustomModelData(getModelId());
         iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        if (getRecipe(level) != null) {
-            itemStack = addLore(itemStack, "\n\n&9Next Level: " + getDescription(level));
-            itemStack = addLore(itemStack, "\n" + getRiddle(level));
-        }
         itemStack.setItemMeta(iMeta);
         return itemStack;
     }
