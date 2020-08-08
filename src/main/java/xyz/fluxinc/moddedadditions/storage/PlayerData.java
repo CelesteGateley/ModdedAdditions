@@ -3,6 +3,7 @@ package xyz.fluxinc.moddedadditions.storage;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellSchool;
+import xyz.fluxinc.moddedadditions.spells.schools.Debug;
 import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 
 import java.util.HashMap;
@@ -67,6 +68,9 @@ public class PlayerData implements ConfigurationSerializable {
         }
         for (SpellSchool school : SpellRegistry.getAllSchools()) {
             unlockedSchools.putIfAbsent(school.getTechnicalName(), false);
+        }
+        for (Spell spell : new Debug().getSpells()) {
+            knownSpells.putIfAbsent(spell.getTechnicalName(), 1);
         }
 
     }
