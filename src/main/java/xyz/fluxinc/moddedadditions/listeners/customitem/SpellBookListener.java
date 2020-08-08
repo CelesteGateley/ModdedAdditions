@@ -16,7 +16,6 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
@@ -98,8 +97,7 @@ public class SpellBookListener implements Listener {
             } else {
                 Spell spell = SpellBookController.getSpell(item);
                 if (spell != null) {
-                    if (!data.knowsSpell(spell.getTechnicalName())
-                            && item.getItemMeta().getCustomModelData() < ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 100) return;
+                    if (!data.knowsSpell(spell.getTechnicalName())) return;
                     if (event.getRightClicked() instanceof LivingEntity) {
                         spell.castSpell(event.getPlayer(), (LivingEntity) event.getRightClicked(), data.getSpellLevel(spell.getTechnicalName()));
                     } else {
