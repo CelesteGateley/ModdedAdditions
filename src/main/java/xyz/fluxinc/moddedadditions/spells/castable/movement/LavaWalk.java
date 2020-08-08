@@ -3,6 +3,7 @@ package xyz.fluxinc.moddedadditions.spells.castable.movement;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -13,6 +14,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
+import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
@@ -59,6 +61,8 @@ public class LavaWalk extends Spell {
         switch (level) {
             case 0:
                 return "&9Catalyst: &4Redstone\n\n&9With an icy step and a blazing heart, even you can cross a blazing desert";
+            case 1:
+                return "&9Catalyst: &cGlowstone Dust\n\n&9Your frozen step, walking with a wet soul, forming rock below, given life by the souls of the damned";
             default:
                 return null;
         }
@@ -76,6 +80,10 @@ public class LavaWalk extends Spell {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                         new MaterialRecipeIngredient(Material.ICE), new MaterialRecipeIngredient(Material.BLAZE_ROD));
+            case 1:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new MaterialRecipeIngredient(Material.SOUL_SAND), new MaterialRecipeIngredient(Material.WATER_BUCKET),
+                        new EnchantedBookRecipeIngredient(Enchantment.FROST_WALKER), new MaterialRecipeIngredient(Material.COBBLESTONE));
             default:
                 return null;
         }
