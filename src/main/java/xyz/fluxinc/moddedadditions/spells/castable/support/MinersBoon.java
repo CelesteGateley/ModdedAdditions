@@ -70,7 +70,7 @@ public class MinersBoon extends Spell {
 
     @Override
     public long getCooldown(int level) {
-        return 30000;
+        return level >= 3 ? 15000 : 30000;
     }
 
     @Override
@@ -94,9 +94,9 @@ public class MinersBoon extends Spell {
         } else {
             caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You feel the earth's power flow through you"));
         }
-        new PotionEffect(PotionEffectType.NIGHT_VISION, 20 * 20, 0).apply(target);
-        new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 20, 0).apply(target);
-        new PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 20, 1).apply(target);
+        new PotionEffect(PotionEffectType.NIGHT_VISION, (level >= 2 ? 40 : 20) * 20, level >= 4 ? 1 : 0).apply(target);
+        new PotionEffect(PotionEffectType.FIRE_RESISTANCE, (level >= 2 ? 40 : 20) * 20, level >= 4 ? 1 : 0).apply(target);
+        new PotionEffect(PotionEffectType.FAST_DIGGING, (level >= 2 ? 40 : 20) * 20, level >= 4 ? 2 : 1).apply(target);
         return true;
     }
 }
