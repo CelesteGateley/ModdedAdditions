@@ -37,10 +37,7 @@ import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.HoneyChestplateListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.LongFallBootsListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.SlimeChestplateListener;
-import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ForceFieldListener;
-import xyz.fluxinc.moddedadditions.listeners.customitem.spells.LavaWalkListener;
-import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ResearchInventoryListener;
-import xyz.fluxinc.moddedadditions.listeners.customitem.spells.SlowBallListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.spells.*;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.SortChestListener;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
@@ -67,6 +64,7 @@ public final class ModdedAdditions extends JavaPlugin {
     private SpellBookController spellBookController;
     private ManaController manaController;
     private ForceFieldListener forceFieldListener;
+    private ReflectDamageListener reflectDamageController;
 
     @Override
     public void onEnable() {
@@ -152,6 +150,8 @@ public final class ModdedAdditions extends JavaPlugin {
         manaController = new ManaController();
         manaController.initializeAllManaBars();
         spellBookController = new SpellBookController();
+        reflectDamageController = new ReflectDamageListener();
+        getServer().getPluginManager().registerEvents(reflectDamageController, this);
         getServer().getPluginManager().registerEvents(manaController, this);
         getServer().getPluginManager().registerEvents(new SpellBookListener(), this);
         getServer().getPluginManager().registerEvents(new ResearchInventoryListener(), this);
@@ -203,6 +203,10 @@ public final class ModdedAdditions extends JavaPlugin {
         playerDataController.loadConfiguration();
         veinMinerController.loadFromConfiguration();
         areaToolController.loadFromConfiguration();
+    }
+
+    public ReflectDamageListener getReflectDamageController() {
+        return reflectDamageController;
     }
 
     public ForceFieldListener getForceFieldListener() {

@@ -84,11 +84,19 @@ public class Taunt extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target, int level) {
+        int radius = 16;
+        switch (level) {
+            case 3: radius += 8;
+            case 2: radius += 8;
+        }
         caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("You taunt all enemies within 8 blocks!"));
-        for (Entity entity : caster.getNearbyEntities(16, 8, 16)) {
+        for (Entity entity : caster.getNearbyEntities(radius, 8, radius)) {
             if (entity instanceof Mob) {
                 ((Mob) entity).setTarget(caster);
             }
+        }
+        if (level == 4) {
+            ModdedAdditions.instance.getReflectDamageController().addReflected(caster, 15);
         }
         return true;
     }
