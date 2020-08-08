@@ -58,7 +58,7 @@ public class Tank extends SpellSchool {
     @Override
     public String getRiddle() {
         return "The hardest rocks," +
-                " protecting the weakest," +
+                " protecting shell of the young," +
                 " resisting the damage," +
                 " and dealing it back," +
                 " catalysed by the knowledge held within pages";
