@@ -51,7 +51,12 @@ public class Fireball extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "The tears of your enemies will burn away as you charge forth";
+        switch (level) {
+            case 0:
+                return "&9Catalyst: &4Redstone\n\n&9The tears of your enemies will burn away as you charge forth";
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -61,9 +66,13 @@ public class Fireball extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level != 1) return null;
-        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                new MaterialRecipeIngredient(Material.FIRE_CHARGE), new MaterialRecipeIngredient(Material.GHAST_TEAR));
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                        new MaterialRecipeIngredient(Material.FIRE_CHARGE), new MaterialRecipeIngredient(Material.GHAST_TEAR));
+            default:
+                return null;
+        }
     }
 
     @Override

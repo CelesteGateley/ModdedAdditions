@@ -4,13 +4,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public abstract class SpellSchool {
-
-    public abstract String getLocalizedName();
-
-    public abstract String getTechnicalName();
-
-    public abstract int getModelId();
+public abstract class SpellSchool extends Magic {
 
     public abstract ItemStack getItemStack();
 

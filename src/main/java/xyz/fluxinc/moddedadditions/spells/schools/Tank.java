@@ -65,8 +65,8 @@ public class Tank extends SpellSchool {
     }
 
     @Override
-    public SpellRecipe<SpellSchool> getRecipe() {
-        return new SpellRecipe<>(this, new MaterialRecipeIngredient(Material.BOOK),
+    public SpellRecipe getRecipe() {
+        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.BOOK),
                 new MaterialRecipeIngredient(Material.OBSIDIAN), new MaterialRecipeIngredient(Material.EGG),
                 new EnchantedBookRecipeIngredient(Enchantment.PROTECTION_ENVIRONMENTAL), new EnchantedBookRecipeIngredient(Enchantment.THORNS));
     }

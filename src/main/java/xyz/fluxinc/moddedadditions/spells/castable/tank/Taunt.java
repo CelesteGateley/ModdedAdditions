@@ -54,7 +54,12 @@ public class Taunt extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "Wearing the darkened skull of your enemies, and holding the child of the sea, all enemies will want you dead";
+        switch (level) {
+            case 0:
+                return "&9Catalyst: &4Redstone\n\n&9Wearing the darkened skull of your enemies, and holding the child of the sea, all enemies will want you dead";
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -64,11 +69,13 @@ public class Taunt extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level == 1)
-            return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                    new MaterialRecipeIngredient(Material.WITHER_SKELETON_SKULL), new MaterialRecipeIngredient(Material.TURTLE_EGG));
-
-        return null;
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                        new MaterialRecipeIngredient(Material.WITHER_SKELETON_SKULL), new MaterialRecipeIngredient(Material.TURTLE_EGG));
+            default:
+                return null;
+        }
     }
 
     @Override

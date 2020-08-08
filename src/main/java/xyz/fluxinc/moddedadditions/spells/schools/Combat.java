@@ -58,14 +58,14 @@ public class Combat extends SpellSchool {
     @Override
     public String getRiddle() {
         return "The weapons you wield, the range, " +
-                "the glimmering blade and projectile, " +
+                "the glimmering blade, projectile, " +
                 "and the protection you hold, " +
                 "catalysed by the knowledge held within pages";
     }
 
     @Override
-    public SpellRecipe<SpellSchool> getRecipe() {
-        return new SpellRecipe<>(this, new MaterialRecipeIngredient(Material.BOOK),
+    public SpellRecipe getRecipe() {
+        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.BOOK),
                 new MaterialRecipeIngredient(Material.DIAMOND_SWORD), new MaterialRecipeIngredient(Material.SHIELD),
                 new MaterialRecipeIngredient(Material.CROSSBOW), new MaterialRecipeIngredient(Material.ARROW));
     }

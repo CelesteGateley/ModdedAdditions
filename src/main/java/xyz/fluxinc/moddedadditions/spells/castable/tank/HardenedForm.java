@@ -54,7 +54,12 @@ public class HardenedForm extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "Hard as the rocks closest to the core, you stand strong but slow, as if held by a sticky thread";
+        switch (level) {
+            case 0:
+                return "&9Catalyst: &4Redstone\n\n&9Hard as the rocks closest to the core, you stand strong but slow, as if held by a sticky thread";
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -64,9 +69,13 @@ public class HardenedForm extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level != 1) return null;
-        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                new MaterialRecipeIngredient(Material.OBSIDIAN), new MaterialRecipeIngredient(Material.COBWEB));
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                        new MaterialRecipeIngredient(Material.OBSIDIAN), new MaterialRecipeIngredient(Material.COBWEB));
+            default:
+                return null;
+        }
     }
 
     @Override

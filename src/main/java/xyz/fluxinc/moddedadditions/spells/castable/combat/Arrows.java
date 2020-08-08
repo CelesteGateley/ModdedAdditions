@@ -57,7 +57,12 @@ public class Arrows extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "The eyes of a spectre cause those shot with your firearm to glow to the heavens";
+        switch (level) {
+            case 0:
+                return "&9Catalyst: &4Redstone\n\n&9The eyes of a spectre cause those shot with your firearm to glow to the heavens";
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -67,10 +72,13 @@ public class Arrows extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level == 1)
-            return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                    new MaterialRecipeIngredient(Material.SPECTRAL_ARROW), new MaterialRecipeIngredient(Material.CROSSBOW));
-        return null;
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                        new MaterialRecipeIngredient(Material.SPECTRAL_ARROW), new MaterialRecipeIngredient(Material.CROSSBOW));
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -84,9 +92,9 @@ public class Arrows extends Spell {
             case 4:
                 arrow.setBasePotionData(new PotionData(PotionType.POISON));
             case 3:
-                arrow.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING,100,1),true);
+                arrow.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 100, 1), true);
             case 2:
-                arrow.setDamage(arrow.getDamage()*2);
+                arrow.setDamage(arrow.getDamage() * 2);
                 return true;
         }
         return true;

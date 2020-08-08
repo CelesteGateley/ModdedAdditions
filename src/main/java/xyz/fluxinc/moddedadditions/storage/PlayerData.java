@@ -11,12 +11,12 @@ import java.util.Map;
 @SuppressWarnings({"UnusedReturnValue", "unchecked"})
 public class PlayerData implements ConfigurationSerializable {
 
+    private static final int DATA_VERSION = 1;
     private boolean veinMiner;
     private boolean sortChests;
     private int currentMana;
     private int maximumMana;
     private int dataVersion;
-    private static final int DATA_VERSION = 1;
     private Map<String, Boolean> knownSpellsOld;
     private Map<String, Integer> knownSpells;
     private Map<String, Boolean> unlockedSchools;

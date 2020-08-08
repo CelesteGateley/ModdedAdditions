@@ -80,38 +80,6 @@ public class AreaToolController {
         return extraBlocks;
     }
 
-    public boolean checkHammer(Material material) {
-        return hammerBlocks.contains(material);
-    }
-
-    public boolean checkExcavator(Material material) {
-        return excavatorBlocks.contains(material);
-    }
-
-    public void addHammerBlock(Material material) {
-        hammerBlocks.add(material);
-        areaToolConfiguration.set(HAMMER_CONFIG_KEY, fromMaterialToString(hammerBlocks).toArray());
-        saveConfiguration();
-    }
-
-    public void removeHammerBlock(Material material) {
-        hammerBlocks.remove(material);
-        areaToolConfiguration.set(HAMMER_CONFIG_KEY, fromMaterialToString(hammerBlocks).toArray());
-        saveConfiguration();
-    }
-
-    public void addExcavatorBlock(Material material) {
-        excavatorBlocks.add(material);
-        areaToolConfiguration.set(EXCAVATOR_CONFIG_KEY, fromMaterialToString(excavatorBlocks).toArray());
-        saveConfiguration();
-    }
-
-    public void removeExcavatorBlock(Material material) {
-        excavatorBlocks.remove(material);
-        areaToolConfiguration.set(EXCAVATOR_CONFIG_KEY, fromMaterialToString(excavatorBlocks).toArray());
-        saveConfiguration();
-    }
-
     public static ItemStack generateHammer(ToolLevel level) {
         Material toolMaterial;
         int modelId;
@@ -188,6 +156,38 @@ public class AreaToolController {
         itemStack.setItemMeta(itemMeta);
 
         return itemStack;
+    }
+
+    public boolean checkHammer(Material material) {
+        return hammerBlocks.contains(material);
+    }
+
+    public boolean checkExcavator(Material material) {
+        return excavatorBlocks.contains(material);
+    }
+
+    public void addHammerBlock(Material material) {
+        hammerBlocks.add(material);
+        areaToolConfiguration.set(HAMMER_CONFIG_KEY, fromMaterialToString(hammerBlocks).toArray());
+        saveConfiguration();
+    }
+
+    public void removeHammerBlock(Material material) {
+        hammerBlocks.remove(material);
+        areaToolConfiguration.set(HAMMER_CONFIG_KEY, fromMaterialToString(hammerBlocks).toArray());
+        saveConfiguration();
+    }
+
+    public void addExcavatorBlock(Material material) {
+        excavatorBlocks.add(material);
+        areaToolConfiguration.set(EXCAVATOR_CONFIG_KEY, fromMaterialToString(excavatorBlocks).toArray());
+        saveConfiguration();
+    }
+
+    public void removeExcavatorBlock(Material material) {
+        excavatorBlocks.remove(material);
+        areaToolConfiguration.set(EXCAVATOR_CONFIG_KEY, fromMaterialToString(excavatorBlocks).toArray());
+        saveConfiguration();
     }
 
     public List<Material> getHammerList() {

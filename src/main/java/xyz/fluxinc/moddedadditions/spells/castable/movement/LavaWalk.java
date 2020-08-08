@@ -50,7 +50,13 @@ public class LavaWalk extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "With an icy step and a blazing heart, even you can cross a blazing desert";
+        switch (level) {
+            case 0:
+                return "&9Catalyst: &4Redstone\n\n&9With an icy step and a blazing heart, even you can cross a blazing desert";
+            default:
+                return null;
+        }
+
     }
 
     @Override
@@ -60,9 +66,13 @@ public class LavaWalk extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level != 1) return null;
-        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                new MaterialRecipeIngredient(Material.ICE), new MaterialRecipeIngredient(Material.BLAZE_ROD));
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                        new MaterialRecipeIngredient(Material.ICE), new MaterialRecipeIngredient(Material.BLAZE_ROD));
+            default:
+                return null;
+        }
     }
 
     @Override

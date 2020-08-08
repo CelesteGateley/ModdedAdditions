@@ -49,24 +49,32 @@ public class Teleport extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "The portal's key holds the truth as to how the tall ones move";
+        switch (level) {
+            case 0:
+                return "&9Catalyst: &4Redstone\n\n&9The portal's key holds the truth as to how the tall ones move";
+            default:
+                return null;
+        }
     }
 
     @Override
     public long getCooldown(int level) {
         if (level == 4) {
             return 250;
-        }
-        else {
+        } else {
             return 500;
         }
     }
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level != 1) return null;
-        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                new MaterialRecipeIngredient(Material.ENDER_PEARL), new MaterialRecipeIngredient(Material.ENDER_EYE));
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                        new MaterialRecipeIngredient(Material.ENDER_PEARL), new MaterialRecipeIngredient(Material.ENDER_EYE));
+            default:
+                return null;
+        }
     }
 
     @Override

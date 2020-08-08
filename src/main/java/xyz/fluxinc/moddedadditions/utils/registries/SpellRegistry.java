@@ -17,6 +17,7 @@ import java.util.List;
 public class SpellRegistry {
 
     private static final List<SpellSchool> schools = new ArrayList<>();
+
     static {
         schools.add(new Combat());
         schools.add(new Movement());
@@ -34,7 +35,7 @@ public class SpellRegistry {
             }
         }
         for (Spell spell : getAllSpells()) {
-            SpellRecipe recipe = spell.getRecipe(playerData.getSpellLevel(spell.getTechnicalName()) + 1);
+            SpellRecipe recipe = spell.getRecipe(playerData.getSpellLevel(spell.getTechnicalName()));
             if (recipe != null) recipes.add(recipe);
         }
         return recipes;

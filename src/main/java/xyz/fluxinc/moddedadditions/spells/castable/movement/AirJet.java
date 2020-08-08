@@ -53,8 +53,7 @@ public class AirJet extends Spell {
         } else {
             if (level < 3) {
                 return 45;
-            }
-            else {
+            } else {
                 return 30;
             }
         }
@@ -62,24 +61,33 @@ public class AirJet extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "Tied up tight, the chicken may not fly free";
+        switch (level) {
+            case 0:
+                return "&9Catalyst: &4Redstone\n\n&9Tied up tight, the chicken may not fly free";
+            default:
+                return null;
+        }
     }
 
     @Override
     public long getCooldown(int level) {
         if (level == 1) {
             return 250;
-        }
-        else {
+        } else {
             return 150;
         }
     }
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level != 1) return null;
-        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                new MaterialRecipeIngredient(Material.FEATHER), new MaterialRecipeIngredient(Material.STRING));
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                        new MaterialRecipeIngredient(Material.FEATHER), new MaterialRecipeIngredient(Material.STRING));
+            default:
+                return null;
+        }
+
     }
 
     @Override
@@ -94,7 +102,7 @@ public class AirJet extends Spell {
             newVector.multiply(new Vector(1, -1, 1));
         }
         System.out.println(newVector);
-        if (level == 4){
+        if (level == 4) {
             newVector.multiply(2);
         }
         caster.setVelocity(newVector);

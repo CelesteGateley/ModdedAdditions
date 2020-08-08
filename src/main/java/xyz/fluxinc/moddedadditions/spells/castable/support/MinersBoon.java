@@ -54,7 +54,13 @@ public class MinersBoon extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "An ancient metal, and a buried heart, grants one the strength of the earth";
+        switch (level) {
+            case 0:
+                return "&9Catalyst: &4Redstone\n\n&9An ancient metal, and a buried heart, grants one the strength of the earth";
+            default:
+                return null;
+        }
+
     }
 
     @Override
@@ -64,9 +70,13 @@ public class MinersBoon extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level != 1) return null;
-        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                new MaterialRecipeIngredient(Material.NETHERITE_INGOT), new MaterialRecipeIngredient(Material.HEART_OF_THE_SEA));
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                        new MaterialRecipeIngredient(Material.NETHERITE_INGOT), new MaterialRecipeIngredient(Material.HEART_OF_THE_SEA));
+            default:
+                return null;
+        }
     }
 
     @Override

@@ -63,8 +63,8 @@ public class Support extends SpellSchool {
     }
 
     @Override
-    public SpellRecipe<SpellSchool> getRecipe() {
-        return new SpellRecipe<>(this, new MaterialRecipeIngredient(Material.BOOK),
+    public SpellRecipe getRecipe() {
+        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.BOOK),
                 new MaterialRecipeIngredient(Material.MUSIC_DISC_CAT), new MaterialRecipeIngredient(Material.GOLDEN_CARROT),
                 new MaterialRecipeIngredient(Material.MILK_BUCKET), new MaterialRecipeIngredient(Material.ANVIL));
     }

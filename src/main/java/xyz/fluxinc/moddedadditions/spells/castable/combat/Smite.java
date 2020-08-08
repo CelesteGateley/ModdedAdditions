@@ -53,7 +53,12 @@ public class Smite extends Spell {
 
     @Override
     public String getRiddle(int level) {
-        return "Poseidon strikes at the richest ore held in the highest mountains";
+        switch (level) {
+            case 0:
+                return "&9Catalyst: &4Redstone\n\n&9Poseidon strikes at the richest ore held in the highest mountains";
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -63,9 +68,13 @@ public class Smite extends Spell {
 
     @Override
     public SpellRecipe getRecipe(int level) {
-        if (level != 1) return null;
-        return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
-                new MaterialRecipeIngredient(Material.EMERALD_ORE), new MaterialRecipeIngredient(Material.TRIDENT));
+        switch (level) {
+            case 0:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
+                        new MaterialRecipeIngredient(Material.EMERALD_ORE), new MaterialRecipeIngredient(Material.TRIDENT));
+            default:
+                return null;
+        }
     }
 
     @Override

@@ -31,13 +31,16 @@ import xyz.fluxinc.moddedadditions.listeners.chat.ResponseListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.LightSaberListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.SonicScrewdriverListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.SpellBookListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.SpellControlListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.areatool.HammerListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.HoneyChestplateListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.LongFallBootsListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.armor.SlimeChestplateListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ForceFieldListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.spells.LavaWalkListener;
 import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ResearchInventoryListener;
+import xyz.fluxinc.moddedadditions.listeners.customitem.spells.SlowBallListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.AnvilListener;
 import xyz.fluxinc.moddedadditions.listeners.inventory.SortChestListener;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
@@ -152,6 +155,9 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(manaController, this);
         getServer().getPluginManager().registerEvents(new SpellBookListener(), this);
         getServer().getPluginManager().registerEvents(new ResearchInventoryListener(), this);
+        getServer().getPluginManager().registerEvents(new SlowBallListener(), this);
+        getServer().getPluginManager().registerEvents(new LavaWalkListener(), this);
+        getServer().getPluginManager().registerEvents(new SpellControlListener(), this);
         SpellBookCommand.registerCommands();
         forceFieldListener = new ForceFieldListener();
         getServer().getPluginManager().registerEvents(forceFieldListener, this);
@@ -183,9 +189,7 @@ public final class ModdedAdditions extends JavaPlugin {
         areaToolController = null;
         blockAccessController = null;
         customRecipeUtils = null;
-        if (playerDataController != null) {
-            playerDataController.saveToDisk();
-        }
+        if (playerDataController != null) playerDataController.saveToDisk();
         playerDataController = null;
         spellBookController = null;
         manaController = null;
