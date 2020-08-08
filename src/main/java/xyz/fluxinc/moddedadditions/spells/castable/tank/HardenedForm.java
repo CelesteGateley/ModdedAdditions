@@ -92,9 +92,9 @@ public class HardenedForm extends Spell {
         } else {
             caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Your body becomes hard as a rock"));
         }
-        new PotionEffect(PotionEffectType.ABSORPTION, 20 * 20, 2).apply(target);
-        new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 20, 1).apply(target);
-        new PotionEffect(PotionEffectType.SLOW, 20 * 20, 0).apply(target);
+        new PotionEffect(PotionEffectType.ABSORPTION, (level >= 3 ? 40 : 20) * 20, level >= 2 ? 4 : 2).apply(target);
+        new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (level >= 3 ? 40 : 20) * 20, level >= 2 ? 2 : 1).apply(target);
+        if (level > 4) { new PotionEffect(PotionEffectType.SLOW, 20 * 20, 0).apply(target); }
         return true;
     }
 }
