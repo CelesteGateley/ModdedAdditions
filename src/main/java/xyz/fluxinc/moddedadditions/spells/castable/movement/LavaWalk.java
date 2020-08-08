@@ -7,6 +7,8 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
@@ -65,7 +67,7 @@ public class LavaWalk extends Spell {
 
     @Override
     public long getCooldown(int level) {
-        return 25000;
+        return level >= 3 ? 15000 : 25000;
     }
 
     @Override
@@ -82,7 +84,8 @@ public class LavaWalk extends Spell {
     @Override
     public boolean enactSpell(Player caster, LivingEntity target, int level) {
         caster.sendTitle("You can now walk on lava!", "", 10, 70, 20);
-        ModdedAdditions.instance.getSpellBookController().addLavaWalk(caster);
+        ModdedAdditions.instance.getSpellBookController().addLavaWalk(caster, level >= 2 ? 60 : 30);
+        if (level >= 4) new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 60 * 20, 0).apply(caster);
         return true;
     }
 }
