@@ -84,7 +84,8 @@ public class ForceField extends Spell {
     @Override
     public boolean enactSpell(Player caster, LivingEntity target, int level) {
         caster.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("An energy shield surrounds you, keeping mobs away"));
-        ModdedAdditions.instance.getForceFieldListener().addForceField(caster, 30);
+        ModdedAdditions.instance.getForceFieldListener().addForceField(caster, level >= 2 ? 8 : 4,level >= 3 ? 45 : 30);
+        if (level == 4) { ModdedAdditions.instance.getReflectDamageController().addReflected(caster, 45);}
         return true;
     }
 }
