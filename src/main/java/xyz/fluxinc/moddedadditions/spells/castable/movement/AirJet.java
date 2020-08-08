@@ -68,6 +68,8 @@ public class AirJet extends Spell {
         switch (level) {
             case 0:
                 return "&9Catalyst: &4Redstone\n\n&9Tied up tight, the chicken may not fly free";
+            case 1:
+                return "&9Catalyst: &cGlowstone Dust\n\n&9The skin of those in flight, the meat of those who may only glide, with a torch to light your soul, makes the hands of time spin faster on the face";
             default:
                 return null;
         }
@@ -88,6 +90,10 @@ public class AirJet extends Spell {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                         new MaterialRecipeIngredient(Material.FEATHER), new MaterialRecipeIngredient(Material.STRING));
+            case 1:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new MaterialRecipeIngredient(Material.PHANTOM_MEMBRANE), new MaterialRecipeIngredient(Material.CHICKEN),
+                        new MaterialRecipeIngredient(Material.CLOCK), new MaterialRecipeIngredient(Material.SOUL_TORCH));
             default:
                 return null;
         }
