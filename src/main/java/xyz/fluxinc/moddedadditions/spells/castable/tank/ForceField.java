@@ -5,6 +5,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -13,6 +14,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
+import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
@@ -59,6 +61,8 @@ public class ForceField extends Spell {
         switch (level) {
             case 0:
                 return "&9Catalyst: &4Redstone\n\n&9An invisible shield protects you, and pushes away all those who come close";
+            case 1:
+                return "&9Catalyst: &cGlowstone Dust\n\n&9Knocking back, and punching through your allies, the field will trip your opponents and blow them away";
             default:
                 return null;
         }
@@ -76,6 +80,10 @@ public class ForceField extends Spell {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                         new MaterialRecipeIngredient(Material.SHIELD), new MaterialRecipeIngredient(Material.PISTON));
+            case 1:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new EnchantedBookRecipeIngredient(Enchantment.KNOCKBACK), new EnchantedBookRecipeIngredient(Enchantment.ARROW_KNOCKBACK),
+                        new MaterialRecipeIngredient(Material.TNT), new MaterialRecipeIngredient(Material.TRIPWIRE_HOOK));
             default:
                 return null;
         }
