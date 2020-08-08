@@ -1,39 +1,39 @@
-package xyz.fluxinc.moddedadditions.spells.castable;
+package xyz.fluxinc.moddedadditions.spells.castable.debug;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
+import xyz.fluxinc.moddedadditions.storage.PlayerData;
+import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
-public class FillMana extends Spell {
+public class DecreaseAll extends Spell {
 
     @Override
     public ItemStack getDefaultItem(World.Environment environment, int level) {
-        return new ItemStack(Material.EMERALD);
+        return new ItemStack(Material.ROTTEN_FLESH);
     }
 
     @Override
     public String getLocalizedName() {
-        return "Fill Mana";
+        return "Decrease Spells by 1";
     }
 
     @Override
     public String getTechnicalName() {
-        return "fillmana";
+        return "decrease_spells";
     }
 
     @Override
     public int getModelId() {
-        return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 100;
+        return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 102;
     }
 
     @Override
@@ -58,7 +58,12 @@ public class FillMana extends Spell {
 
     @Override
     public boolean enactSpell(Player caster, LivingEntity target, int level) {
-        ModdedAdditions.instance.getManaController().regenerateMana(caster, 300);
+        PlayerData data = instance.getPlayerDataController().getPlayerData(caster);
+        for (Spell spell : SpellRegistry.getAllSpells()) {
+            int newLevel = data.getSpellLevel(spell.getTechnicalName()) == 0 ? 0 : data.getSpellLevel(spell.getTechnicalName()) - 1;
+            data.setSpell(spell.getTechnicalName(), newLevel);
+        }
+        instance.getPlayerDataController().setPlayerData(caster, data);
         return true;
     }
 }

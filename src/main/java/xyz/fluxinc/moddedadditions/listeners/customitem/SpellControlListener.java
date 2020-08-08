@@ -15,6 +15,7 @@ import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.listeners.customitem.spells.ResearchInventoryListener;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellSchool;
+import xyz.fluxinc.moddedadditions.spells.schools.Debug;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 
@@ -44,6 +45,7 @@ public class SpellControlListener implements Listener {
                 stacks.add(iStack);
             }
         }
+        if (player.hasPermission("moddedadditions.spells.debug") || player.isOp()) stacks.add(new Debug().getItemStack());
         return addResearchButton(stacks, SELECT_SCHOOL);
     }
 
@@ -68,6 +70,8 @@ public class SpellControlListener implements Listener {
         for (Spell spell : spells) {
             if (SpellBookController.knowsSpell(player, spell.getTechnicalName())) {
                 stacks.add(spell.getItemStack(player.getWorld().getEnvironment(), data.getSpellLevel(spell.getTechnicalName())));
+            } else if (school instanceof Debug) {
+                stacks.add(spell.getItemStack(player.getWorld().getEnvironment(), 1));
             } else {
                 ItemStack iStack = addLore(new ItemStack(Material.BARRIER), ChatColor.translateAlternateColorCodes('&', spell.getRiddle(data.getSpellLevel(spell.getTechnicalName()))));
                 ItemMeta iMeta = iStack.getItemMeta();

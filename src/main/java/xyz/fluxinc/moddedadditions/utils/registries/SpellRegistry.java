@@ -5,10 +5,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.SpellSchool;
-import xyz.fluxinc.moddedadditions.spells.schools.Combat;
-import xyz.fluxinc.moddedadditions.spells.schools.Movement;
-import xyz.fluxinc.moddedadditions.spells.schools.Support;
-import xyz.fluxinc.moddedadditions.spells.schools.Tank;
+import xyz.fluxinc.moddedadditions.spells.schools.*;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
 import java.util.ArrayList;
@@ -17,6 +14,7 @@ import java.util.List;
 public class SpellRegistry {
 
     private static final List<SpellSchool> schools = new ArrayList<>();
+    private static final Debug debug = new Debug();
 
     static {
         schools.add(new Combat());
@@ -55,10 +53,16 @@ public class SpellRegistry {
                 return spell;
             }
         }
+        for (Spell spell : debug.getSpells()) {
+            if (spell.getModelId() == modelId) {
+                return spell;
+            }
+        }
         return null;
     }
 
     public static SpellSchool getSchoolById(int modelId) {
+        if (modelId == debug.getModelId()) return debug;
         for (SpellSchool school : schools) {
             if (school.getModelId() == modelId) {
                 return school;
