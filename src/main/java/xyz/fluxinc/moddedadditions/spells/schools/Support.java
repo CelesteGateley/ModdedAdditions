@@ -56,9 +56,9 @@ public class Support extends SpellSchool {
     @Override
     public String getRiddle() {
         return "A cats wail," +
-                " giving you sight to those unseen," +
+                " the root of sight unseen," +
                 " curing your ailments," +
-                " and repairing your tools," +
+                " and a place to repair your tools," +
                 " catalysed by the knowledge held within pages";
     }
 
