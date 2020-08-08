@@ -5,6 +5,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -15,6 +16,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
+import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
@@ -61,6 +63,8 @@ public class HardenedForm extends Spell {
         switch (level) {
             case 0:
                 return "&9Catalyst: &4Redstone\n\n&9Hard as the rocks closest to the core, you stand strong but slow, as if held by a sticky thread";
+            case 1:
+                return "&9Catalyst: &cGlowstone Dust\n\n&9Protection of all kinds surrounds and shields you from damage";
             default:
                 return null;
         }
@@ -77,6 +81,10 @@ public class HardenedForm extends Spell {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                         new MaterialRecipeIngredient(Material.OBSIDIAN), new MaterialRecipeIngredient(Material.COBWEB));
+            case 1:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new EnchantedBookRecipeIngredient(Enchantment.PROTECTION_ENVIRONMENTAL), new EnchantedBookRecipeIngredient(Enchantment.PROTECTION_EXPLOSIONS),
+                        new EnchantedBookRecipeIngredient(Enchantment.PROTECTION_PROJECTILE), new MaterialRecipeIngredient(Material.SHIELD));
             default:
                 return null;
         }
