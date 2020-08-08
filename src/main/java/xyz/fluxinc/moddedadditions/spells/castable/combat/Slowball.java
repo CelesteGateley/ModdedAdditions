@@ -3,17 +3,21 @@ package xyz.fluxinc.moddedadditions.spells.castable.combat;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
+import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
+import xyz.fluxinc.moddedadditions.spells.recipe.PotionRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
@@ -63,6 +67,8 @@ public class Slowball extends Spell {
         switch (level) {
             case 0:
                 return "&9Catalyst: &4Redstone\n\n&9One strike from winter's wrath slows your very soul to a crawl";
+            case 1:
+                return "&9Catalyst: &cGlowstone Dust\n\n&9With increased strength, you can channel more power into your throw, slowing the enemies flesh quicker";
             default:
                 return null;
         }
@@ -79,6 +85,10 @@ public class Slowball extends Spell {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                         new MaterialRecipeIngredient(Material.SNOWBALL), new MaterialRecipeIngredient(Material.SOUL_SAND));
+            case 1:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new PotionRecipeIngredient(PotionType.STRENGTH), new EnchantedBookRecipeIngredient(Enchantment.CHANNELING),
+                        new EnchantedBookRecipeIngredient(Enchantment.ARROW_DAMAGE), new MaterialRecipeIngredient(Material.ROTTEN_FLESH));
             default:
                 return null;
         }
