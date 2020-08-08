@@ -11,11 +11,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
+import xyz.fluxinc.moddedadditions.spells.recipe.PotionRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
@@ -61,6 +63,8 @@ public class Speed extends Spell {
         switch (level) {
             case 0:
                 return "&9Catalyst: &4Redstone\n\n&9Sweetening your life, this will make you faster than light";
+            case 1:
+                return "&9Catalyst: &cGlowstone Dust\n\n&9A bottle of liquid speed held to you, combined with an elixir of health, given form within a liquid basin, and fermented with the eye of the dead";
             default:
                 return null;
         }
@@ -78,6 +82,10 @@ public class Speed extends Spell {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                         new MaterialRecipeIngredient(Material.GLOWSTONE_DUST), new MaterialRecipeIngredient(Material.SUGAR));
+            case 1:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new PotionRecipeIngredient(PotionType.SPEED), new PotionRecipeIngredient(PotionType.INSTANT_HEAL),
+                        new MaterialRecipeIngredient(Material.CAULDRON), new MaterialRecipeIngredient(Material.FERMENTED_SPIDER_EYE));
             default:
                 return null;
         }
