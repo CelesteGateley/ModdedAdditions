@@ -39,23 +39,13 @@ public class Vanish extends Spell {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 41;
     }
 
-    private ItemStack getInvisPotion() {
+    @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
         ItemStack iStack = new ItemStack(Material.POTION);
         PotionMeta meta = (PotionMeta) iStack.getItemMeta();
         meta.setBasePotionData(new PotionData(PotionType.INVISIBILITY));
         iStack.setItemMeta(meta);
         return iStack;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack speed = addLore(getInvisPotion(), "Costs: " + getCost(environment, level) + " Mana");
-        speed = addLore(speed, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = speed.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        speed.setItemMeta(iMeta);
-        return speed;
     }
 
     @Override

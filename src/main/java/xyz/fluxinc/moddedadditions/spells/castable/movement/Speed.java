@@ -22,6 +22,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class Speed extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.GLOWSTONE_DUST);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Speed";
     }
@@ -34,17 +39,6 @@ public class Speed extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 21;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack speed = addLore(new ItemStack(Material.GLOWSTONE_DUST), "Costs: " + getCost(environment, level) + " Mana");
-        speed = addLore(speed, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = speed.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        speed.setItemMeta(iMeta);
-        return speed;
     }
 
     @Override

@@ -22,6 +22,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class Taunt extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.MUSIC_DISC_CAT);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Taunt";
     }
@@ -34,17 +39,6 @@ public class Taunt extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 62;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack taunt = addLore(new ItemStack(Material.MUSIC_DISC_CAT), "Costs: " + getCost(environment, level) + " Mana");
-        taunt = addLore(taunt, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = taunt.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        taunt.setItemMeta(iMeta);
-        return taunt;
     }
 
     @Override

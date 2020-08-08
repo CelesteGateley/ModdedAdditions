@@ -19,6 +19,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class Fireball extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.FIRE_CHARGE);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Fireball";
     }
@@ -31,17 +36,6 @@ public class Fireball extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 3;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack fireball = addLore(new ItemStack(Material.FIRE_CHARGE), "Costs: " + getCost(environment, level) + " Mana");
-        fireball = addLore(fireball, "Cooldown: " + getCooldown(level) / 1000 + " Seconds");
-        ItemMeta iMeta = fireball.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        fireball.setItemMeta(iMeta);
-        return fireball;
     }
 
     @Override

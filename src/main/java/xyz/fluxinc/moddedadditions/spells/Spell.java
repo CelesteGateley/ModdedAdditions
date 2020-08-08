@@ -1,14 +1,19 @@
 package xyz.fluxinc.moddedadditions.spells;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public abstract class Spell extends Magic {
 
@@ -18,13 +23,23 @@ public abstract class Spell extends Magic {
         cooldowns = new HashMap<>();
     }
 
+    public abstract ItemStack getDefaultItem(World.Environment environment, int level);
+
     public abstract String getLocalizedName();
 
     public abstract String getTechnicalName();
 
     public abstract int getModelId();
 
-    public abstract ItemStack getItemStack(World.Environment environment, int modelId, int level);
+    public ItemStack getItemStack(World.Environment environment, int level) {
+        ItemStack itemStack = addLore(getDefaultItem(environment, level), "Costs: " + getCost(environment, level) + " Mana");
+        itemStack = addLore(itemStack, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
+        ItemMeta iMeta = itemStack.getItemMeta();
+        iMeta.setCustomModelData(getModelId());
+        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
+        itemStack.setItemMeta(iMeta);
+        return itemStack;
+    }
 
     public abstract int getCost(World.Environment environment, int level);
 

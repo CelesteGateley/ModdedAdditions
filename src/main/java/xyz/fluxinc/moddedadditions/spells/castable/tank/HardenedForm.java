@@ -22,6 +22,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class HardenedForm extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.BEDROCK);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Hardened Form";
     }
@@ -34,17 +39,6 @@ public class HardenedForm extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 60;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack hardenedForm = addLore(new ItemStack(Material.BEDROCK), "Costs: " + getCost(environment, level) + " Mana");
-        hardenedForm = addLore(hardenedForm, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = hardenedForm.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        hardenedForm.setItemMeta(iMeta);
-        return hardenedForm;
     }
 
     @Override

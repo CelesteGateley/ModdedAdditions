@@ -17,6 +17,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class Teleport extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.ENDER_PEARL);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Teleport";
     }
@@ -29,17 +34,6 @@ public class Teleport extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 22;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack teleport = addLore(new ItemStack(Material.ENDER_PEARL), "Costs: " + getCost(environment, level) + " Mana");
-        teleport = addLore(teleport, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = teleport.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        teleport.setItemMeta(iMeta);
-        return teleport;
     }
 
     @Override

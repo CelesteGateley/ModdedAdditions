@@ -22,6 +22,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class MinersBoon extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.DIAMOND_PICKAXE);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Miners Boon";
     }
@@ -34,17 +39,6 @@ public class MinersBoon extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 43;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack minersBoon = addLore(new ItemStack(Material.DIAMOND_PICKAXE), "Costs: " + getCost(environment, level) + " Mana");
-        minersBoon = addLore(minersBoon, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = minersBoon.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        minersBoon.setItemMeta(iMeta);
-        return minersBoon;
     }
 
     @Override

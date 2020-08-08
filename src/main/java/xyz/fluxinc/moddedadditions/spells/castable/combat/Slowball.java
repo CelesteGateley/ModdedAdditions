@@ -24,6 +24,11 @@ public class Slowball extends Spell {
     public static final String POTENT_SLOWBALL_NAME = "sadfasZFFDGVEasdeNEFA";
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.SNOWBALL);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Slow Ball";
     }
@@ -36,17 +41,6 @@ public class Slowball extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 2;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack slowball = addLore(new ItemStack(Material.SNOWBALL), "Costs: " + getCost(environment, level) + " Mana");
-        slowball = addLore(slowball, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = slowball.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        slowball.setItemMeta(iMeta);
-        return slowball;
     }
 
     @Override

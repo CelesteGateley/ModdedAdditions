@@ -24,6 +24,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class Heal extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.GOLDEN_APPLE);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Heal";
     }
@@ -36,17 +41,6 @@ public class Heal extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 40;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack heal = addLore(new ItemStack(Material.GOLDEN_APPLE), "Costs: " + getCost(environment, level) + " Mana");
-        heal = addLore(heal, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = heal.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        heal.setItemMeta(iMeta);
-        return heal;
     }
 
     @Override

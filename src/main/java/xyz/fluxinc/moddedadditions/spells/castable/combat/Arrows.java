@@ -25,6 +25,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class Arrows extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.BOW);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Shoot Arrows";
     }
@@ -37,17 +42,6 @@ public class Arrows extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 1;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack arrows = addLore(new ItemStack(Material.BOW), "Costs: " + getCost(environment, level) + " Mana");
-        arrows = addLore(arrows, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = arrows.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        arrows.setItemMeta(iMeta);
-        return arrows;
     }
 
     @Override

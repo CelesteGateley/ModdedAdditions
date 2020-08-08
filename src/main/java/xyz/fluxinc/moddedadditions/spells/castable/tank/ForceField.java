@@ -20,6 +20,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class ForceField extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.GLASS);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "ForceField";
     }
@@ -32,17 +37,6 @@ public class ForceField extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 61;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack forcefield = addLore(new ItemStack(Material.GLASS), "Costs: " + getCost(environment, level) + " Mana");
-        forcefield = addLore(forcefield, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = forcefield.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        forcefield.setItemMeta(iMeta);
-        return forcefield;
     }
 
     @Override

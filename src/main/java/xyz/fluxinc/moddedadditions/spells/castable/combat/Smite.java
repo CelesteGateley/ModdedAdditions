@@ -21,6 +21,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class Smite extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.TRIDENT);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Smite";
     }
@@ -33,17 +38,6 @@ public class Smite extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 4;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack smite = addLore(new ItemStack(Material.TRIDENT), "Costs: " + getCost(environment, level) + " Mana");
-        smite = addLore(smite, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = smite.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        smite.setItemMeta(iMeta);
-        return smite;
     }
 
     @Override

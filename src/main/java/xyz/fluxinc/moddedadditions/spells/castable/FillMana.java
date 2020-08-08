@@ -17,6 +17,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class FillMana extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.EMERALD);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Fill Mana";
     }
@@ -29,16 +34,6 @@ public class FillMana extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 100;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack fillMana = addLore(new ItemStack(Material.EMERALD), "Costs: " + getCost(environment, level) + " Mana");
-        ItemMeta iMeta = fillMana.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        fillMana.setItemMeta(iMeta);
-        return fillMana;
     }
 
     @Override

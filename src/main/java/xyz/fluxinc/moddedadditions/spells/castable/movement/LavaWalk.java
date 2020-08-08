@@ -18,6 +18,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class LavaWalk extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.LAVA_BUCKET);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Lava Walk";
     }
@@ -30,17 +35,6 @@ public class LavaWalk extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 23;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack lavaWalk = addLore(new ItemStack(Material.LAVA_BUCKET), "Costs: " + getCost(environment, level) + " Mana");
-        lavaWalk = addLore(lavaWalk, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = lavaWalk.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        lavaWalk.setItemMeta(iMeta);
-        return lavaWalk;
     }
 
     @Override

@@ -21,6 +21,11 @@ import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 public class AirJet extends Spell {
 
     @Override
+    public ItemStack getDefaultItem(World.Environment environment, int level) {
+        return new ItemStack(Material.FEATHER);
+    }
+
+    @Override
     public String getLocalizedName() {
         return "Air Jet";
     }
@@ -33,17 +38,6 @@ public class AirJet extends Spell {
     @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 20;
-    }
-
-    @Override
-    public ItemStack getItemStack(World.Environment environment, int modelId, int level) {
-        ItemStack airjet = addLore(new ItemStack(Material.FEATHER), "Costs: " + getCost(environment, level) + " Mana");
-        airjet = addLore(airjet, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");
-        ItemMeta iMeta = airjet.getItemMeta();
-        iMeta.setCustomModelData(modelId);
-        iMeta.setDisplayName(ChatColor.WHITE + getLocalizedName());
-        airjet.setItemMeta(iMeta);
-        return airjet;
     }
 
     @Override
