@@ -67,7 +67,7 @@ public class SpellControlListener implements Listener {
         List<ItemStack> stacks = new ArrayList<>();
         for (Spell spell : spells) {
             if (SpellBookController.knowsSpell(player, spell.getTechnicalName())) {
-                stacks.add(spell.getItemStack(player.getWorld().getEnvironment(), spell.getModelId(), data.getSpellLevel(spell.getTechnicalName())));
+                stacks.add(spell.getItemStack(player.getWorld().getEnvironment(), data.getSpellLevel(spell.getTechnicalName())));
             } else {
                 ItemStack iStack = addLore(new ItemStack(Material.BARRIER), ChatColor.translateAlternateColorCodes('&', spell.getRiddle(data.getSpellLevel(spell.getTechnicalName()))));
                 ItemMeta iMeta = iStack.getItemMeta();
