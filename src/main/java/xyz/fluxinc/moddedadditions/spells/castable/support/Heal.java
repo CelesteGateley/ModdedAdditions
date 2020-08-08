@@ -8,6 +8,7 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
@@ -64,6 +65,8 @@ public class Heal extends Spell {
         switch (level) {
             case 0:
                 return "&9Catalyst: &4Redstone\n\n&9The elixir of life gathered from the forbidden fruit";
+            case 1:
+                return "&9Catalyst: &cGlowstone Dust\n\n&9A sweetened mixture, designed to regenerate and heal, and strengthen";
             default:
                 return null;
         }
@@ -81,6 +84,10 @@ public class Heal extends Spell {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                         new PotionRecipeIngredient(PotionType.INSTANT_HEAL), new MaterialRecipeIngredient(Material.GOLDEN_APPLE));
+            case 1:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new PotionRecipeIngredient(PotionType.INSTANT_HEAL), new PotionRecipeIngredient(PotionType.STRENGTH),
+                        new PotionRecipeIngredient(PotionType.REGEN), new MaterialRecipeIngredient(Material.SUGAR));
             default:
                 return null;
         }
