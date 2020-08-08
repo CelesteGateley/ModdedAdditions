@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
@@ -18,6 +19,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
+import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
@@ -64,6 +66,8 @@ public class Arrows extends Spell {
         switch (level) {
             case 0:
                 return "&9Catalyst: &4Redstone\n\n&9The eyes of a spectre cause those shot with your firearm to glow to the heavens";
+            case 1:
+                return "&9Catalyst: &cGlowstone Dust\n\n&9With great power comes more damage, leading you to be scattered amongst the bones, fallen to the ground below core";
             default:
                 return null;
         }
@@ -80,6 +84,10 @@ public class Arrows extends Spell {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                         new MaterialRecipeIngredient(Material.SPECTRAL_ARROW), new MaterialRecipeIngredient(Material.CROSSBOW));
+            case 1:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new EnchantedBookRecipeIngredient(Enchantment.ARROW_DAMAGE), new MaterialRecipeIngredient(Material.LEAD),
+                        new MaterialRecipeIngredient(Material.BONE), new MaterialRecipeIngredient(Material.NETHERRACK));
             default:
                 return null;
         }
