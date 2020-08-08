@@ -33,6 +33,16 @@ public class LavaWalk extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Increases the duration!";
+            case 2: return "Decreases the cooldown!";
+            case 3: return "Grants Fire Resistance for the duration!";
+            default: return "Leaves a cobblestone trail at your feet when walking over lava!";
+        }
+    }
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 23;
     }

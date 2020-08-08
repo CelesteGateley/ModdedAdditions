@@ -37,6 +37,16 @@ public class HardenedForm extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Increases the potency!";
+            case 2: return "Increased duration!";
+            case 3: return "Removes the slowdown!";
+            default: return "Increases your resistance, while decreasing your speed!";
+        }
+    }
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 60;
     }

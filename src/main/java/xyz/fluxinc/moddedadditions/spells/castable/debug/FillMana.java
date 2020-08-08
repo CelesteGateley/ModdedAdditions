@@ -38,6 +38,13 @@ public class FillMana extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            default: return "";
+        }
+    }
+
+    @Override
     public int getCost(World.Environment environment, int level) {
         return 0;
     }

@@ -39,6 +39,16 @@ public class Slowball extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Increases slowball speed!";
+            case 2: return "Increases the slow duration!";
+            case 3: return "Increases the amount slowed by!";
+            default: return "Flings a snowball to slow your target down!";
+        }
+    }
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 2;
     }

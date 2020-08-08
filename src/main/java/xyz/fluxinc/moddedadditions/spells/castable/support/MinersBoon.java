@@ -37,6 +37,17 @@ public class MinersBoon extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Increases the duration!";
+            case 2: return "Decreases the cooldown!";
+            case 3: return "Increases the potency!";
+            default: return "Grants buffs to help with mining!";
+        }
+    }
+
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 43;
     }

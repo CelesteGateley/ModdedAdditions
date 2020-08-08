@@ -35,6 +35,16 @@ public class Vanish extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Increases the duration!";
+            case 2: return "Increases the duration further!";
+            case 3: return "Increases the duration even further!";
+            default: return "Makes your target invisible!";
+        }
+    }
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 41;
     }

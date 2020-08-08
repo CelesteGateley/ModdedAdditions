@@ -36,6 +36,16 @@ public class AirJet extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Decreases the cooldown!";
+            case 2: return "Decreases the cost outside the overworld!";
+            case 3: return "Increases the distance sent!";
+            default: return "Fling yourself through the air!";
+        }
+    }
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 20;
     }

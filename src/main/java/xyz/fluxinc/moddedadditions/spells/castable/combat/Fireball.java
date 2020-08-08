@@ -34,6 +34,16 @@ public class Fireball extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Increases the explosion radius";
+            case 2: return "Increases the speed of the fireball";
+            case 3: return "Increases the power of the explosion";
+            default: return "Throw a fireball forward!";
+        }
+    }
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 3;
     }

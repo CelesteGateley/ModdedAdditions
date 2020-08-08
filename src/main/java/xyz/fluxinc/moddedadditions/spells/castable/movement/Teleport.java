@@ -32,6 +32,16 @@ public class Teleport extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Increases the distance!";
+            case 2: return "Increases the distance further!";
+            case 3: return "Decreases the cooldown!";
+            default: return "Teleport to the block you are staring at!";
+        }
+    }
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 22;
     }

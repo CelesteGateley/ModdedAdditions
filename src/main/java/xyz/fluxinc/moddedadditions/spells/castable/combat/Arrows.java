@@ -45,6 +45,16 @@ public class Arrows extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Doubles the damage of the arrow!";
+            case 2: return "Gives the arrow Spectral properties!";
+            case 3: return "Poisons those hit by the arrow!";
+            default: return "Fires an Arrow at your crosshair!";
+        }
+    }
+
+    @Override
     public int getCost(World.Environment environment, int level) {
         return 5;
     }

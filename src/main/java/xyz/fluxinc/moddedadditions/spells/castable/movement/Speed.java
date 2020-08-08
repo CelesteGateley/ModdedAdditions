@@ -37,6 +37,16 @@ public class Speed extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Increases the duration!";
+            case 2: return "Increases the potency!";
+            case 3: return "Increases the duration further!";
+            default: return "Increase your movement speed!";
+        }
+    }
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 21;
     }

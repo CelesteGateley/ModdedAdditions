@@ -31,6 +31,8 @@ public abstract class Spell extends Magic {
 
     public abstract int getModelId();
 
+    public abstract String getDescription(int level);
+
     public ItemStack getItemStack(World.Environment environment, int level) {
         ItemStack itemStack = addLore(getDefaultItem(environment, level), "Costs: " + getCost(environment, level) + " Mana");
         itemStack = addLore(itemStack, "Cooldown: " + getCooldown(level) / 1000d + " Seconds");

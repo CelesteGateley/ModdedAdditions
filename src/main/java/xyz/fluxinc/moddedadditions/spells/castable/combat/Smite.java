@@ -36,6 +36,16 @@ public class Smite extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Decreases the mana cost to cast!";
+            case 2: return "Targets mobs in a 3x3 area around the target!";
+            case 3: return "Increases radius to 5x5!";
+            default: return "Strike lightning where you are looking!";
+        }
+    }
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 4;
     }

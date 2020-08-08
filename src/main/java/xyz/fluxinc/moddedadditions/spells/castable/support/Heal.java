@@ -39,6 +39,17 @@ public class Heal extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Increases the amount healed!";
+            case 2: return "Further increases the amount healed!";
+            case 3: return "Heals all friendly mobs in a 5x5 area!";
+            default: return "Heals your targets HP and Hunger!";
+        }
+    }
+
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 40;
     }

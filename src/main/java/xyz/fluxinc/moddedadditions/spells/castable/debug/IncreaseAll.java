@@ -32,6 +32,13 @@ public class IncreaseAll extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            default: return "";
+        }
+    }
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 101;
     }

@@ -37,6 +37,16 @@ public class Taunt extends Spell {
     }
 
     @Override
+    public String getDescription(int level) {
+        switch (level) {
+            case 1: return "Increases the radius!";
+            case 2: return "Further increases the radius!";
+            case 3: return "Provides thorns damage on all hits for 15 seconds";
+            default: return "Draws the attention of all nearby mobs!";
+        }
+    }
+
+    @Override
     public int getModelId() {
         return ModdedAdditions.KEY_BASE + SpellBookController.SB_KEY_BASE + 62;
     }
