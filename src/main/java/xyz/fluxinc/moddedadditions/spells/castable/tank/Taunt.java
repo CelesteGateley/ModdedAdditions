@@ -5,6 +5,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
@@ -15,6 +16,7 @@ import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
+import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
@@ -61,6 +63,8 @@ public class Taunt extends Spell {
         switch (level) {
             case 0:
                 return "&9Catalyst: &4Redstone\n\n&9Wearing the darkened skull of your enemies, and holding the child of the sea, all enemies will want you dead";
+            case 1:
+                return "&9Catalyst: &cGlowstone Dust\n\n&9The bacon steps to face the transparent wall, and with luck, the enemy will not see a way past";
             default:
                 return null;
         }
@@ -77,6 +81,10 @@ public class Taunt extends Spell {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                         new MaterialRecipeIngredient(Material.WITHER_SKELETON_SKULL), new MaterialRecipeIngredient(Material.TURTLE_EGG));
+            case 1:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new MaterialRecipeIngredient(Material.MUSIC_DISC_PIGSTEP), new MaterialRecipeIngredient(Material.GLASS_PANE),
+                        new EnchantedBookRecipeIngredient(Enchantment.LUCK), new MaterialRecipeIngredient(Material.SPIDER_EYE));
             default:
                 return null;
         }
