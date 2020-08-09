@@ -11,6 +11,7 @@ import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
+import xyz.fluxinc.moddedadditions.spells.recipe.RecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
@@ -56,6 +57,8 @@ public class Teleport extends Spell {
         switch (level) {
             case 0:
                 return "&9Catalyst: &4Redstone\n\n&9The portal's key holds the truth as to how the tall ones move";
+            case 1:
+                return "&9Catalyst: &cGlowstone Dust\n\n&9The last stone, the last flower, an ancient head, all wrapped up in a movable storage";
             default:
                 return null;
         }
@@ -76,6 +79,15 @@ public class Teleport extends Spell {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                         new MaterialRecipeIngredient(Material.ENDER_PEARL), new MaterialRecipeIngredient(Material.ENDER_EYE));
+            case 1:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new MaterialRecipeIngredient(Material.END_STONE), new MaterialRecipeIngredient(Material.CHORUS_FLOWER),
+                        new MaterialRecipeIngredient(Material.DRAGON_HEAD), new RecipeIngredient() {
+                    @Override
+                    public boolean verifyItem(ItemStack stack) {
+                        return stack.getType().toString().contains("SHULKER_BOX");
+                    }
+                });
             default:
                 return null;
         }
