@@ -19,6 +19,7 @@ import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
+import xyz.fluxinc.moddedadditions.spells.recipe.PotionRecipeIngredient;
 
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
@@ -68,6 +69,8 @@ public class Vanish extends Spell {
         switch (level) {
             case 0:
                 return "&9Catalyst: &4Redstone\n\n&9With a root of gold, you can become as dark as the blackest stone";
+            case 1:
+                return "&9Catalyst: &cGlowstone Dust\n\n&9An elixir, a hellish root, and a glistening piece, create a transparency to yourself, clear as crystal";
             default:
                 return null;
         }
@@ -85,6 +88,10 @@ public class Vanish extends Spell {
             case 0:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.REDSTONE),
                         new MaterialRecipeIngredient(Material.GOLDEN_CARROT), new MaterialRecipeIngredient(Material.BLACKSTONE));
+            case 1:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new MaterialRecipeIngredient(Material.NETHER_WART), new MaterialRecipeIngredient(Material.GOLD_NUGGET),
+                        new PotionRecipeIngredient(PotionType.INVISIBILITY), new MaterialRecipeIngredient(Material.DIAMOND));
             default:
                 return null;
         }
