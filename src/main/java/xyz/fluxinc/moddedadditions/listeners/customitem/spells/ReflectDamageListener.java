@@ -18,7 +18,7 @@ public class ReflectDamageListener implements Listener {
     }
 
     public void addReflected(Player player, int seconds) {
-        reflected.put(player, System.currentTimeMillis() + (seconds*1000));
+        reflected.put(player, System.currentTimeMillis() + (seconds * 1000));
     }
 
     @EventHandler

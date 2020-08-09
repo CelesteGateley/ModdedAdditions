@@ -1,13 +1,11 @@
 package xyz.fluxinc.moddedadditions.spells.castable.movement;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
@@ -16,8 +14,6 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
-
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class LavaWalk extends Spell {
 
@@ -39,10 +35,14 @@ public class LavaWalk extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            case 1: return "Increases the duration!";
-            case 2: return "Decreases the cooldown!";
-            case 3: return "Grants Fire Resistance for the duration!";
-            default: return "Leaves a cobblestone trail at your feet when walking over lava!";
+            case 1:
+                return "Increases the duration!";
+            case 2:
+                return "Decreases the cooldown!";
+            case 3:
+                return "Grants Fire Resistance for the duration!";
+            default:
+                return "Leaves a cobblestone trail at your feet when walking over lava!";
         }
     }
 

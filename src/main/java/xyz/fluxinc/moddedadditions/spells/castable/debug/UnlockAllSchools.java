@@ -35,7 +35,8 @@ public class UnlockAllSchools extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            default: return "";
+            default:
+                return "";
         }
     }
 

@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions.spells.castable.combat;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -8,18 +7,12 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
-import xyz.fluxinc.moddedadditions.spells.recipe.PotionRecipeIngredient;
-
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Fireball extends Spell {
 
@@ -41,10 +34,14 @@ public class Fireball extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            case 1: return "Increases the explosion radius";
-            case 2: return "Increases the speed of the fireball";
-            case 3: return "Increases the power of the explosion";
-            default: return "Throw a fireball forward!";
+            case 1:
+                return "Increases the explosion radius";
+            case 2:
+                return "Increases the speed of the fireball";
+            case 3:
+                return "Increases the power of the explosion";
+            default:
+                return "Throw a fireball forward!";
         }
     }
 

@@ -2,13 +2,11 @@ package xyz.fluxinc.moddedadditions.spells.castable.movement;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
@@ -18,8 +16,6 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.PotionRecipeIngredient;
-
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Speed extends Spell {
 
@@ -41,10 +37,14 @@ public class Speed extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            case 1: return "Increases the duration!";
-            case 2: return "Increases the potency!";
-            case 3: return "Increases the duration further!";
-            default: return "Increase your movement speed!";
+            case 1:
+                return "Increases the duration!";
+            case 2:
+                return "Increases the potency!";
+            case 3:
+                return "Increases the duration further!";
+            default:
+                return "Increase your movement speed!";
         }
     }
 

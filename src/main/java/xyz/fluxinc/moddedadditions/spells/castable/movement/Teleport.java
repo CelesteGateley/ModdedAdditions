@@ -1,19 +1,19 @@
 package xyz.fluxinc.moddedadditions.spells.castable.movement;
 
-import org.bukkit.*;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.RecipeIngredient;
-
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Teleport extends Spell {
 
@@ -35,10 +35,14 @@ public class Teleport extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            case 1: return "Increases the distance!";
-            case 2: return "Increases the distance further!";
-            case 3: return "Decreases the cooldown!";
-            default: return "Teleport to the block you are staring at!";
+            case 1:
+                return "Increases the distance!";
+            case 2:
+                return "Increases the distance further!";
+            case 3:
+                return "Decreases the cooldown!";
+            default:
+                return "Teleport to the block you are staring at!";
         }
     }
 

@@ -11,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.util.Vector;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
-import xyz.fluxinc.moddedadditions.spells.castable.tank.ForceField;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,6 +70,9 @@ public class ForceFieldListener implements Runnable, Listener {
         public int radius;
         public long endTime;
 
-        public ForceFieldInstance(int radius, long endTime) { this.radius = radius; this.endTime = endTime; }
+        public ForceFieldInstance(int radius, long endTime) {
+            this.radius = radius;
+            this.endTime = endTime;
+        }
     }
 }

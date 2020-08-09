@@ -2,21 +2,17 @@ package xyz.fluxinc.moddedadditions.spells.castable.movement;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
-
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class AirJet extends Spell {
 
@@ -38,10 +34,14 @@ public class AirJet extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            case 1: return "Decreases the cooldown!";
-            case 2: return "Decreases the cost outside the overworld!";
-            case 3: return "Increases the distance sent!";
-            default: return "Fling yourself through the air!";
+            case 1:
+                return "Decreases the cooldown!";
+            case 2:
+                return "Decreases the cost outside the overworld!";
+            case 3:
+                return "Increases the distance sent!";
+            default:
+                return "Fling yourself through the air!";
         }
     }
 

@@ -6,12 +6,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.SpellSchool;
-import xyz.fluxinc.moddedadditions.spells.castable.combat.Arrows;
-import xyz.fluxinc.moddedadditions.spells.castable.combat.Fireball;
-import xyz.fluxinc.moddedadditions.spells.castable.combat.Slowball;
-import xyz.fluxinc.moddedadditions.spells.castable.combat.Smite;
 import xyz.fluxinc.moddedadditions.spells.castable.debug.*;
-import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 
 import java.util.ArrayList;
 import java.util.List;

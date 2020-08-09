@@ -45,7 +45,8 @@ public class SpellControlListener implements Listener {
                 stacks.add(iStack);
             }
         }
-        if (player.hasPermission("moddedadditions.spells.debug") || player.isOp()) stacks.add(new Debug().getItemStack());
+        if (player.hasPermission("moddedadditions.spells.debug") || player.isOp())
+            stacks.add(new Debug().getItemStack());
         return addResearchButton(stacks, SELECT_SCHOOL);
     }
 

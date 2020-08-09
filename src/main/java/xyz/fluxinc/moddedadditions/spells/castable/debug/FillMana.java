@@ -1,18 +1,15 @@
 package xyz.fluxinc.moddedadditions.spells.castable.debug;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class FillMana extends Spell {
@@ -40,7 +37,8 @@ public class FillMana extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            default: return "";
+            default:
+                return "";
         }
     }
 

@@ -1,7 +1,6 @@
 package xyz.fluxinc.moddedadditions.spells;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;

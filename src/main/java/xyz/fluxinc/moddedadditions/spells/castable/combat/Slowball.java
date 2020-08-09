@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions.spells.castable.combat;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
@@ -9,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
@@ -18,8 +16,6 @@ import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.PotionRecipeIngredient;
-
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Slowball extends Spell {
 
@@ -45,10 +41,14 @@ public class Slowball extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            case 1: return "Increases slowball speed!";
-            case 2: return "Increases the slow duration!";
-            case 3: return "Increases the amount slowed by!";
-            default: return "Flings a snowball to slow your target down!";
+            case 1:
+                return "Increases slowball speed!";
+            case 2:
+                return "Increases the slow duration!";
+            case 3:
+                return "Increases the amount slowed by!";
+            default:
+                return "Flings a snowball to slow your target down!";
         }
     }
 

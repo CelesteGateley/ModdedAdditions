@@ -2,14 +2,12 @@ package xyz.fluxinc.moddedadditions.spells.castable.support;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
@@ -18,8 +16,6 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
-
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class MinersBoon extends Spell {
 
@@ -41,10 +37,14 @@ public class MinersBoon extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            case 1: return "Increases the duration!";
-            case 2: return "Decreases the cooldown!";
-            case 3: return "Increases the potency!";
-            default: return "Grants buffs to help with mining!";
+            case 1:
+                return "Increases the duration!";
+            case 2:
+                return "Decreases the cooldown!";
+            case 3:
+                return "Increases the potency!";
+            default:
+                return "Grants buffs to help with mining!";
         }
     }
 
@@ -69,7 +69,6 @@ public class MinersBoon extends Spell {
             default:
                 return null;
         }
-
     }
 
     @Override

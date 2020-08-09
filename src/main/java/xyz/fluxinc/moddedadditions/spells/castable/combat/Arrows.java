@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions.spells.castable.combat;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -10,7 +9,6 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -21,8 +19,6 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
-
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Arrows extends Spell {
 
@@ -49,10 +45,14 @@ public class Arrows extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            case 1: return "Doubles the damage of the arrow!";
-            case 2: return "Gives the arrow Spectral properties!";
-            case 3: return "Poisons those hit by the arrow!";
-            default: return "Fires an Arrow at your crosshair!";
+            case 1:
+                return "Doubles the damage of the arrow!";
+            case 2:
+                return "Gives the arrow Spectral properties!";
+            case 3:
+                return "Poisons those hit by the arrow!";
+            default:
+                return "Fires an Arrow at your crosshair!";
         }
     }
 

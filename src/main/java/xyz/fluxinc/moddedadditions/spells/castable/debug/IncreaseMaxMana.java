@@ -10,7 +10,6 @@ import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
-import xyz.fluxinc.moddedadditions.utils.registries.SpellRegistry;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
@@ -34,7 +33,8 @@ public class IncreaseMaxMana extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            default: return "";
+            default:
+                return "";
         }
     }
 

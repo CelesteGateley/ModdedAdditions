@@ -1,14 +1,15 @@
 package xyz.fluxinc.moddedadditions.spells.castable.support;
 
-import org.bukkit.*;
+import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
@@ -19,8 +20,6 @@ import xyz.fluxinc.moddedadditions.spells.recipe.PotionRecipeIngredient;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Heal extends Spell {
 
@@ -42,10 +41,14 @@ public class Heal extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            case 1: return "Increases the amount healed!";
-            case 2: return "Further increases the amount healed!";
-            case 3: return "Heals all friendly mobs in a 5x5 area!";
-            default: return "Heals your targets HP and Hunger!";
+            case 1:
+                return "Increases the amount healed!";
+            case 2:
+                return "Further increases the amount healed!";
+            case 3:
+                return "Heals all friendly mobs in a 5x5 area!";
+            default:
+                return "Heals your targets HP and Hunger!";
         }
     }
 

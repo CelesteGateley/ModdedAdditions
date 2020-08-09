@@ -2,14 +2,12 @@ package xyz.fluxinc.moddedadditions.spells.castable.tank;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
@@ -18,8 +16,6 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
-
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class HardenedForm extends Spell {
 
@@ -41,10 +37,14 @@ public class HardenedForm extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            case 1: return "Increases the potency!";
-            case 2: return "Increased duration!";
-            case 3: return "Removes the slowdown!";
-            default: return "Increases your resistance, while decreasing your speed!";
+            case 1:
+                return "Increases the potency!";
+            case 2:
+                return "Increased duration!";
+            case 3:
+                return "Removes the slowdown!";
+            default:
+                return "Increases your resistance, while decreasing your speed!";
         }
     }
 
@@ -102,7 +102,9 @@ public class HardenedForm extends Spell {
         }
         new PotionEffect(PotionEffectType.ABSORPTION, (level >= 3 ? 40 : 20) * 20, level >= 2 ? 4 : 2).apply(target);
         new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (level >= 3 ? 40 : 20) * 20, level >= 2 ? 2 : 1).apply(target);
-        if (level > 4) { new PotionEffect(PotionEffectType.SLOW, 20 * 20, 0).apply(target); }
+        if (level > 4) {
+            new PotionEffect(PotionEffectType.SLOW, 20 * 20, 0).apply(target);
+        }
         return true;
     }
 }

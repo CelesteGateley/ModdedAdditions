@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions.spells.castable.combat;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -10,15 +9,12 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
-
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 
 public class Smite extends Spell {
 
@@ -40,10 +36,14 @@ public class Smite extends Spell {
     @Override
     public String getDescription(int level) {
         switch (level) {
-            case 1: return "Decreases the mana cost to cast!";
-            case 2: return "Targets mobs in a 3x3 area around the target!";
-            case 3: return "Increases radius to 5x5!";
-            default: return "Strike lightning where you are looking!";
+            case 1:
+                return "Decreases the mana cost to cast!";
+            case 2:
+                return "Targets mobs in a 3x3 area around the target!";
+            case 3:
+                return "Increases radius to 5x5!";
+            default:
+                return "Strike lightning where you are looking!";
         }
     }
 
