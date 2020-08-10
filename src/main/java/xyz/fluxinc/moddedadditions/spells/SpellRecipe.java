@@ -59,14 +59,15 @@ public class SpellRecipe {
     }
 
     public int verifyItems(List<ItemStack> items, ItemStack catalyst) {
+        List<ItemStack> itemStacks = new ArrayList<>(items);
         if (!this.catalyst.verifyItem(catalyst)) return 0;
-        if (items.size() != 8) return 0;
+        if (itemStacks.size() != 8) return 0;
         int count = 0;
         for (RecipeIngredient ingredient : ingredients) {
-            for (int i = 0; i < items.size(); i++) {
-                if (ingredient.verifyItem(items.get(i))) {
+            for (int i = 0; i < itemStacks.size(); i++) {
+                if (ingredient.verifyItem(itemStacks.get(i))) {
                     count++;
-                    items.remove(i);
+                    itemStacks.remove(i);
                     break;
                 }
             }
