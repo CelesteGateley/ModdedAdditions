@@ -64,7 +64,7 @@ public class Taunt extends Spell {
             case 0:
                 return "&9Catalyst: &4Redstone\n\n&9Wearing the darkened skull of your enemies, and holding the child of the sea, all enemies will want you dead";
             case 1:
-                return "&9Catalyst: &cGlowstone Dust\n\n&9The bacon steps to face the transparent wall, and with luck, the enemy will not see a way past";
+                return "&9Catalyst: &cGlowstone Dust\n\n&9The dead flesh to face the transparent wall, and with luck, the enemy will not see a way past";
             default:
                 return null;
         }
@@ -83,7 +83,7 @@ public class Taunt extends Spell {
                         new MaterialRecipeIngredient(Material.WITHER_SKELETON_SKULL), new MaterialRecipeIngredient(Material.TURTLE_EGG));
             case 1:
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
-                        new MaterialRecipeIngredient(Material.MUSIC_DISC_PIGSTEP), new MaterialRecipeIngredient(Material.GLASS_PANE),
+                        new MaterialRecipeIngredient(Material.ROTTEN_FLESH), new MaterialRecipeIngredient(Material.GLASS_PANE),
                         new EnchantedBookRecipeIngredient(Enchantment.LUCK), new MaterialRecipeIngredient(Material.SPIDER_EYE));
             default:
                 return null;
