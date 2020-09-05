@@ -69,6 +69,8 @@ public class Slowball extends Spell {
                 return "&9Catalyst: &4Redstone\n\n&9One strike from winter's wrath slows your very soul to a crawl";
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9With increased strength, you can channel more power into your throw, slowing the enemies flesh quicker";
+            case 2:
+                return "&9Catalyst: &cbDiamond\n\n&9Increasing the duration, brewed to decrease the speed, you freeze the target, and throw with all your strength";
             default:
                 return null;
         }
@@ -89,6 +91,10 @@ public class Slowball extends Spell {
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
                         new PotionRecipeIngredient(PotionType.STRENGTH), new EnchantedBookRecipeIngredient(Enchantment.CHANNELING),
                         new EnchantedBookRecipeIngredient(Enchantment.ARROW_DAMAGE), new MaterialRecipeIngredient(Material.ROTTEN_FLESH));
+            case 2:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
+                        new PotionRecipeIngredient(PotionType.STRENGTH), new MaterialRecipeIngredient(Material.REDSTONE),
+                        new MaterialRecipeIngredient(Material.FERMENTED_SPIDER_EYE), new MaterialRecipeIngredient(Material.ICE));
             default:
                 return null;
         }
