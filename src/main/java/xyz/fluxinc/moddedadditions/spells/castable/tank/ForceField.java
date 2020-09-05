@@ -63,6 +63,8 @@ public class ForceField extends Spell {
                 return "&9Catalyst: &4Redstone\n\n&9An invisible shield protects you, and pushes away all those who come close";
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9Knocking back, and punching through your allies, the field will trip your opponents and blow them away";
+            case 2:
+                return "&9Catalyst: &bDiamond\n\n&9The enemies that once sent you soaring with be pushed and blown away, and your barrier blocks their strikes";
             default:
                 return null;
         }
@@ -84,6 +86,10 @@ public class ForceField extends Spell {
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
                         new EnchantedBookRecipeIngredient(Enchantment.KNOCKBACK), new EnchantedBookRecipeIngredient(Enchantment.ARROW_KNOCKBACK),
                         new MaterialRecipeIngredient(Material.TNT), new MaterialRecipeIngredient(Material.TRIPWIRE_HOOK));
+            case 2:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new MaterialRecipeIngredient(Material.SHIELD), new MaterialRecipeIngredient(Material.SHULKER_SHELL),
+                        new MaterialRecipeIngredient(Material.TNT), new MaterialRecipeIngredient(Material.TNT));
             default:
                 return null;
         }
