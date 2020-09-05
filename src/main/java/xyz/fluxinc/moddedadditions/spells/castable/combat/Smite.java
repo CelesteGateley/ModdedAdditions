@@ -64,6 +64,8 @@ public class Smite extends Spell {
                 return "&9Catalyst: &4Redstone\n\n&9Poseidon strikes at the richest ore held in the highest mountains";
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9Exploding with a crash, the target will more easily be set ablaze, and charged quicker to death";
+            case 2:
+                return "&9Catalyst: &bDiamond\n\n&9Channeling your strength through the drowned shells, the lightning seeks out the light of the soul, and the shot hits all in range";
             default:
                 return null;
         }
@@ -84,6 +86,10 @@ public class Smite extends Spell {
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
                         new MaterialRecipeIngredient(Material.TNT), new MaterialRecipeIngredient(Material.TARGET),
                         new EnchantedBookRecipeIngredient(Enchantment.QUICK_CHARGE), new MaterialRecipeIngredient(Material.BLAZE_ROD));
+            case 2:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new MaterialRecipeIngredient(Material.NAUTILUS_SHELL), new MaterialRecipeIngredient(Material.SOUL_TORCH),
+                        new EnchantedBookRecipeIngredient(Enchantment.MULTISHOT), new EnchantedBookRecipeIngredient(Enchantment.CHANNELING));
             default:
                 return null;
         }
