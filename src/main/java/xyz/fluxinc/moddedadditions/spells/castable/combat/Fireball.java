@@ -62,6 +62,8 @@ public class Fireball extends Spell {
                 return "&9Catalyst: &4Redstone\n\n&9The tears of your enemies will burn away as you charge forth";
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9Blazing a trail, your magic will break all chains, stronger than the hardest metal, and overcoming any resistance to the blast";
+            case 2:
+                return "&9Catalyst: &bDiamond\n\n&9Blazing brighter than the sky, powdered light glowing in the hand, exploding with such force, and breaking the earths outer surface";
             default:
                 return null;
         }
@@ -82,6 +84,10 @@ public class Fireball extends Spell {
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
                         new MaterialRecipeIngredient(Material.BLAZE_ROD), new MaterialRecipeIngredient(Material.CHAIN),
                         new MaterialRecipeIngredient(Material.NETHERITE_INGOT), new EnchantedBookRecipeIngredient(Enchantment.PROTECTION_EXPLOSIONS));
+            case 2:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
+                        new MaterialRecipeIngredient(Material.BLAZE_POWDER), new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new MaterialRecipeIngredient(Material.GUNPOWDER), new MaterialRecipeIngredient(Material.STONE));
             default:
                 return null;
         }
