@@ -71,6 +71,8 @@ public class Vanish extends Spell {
                 return "&9Catalyst: &4Redstone\n\n&9With a root of gold, you can become as dark as the blackest stone";
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9An elixir, a hellish root, and a glistening piece, create a transparency to yourself, clear as crystal";
+            case 2:
+                return "&9Catalyst: &bDiamond\n\n&9Eyes the pierce the night, the root of potions, a glimmering root, and the cure eye of the fallen";
             default:
                 return null;
         }
@@ -92,6 +94,10 @@ public class Vanish extends Spell {
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
                         new MaterialRecipeIngredient(Material.NETHER_WART), new MaterialRecipeIngredient(Material.GOLD_NUGGET),
                         new PotionRecipeIngredient(PotionType.INVISIBILITY), new MaterialRecipeIngredient(Material.DIAMOND));
+            case 2:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
+                        new MaterialRecipeIngredient(Material.NETHER_WART), new MaterialRecipeIngredient(Material.GOLDEN_CARROT),
+                        new PotionRecipeIngredient(PotionType.NIGHT_VISION), new MaterialRecipeIngredient(Material.FERMENTED_SPIDER_EYE));
             default:
                 return null;
         }
