@@ -70,6 +70,8 @@ public class Heal extends Spell {
                 return "&9Catalyst: &4Redstone\n\n&9The elixir of life gathered from the forbidden fruit";
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9A sweetened mixture, designed to regenerate and heal, and strengthen";
+            case 2:
+                return "&9Catalyst: &bDiamond\n\n&9The doctors fear, the sweetened fruit, the orange root and a place to mix them all together";
             default:
                 return null;
         }
@@ -91,6 +93,10 @@ public class Heal extends Spell {
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
                         new PotionRecipeIngredient(PotionType.INSTANT_HEAL), new PotionRecipeIngredient(PotionType.STRENGTH),
                         new PotionRecipeIngredient(PotionType.REGEN), new MaterialRecipeIngredient(Material.SUGAR));
+            case 2:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new MaterialRecipeIngredient(Material.SWEET_BERRIES), new MaterialRecipeIngredient(Material.CARROT),
+                        new MaterialRecipeIngredient(Material.CAULDRON), new MaterialRecipeIngredient(Material.APPLE));
             default:
                 return null;
         }
