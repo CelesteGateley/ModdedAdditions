@@ -65,6 +65,8 @@ public class HardenedForm extends Spell {
                 return "&9Catalyst: &4Redstone\n\n&9Hard as the rocks closest to the core, you stand strong but slow, as if held by a sticky thread";
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9Protection of all kinds surrounds and shields you from damage";
+            case 2:
+                return "&9Catalyst: &bDiamond\n\n&9The Golem's creation gives you an insight, and could be combined on the smiths workbench";
             default:
                 return null;
         }
@@ -85,6 +87,10 @@ public class HardenedForm extends Spell {
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
                         new EnchantedBookRecipeIngredient(Enchantment.PROTECTION_ENVIRONMENTAL), new EnchantedBookRecipeIngredient(Enchantment.PROTECTION_EXPLOSIONS),
                         new EnchantedBookRecipeIngredient(Enchantment.PROTECTION_PROJECTILE), new MaterialRecipeIngredient(Material.SHIELD));
+            case 2:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
+                        new MaterialRecipeIngredient(Material.SNOW_BLOCK), new MaterialRecipeIngredient(Material.IRON_BLOCK),
+                        new MaterialRecipeIngredient(Material.PUMPKIN), new MaterialRecipeIngredient(Material.SMITHING_TABLE));
             default:
                 return null;
         }
