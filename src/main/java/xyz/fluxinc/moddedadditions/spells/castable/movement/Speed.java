@@ -91,7 +91,7 @@ public class Speed extends Spell {
                         new PotionRecipeIngredient(PotionType.SPEED), new PotionRecipeIngredient(PotionType.INSTANT_HEAL),
                         new MaterialRecipeIngredient(Material.CAULDRON), new MaterialRecipeIngredient(Material.FERMENTED_SPIDER_EYE));
             case 2:
-                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
                         new EnchantedBookRecipeIngredient(Enchantment.ARROW_DAMAGE), new EnchantedBookRecipeIngredient(Enchantment.CHANNELING),
                         new MaterialRecipeIngredient(Material.SUGAR), new MaterialRecipeIngredient(Material.SADDLE));
             default:

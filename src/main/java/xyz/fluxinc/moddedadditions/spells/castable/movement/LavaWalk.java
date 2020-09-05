@@ -87,7 +87,7 @@ public class LavaWalk extends Spell {
                         new MaterialRecipeIngredient(Material.SOUL_SAND), new MaterialRecipeIngredient(Material.WATER_BUCKET),
                         new EnchantedBookRecipeIngredient(Enchantment.FROST_WALKER), new MaterialRecipeIngredient(Material.COBBLESTONE));
             case 2:
-                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
                         new MaterialRecipeIngredient(Material.STONE), new MaterialRecipeIngredient(Material.WATER_BUCKET),
                         new MaterialRecipeIngredient(Material.LAVA_BUCKET), new MaterialRecipeIngredient(Material.ANCIENT_DEBRIS));
             default:

@@ -87,7 +87,7 @@ public class ForceField extends Spell {
                         new EnchantedBookRecipeIngredient(Enchantment.KNOCKBACK), new EnchantedBookRecipeIngredient(Enchantment.ARROW_KNOCKBACK),
                         new MaterialRecipeIngredient(Material.TNT), new MaterialRecipeIngredient(Material.TRIPWIRE_HOOK));
             case 2:
-                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
                         new MaterialRecipeIngredient(Material.SHIELD), new MaterialRecipeIngredient(Material.SHULKER_SHELL),
                         new MaterialRecipeIngredient(Material.TNT), new MaterialRecipeIngredient(Material.TNT));
             default:

@@ -87,7 +87,7 @@ public class Smite extends Spell {
                         new MaterialRecipeIngredient(Material.TNT), new MaterialRecipeIngredient(Material.TARGET),
                         new EnchantedBookRecipeIngredient(Enchantment.QUICK_CHARGE), new MaterialRecipeIngredient(Material.BLAZE_ROD));
             case 2:
-                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
                         new MaterialRecipeIngredient(Material.NAUTILUS_SHELL), new MaterialRecipeIngredient(Material.SOUL_TORCH),
                         new EnchantedBookRecipeIngredient(Enchantment.MULTISHOT), new EnchantedBookRecipeIngredient(Enchantment.CHANNELING));
             default:

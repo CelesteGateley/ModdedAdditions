@@ -95,7 +95,7 @@ public class Teleport extends Spell {
                     }
                 });
             case 2:
-                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
                         new MaterialRecipeIngredient(Material.WITHER_ROSE), new MaterialRecipeIngredient(Material.CHORUS_FRUIT),
                         new MaterialRecipeIngredient(Material.END_CRYSTAL), new MaterialRecipeIngredient(Material.BLACKSTONE));
             default:

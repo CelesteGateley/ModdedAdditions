@@ -94,7 +94,7 @@ public class Heal extends Spell {
                         new PotionRecipeIngredient(PotionType.INSTANT_HEAL), new PotionRecipeIngredient(PotionType.STRENGTH),
                         new PotionRecipeIngredient(PotionType.REGEN), new MaterialRecipeIngredient(Material.SUGAR));
             case 2:
-                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
                         new MaterialRecipeIngredient(Material.SWEET_BERRIES), new MaterialRecipeIngredient(Material.CARROT),
                         new MaterialRecipeIngredient(Material.CAULDRON), new MaterialRecipeIngredient(Material.APPLE));
             default:

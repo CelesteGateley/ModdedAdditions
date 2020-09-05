@@ -91,7 +91,7 @@ public class MinersBoon extends Spell {
                         new MaterialRecipeIngredient(Material.NETHERITE_PICKAXE), new EnchantedBookRecipeIngredient(Enchantment.DIG_SPEED),
                         new EnchantedBookRecipeIngredient(Enchantment.DURABILITY), new EnchantedBookRecipeIngredient(Enchantment.MENDING));
             case 2:
-                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
                         new MaterialRecipeIngredient(Material.NETHER_STAR), new PotionRecipeIngredient(PotionType.SPEED),
                         new PotionRecipeIngredient(PotionType.STRENGTH), new PotionRecipeIngredient(PotionType.NIGHT_VISION));
             default:
