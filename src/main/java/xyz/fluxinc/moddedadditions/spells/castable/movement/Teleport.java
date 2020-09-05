@@ -63,6 +63,8 @@ public class Teleport extends Spell {
                 return "&9Catalyst: &4Redstone\n\n&9The portal's key holds the truth as to how the tall ones move";
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9The last stone, the last flower, an ancient head, all wrapped up in a movable storage";
+            case 2:
+                return "&9Catalyst: &bDiamond\n\n&9With withering petals, the fruits from beyond, crystals formed from the tears of the damned, and Hell's blackest rock";
             default:
                 return null;
         }
@@ -92,6 +94,10 @@ public class Teleport extends Spell {
                         return stack.getType().toString().contains("SHULKER_BOX");
                     }
                 });
+            case 2:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new MaterialRecipeIngredient(Material.WITHER_ROSE), new MaterialRecipeIngredient(Material.CHORUS_FRUIT),
+                        new MaterialRecipeIngredient(Material.END_CRYSTAL), new MaterialRecipeIngredient(Material.BLACKSTONE));
             default:
                 return null;
         }
