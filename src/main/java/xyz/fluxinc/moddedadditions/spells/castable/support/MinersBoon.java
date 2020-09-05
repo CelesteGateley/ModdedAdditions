@@ -10,12 +10,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
+import xyz.fluxinc.moddedadditions.spells.recipe.PotionRecipeIngredient;
 
 public class MinersBoon extends Spell {
 
@@ -66,6 +68,8 @@ public class MinersBoon extends Spell {
                 return "&9Catalyst: &4Redstone\n\n&9An ancient metal, and a buried heart, grants one the strength of the earth";
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9An ancient pickaxe, efficient and everlasting, self repairing for eternity";
+            case 2:
+                return "&9Catalyst: &bDiamond\n\n&9A star fallen from the heavens imbues you with the strength of a god, the speed of a cheetah, and the eyes of a cat";
             default:
                 return null;
         }
@@ -86,6 +90,10 @@ public class MinersBoon extends Spell {
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
                         new MaterialRecipeIngredient(Material.NETHERITE_PICKAXE), new EnchantedBookRecipeIngredient(Enchantment.DIG_SPEED),
                         new EnchantedBookRecipeIngredient(Enchantment.DURABILITY), new EnchantedBookRecipeIngredient(Enchantment.MENDING));
+            case 2:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new MaterialRecipeIngredient(Material.NETHER_STAR), new PotionRecipeIngredient(PotionType.SPEED),
+                        new PotionRecipeIngredient(PotionType.STRENGTH), new PotionRecipeIngredient(PotionType.NIGHT_VISION));
             default:
                 return null;
         }
