@@ -19,6 +19,7 @@ import xyz.fluxinc.moddedadditions.spells.Spell;
 import xyz.fluxinc.moddedadditions.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.spells.recipe.EnchantedBookRecipeIngredient;
 import xyz.fluxinc.moddedadditions.spells.recipe.MaterialRecipeIngredient;
+import xyz.fluxinc.moddedadditions.spells.recipe.PotionRecipeIngredient;
 
 public class Arrows extends Spell {
 
@@ -68,6 +69,8 @@ public class Arrows extends Spell {
                 return "&9Catalyst: &4Redstone\n\n&9The eyes of a spectre cause those shot with your firearm to glow to the heavens";
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9With great power comes more damage, leading you to be scattered amongst the bones, fallen to the ground below core";
+            case 2:
+                return "&9Catalyst: &bDiamond\n\n&9By tipping the arrow, you can damage the target, slow them to a crawl, and bring home the bacon!";
             default:
                 return null;
         }
@@ -88,6 +91,10 @@ public class Arrows extends Spell {
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
                         new EnchantedBookRecipeIngredient(Enchantment.ARROW_DAMAGE), new MaterialRecipeIngredient(Material.LEAD),
                         new MaterialRecipeIngredient(Material.BONE), new MaterialRecipeIngredient(Material.NETHERRACK));
+            case 2:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
+                        new PotionRecipeIngredient(PotionType.SLOWNESS), new PotionRecipeIngredient(PotionType.INSTANT_DAMAGE),
+                        new MaterialRecipeIngredient(Material.COOKED_PORKCHOP), new MaterialRecipeIngredient(Material.TIPPED_ARROW));
             default:
                 return null;
         }
