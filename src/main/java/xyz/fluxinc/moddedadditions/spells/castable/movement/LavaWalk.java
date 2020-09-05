@@ -63,6 +63,8 @@ public class LavaWalk extends Spell {
                 return "&9Catalyst: &4Redstone\n\n&9With an icy step and a blazing heart, even you can cross a blazing desert";
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9Your frozen step, walking with a wet soul, forming rock below, given life by the souls of the damned";
+            case 2:
+                return "&9Catalyst: &bDiamond\n\n&9Lava flows, stone forms, water falls, and the ancients creak";
             default:
                 return null;
         }
@@ -84,6 +86,10 @@ public class LavaWalk extends Spell {
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
                         new MaterialRecipeIngredient(Material.SOUL_SAND), new MaterialRecipeIngredient(Material.WATER_BUCKET),
                         new EnchantedBookRecipeIngredient(Enchantment.FROST_WALKER), new MaterialRecipeIngredient(Material.COBBLESTONE));
+            case 2:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
+                        new MaterialRecipeIngredient(Material.STONE), new MaterialRecipeIngredient(Material.WATER_BUCKET),
+                        new MaterialRecipeIngredient(Material.LAVA_BUCKET), new MaterialRecipeIngredient(Material.ANCIENT_DEBRIS));
             default:
                 return null;
         }
