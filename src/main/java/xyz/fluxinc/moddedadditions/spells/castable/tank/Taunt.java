@@ -65,6 +65,8 @@ public class Taunt extends Spell {
                 return "&9Catalyst: &4Redstone\n\n&9Wearing the darkened skull of your enemies, and holding the child of the sea, all enemies will want you dead";
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9The dead flesh to face the transparent wall, and with luck, the enemy will not see a way past";
+            case 2:
+                return "&9Catalyst: &bDiamond\n\n&9Glowing brightly, the dust and block, you become a beacon and draw the damned flesh towards you";
             default:
                 return null;
         }
@@ -85,6 +87,10 @@ public class Taunt extends Spell {
                 return new SpellRecipe(this, new MaterialRecipeIngredient(Material.GLOWSTONE_DUST),
                         new MaterialRecipeIngredient(Material.ROTTEN_FLESH), new MaterialRecipeIngredient(Material.GLASS_PANE),
                         new EnchantedBookRecipeIngredient(Enchantment.LUCK), new MaterialRecipeIngredient(Material.SPIDER_EYE));
+            case 2:
+                return new SpellRecipe(this, new MaterialRecipeIngredient(Material.DIAMOND),
+                        new MaterialRecipeIngredient(Material.BEACON), new MaterialRecipeIngredient(Material.GLOWSTONE),
+                        new MaterialRecipeIngredient(Material.GLOWSTONE_DUST), new MaterialRecipeIngredient(Material.ROTTEN_FLESH));
             default:
                 return null;
         }
