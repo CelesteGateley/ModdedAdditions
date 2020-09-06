@@ -90,9 +90,10 @@ public class ResearchInventoryListener implements Listener {
                     ItemStack iStack = event.getInventory().getItem(i);
                     if (iStack != null) {
                         event.getWhoClicked().getInventory().addItem(iStack);
+                        event.getInventory().setItem(i, null);
                     }
                 }
-                emptyInventory(event.getClickedInventory(), (Player) event.getWhoClicked());
+                //emptyInventory(event.getClickedInventory(), (Player) event.getWhoClicked());
             } else if (result.result instanceof Spell) {
                 Spell spell = (Spell) result.result;
                 data.setSpell(spell.getTechnicalName(), data.getSpellLevel(spell.getTechnicalName()) + 1);
