@@ -70,7 +70,7 @@ public class Slowball extends Spell {
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9With increased strength, you can channel more power into your throw, slowing the enemies flesh quicker";
             case 2:
-                return "&9Catalyst: &cbDiamond\n\n&9Increasing the duration, brewed to decrease the speed, you freeze the target, and throw with all your strength";
+                return "&9Catalyst: &bDiamond\n\n&9Increasing the duration, brewed to decrease the speed, you freeze the target, and throw with all your strength";
             default:
                 return null;
         }
