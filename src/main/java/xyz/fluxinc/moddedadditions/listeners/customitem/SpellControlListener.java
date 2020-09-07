@@ -2,6 +2,7 @@ package xyz.fluxinc.moddedadditions.listeners.customitem;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -99,6 +100,7 @@ public class SpellControlListener implements Listener {
             event.getView().close();
         } else if (event.getCurrentItem().getType() == Material.ENCHANTED_BOOK) {
             event.getView().close();
+            if (event.getWhoClicked().getGameMode() == GameMode.CREATIVE) { event.getWhoClicked().sendMessage(instance.getLanguageManager().generateMessage("sb-noCreative")); return; }
             Bukkit.getScheduler().scheduleSyncDelayedTask(instance, () -> ResearchInventoryListener.openInventory((Player) event.getWhoClicked()));
         } else {
             event.getView().close();
@@ -123,6 +125,7 @@ public class SpellControlListener implements Listener {
             event.getView().close();
         } else if (event.getCurrentItem().getType() == Material.ENCHANTED_BOOK) {
             event.getView().close();
+            if (event.getWhoClicked().getGameMode() == GameMode.CREATIVE) { event.getWhoClicked().sendMessage(instance.getLanguageManager().generateMessage("sb-noCreative")); return; }
             Bukkit.getScheduler().scheduleSyncDelayedTask(instance, () -> ResearchInventoryListener.openInventory((Player) event.getWhoClicked()));
         } else {
             Player player = (Player) event.getWhoClicked();
