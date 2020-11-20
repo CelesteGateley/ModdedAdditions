@@ -23,10 +23,10 @@ public class ModdedAdditionsCommand {
     private static HashMap<String, ExecutorStorage> getCommands() {
         HashMap<String, ExecutorStorage> returnVal = new HashMap<>();
         // Give Command
-        LinkedHashMap<String, Argument> arguments = new LinkedHashMap<>();
-        arguments.put("give", new LiteralArgument("give"));
-        arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
-        arguments.put("item", new StringArgument().overrideSuggestions(ItemRegistry.getAllItemNames().toArray(new String[0])));
+        List<Argument> arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("give"));
+        arguments.add(new EntitySelectorArgument("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments.add(new StringArgument("item").overrideSuggestions(ItemRegistry.getAllItemNames().toArray(new String[0])));
         returnVal.put("give", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.give"))) {
                 sendPermissionDenied(sender);
@@ -53,8 +53,8 @@ public class ModdedAdditionsCommand {
         }, arguments));
 
         // Sort Command
-        arguments = new LinkedHashMap<>();
-        arguments.put("sort", new LiteralArgument("sort"));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("sort"));
         returnVal.put("sort", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.sort"))) {
                 sendPermissionDenied(sender);
@@ -71,8 +71,8 @@ public class ModdedAdditionsCommand {
         }, arguments));
 
         // Reload Command
-        arguments = new LinkedHashMap<>();
-        arguments.put("reload", new LiteralArgument("reload"));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("reload"));
         returnVal.put("reload", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.reload"))) {
                 sendPermissionDenied(sender);

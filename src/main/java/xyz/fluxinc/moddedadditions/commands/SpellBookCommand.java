@@ -36,10 +36,10 @@ public class SpellBookCommand {
     private static HashMap<String, ExecutorStorage> getCommands() {
         HashMap<String, ExecutorStorage> returnVal = new HashMap<>();
         // Learn Command
-        LinkedHashMap<String, Argument> arguments = new LinkedHashMap<>();
-        arguments.put("learn", new LiteralArgument("learn"));
-        arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
-        arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
+        List<Argument> arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("learn"));
+        arguments.add(new EntitySelectorArgument("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments.add(new StringArgument("spell").overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
         returnVal.put("learn", new ExecutorStorage((sender, args) -> {
             if (!sender.hasPermission("moddedadditions.spells.learn")) {
                 sendPermissionDenied(sender);
@@ -76,10 +76,10 @@ public class SpellBookCommand {
         }, arguments));
 
         // Unlearn Command
-        arguments = new LinkedHashMap<>();
-        arguments.put("unlearn", new LiteralArgument("unlearn"));
-        arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
-        arguments.put("spell", new StringArgument().overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("unlearn"));
+        arguments.add(new EntitySelectorArgument("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments.add(new StringArgument("spell").overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
         returnVal.put("unlearn", new ExecutorStorage((sender, args) -> {
             if (!sender.hasPermission("moddedadditions.spells.unlearn")) {
                 sendPermissionDenied(sender);
@@ -116,9 +116,9 @@ public class SpellBookCommand {
         }, arguments));
 
         // FillMana
-        arguments = new LinkedHashMap<>();
-        arguments.put("fillmana", new LiteralArgument("fillmana"));
-        arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("fillmana"));
+        arguments.add(new EntitySelectorArgument("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("fillmana", new ExecutorStorage((sender, args) -> {
             if (!sender.hasPermission("moddedadditions.spells.fillmana")) {
                 sendPermissionDenied(sender);
@@ -142,9 +142,9 @@ public class SpellBookCommand {
         }, arguments));
 
         // Evaluate
-        arguments = new LinkedHashMap<>();
-        arguments.put("evaluate", new LiteralArgument("evaluate"));
-        arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("evaluate"));
+        arguments.add(new EntitySelectorArgument("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("evaluate", new ExecutorStorage((sender, args) -> {
             if (!sender.hasPermission("moddedadditions.spells.evaluate")) {
                 sendPermissionDenied(sender);
@@ -169,9 +169,9 @@ public class SpellBookCommand {
         }, arguments));
 
         // Evaluate All
-        arguments = new LinkedHashMap<>();
-        arguments.put("evaluate", new LiteralArgument("evaluate"));
-        arguments.put("player", new EntitySelectorArgument(EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("evaluate"));
+        arguments.add(new EntitySelectorArgument("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("evaluate", new ExecutorStorage((sender, args) -> {
             if (!sender.hasPermission("moddedadditions.spells.evaluateall")) {
                 sendPermissionDenied(sender);
