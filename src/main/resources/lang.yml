@@ -37,6 +37,7 @@ sb-learnSpell: "&9You now possess the knowledge to cast: %spell%"
 sb-learnSpellOther: "&f%player%&9 now possesses the knowledge to cast: %spell%"
 sb-unlearnSpell: "&9You no longer possess the knowledge to cast: %spell%"
 sb-unlearnSpellOther: "&f%player%&9 no longer possess the knowledge to cast: %spell%"
+sb-noCreative: "&9That cannot be done in creative mode!"
 
 
 

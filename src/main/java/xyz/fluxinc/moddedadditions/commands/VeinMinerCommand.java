@@ -32,10 +32,10 @@ public class VeinMinerCommand {
         HashMap<String, ExecutorStorage> returnVal = new HashMap<>();
         String[] materials = getAllMaterials().toArray(new String[0]);
         // Add Command
-        LinkedHashMap<String, Argument> arguments = new LinkedHashMap<>();
-        arguments.put("add", new LiteralArgument("add"));
-        arguments.put("tool", new StringArgument().overrideSuggestions("pickaxe", "axe", "shovel", "hoe", "shears", "hand"));
-        arguments.put("material", new StringArgument().overrideSuggestions(materials));
+        List<Argument> arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("add"));
+        arguments.add(new StringArgument("tool").overrideSuggestions("pickaxe", "axe", "shovel", "hoe", "shears", "hand"));
+        arguments.add(new StringArgument("material").overrideSuggestions(materials));
         returnVal.put("add", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.veinminer.add"))) {
                 sendPermissionDenied(sender);
@@ -69,10 +69,10 @@ public class VeinMinerCommand {
         }, arguments));
 
         // Remove Command
-        arguments = new LinkedHashMap<>();
-        arguments.put("remove", new LiteralArgument("remove"));
-        arguments.put("tool", new StringArgument().overrideSuggestions("pickaxe", "axe", "shovel", "hoe", "shears", "hand"));
-        arguments.put("material", new StringArgument().overrideSuggestions(materials));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("remove"));
+        arguments.add(new StringArgument("tool").overrideSuggestions("pickaxe", "axe", "shovel", "hoe", "shears", "hand"));
+        arguments.add(new StringArgument("material").overrideSuggestions(materials));
         returnVal.put("remove", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.veinminer.remove"))) {
                 sendPermissionDenied(sender);
@@ -106,8 +106,8 @@ public class VeinMinerCommand {
         }, arguments));
 
         // Reload Command
-        arguments = new LinkedHashMap<>();
-        arguments.put("toggle", new LiteralArgument("toggle"));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("toggle"));
         returnVal.put("toggle", new ExecutorStorage((sender, args) -> {
             if (!(sender instanceof Player)) {
                 sendMustBePlayer(sender);
@@ -128,8 +128,8 @@ public class VeinMinerCommand {
         }, arguments));
 
         // Save Command
-        arguments = new LinkedHashMap<>();
-        arguments.put("save", new LiteralArgument("save"));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("save"));
         returnVal.put("save", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.veinminer.save"))) {
                 sendPermissionDenied(sender);
@@ -140,8 +140,8 @@ public class VeinMinerCommand {
         }, arguments));
 
         // Reload Command
-        arguments = new LinkedHashMap<>();
-        arguments.put("reload", new LiteralArgument("reload"));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("reload"));
         returnVal.put("reload", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.veinminer.reload"))) {
                 sendPermissionDenied(sender);

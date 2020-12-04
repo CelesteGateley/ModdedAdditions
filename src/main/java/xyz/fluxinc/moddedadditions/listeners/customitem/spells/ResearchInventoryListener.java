@@ -147,7 +147,7 @@ public class ResearchInventoryListener implements Listener {
             }
         }
 
-        return new StorageContainer(strength, closestFit.getResult());
+        return new StorageContainer(strength, closestFit != null ? closestFit.getResult() : null);
     }
 
     @EventHandler

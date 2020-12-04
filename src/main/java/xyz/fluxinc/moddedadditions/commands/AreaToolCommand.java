@@ -31,10 +31,10 @@ public class AreaToolCommand {
         HashMap<String, ExecutorStorage> returnVal = new HashMap<>();
         String[] materials = getAllMaterials().toArray(new String[0]);
         // Add Command
-        LinkedHashMap<String, Argument> arguments = new LinkedHashMap<>();
-        arguments.put("add", new LiteralArgument("add"));
-        arguments.put("tool", new StringArgument().overrideSuggestions("hammer", "excavator"));
-        arguments.put("material", new StringArgument().overrideSuggestions(materials));
+        List<Argument> arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("add"));
+        arguments.add(new StringArgument("tool").overrideSuggestions("hammer", "excavator"));
+        arguments.add(new StringArgument("material").overrideSuggestions(materials));
         returnVal.put("add", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.add"))) {
                 sendPermissionDenied(sender);
@@ -53,10 +53,10 @@ public class AreaToolCommand {
         }, arguments));
 
         // Remove Command
-        arguments = new LinkedHashMap<>();
-        arguments.put("remove", new LiteralArgument("remove"));
-        arguments.put("tool", new StringArgument().overrideSuggestions("hammer", "excavator"));
-        arguments.put("material", new StringArgument().overrideSuggestions(materials));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("remove"));
+        arguments.add(new StringArgument("tool").overrideSuggestions("hammer", "excavator"));
+        arguments.add(new StringArgument("material").overrideSuggestions(materials));
         returnVal.put("remove", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.remove"))) {
                 sendPermissionDenied(sender);
@@ -75,8 +75,8 @@ public class AreaToolCommand {
         }, arguments));
 
         // Save Command
-        arguments = new LinkedHashMap<>();
-        arguments.put("save", new LiteralArgument("save"));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("save"));
         returnVal.put("save", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.save"))) {
                 sendPermissionDenied(sender);
@@ -87,8 +87,8 @@ public class AreaToolCommand {
         }, arguments));
 
         // Reload Command
-        arguments = new LinkedHashMap<>();
-        arguments.put("reload", new LiteralArgument("reload"));
+        arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("reload"));
         returnVal.put("reload", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.reload"))) {
                 sendPermissionDenied(sender);

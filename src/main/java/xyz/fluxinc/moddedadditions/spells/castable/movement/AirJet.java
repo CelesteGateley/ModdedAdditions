@@ -71,7 +71,7 @@ public class AirJet extends Spell {
             case 1:
                 return "&9Catalyst: &cGlowstone Dust\n\n&9The skin of those in flight, the meat of those who may only glide, with a torch to light your soul, makes the hands of time spin faster on the face";
             case 2:
-                return "&9Catalyst: &bDiamond\n\n&9Learning from all the worlds surfaces, the threads of air become easier to control";
+                return "&9Catalyst: &bDiamond\n\n&9Learning from all world's surfaces, the threads of air become easier to control";
             default:
                 return null;
         }
