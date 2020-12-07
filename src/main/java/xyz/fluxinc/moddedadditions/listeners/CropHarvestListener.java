@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions.listeners;
 
+import com.gamingmesh.jobs.actions.BlockActionInfo;
+import com.gamingmesh.jobs.container.ActionType;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
@@ -12,6 +14,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.fluxcore.enums.Direction;
 import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
+import xyz.fluxinc.moddedadditions.hooks.JobsRebornHook;
+import xyz.fluxinc.moddedadditions.hooks.McMMOHook;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -80,12 +84,16 @@ public class CropHarvestListener implements Listener {
                 if (!verifyBlock(event.getPlayer(), b)) {
                     continue;
                 }
+                McMMOHook.addBlockExperience(b.getState(), event.getPlayer());
+                JobsRebornHook.addExperienceForBlocks(b, new BlockActionInfo(b, ActionType.BREAK), event.getPlayer());
                 CoreProtectLogger.logBlockBreak(event.getPlayer(), b);
                 Ageable age = (Ageable) b.getBlockData();
                 Collection<ItemStack> drops = b.getDrops();
                 age.setAge(0);
                 b.setBlockData(age);
                 CoreProtectLogger.logBlockPlace(event.getPlayer(), b);
+                McMMOHook.addBlockExperience(b.getState(), event.getPlayer());
+                JobsRebornHook.addExperienceForBlocks(b, new BlockActionInfo(b, ActionType.PLACE), event.getPlayer());
                 for (ItemStack i : drops) {
                     event.getClickedBlock().getWorld().dropItemNaturally(event.getClickedBlock().getLocation(), i);
                 }

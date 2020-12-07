@@ -47,7 +47,7 @@ public class JobsRebornHook {
         }
     }
 
-    public static void addExperienceForBlocks(Block block, Player player) {
+    public static void addExperienceForBlocks(Block block, BlockActionInfo info, Player player) {
         if (plugin == null) return;
         /* Copyright (C) 2011 Zak Ford <zak.j.ford@gmail.com> */
         Material brokenBlock = block.getRelative(BlockFace.DOWN).getType();
@@ -58,8 +58,8 @@ public class JobsRebornHook {
         }
         /* END COPYRIGHT*/
 
-        BlockActionInfo bInfo = new BlockActionInfo(block, ActionType.BREAK);
-        Jobs.action(Jobs.getPlayerManager().getJobsPlayer(player), bInfo, block);
-
+        Jobs.action(Jobs.getPlayerManager().getJobsPlayer(player), info, block);
     }
+
+
 }

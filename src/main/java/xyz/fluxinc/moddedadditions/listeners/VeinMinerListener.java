@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions.listeners;
 
+import com.gamingmesh.jobs.actions.BlockActionInfo;
+import com.gamingmesh.jobs.container.ActionType;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -67,7 +69,7 @@ public class VeinMinerListener implements Listener {
         int blocksBroken = 0;
         for (Block b : blockList) {
             if (instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), false)) {
-                JobsRebornHook.addExperienceForBlocks(block, player);
+                JobsRebornHook.addExperienceForBlocks(block, new BlockActionInfo(block, ActionType.BREAK), player);
                 McMMOHook.addBlockExperience(block.getState(), player);
                 blocksBroken++;
                 CoreProtectLogger.logBlockBreak(player, b);

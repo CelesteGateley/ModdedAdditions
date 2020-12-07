@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions.listeners.customitem.areatool;
 
+import com.gamingmesh.jobs.actions.BlockActionInfo;
+import com.gamingmesh.jobs.container.ActionType;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -88,7 +90,7 @@ public class ExcavatorListener implements Listener {
             if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true))
                 continue;
             // Log the block as broken, then break it
-            JobsRebornHook.addExperienceForBlocks(block, event.getPlayer());
+            JobsRebornHook.addExperienceForBlocks(block, new BlockActionInfo(block, ActionType.BREAK), event.getPlayer());
             McMMOHook.addBlockExperience(block.getState(), event.getPlayer());
             CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
