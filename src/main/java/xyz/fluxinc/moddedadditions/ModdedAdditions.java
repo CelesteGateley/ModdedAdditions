@@ -1,5 +1,7 @@
 package xyz.fluxinc.moddedadditions;
 
+import com.gamingmesh.jobs.Jobs;
+import com.gmail.nossr50.mcMMO;
 import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.event.HandlerList;
@@ -15,6 +17,7 @@ import xyz.fluxinc.moddedadditions.commands.SpellBookCommand;
 import xyz.fluxinc.moddedadditions.commands.VeinMinerCommand;
 import xyz.fluxinc.moddedadditions.commands.legacy.NotifyCommand;
 import xyz.fluxinc.moddedadditions.commands.legacy.VoteDayCommand;
+import xyz.fluxinc.moddedadditions.commands.legacy.VoteSunCommand;
 import xyz.fluxinc.moddedadditions.controllers.ManaController;
 import xyz.fluxinc.moddedadditions.controllers.PlayerDataController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
@@ -23,6 +26,8 @@ import xyz.fluxinc.moddedadditions.controllers.customitems.MagnetController;
 import xyz.fluxinc.moddedadditions.controllers.customitems.SpellBookController;
 import xyz.fluxinc.moddedadditions.executors.MagnetExecutor;
 import xyz.fluxinc.moddedadditions.executors.OldMagnetExecutor;
+import xyz.fluxinc.moddedadditions.hooks.JobsRebornHook;
+import xyz.fluxinc.moddedadditions.hooks.McMMOHook;
 import xyz.fluxinc.moddedadditions.listeners.BookSignListener;
 import xyz.fluxinc.moddedadditions.listeners.CropHarvestListener;
 import xyz.fluxinc.moddedadditions.listeners.VeinMinerListener;
@@ -76,6 +81,9 @@ public final class ModdedAdditions extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
+        try { McMMOHook.registerMcMMO(getPlugin(mcMMO.class)); } catch (NoClassDefFoundError ignored) {}
+        try { JobsRebornHook.registerJobs(getPlugin(Jobs.class)); } catch (NoClassDefFoundError ignored) {}
 
         List<KeyedBossBar> bossBars = new ArrayList<>();
         getServer().getBossBars().forEachRemaining(bossBars::add);
@@ -135,6 +143,7 @@ public final class ModdedAdditions extends JavaPlugin {
         if (worldName != null && getServer().getWorld(worldName) != null) {
             VoteDayCommand voteDayCommand = new VoteDayCommand(getServer().getWorld(worldName));
             getCommand("voteday").setExecutor(voteDayCommand);
+            getCommand("votesun").setExecutor(new VoteSunCommand(getServer().getWorld(worldName)));
             getServer().getPluginManager().registerEvents(voteDayCommand, this);
         } else {
             getLogger().warning("No or invalid world defined for DayVote. It will not be enabled");

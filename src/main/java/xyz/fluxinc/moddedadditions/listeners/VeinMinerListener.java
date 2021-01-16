@@ -1,8 +1,11 @@
 package xyz.fluxinc.moddedadditions.listeners;
 
+import com.gamingmesh.jobs.actions.BlockActionInfo;
+import com.gamingmesh.jobs.container.ActionType;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,8 +14,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 import xyz.fluxinc.fluxcore.utils.BlockUtils;
+import xyz.fluxinc.moddedadditions.hooks.JobsRebornHook;
+import xyz.fluxinc.moddedadditions.hooks.McMMOHook;
 import xyz.fluxinc.moddedadditions.storage.PlayerData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static xyz.fluxinc.fluxcore.utils.MineabilityUtils.verifyBlockMining;
@@ -63,6 +69,8 @@ public class VeinMinerListener implements Listener {
         int blocksBroken = 0;
         for (Block b : blockList) {
             if (instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), false)) {
+                JobsRebornHook.addExperienceForBlocks(block, new BlockActionInfo(block, ActionType.BREAK), player);
+                McMMOHook.addBlockExperience(block.getState(), player);
                 blocksBroken++;
                 CoreProtectLogger.logBlockBreak(player, b);
                 b.breakNaturally(tool);
