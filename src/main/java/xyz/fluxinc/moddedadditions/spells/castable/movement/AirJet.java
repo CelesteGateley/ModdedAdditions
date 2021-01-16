@@ -117,7 +117,6 @@ public class AirJet extends Spell {
         if (newVector.getY() < 0) {
             newVector.multiply(new Vector(1, -1, 1));
         }
-        System.out.println(newVector);
         if (level == 4) {
             newVector.multiply(2);
         }
