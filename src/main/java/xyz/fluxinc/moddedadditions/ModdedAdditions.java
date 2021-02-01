@@ -11,10 +11,7 @@ import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
-import xyz.fluxinc.moddedadditions.commands.AreaToolCommand;
-import xyz.fluxinc.moddedadditions.commands.ModdedAdditionsCommand;
-import xyz.fluxinc.moddedadditions.commands.SpellBookCommand;
-import xyz.fluxinc.moddedadditions.commands.VeinMinerCommand;
+import xyz.fluxinc.moddedadditions.commands.*;
 import xyz.fluxinc.moddedadditions.commands.legacy.NotifyCommand;
 import xyz.fluxinc.moddedadditions.commands.legacy.VoteDayCommand;
 import xyz.fluxinc.moddedadditions.commands.legacy.VoteSunCommand;
@@ -173,6 +170,9 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // Tell Player Damage Dealt
         //getServer().getPluginManager().registerEvents(new DamageListener(), this);
+
+        // Register Taunt Command
+        TauntCommand.registerCommands();
 
         // LightSaber Related Functions
         getServer().getPluginManager().registerEvents(new ResponseListener(), this);
