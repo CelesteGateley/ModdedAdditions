@@ -33,15 +33,6 @@ public class JobsRebornHook {
     public static void addExperienceForBlocks(List<BlockState> blocks, Player player) {
         if (plugin == null) return;
         for (BlockState blockState : blocks) {
-            /* Copyright (C) 2011 Zak Ford <zak.j.ford@gmail.com> */
-            Material brokenBlock = blockState.getBlock().getRelative(BlockFace.DOWN).getType();
-            if (Jobs.getGCManager().preventCropResizePayment && (brokenBlock == CMIMaterial.SUGAR_CANE.getMaterial()
-                    || brokenBlock == CMIMaterial.KELP.getMaterial()
-                    || brokenBlock == CMIMaterial.CACTUS.getMaterial() || brokenBlock == CMIMaterial.BAMBOO.getMaterial())) {
-                return;
-            }
-            /* END COPYRIGHT*/
-
             BlockActionInfo bInfo = new BlockActionInfo(blockState.getBlock(), ActionType.BREAK);
             Jobs.action(Jobs.getPlayerManager().getJobsPlayer(player), bInfo, blockState.getBlock());
         }
@@ -49,14 +40,6 @@ public class JobsRebornHook {
 
     public static void addExperienceForBlocks(Block block, BlockActionInfo info, Player player) {
         if (plugin == null) return;
-        /* Copyright (C) 2011 Zak Ford <zak.j.ford@gmail.com> */
-        Material brokenBlock = block.getRelative(BlockFace.DOWN).getType();
-        if (Jobs.getGCManager().preventCropResizePayment && (brokenBlock == CMIMaterial.SUGAR_CANE.getMaterial()
-                || brokenBlock == CMIMaterial.KELP.getMaterial()
-                || brokenBlock == CMIMaterial.CACTUS.getMaterial() || brokenBlock == CMIMaterial.BAMBOO.getMaterial())) {
-            return;
-        }
-        /* END COPYRIGHT*/
 
         Jobs.action(Jobs.getPlayerManager().getJobsPlayer(player), info, block);
     }
