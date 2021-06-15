@@ -14,7 +14,6 @@ import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.commands.*;
 import xyz.fluxinc.moddedadditions.commands.legacy.NotifyCommand;
 import xyz.fluxinc.moddedadditions.commands.legacy.VoteDayCommand;
-import xyz.fluxinc.moddedadditions.commands.legacy.VoteSunCommand;
 import xyz.fluxinc.moddedadditions.controllers.ManaController;
 import xyz.fluxinc.moddedadditions.controllers.PlayerDataController;
 import xyz.fluxinc.moddedadditions.controllers.VeinMinerController;
@@ -140,7 +139,6 @@ public final class ModdedAdditions extends JavaPlugin {
         if (worldName != null && getServer().getWorld(worldName) != null) {
             VoteDayCommand voteDayCommand = new VoteDayCommand(getServer().getWorld(worldName));
             getCommand("voteday").setExecutor(voteDayCommand);
-            getCommand("votesun").setExecutor(new VoteSunCommand(getServer().getWorld(worldName)));
             getServer().getPluginManager().registerEvents(voteDayCommand, this);
         } else {
             getLogger().warning("No or invalid world defined for DayVote. It will not be enabled");
