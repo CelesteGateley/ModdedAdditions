@@ -85,7 +85,7 @@ public class CropHarvestListener implements Listener {
                     continue;
                 }
                 McMMOHook.addBlockExperience(b.getState(), event.getPlayer());
-                JobsRebornHook.addExperienceForBlocks(b, new BlockActionInfo(b, ActionType.BREAK), event.getPlayer());
+                try { JobsRebornHook.addExperienceForBlockBreak(b, event.getPlayer()); } catch (NoClassDefFoundError ignored) {}
                 CoreProtectLogger.logBlockBreak(event.getPlayer(), b);
                 Ageable age = (Ageable) b.getBlockData();
                 Collection<ItemStack> drops = b.getDrops();
@@ -93,7 +93,7 @@ public class CropHarvestListener implements Listener {
                 b.setBlockData(age);
                 CoreProtectLogger.logBlockPlace(event.getPlayer(), b);
                 McMMOHook.addBlockExperience(b.getState(), event.getPlayer());
-                JobsRebornHook.addExperienceForBlocks(b, new BlockActionInfo(b, ActionType.PLACE), event.getPlayer());
+                try { JobsRebornHook.addExperienceForBlockPlace(b, event.getPlayer()); } catch (NoClassDefFoundError ignored) {}
                 for (ItemStack i : drops) {
                     event.getClickedBlock().getWorld().dropItemNaturally(event.getClickedBlock().getLocation(), i);
                 }

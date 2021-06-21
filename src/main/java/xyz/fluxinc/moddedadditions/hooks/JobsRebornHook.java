@@ -40,10 +40,16 @@ public class JobsRebornHook {
         }
     }
 
-    public static void addExperienceForBlocks(Block block, BlockActionInfo info, Player player) {
+    public static void addExperienceForBlockPlace(Block block, Player player) {
         if (plugin == null) return;
 
-        Jobs.action(Jobs.getPlayerManager().getJobsPlayer(player), info, block);
+        Jobs.action(Jobs.getPlayerManager().getJobsPlayer(player), new BlockActionInfo(block, ActionType.PLACE), block);
+    }
+
+    public static void addExperienceForBlockBreak(Block block, Player player) {
+        if (plugin == null) { return; }
+
+        Jobs.action(Jobs.getPlayerManager().getJobsPlayer(player), new BlockActionInfo(block, ActionType.BREAK), block);
     }
 
 

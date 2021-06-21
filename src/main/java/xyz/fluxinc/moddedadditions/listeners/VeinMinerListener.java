@@ -67,8 +67,7 @@ public class VeinMinerListener implements Listener {
         int blocksBroken = 0;
         for (Block b : blockList) {
             if (instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), false)) {
-                if (JobsRebornHook.isJobsRegistered())
-                    JobsRebornHook.addExperienceForBlocks(block, new BlockActionInfo(block, ActionType.BREAK), player);
+                try { JobsRebornHook.addExperienceForBlockBreak(block, player); } catch (NoClassDefFoundError ignored) {}
                 McMMOHook.addBlockExperience(block.getState(), player);
                 blocksBroken++;
                 CoreProtectLogger.logBlockBreak(player, b);
