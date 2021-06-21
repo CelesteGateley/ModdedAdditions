@@ -90,7 +90,8 @@ public class ExcavatorListener implements Listener {
             if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true))
                 continue;
             // Log the block as broken, then break it
-            JobsRebornHook.addExperienceForBlocks(block, new BlockActionInfo(block, ActionType.BREAK), event.getPlayer());
+            if (JobsRebornHook.isJobsRegistered())
+                JobsRebornHook.addExperienceForBlocks(block, new BlockActionInfo(block, ActionType.BREAK), event.getPlayer());
             McMMOHook.addBlockExperience(block.getState(), event.getPlayer());
             CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());

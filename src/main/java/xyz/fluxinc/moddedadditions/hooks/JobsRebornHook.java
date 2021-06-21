@@ -25,6 +25,8 @@ public class JobsRebornHook {
         plugin = jobs;
     }
 
+    public static boolean isJobsRegistered() { return plugin != null; }
+
     /**
      * Add jobs experience and money for block states
      * @param blocks a list of block states

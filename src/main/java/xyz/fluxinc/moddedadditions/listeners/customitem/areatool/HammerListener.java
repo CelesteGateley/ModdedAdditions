@@ -91,7 +91,8 @@ public class HammerListener implements Listener {
             // If the block is not mineable by the tool, ignore
             if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), block.getType())) continue;
             // Log the block as broken, then break it
-            JobsRebornHook.addExperienceForBlocks(block, new BlockActionInfo(block, ActionType.BREAK), event.getPlayer());
+            if (JobsRebornHook.isJobsRegistered())
+                JobsRebornHook.addExperienceForBlocks(block, new BlockActionInfo(block, ActionType.BREAK), event.getPlayer());
             McMMOHook.addBlockExperience(block.getState(), event.getPlayer());
             CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
