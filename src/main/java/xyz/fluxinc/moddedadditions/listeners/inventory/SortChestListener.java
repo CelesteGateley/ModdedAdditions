@@ -18,7 +18,7 @@ public class SortChestListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getClickedBlock() == null) {
             return;
         }
-        if (event.getClickedBlock().getType() != Material.CHEST) {
+        if (event.getClickedBlock().getType() != Material.CHEST && event.getClickedBlock().getType() != Material.BARREL) {
             return;
         }
         if (!(instance.getPlayerDataController().getPlayerData(event.getPlayer()).sortChests())) {
