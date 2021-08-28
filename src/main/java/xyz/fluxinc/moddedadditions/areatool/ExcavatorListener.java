@@ -69,7 +69,7 @@ public class ExcavatorListener implements Listener {
             return;
         }
         // Check the player has access to the block and is in survival mode
-        if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), event.getBlock().getLocation(), true)) {
+        if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), event.getBlock().getLocation(), false)) {
             return;
         }
         if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) {

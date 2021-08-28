@@ -84,7 +84,7 @@ public class HammerListener implements Listener {
             if (block.getType() == Material.OBSIDIAN && !breakObsidian) continue;
             // If the block is not a hammer material or you do not have access to it, ignore
             if (!instance.getAreaToolController().checkHammer(block.getType())) continue;
-            if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true))
+            if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), false))
                 continue;
             // If the block is not mineable by the tool, ignore
             if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), block.getType())) continue;
