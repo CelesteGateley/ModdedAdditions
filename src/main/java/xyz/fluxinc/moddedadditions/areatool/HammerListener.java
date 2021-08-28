@@ -54,6 +54,7 @@ public class HammerListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         // Update Hammer to new system
+        if (event.isCancelled()) return;
         if (verifyLore(event.getPlayer().getInventory().getItemInMainHand())
                 && !verifyHammer(event.getPlayer().getInventory().getItemInMainHand())) {
             updateHammer(event.getPlayer());

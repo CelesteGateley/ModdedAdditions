@@ -52,6 +52,7 @@ public class ExcavatorListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        if (event.isCancelled()) return;
         // Update Excavator to new system
         if (verifyLore(event.getPlayer().getInventory().getItemInMainHand())
                 && !verifyExcavator(event.getPlayer().getInventory().getItemInMainHand())) {

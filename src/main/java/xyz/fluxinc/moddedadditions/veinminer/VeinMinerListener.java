@@ -26,6 +26,7 @@ public class VeinMinerListener implements Listener {
     @EventHandler
     public void blockBreakListener(BlockBreakEvent event) {
         if (!event.getPlayer().isSneaking()) return;
+        if (event.isCancelled()) return;
         if (event.getPlayer().getGameMode() == GameMode.CREATIVE && !instance.getVeinMinerController().getAllowInCreative())
             return;
         if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), event.getBlock().getType()))
