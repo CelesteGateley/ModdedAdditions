@@ -66,7 +66,7 @@ public class DecreaseMaxMana extends Spell {
     @Override
     public boolean enactSpell(Player caster, LivingEntity target, int level) {
         PlayerData data = instance.getPlayerDataController().getPlayerData(caster);
-        data.setMaximumMana(Math.min(data.getMaximumMana() - 50, 0));
+        data.setMaximumMana(Math.max(data.getMaximumMana() - 50, 0));
         instance.getPlayerDataController().setPlayerData(caster, data);
         return true;
     }
