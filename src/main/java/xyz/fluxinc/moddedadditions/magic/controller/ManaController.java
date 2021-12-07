@@ -66,7 +66,10 @@ public class ManaController implements Listener, Runnable {
         BossBar bar = Bukkit.getServer().getBossBar(playerBars.get(player));
         PlayerData data = instance.getPlayerDataController().getPlayerData(player);
         bar.setTitle("Mana: " + data.getCurrentMana() + "/" + data.getMaximumMana());
-        bar.setProgress((double) data.getCurrentMana() / (double) data.getMaximumMana());
+        double barPercentage = (double) data.getCurrentMana() / (double) data.getMaximumMana();
+        if (barPercentage < 0) {barPercentage = 0;}
+        if (barPercentage > 1) {barPercentage = 1;}
+        bar.setProgress(barPercentage);
     }
 
     public void showManaBar(Player player, int duration) {
@@ -114,7 +117,10 @@ public class ManaController implements Listener, Runnable {
         PlayerData data = instance.getPlayerDataController().getPlayerData(player);
         playerBars.put(player, key);
         KeyedBossBar bossBar = Bukkit.createBossBar(key, "Mana: " + data.getCurrentMana() + "/" + data.getMaximumMana(), BarColor.BLUE, BarStyle.SEGMENTED_10);
-        bossBar.setProgress((double) data.getCurrentMana() / (double) data.getMaximumMana());
+        double barPercentage = (double) data.getCurrentMana() / (double) data.getMaximumMana();
+        if (barPercentage < 0) {barPercentage = 0;}
+        if (barPercentage > 1) {barPercentage = 1;}
+        bossBar.setProgress(barPercentage);
         bossBar.setVisible(false);
         bossBar.addPlayer(player);
     }
