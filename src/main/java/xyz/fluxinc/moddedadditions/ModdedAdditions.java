@@ -12,7 +12,6 @@ import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.areatool.AreaToolCommand;
-import xyz.fluxinc.moddedadditions.armor.listeners.CopperArmorListener;
 import xyz.fluxinc.moddedadditions.common.commands.*;
 import xyz.fluxinc.moddedadditions.common.commands.legacy.NotifyCommand;
 import xyz.fluxinc.moddedadditions.common.commands.legacy.VoteDayCommand;
@@ -185,7 +184,6 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new LongFallBootsListener(), this);
         getServer().getPluginManager().registerEvents(new HoneyChestplateListener(), this);
         getServer().getPluginManager().registerEvents(new SlimeChestplateListener(), this);
-        getServer().getPluginManager().registerEvents(new CopperArmorListener(), this);
 
         // Register Prevent Chests
         if (configurationManager.getBoolean("ma-preventLootBreak")) {
