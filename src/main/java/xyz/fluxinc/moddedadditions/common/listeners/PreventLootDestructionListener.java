@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions.common.listeners;
 
+import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,27 +15,27 @@ public class PreventLootDestructionListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        if (!(event.getBlock().getBlockData() instanceof Lootable)) return;
-        if (((Lootable)event.getBlock().getBlockData()).getLootTable() == null) return;
-        event.getPlayer().sendMessage(instance.getLanguageManager().generateMessage("ma-breakLoot"));
+        if (!(event.getBlock().getState() instanceof Chest)) return;
+        if (((Lootable)event.getBlock().getState()).getLootTable() == null) return;
         if (event.getPlayer().hasPermission("moddedadditions.lootchest.bypass")){
             event.getPlayer().sendMessage(instance.getLanguageManager().generateMessage("ma-breakBypass"));
             return;
         }
+        event.getPlayer().sendMessage(instance.getLanguageManager().generateMessage("ma-breakLoot"));
         event.setCancelled(true);
     }
 
     @EventHandler
     public void onBlockExplosion(BlockExplodeEvent event) {
-        if (!(event.getBlock().getBlockData() instanceof Lootable)) return;
-        if (((Lootable)event.getBlock().getBlockData()).getLootTable() == null) return;
+        if (!(event.getBlock().getState() instanceof Chest)) return;
+        if (((Lootable)event.getBlock().getState()).getLootTable() == null) return;
         event.setCancelled(true);
     }
 
     @EventHandler
     public void onEnderManMoveEvent(EntityChangeBlockEvent event) {
-        if (!(event.getBlock().getBlockData() instanceof Lootable)) return;
-        if (((Lootable)event.getBlock().getBlockData()).getLootTable() == null) return;
+        if (!(event.getBlock().getState() instanceof Chest)) return;
+        if (((Lootable)event.getBlock().getState()).getLootTable() == null) return;
         if (event.getEntity() instanceof Player) {
             if (event.getEntity().hasPermission("moddedadditions.lootchest.bypass")){
                 event.getEntity().sendMessage(instance.getLanguageManager().generateMessage("ma-breakBypass"));

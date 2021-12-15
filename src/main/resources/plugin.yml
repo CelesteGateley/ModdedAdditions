@@ -3,6 +3,7 @@ version: ${full.project.version}
 main: xyz.fluxinc.moddedadditions.ModdedAdditions
 api-version: 1.13
 depend: [FluxCore, CommandAPI]
+softdepend: [mcMMO, Jobs]
 authors: [CelesteMagisteel, monoOokami]
 description: Adds some cool tools/features that aren't in vanilla
 commands:
