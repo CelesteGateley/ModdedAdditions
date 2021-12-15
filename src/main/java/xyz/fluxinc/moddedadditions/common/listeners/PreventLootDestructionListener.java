@@ -17,6 +17,10 @@ public class PreventLootDestructionListener implements Listener {
         if (!(event.getBlock().getBlockData() instanceof Lootable)) return;
         if (((Lootable)event.getBlock().getBlockData()).getLootTable() == null) return;
         event.getPlayer().sendMessage(instance.getLanguageManager().generateMessage("ma-breakLoot"));
+        if (event.getPlayer().hasPermission("moddedadditions.lootchest.bypass")){
+            event.getPlayer().sendMessage(instance.getLanguageManager().generateMessage("ma-breakBypass"));
+            return;
+        }
         event.setCancelled(true);
     }
 
@@ -32,6 +36,10 @@ public class PreventLootDestructionListener implements Listener {
         if (!(event.getBlock().getBlockData() instanceof Lootable)) return;
         if (((Lootable)event.getBlock().getBlockData()).getLootTable() == null) return;
         if (event.getEntity() instanceof Player) {
+            if (event.getEntity().hasPermission("moddedadditions.lootchest.bypass")){
+                event.getEntity().sendMessage(instance.getLanguageManager().generateMessage("ma-breakBypass"));
+                return;
+            }
             event.getEntity().sendMessage(instance.getLanguageManager().generateMessage("ma-breakLoot"));
         }
         event.setCancelled(true);

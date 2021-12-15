@@ -25,6 +25,7 @@ permissions:
       moddedadditions.sort: true
       moddedadditions.reload: true
       moddedadditions.spells.*: true
+      moddedadditions.lootchests.bypass: true
   moddedadditions.areatool.*:
     description: Grants all permissions for modifying areatools
     children:
@@ -106,4 +107,7 @@ permissions:
     default: op
   moddedadditions.spells.evaluateall:
     description: Evaluate all player data
+    default: op
+  moddedadditions.lootchests.bypass:
+    description: Bypass the check to destroy loot chests
     default: op

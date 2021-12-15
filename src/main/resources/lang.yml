@@ -85,6 +85,7 @@ ma-unknownTypeSaber: "&9Unrecognised color %type%. Valid colors: blue / green / 
 ma-sortOn: "&9Chests you open will now be sorted!"
 ma-sortOff: "&9Chests you open will no longer be sorted!"
 ma-breakLoot: "&5You cannot break Loot chests. Loot chests refill for other players to access."
+ma-breakBypass: "&9Warning: You have bypassed Loot chest destruction prevention."
 
 # VoteDay Keys
 dv-dayVote: "&bDo you want day? Please click $ &bor $"
