@@ -15,6 +15,7 @@ import xyz.fluxinc.moddedadditions.areatool.AreaToolCommand;
 import xyz.fluxinc.moddedadditions.common.commands.*;
 import xyz.fluxinc.moddedadditions.common.commands.legacy.NotifyCommand;
 import xyz.fluxinc.moddedadditions.common.commands.legacy.VoteDayCommand;
+import xyz.fluxinc.moddedadditions.common.listeners.PreventLootDestructionListener;
 import xyz.fluxinc.moddedadditions.magic.controller.ManaController;
 import xyz.fluxinc.moddedadditions.common.storage.PlayerDataController;
 import xyz.fluxinc.moddedadditions.veinminer.VeinMinerCommand;
@@ -183,6 +184,11 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new LongFallBootsListener(), this);
         getServer().getPluginManager().registerEvents(new HoneyChestplateListener(), this);
         getServer().getPluginManager().registerEvents(new SlimeChestplateListener(), this);
+
+        // Register Prevent Chests
+        if (configurationManager.getBoolean("ma-preventLootBreak")) {
+            getServer().getPluginManager().registerEvents(new PreventLootDestructionListener(), this);
+        }
 
         // Register Crafting Additions (Must Be Last)
         customRecipeUtils = new CustomRecipeUtils();

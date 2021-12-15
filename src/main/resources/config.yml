@@ -21,3 +21,6 @@ ch-emptyhand: true
 
 # Which world should be used
 dv-dayWorld: "world"
+
+# Should chests with Loot Tables be unbreakable
+ma-preventLootBreak: true
