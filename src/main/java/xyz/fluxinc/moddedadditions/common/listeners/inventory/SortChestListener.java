@@ -25,6 +25,7 @@ public class SortChestListener implements Listener {
             return;
         }
         Chest chest = (Chest) event.getClickedBlock().getState();
+        if (chest.getLootTable() != null) return;
         ItemStack[] sorted = sortItemStacks(chest.getInventory().getContents());
         chest.getInventory().clear();
         for (ItemStack itemStack : sorted) {
