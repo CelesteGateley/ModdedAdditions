@@ -27,6 +27,10 @@ public class ItemRegistry {
         defaultItems.put("elytra_repair_kit", CustomRecipeUtils.generateElytraKit());
         defaultItems.put("honey_chestplate", SpecialArmorUtils.generateHoneyChestplate());
         defaultItems.put("slime_chestplate", SpecialArmorUtils.generateSlimeChestplate());
+        defaultItems.put("copper_chestplate", SpecialArmorUtils.generateCopperChestplate());
+        defaultItems.put("copper_helmet", SpecialArmorUtils.generateCopperHelmet());
+        defaultItems.put("copper_boots", SpecialArmorUtils.generateCopperBoots());
+        defaultItems.put("copper_leggings", SpecialArmorUtils.generateCopperLeggings());
         for (SaberColor color : SaberColor.values()) {
             defaultItems.put(color.toString().toLowerCase() + "_kyber_crystal", LightSaberController.generateNewKyberCrystal(color));
             defaultItems.put(color.toString().toLowerCase() + "_lightsaber", LightSaberController.generateNewLightSaber(color));
