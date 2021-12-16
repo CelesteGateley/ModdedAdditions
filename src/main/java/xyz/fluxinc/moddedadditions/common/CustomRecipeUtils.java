@@ -291,7 +291,7 @@ public class CustomRecipeUtils implements Listener {
         recipeLeggings.setIngredient('A', Material.COPPER_INGOT);
         getServer().addRecipe(recipeLeggings);
 
-        //Leggings
+        //Boots
         NamespacedKey boots = new NamespacedKey(instance, "COPPER_BOOTS");
         recipeKeys.add(boots);
         ItemStack resultBoots = generateCopperBoots();
