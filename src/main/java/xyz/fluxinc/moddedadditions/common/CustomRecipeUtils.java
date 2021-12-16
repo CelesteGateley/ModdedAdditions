@@ -93,6 +93,7 @@ public class CustomRecipeUtils implements Listener {
         addLongFallBoots();
         addHoneyChestPlate();
         addSlimeChestPlate();
+        addCopperArmorPlate();
         upgradeLightsaber();
         addElytraRepairKit();
     }
@@ -260,6 +261,44 @@ public class CustomRecipeUtils implements Listener {
         recipe.shape("A A", "AAA", "AAA");
         recipe.setIngredient('A', Material.SLIME_BLOCK);
         getServer().addRecipe(recipe);
+    }
+
+    private void addCopperArmorPlate() {
+        //Helmet
+        NamespacedKey helmet = new NamespacedKey(instance, "COPPER_HELMET");
+        recipeKeys.add(helmet);
+        ItemStack resultHelm = generateCopperHelmet();
+        ShapedRecipe recipeHelm = new ShapedRecipe(helmet, resultHelm);
+        recipeHelm.shape("AAA", "A A");
+        recipeHelm.setIngredient('A', Material.COPPER_INGOT);
+        getServer().addRecipe(recipeHelm);
+
+        //Chestplate
+        NamespacedKey chest = new NamespacedKey(instance, "COPPER_CHESTPLATE");
+        recipeKeys.add(chest);
+        ItemStack resultChest = generateCopperChestplate();
+        ShapedRecipe recipeChest = new ShapedRecipe(chest, resultChest);
+        recipeChest.shape("A A", "AAA", "AAA");
+        recipeChest.setIngredient('A', Material.COPPER_INGOT);
+        getServer().addRecipe(recipeChest);
+
+        //Leggings
+        NamespacedKey leggings = new NamespacedKey(instance, "COPPER_LEGGINGS");
+        recipeKeys.add(leggings);
+        ItemStack resultLeggings = generateCopperLeggings();
+        ShapedRecipe recipeLeggings = new ShapedRecipe(leggings, resultLeggings);
+        recipeLeggings.shape("AAA", "A A", "A A");
+        recipeLeggings.setIngredient('A', Material.COPPER_INGOT);
+        getServer().addRecipe(recipeLeggings);
+
+        //Boots
+        NamespacedKey boots = new NamespacedKey(instance, "COPPER_BOOTS");
+        recipeKeys.add(boots);
+        ItemStack resultBoots = generateCopperBoots();
+        ShapedRecipe recipeBoots = new ShapedRecipe(boots, resultBoots);
+        recipeBoots.shape("A A", "A A");
+        recipeBoots.setIngredient('A', Material.COPPER_INGOT);
+        getServer().addRecipe(recipeBoots);
     }
 
     @EventHandler
