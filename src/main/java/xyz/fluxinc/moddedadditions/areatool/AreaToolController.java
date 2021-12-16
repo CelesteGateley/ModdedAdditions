@@ -112,7 +112,7 @@ public class AreaToolController {
                 level + "_HAMMER", StringUtils.toTitleCase(level.toString()) + " Hammer", "mi-hammer");
     }
 
-    public static ItemStack generateExcavator(ToolLevel level) {
+    public static CustomItem generateExcavator(ToolLevel level) {
         Material toolMaterial;
         int modelId;
         switch (level) {
@@ -141,14 +141,9 @@ public class AreaToolController {
                 modelId = 1;
                 break;
         }
-        modelId = KEY_BASE + AT_KEY_BASE + 20 + modelId;
-        ItemStack itemStack = addLore(new ItemStack(toolMaterial), instance.getLanguageManager().getFormattedString("mi-excavator"));
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.RESET + ToolLevel.getName(level) + " Excavator");
-        itemMeta.setCustomModelData(modelId);
-        itemStack.setItemMeta(itemMeta);
 
-        return itemStack;
+        return new AreaToolItem(KEY_BASE + AT_KEY_BASE + 20 + modelId, toolMaterial,
+                level + "_EXCAVATOR", StringUtils.toTitleCase(level.toString()) + " Excavator", "mi-excavator");
     }
 
     public boolean checkHammer(Material material) {
