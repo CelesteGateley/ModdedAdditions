@@ -12,6 +12,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.areatool.AreaToolController;
+import xyz.fluxinc.moddedadditions.armor.SpecialArmorUtils;
 import xyz.fluxinc.moddedadditions.lightsaber.LightSaberController;
 import xyz.fluxinc.moddedadditions.magnet.MagnetController;
 import xyz.fluxinc.moddedadditions.sonic.SonicScrewdriverController;
@@ -223,16 +224,9 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addLongFallBoots() {
-        NamespacedKey bootsKey = new NamespacedKey(instance, "LONG_FALL_BOOTS");
-        recipeKeys.add(bootsKey);
-        ItemStack result = generateNewLongFallBoots();
-        ShapedRecipe bootsRecipe = new ShapedRecipe(bootsKey, result);
-        bootsRecipe.shape("BFB", "BFB", "SIS");
-        bootsRecipe.setIngredient('F', Material.FEATHER);
-        bootsRecipe.setIngredient('B', Material.IRON_BLOCK);
-        bootsRecipe.setIngredient('S', Material.SLIME_BLOCK);
-        bootsRecipe.setIngredient('I', Material.IRON_BOOTS);
-        getServer().addRecipe(bootsRecipe);
+        ShapedRecipe recipe = SpecialArmorUtils.getLongFallBoots().getRecipe();
+        recipeKeys.add(recipe.getKey());
+        getServer().addRecipe(recipe);
     }
 
     private void addHoneyChestPlate() {

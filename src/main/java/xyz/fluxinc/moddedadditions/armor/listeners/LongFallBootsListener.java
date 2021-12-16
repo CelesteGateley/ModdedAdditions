@@ -6,22 +6,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-import static xyz.fluxinc.moddedadditions.armor.SpecialArmorUtils.verifyLongFallBoots;
+import static xyz.fluxinc.moddedadditions.armor.SpecialArmorUtils.getLongFallBoots;
 
 public class LongFallBootsListener implements Listener {
 
     @EventHandler
     public void onFallDamage(EntityDamageEvent event) {
-        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) {
-            return;
-        }
-        if (event.getEntityType() != EntityType.PLAYER) {
-            return;
-        }
+        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) return;
+        if (event.getEntityType() != EntityType.PLAYER) return;
         Player player = (Player) event.getEntity();
-        if (!verifyLongFallBoots(player.getInventory().getBoots())) {
-            return;
-        }
+        if (!getLongFallBoots().verifyItemStack(player.getInventory().getBoots())) return;
         event.setCancelled(true);
     }
 }

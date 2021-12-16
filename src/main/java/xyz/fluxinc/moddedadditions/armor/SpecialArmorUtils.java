@@ -2,31 +2,34 @@ package xyz.fluxinc.moddedadditions.armor;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import xyz.fluxinc.moddedadditions.common.storage.CustomItem;
 
+import static org.bukkit.Bukkit.getServer;
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class SpecialArmorUtils {
 
     private static final int ARMOR_KEY = 4000;
 
-    public static ItemStack generateNewLongFallBoots() {
-        ItemStack iStack = addLore(new ItemStack(Material.IRON_BOOTS), "Boots that prevent the wearer from receiving fall damage!");
-        ItemMeta iMeta = iStack.getItemMeta();
-        iMeta.setCustomModelData(KEY_BASE + ARMOR_KEY + 1);
-        iMeta.setDisplayName(ChatColor.RESET + "Long Fall Boots");
-        iStack.setItemMeta(iMeta);
-        return iStack;
-    }
-
-    public static boolean verifyLongFallBoots(ItemStack iStack) {
-        return iStack != null &&
-                iStack.getType() == Material.IRON_BOOTS &&
-                iStack.getItemMeta() != null &&
-                iStack.getItemMeta().hasCustomModelData() &&
-                iStack.getItemMeta().getCustomModelData() == KEY_BASE + ARMOR_KEY + 1;
+    public static CustomItem getLongFallBoots() {
+        return new CustomItem(KEY_BASE + ARMOR_KEY + 1, Material.IRON_BOOTS, "LONG_FALL_BOOTS", "Long Fall Boots", "mi-longfallboots") {
+            @Override
+            public ShapedRecipe getRecipe() {
+                ShapedRecipe bootsRecipe = new ShapedRecipe(new NamespacedKey(instance, this.getKeyName()), this.getNewItem());
+                bootsRecipe.shape("BFB", "BFB", "SIS");
+                bootsRecipe.setIngredient('F', Material.FEATHER);
+                bootsRecipe.setIngredient('B', Material.IRON_BLOCK);
+                bootsRecipe.setIngredient('S', Material.SLIME_BLOCK);
+                bootsRecipe.setIngredient('I', Material.IRON_BOOTS);
+                return bootsRecipe;
+            }
+        };
     }
 
     public static ItemStack generateHoneyChestplate() {
