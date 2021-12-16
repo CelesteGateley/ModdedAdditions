@@ -1,16 +1,15 @@
 package xyz.fluxinc.moddedadditions.areatool;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
+import xyz.fluxinc.fluxcore.utils.StringUtils;
+import xyz.fluxinc.moddedadditions.common.storage.CustomItem;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static xyz.fluxinc.fluxcore.utils.BlockUtils.convertStringToMaterial;
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
@@ -80,7 +78,7 @@ public class AreaToolController {
         return extraBlocks;
     }
 
-    public static ItemStack generateHammer(ToolLevel level) {
+    public static CustomItem generateHammer(ToolLevel level) {
         Material toolMaterial;
         int modelId;
         switch (level) {
@@ -109,14 +107,9 @@ public class AreaToolController {
                 modelId = 1;
                 break;
         }
-        modelId = KEY_BASE + AT_KEY_BASE + 10 + modelId;
-        ItemStack itemStack = addLore(new ItemStack(toolMaterial), instance.getLanguageManager().getFormattedString("mi-hammer"));
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.RESET + ToolLevel.getName(level) + " Hammer");
-        itemMeta.setCustomModelData(modelId);
-        itemStack.setItemMeta(itemMeta);
 
-        return itemStack;
+        return new AreaToolItem(KEY_BASE + AT_KEY_BASE + 10 + modelId, toolMaterial,
+                level + "_HAMMER", StringUtils.toTitleCase(level.toString()) + " Hammer", "mi-hammer");
     }
 
     public static ItemStack generateExcavator(ToolLevel level) {

@@ -122,13 +122,9 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private ShapedRecipe generateNewHammerRecipe(ToolLevel level, String key, Material tool) {
-        NamespacedKey nsKey = new NamespacedKey(instance, key);
-        recipeKeys.add(nsKey);
-        ShapedRecipe result = new ShapedRecipe(nsKey, AreaToolController.generateHammer(level));
-        result.shape("PPP", " S ", " S ");
-        result.setIngredient('S', Material.STICK);
-        result.setIngredient('P', tool);
-        return result;
+        ShapedRecipe recipe = AreaToolController.generateHammer(level).getRecipe();
+        recipeKeys.add(recipe.getKey());
+        return recipe;
     }
 
     private ShapedRecipe generateNewExcavatorRecipe(ToolLevel level, String key, Material tool) {

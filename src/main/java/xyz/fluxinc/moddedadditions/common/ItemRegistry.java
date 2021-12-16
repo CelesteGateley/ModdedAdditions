@@ -34,7 +34,7 @@ public class ItemRegistry {
         }
 
         for (ToolLevel level : ToolLevel.values()) {
-            defaultItems.put(level.toString().toLowerCase() + "_hammer", AreaToolController.generateHammer(level));
+            defaultItems.put(level.toString().toLowerCase() + "_hammer", AreaToolController.generateHammer(level).getNewItem());
             defaultItems.put(level.toString().toLowerCase() + "_excavator", AreaToolController.generateExcavator(level));
         }
     }
