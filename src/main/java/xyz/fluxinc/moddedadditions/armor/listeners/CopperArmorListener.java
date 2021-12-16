@@ -24,7 +24,7 @@ public class CopperArmorListener implements Listener {
 
         if (!verifyCopperBoots(((Player) event.getEntity()).getInventory().getBoots())) return;
 
-        new PotionEffect(PotionEffectType.SLOW, 50, 3).apply(((Player) event.getEntity()).getPlayer());
+        new PotionEffect(PotionEffectType.SLOW, 50, 3).apply(((Player) event.getEntity())); //Needs correction
     }
 
 }
