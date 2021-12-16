@@ -126,7 +126,7 @@ public class SpecialArmorUtils {
         ItemStack iStack = addLore(new ItemStack(Material.IRON_BOOTS), "Finally a use for Copper!");
         ItemMeta iMeta = iStack.getItemMeta();
         iMeta.setCustomModelData(KEY_BASE + ARMOR_KEY + 7);
-        iMeta.setDisplayName(ChatColor.RESET + "Copper Leggings");
+        iMeta.setDisplayName(ChatColor.RESET + "Copper Boots");
         iStack.setItemMeta(iMeta);
         return iStack;
     }
