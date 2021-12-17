@@ -230,12 +230,8 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addHoneyChestPlate() {
-        NamespacedKey key = new NamespacedKey(instance, "HONEY_CHESTPLATE");
-        recipeKeys.add(key);
-        ItemStack result = generateHoneyChestplate();
-        ShapedRecipe recipe = new ShapedRecipe(key, result);
-        recipe.shape("A A", "AAA", "AAA");
-        recipe.setIngredient('A', Material.HONEY_BLOCK);
+        ShapedRecipe recipe = SpecialArmorUtils.getHoneyChestplate().getRecipe();
+        recipeKeys.add(recipe.getKey());
         getServer().addRecipe(recipe);
     }
 

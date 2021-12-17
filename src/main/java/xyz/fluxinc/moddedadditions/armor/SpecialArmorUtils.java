@@ -6,6 +6,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import xyz.fluxinc.moddedadditions.armor.items.ChestplateItem;
 import xyz.fluxinc.moddedadditions.common.storage.CustomItem;
 
 import static org.bukkit.Bukkit.getServer;
@@ -41,12 +42,9 @@ public class SpecialArmorUtils {
         return iStack;
     }
 
-    public static boolean verifyHoneyChestplate(ItemStack iStack) {
-        return iStack != null &&
-                iStack.getType() == Material.CHAINMAIL_CHESTPLATE &&
-                iStack.getItemMeta() != null &&
-                iStack.getItemMeta().hasCustomModelData() &&
-                iStack.getItemMeta().getCustomModelData() == KEY_BASE + ARMOR_KEY + 2;
+    public static CustomItem getHoneyChestplate() {
+        return new ChestplateItem(KEY_BASE + ARMOR_KEY + 2, Material.CHAINMAIL_CHESTPLATE, Material.HONEY_BLOCK,
+                "HONEY_CHESTPLATE", "Honey Chestplate", "mi-honeychestplate");
     }
 
     public static ItemStack generateSlimeChestplate() {

@@ -25,7 +25,7 @@ public class ItemRegistry {
         defaultItems.put("long_fall_boots", SpecialArmorUtils.getLongFallBoots().getNewItem());
         defaultItems.put("magnet", MagnetController.generateNewMagnet());
         defaultItems.put("elytra_repair_kit", CustomRecipeUtils.generateElytraKit());
-        defaultItems.put("honey_chestplate", SpecialArmorUtils.generateHoneyChestplate());
+        defaultItems.put("honey_chestplate", SpecialArmorUtils.getHoneyChestplate().getNewItem());
         defaultItems.put("slime_chestplate", SpecialArmorUtils.generateSlimeChestplate());
         for (SaberColor color : SaberColor.values()) {
             defaultItems.put(color.toString().toLowerCase() + "_kyber_crystal", LightSaberController.generateNewKyberCrystal(color));

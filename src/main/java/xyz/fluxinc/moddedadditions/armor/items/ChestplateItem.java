@@ -2,13 +2,10 @@ package xyz.fluxinc.moddedadditions.armor.items;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import xyz.fluxinc.moddedadditions.common.storage.CustomItem;
 
-import static org.bukkit.Bukkit.getServer;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
-import static xyz.fluxinc.moddedadditions.armor.SpecialArmorUtils.generateHoneyChestplate;
 
 public class ChestplateItem extends CustomItem {
 
