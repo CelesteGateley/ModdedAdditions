@@ -33,35 +33,14 @@ public class SpecialArmorUtils {
         };
     }
 
-    public static ItemStack generateHoneyChestplate() {
-        ItemStack iStack = addLore(new ItemStack(Material.CHAINMAIL_CHESTPLATE), "Leaves a sticky residue on attackers, slowing them down!");
-        ItemMeta iMeta = iStack.getItemMeta();
-        iMeta.setCustomModelData(KEY_BASE + ARMOR_KEY + 2);
-        iMeta.setDisplayName(ChatColor.RESET + "Honey Chestplate");
-        iStack.setItemMeta(iMeta);
-        return iStack;
-    }
-
     public static CustomItem getHoneyChestplate() {
         return new ChestplateItem(KEY_BASE + ARMOR_KEY + 2, Material.CHAINMAIL_CHESTPLATE, Material.HONEY_BLOCK,
                 "HONEY_CHESTPLATE", "Honey Chestplate", "mi-honeychestplate");
     }
 
-    public static ItemStack generateSlimeChestplate() {
-        ItemStack iStack = addLore(new ItemStack(Material.CHAINMAIL_CHESTPLATE), "A bouncy chestplate, knocking back attackers!");
-        ItemMeta iMeta = iStack.getItemMeta();
-        iMeta.setDisplayName(ChatColor.RESET + "Slime Chestplate");
-        iMeta.setCustomModelData(KEY_BASE + ARMOR_KEY + 3);
-        iStack.setItemMeta(iMeta);
-        return iStack;
-    }
-
-    public static boolean verifySlimeChestplate(ItemStack iStack) {
-        return iStack != null &&
-                iStack.getType() == Material.CHAINMAIL_CHESTPLATE &&
-                iStack.getItemMeta() != null &&
-                iStack.getItemMeta().hasCustomModelData() &&
-                iStack.getItemMeta().getCustomModelData() == KEY_BASE + ARMOR_KEY + 3;
+    public static CustomItem getSlimeChestplate() {
+        return new ChestplateItem(KEY_BASE + ARMOR_KEY + 3, Material.CHAINMAIL_CHESTPLATE, Material.SLIME_BLOCK,
+                "SLIME_CHESTPLATE", "Slime Chestplate", "mi-slimechestplate");
     }
 
     public static ItemStack generateCopperHelmet() {

@@ -236,12 +236,8 @@ public class CustomRecipeUtils implements Listener {
     }
 
     private void addSlimeChestPlate() {
-        NamespacedKey key = new NamespacedKey(instance, "SLIME_CHESTPLATE");
-        recipeKeys.add(key);
-        ItemStack result = generateSlimeChestplate();
-        ShapedRecipe recipe = new ShapedRecipe(key, result);
-        recipe.shape("A A", "AAA", "AAA");
-        recipe.setIngredient('A', Material.SLIME_BLOCK);
+        ShapedRecipe recipe = SpecialArmorUtils.getSlimeChestplate().getRecipe();
+        recipeKeys.add(recipe.getKey());
         getServer().addRecipe(recipe);
     }
 
