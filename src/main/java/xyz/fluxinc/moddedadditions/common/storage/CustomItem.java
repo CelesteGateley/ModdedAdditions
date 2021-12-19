@@ -46,6 +46,7 @@ public abstract class CustomItem {
         iMeta.setCustomModelData(this.modelId);
         iMeta.setDisplayName(this.displayName);
         itemStack.setItemMeta(iMeta);
+        itemStack = modifyItemStack(itemStack);
         return itemStack;
     }
 
@@ -62,4 +63,13 @@ public abstract class CustomItem {
     }
 
     public abstract ShapedRecipe getRecipe();
+
+    /**
+     * Is overwritten by custom items that require additional modification
+     * @param itemStack the ItemStack to modify
+     * @return the modified ItemStack
+     */
+    public ItemStack modifyItemStack(ItemStack itemStack) {
+        return itemStack;
+    }
 }
