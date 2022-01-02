@@ -12,8 +12,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import xyz.fluxinc.moddedadditions.magic.ManaBarRunnable;
 import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
+import xyz.fluxinc.moddedadditions.magic.ManaBarRunnable;
 
 import java.util.HashMap;
 import java.util.Map;

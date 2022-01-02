@@ -66,6 +66,7 @@ public abstract class CustomItem {
 
     /**
      * Is overwritten by custom items that require additional modification
+     *
      * @param itemStack the ItemStack to modify
      * @return the modified ItemStack
      */

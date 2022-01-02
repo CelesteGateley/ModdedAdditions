@@ -4,7 +4,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.fluxcore.inventory.CheckExecutor;
-import xyz.fluxinc.moddedadditions.magnet.MagnetController;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 

@@ -13,9 +13,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 import xyz.fluxinc.fluxcore.hooks.JobsRebornHook;
 import xyz.fluxinc.fluxcore.hooks.McMMOHook;
+import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -88,7 +88,10 @@ public class HammerListener implements Listener {
             // If the block is not mineable by the tool, ignore
             if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), block.getType())) continue;
             // Log the block as broken, then break it
-            try { JobsRebornHook.addExperienceForBlockBreak(block, event.getPlayer()); } catch (NoClassDefFoundError ignored) {}
+            try {
+                JobsRebornHook.addExperienceForBlockBreak(block, event.getPlayer());
+            } catch (NoClassDefFoundError ignored) {
+            }
             McMMOHook.addBlockExperience(block.getState(), event.getPlayer());
             CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());

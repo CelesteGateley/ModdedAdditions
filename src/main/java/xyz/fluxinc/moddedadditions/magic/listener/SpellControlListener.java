@@ -12,13 +12,13 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import xyz.fluxinc.moddedadditions.magic.listener.spells.ResearchInventoryListener;
-import xyz.fluxinc.moddedadditions.magic.controller.SpellBookController;
+import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
 import xyz.fluxinc.moddedadditions.magic.SpellRegistry;
+import xyz.fluxinc.moddedadditions.magic.controller.SpellBookController;
+import xyz.fluxinc.moddedadditions.magic.listener.spells.ResearchInventoryListener;
 import xyz.fluxinc.moddedadditions.magic.spells.Spell;
 import xyz.fluxinc.moddedadditions.magic.spells.SpellSchool;
 import xyz.fluxinc.moddedadditions.magic.spells.schools.Debug;
-import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +100,10 @@ public class SpellControlListener implements Listener {
             event.getView().close();
         } else if (event.getCurrentItem().getType() == Material.ENCHANTED_BOOK) {
             event.getView().close();
-            if (event.getWhoClicked().getGameMode() == GameMode.CREATIVE) { event.getWhoClicked().sendMessage(instance.getLanguageManager().generateMessage("sb-noCreative")); return; }
+            if (event.getWhoClicked().getGameMode() == GameMode.CREATIVE) {
+                event.getWhoClicked().sendMessage(instance.getLanguageManager().generateMessage("sb-noCreative"));
+                return;
+            }
             Bukkit.getScheduler().scheduleSyncDelayedTask(instance, () -> ResearchInventoryListener.openInventory((Player) event.getWhoClicked()));
         } else {
             event.getView().close();
@@ -125,7 +128,10 @@ public class SpellControlListener implements Listener {
             event.getView().close();
         } else if (event.getCurrentItem().getType() == Material.ENCHANTED_BOOK) {
             event.getView().close();
-            if (event.getWhoClicked().getGameMode() == GameMode.CREATIVE) { event.getWhoClicked().sendMessage(instance.getLanguageManager().generateMessage("sb-noCreative")); return; }
+            if (event.getWhoClicked().getGameMode() == GameMode.CREATIVE) {
+                event.getWhoClicked().sendMessage(instance.getLanguageManager().generateMessage("sb-noCreative"));
+                return;
+            }
             Bukkit.getScheduler().scheduleSyncDelayedTask(instance, () -> ResearchInventoryListener.openInventory((Player) event.getWhoClicked()));
         } else {
             Player player = (Player) event.getWhoClicked();

@@ -6,11 +6,11 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
+import xyz.fluxinc.moddedadditions.magic.SpellRegistry;
 import xyz.fluxinc.moddedadditions.magic.controller.SpellBookController;
 import xyz.fluxinc.moddedadditions.magic.spells.Spell;
 import xyz.fluxinc.moddedadditions.magic.spells.SpellRecipe;
-import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
-import xyz.fluxinc.moddedadditions.magic.SpellRegistry;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 

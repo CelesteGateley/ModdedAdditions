@@ -10,8 +10,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import xyz.fluxinc.moddedadditions.armor.SpecialArmorUtils;
 
-import static xyz.fluxinc.moddedadditions.armor.SpecialArmorUtils.*;
-
 public class CopperArmorListener implements Listener {
 
     @EventHandler

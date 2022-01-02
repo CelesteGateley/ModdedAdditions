@@ -16,7 +16,7 @@ public class ArmorSet {
     private final String displayPrefix;
     private final String lore;
 
-    public ArmorSet(ArmorLevel armorLevel, int modelIdBase, Material craftingItem, String keyPrefix, String displayPrefix, String loreKey){
+    public ArmorSet(ArmorLevel armorLevel, int modelIdBase, Material craftingItem, String keyPrefix, String displayPrefix, String loreKey) {
         this.armorLevel = armorLevel;
         this.modelIdBase = modelIdBase;
         this.craftingItem = craftingItem;

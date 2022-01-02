@@ -11,9 +11,9 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.fluxcore.enums.Direction;
-import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 import xyz.fluxinc.fluxcore.hooks.JobsRebornHook;
 import xyz.fluxinc.fluxcore.hooks.McMMOHook;
+import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -83,7 +83,10 @@ public class CropHarvestListener implements Listener {
                     continue;
                 }
                 McMMOHook.addBlockExperience(b.getState(), event.getPlayer());
-                try { JobsRebornHook.addExperienceForBlockBreak(b, event.getPlayer()); } catch (NoClassDefFoundError ignored) {}
+                try {
+                    JobsRebornHook.addExperienceForBlockBreak(b, event.getPlayer());
+                } catch (NoClassDefFoundError ignored) {
+                }
                 CoreProtectLogger.logBlockBreak(event.getPlayer(), b);
                 Ageable age = (Ageable) b.getBlockData();
                 Collection<ItemStack> drops = b.getDrops();
@@ -91,7 +94,10 @@ public class CropHarvestListener implements Listener {
                 b.setBlockData(age);
                 CoreProtectLogger.logBlockPlace(event.getPlayer(), b);
                 McMMOHook.addBlockExperience(b.getState(), event.getPlayer());
-                try { JobsRebornHook.addExperienceForBlockPlace(b, event.getPlayer()); } catch (NoClassDefFoundError ignored) {}
+                try {
+                    JobsRebornHook.addExperienceForBlockPlace(b, event.getPlayer());
+                } catch (NoClassDefFoundError ignored) {
+                }
                 for (ItemStack i : drops) {
                     event.getClickedBlock().getWorld().dropItemNaturally(event.getClickedBlock().getLocation(), i);
                 }

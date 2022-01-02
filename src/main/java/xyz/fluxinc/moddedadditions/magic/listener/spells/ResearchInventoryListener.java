@@ -10,12 +10,12 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
+import xyz.fluxinc.moddedadditions.magic.SpellRegistry;
 import xyz.fluxinc.moddedadditions.magic.spells.Magic;
 import xyz.fluxinc.moddedadditions.magic.spells.Spell;
 import xyz.fluxinc.moddedadditions.magic.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.magic.spells.SpellSchool;
-import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
-import xyz.fluxinc.moddedadditions.magic.SpellRegistry;
 
 import java.util.ArrayList;
 import java.util.List;

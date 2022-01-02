@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions.common;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
@@ -9,7 +8,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.areatool.AreaToolController;
 import xyz.fluxinc.moddedadditions.armor.SpecialArmorUtils;
@@ -17,21 +15,18 @@ import xyz.fluxinc.moddedadditions.armor.items.ArmorSet;
 import xyz.fluxinc.moddedadditions.common.simple.ElytraRepairKit;
 import xyz.fluxinc.moddedadditions.common.storage.CustomItem;
 import xyz.fluxinc.moddedadditions.lightsaber.LightSaberController;
+import xyz.fluxinc.moddedadditions.lightsaber.SaberColor;
 import xyz.fluxinc.moddedadditions.magnet.MagnetController;
 import xyz.fluxinc.moddedadditions.sonic.SonicScrewdriverController;
-import xyz.fluxinc.moddedadditions.lightsaber.SaberColor;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
 import static org.bukkit.Bukkit.getServer;
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
-import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
-import static xyz.fluxinc.moddedadditions.lightsaber.LightSaberController.getDefaultDCLightSaber;
 import static xyz.fluxinc.moddedadditions.common.storage.AdditionalRecipeStorage.*;
-import static xyz.fluxinc.moddedadditions.armor.SpecialArmorUtils.*;
+import static xyz.fluxinc.moddedadditions.lightsaber.LightSaberController.getDefaultDCLightSaber;
 
 public class CustomRecipeUtils implements Listener {
 
