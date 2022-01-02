@@ -80,7 +80,6 @@ public class CustomRecipeUtils implements Listener {
         recipeKeys.add(magnetRecipe.getKey());
         getServer().addRecipe(magnetRecipe);
 
-        System.out.println("Reached!");
         addLightsaber();
         makeKyberCrystals();
         addSonic();
