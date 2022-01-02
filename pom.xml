@@ -114,7 +114,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.CelesteMagisteel</groupId>
+            <groupId>com.github.CelesteGateley</groupId>
             <artifactId>FluxCore</artifactId>
             <version>1ba72df2</version>
             <scope>provided</scope>
