@@ -3,6 +3,7 @@ package xyz.fluxinc.moddedadditions.common;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.areatool.AreaToolController;
+import xyz.fluxinc.moddedadditions.common.simple.ElytraRepairKit;
 import xyz.fluxinc.moddedadditions.lightsaber.SaberColor;
 import xyz.fluxinc.moddedadditions.lightsaber.LightSaberController;
 import xyz.fluxinc.moddedadditions.armor.SpecialArmorUtils;
@@ -24,7 +25,7 @@ public class ItemRegistry {
         defaultItems.put("spellbook", SpellBookController.generateNewSpellBook());
         defaultItems.put("long_fall_boots", SpecialArmorUtils.getLongFallBoots().getNewItem());
         defaultItems.put("magnet", MagnetController.getMagnet().getNewItem());
-        defaultItems.put("elytra_repair_kit", CustomRecipeUtils.generateElytraKit());
+        defaultItems.put("elytra_repair_kit", ElytraRepairKit.getElytraRepairKit().getNewItem());
         defaultItems.put("honey_chestplate", SpecialArmorUtils.getHoneyChestplate().getNewItem());
         defaultItems.put("slime_chestplate", SpecialArmorUtils.getSlimeChestplate().getNewItem());
         for (SaberColor color : SaberColor.values()) {

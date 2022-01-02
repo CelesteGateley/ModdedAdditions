@@ -30,6 +30,7 @@ mi-longfallboots: "&9Boots that prevent the wearer from receiving fall damage!"
 mi-honeychestplate: "&9Leaves a sticky residue on attackers, slowing them down!"
 mi-slimechestplate: "&9A bouncy chestplate, knocking back attackers!"
 mi-copperArmor: "Finally a use for Copper!"
+mi-elytraKit: "A set of materials for repairing damaged elytra"
 
 # Spellbook Keys
 sb-lockedSpell: "&9You do not possess the knowledge to cast this spell"

@@ -13,6 +13,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.areatool.AreaToolController;
 import xyz.fluxinc.moddedadditions.armor.SpecialArmorUtils;
+import xyz.fluxinc.moddedadditions.armor.items.ArmorSet;
+import xyz.fluxinc.moddedadditions.common.simple.ElytraRepairKit;
+import xyz.fluxinc.moddedadditions.common.storage.CustomItem;
 import xyz.fluxinc.moddedadditions.lightsaber.LightSaberController;
 import xyz.fluxinc.moddedadditions.magnet.MagnetController;
 import xyz.fluxinc.moddedadditions.sonic.SonicScrewdriverController;
@@ -72,35 +75,44 @@ public class CustomRecipeUtils implements Listener {
             getServer().addRecipe(smeltingRecipe);
         });
 
-        //Adding Hammer/Excavator recipe
-        makeHammers();
-        makeExcavators();
+        addAreaTools();
 
-        ShapedRecipe magnetRecipe = MagnetController.getMagnet().getRecipe();
-        recipeKeys.add(magnetRecipe.getKey());
-        getServer().addRecipe(magnetRecipe);
+        addCustomItem(MagnetController.getMagnet());
+        addCustomItem(SonicScrewdriverController.getSonic());
+        addCustomItem(ElytraRepairKit.getElytraRepairKit());
 
         ShapedRecipe sonicRecipe = SonicScrewdriverController.getSonic().getRecipe();
         recipeKeys.add(sonicRecipe.getKey());
         getServer().addRecipe(sonicRecipe);
 
+        addCustomItem(SpecialArmorUtils.getHoneyChestplate());
+        addCustomItem(SpecialArmorUtils.getSlimeChestplate());
+        addCustomItem(SpecialArmorUtils.getLongFallBoots());
+        addArmorSet(SpecialArmorUtils.getCopperArmor());
+
         addLightsaber();
         makeKyberCrystals();
-        addLongFallBoots();
-        addHoneyChestPlate();
-        addSlimeChestPlate();
-        addCopperArmorPlate();
         upgradeLightsaber();
-        addElytraRepairKit();
     }
 
-    public static ItemStack generateElytraKit() {
-        ItemStack iStack = addLore(new ItemStack(Material.PHANTOM_MEMBRANE), "A set of materials for repairing damaged elytra");
-        ItemMeta iMeta = iStack.getItemMeta();
-        iMeta.setDisplayName((ChatColor.RESET + "Elytra Repair Kit"));
-        iMeta.setCustomModelData(KEY_BASE + 9000 + 3);
-        iStack.setItemMeta(iMeta);
-        return iStack;
+    public void addCustomItem(CustomItem customItem) {
+        ShapedRecipe recipe = customItem.getRecipe();
+        recipeKeys.add(recipe.getKey());
+        getServer().addRecipe(recipe);
+    }
+
+    public void addArmorSet(ArmorSet armorSet) {
+        addCustomItem(armorSet.getHelmet());
+        addCustomItem(armorSet.getChestplate());
+        addCustomItem(armorSet.getLeggings());
+        addCustomItem(armorSet.getBoots());
+    }
+
+    public void addAreaTools() {
+        for (ToolLevel level : ToolLevel.values()) {
+            addCustomItem(AreaToolController.generateExcavator(level));
+            addCustomItem(AreaToolController.generateHammer(level));
+        }
     }
 
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
@@ -117,18 +129,6 @@ public class CustomRecipeUtils implements Listener {
         });
     }
 
-    private ShapedRecipe generateNewHammerRecipe(ToolLevel level, String key, Material tool) {
-        ShapedRecipe recipe = AreaToolController.generateHammer(level).getRecipe();
-        recipeKeys.add(recipe.getKey());
-        return recipe;
-    }
-
-    private ShapedRecipe generateNewExcavatorRecipe(ToolLevel level, String key, Material tool) {
-        ShapedRecipe recipe = AreaToolController.generateExcavator(level).getRecipe();
-        recipeKeys.add(recipe.getKey());
-        return recipe;
-    }
-
     private ShapedRecipe generateKyberCrystalRecipe(SaberColor color, String key) {
         NamespacedKey nsKey = new NamespacedKey(instance, key);
         recipeKeys.add(nsKey);
@@ -140,35 +140,6 @@ public class CustomRecipeUtils implements Listener {
         result.setIngredient('C', Material.END_CRYSTAL);
         result.setGroup("Kyber Crystals");
         return result;
-    }
-
-    private void addElytraRepairKit() {
-        NamespacedKey ElytraRepairKey = new NamespacedKey(instance, "ElytraRepair");
-        recipeKeys.add(ElytraRepairKey);
-        ItemStack kit = generateElytraKit();
-        ShapedRecipe ElytraRepairRecipe = new ShapedRecipe(ElytraRepairKey, kit);
-        ElytraRepairRecipe.shape("LLL", "LCL", "LLL");
-        ElytraRepairRecipe.setIngredient('L', Material.LEATHER);
-        ElytraRepairRecipe.setIngredient('C', Material.CHORUS_FRUIT);
-        getServer().addRecipe(ElytraRepairRecipe);
-    }
-
-    private void makeHammers() {
-        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.WOODEN, "WOODEN_HAMMER", Material.WOODEN_PICKAXE));
-        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.STONE, "STONE_HAMMER", Material.STONE_PICKAXE));
-        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.IRON, "IRON_HAMMER", Material.IRON_PICKAXE));
-        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.GOLD, "GOLDEN_HAMMER", Material.GOLDEN_PICKAXE));
-        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.DIAMOND, "DIAMOND_HAMMER", Material.DIAMOND_PICKAXE));
-        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.NETHERITE, "NETHERITE_HAMMER", Material.NETHERITE_PICKAXE));
-    }
-
-    private void makeExcavators() {
-        getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.WOODEN, "WOODEN_EXCAVATOR", Material.WOODEN_SHOVEL));
-        getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.STONE, "STONE_EXCAVATOR", Material.STONE_SHOVEL));
-        getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.IRON, "IRON_EXCAVATOR", Material.IRON_SHOVEL));
-        getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.GOLD, "GOLDEN_EXCAVATOR", Material.GOLDEN_SHOVEL));
-        getServer().addRecipe(generateNewExcavatorRecipe(ToolLevel.DIAMOND, "DIAMOND_EXCAVATOR", Material.DIAMOND_SHOVEL));
-        getServer().addRecipe(generateNewHammerRecipe(ToolLevel.NETHERITE, "NETHERITE_EXCAVATOR", Material.NETHERITE_SHOVEL));
     }
 
     private void makeKyberCrystals() {
@@ -202,46 +173,6 @@ public class CustomRecipeUtils implements Listener {
         darkCoreRecipe.setIngredient('S', Material.NETHERITE_SCRAP);
         darkCoreRecipe.setIngredient('L', Material.NETHERITE_SWORD);
         getServer().addRecipe(darkCoreRecipe);
-    }
-
-    private void addLongFallBoots() {
-        ShapedRecipe recipe = SpecialArmorUtils.getLongFallBoots().getRecipe();
-        recipeKeys.add(recipe.getKey());
-        getServer().addRecipe(recipe);
-    }
-
-    private void addHoneyChestPlate() {
-        ShapedRecipe recipe = SpecialArmorUtils.getHoneyChestplate().getRecipe();
-        recipeKeys.add(recipe.getKey());
-        getServer().addRecipe(recipe);
-    }
-
-    private void addSlimeChestPlate() {
-        ShapedRecipe recipe = SpecialArmorUtils.getSlimeChestplate().getRecipe();
-        recipeKeys.add(recipe.getKey());
-        getServer().addRecipe(recipe);
-    }
-
-    private void addCopperArmorPlate() {
-        //Helmet
-        ShapedRecipe recipe = SpecialArmorUtils.getCopperArmor().getHelmet().getRecipe();
-        recipeKeys.add(recipe.getKey());
-        getServer().addRecipe(recipe);
-
-        //Chestplate
-        recipe = SpecialArmorUtils.getCopperArmor().getChestplate().getRecipe();
-        recipeKeys.add(recipe.getKey());
-        getServer().addRecipe(recipe);
-
-        //Leggings
-        recipe = SpecialArmorUtils.getCopperArmor().getLeggings().getRecipe();
-        recipeKeys.add(recipe.getKey());
-        getServer().addRecipe(recipe);
-
-        //Boots
-        recipe = SpecialArmorUtils.getCopperArmor().getBoots().getRecipe();
-        recipeKeys.add(recipe.getKey());
-        getServer().addRecipe(recipe);
     }
 
     @EventHandler
