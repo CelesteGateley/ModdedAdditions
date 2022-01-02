@@ -243,40 +243,24 @@ public class CustomRecipeUtils implements Listener {
 
     private void addCopperArmorPlate() {
         //Helmet
-        NamespacedKey helmet = new NamespacedKey(instance, "COPPER_HELMET");
-        recipeKeys.add(helmet);
-        ItemStack resultHelm = generateCopperHelmet();
-        ShapedRecipe recipeHelm = new ShapedRecipe(helmet, resultHelm);
-        recipeHelm.shape("AAA", "A A");
-        recipeHelm.setIngredient('A', Material.COPPER_INGOT);
-        getServer().addRecipe(recipeHelm);
+        ShapedRecipe recipe = SpecialArmorUtils.getCopperArmor().getHelmet().getRecipe();
+        recipeKeys.add(recipe.getKey());
+        getServer().addRecipe(recipe);
 
         //Chestplate
-        NamespacedKey chest = new NamespacedKey(instance, "COPPER_CHESTPLATE");
-        recipeKeys.add(chest);
-        ItemStack resultChest = generateCopperChestplate();
-        ShapedRecipe recipeChest = new ShapedRecipe(chest, resultChest);
-        recipeChest.shape("A A", "AAA", "AAA");
-        recipeChest.setIngredient('A', Material.COPPER_INGOT);
-        getServer().addRecipe(recipeChest);
+        recipe = SpecialArmorUtils.getCopperArmor().getChestplate().getRecipe();
+        recipeKeys.add(recipe.getKey());
+        getServer().addRecipe(recipe);
 
         //Leggings
-        NamespacedKey leggings = new NamespacedKey(instance, "COPPER_LEGGINGS");
-        recipeKeys.add(leggings);
-        ItemStack resultLeggings = generateCopperLeggings();
-        ShapedRecipe recipeLeggings = new ShapedRecipe(leggings, resultLeggings);
-        recipeLeggings.shape("AAA", "A A", "A A");
-        recipeLeggings.setIngredient('A', Material.COPPER_INGOT);
-        getServer().addRecipe(recipeLeggings);
+        recipe = SpecialArmorUtils.getCopperArmor().getLeggings().getRecipe();
+        recipeKeys.add(recipe.getKey());
+        getServer().addRecipe(recipe);
 
         //Boots
-        NamespacedKey boots = new NamespacedKey(instance, "COPPER_BOOTS");
-        recipeKeys.add(boots);
-        ItemStack resultBoots = generateCopperBoots();
-        ShapedRecipe recipeBoots = new ShapedRecipe(boots, resultBoots);
-        recipeBoots.shape("A A", "A A");
-        recipeBoots.setIngredient('A', Material.COPPER_INGOT);
-        getServer().addRecipe(recipeBoots);
+        recipe = SpecialArmorUtils.getCopperArmor().getBoots().getRecipe();
+        recipeKeys.add(recipe.getKey());
+        getServer().addRecipe(recipe);
     }
 
     @EventHandler
