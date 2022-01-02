@@ -1,7 +1,5 @@
 package xyz.fluxinc.moddedadditions;
 
-import com.gamingmesh.jobs.Jobs;
-import com.gmail.nossr50.mcMMO;
 import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.event.HandlerList;
@@ -27,8 +25,6 @@ import xyz.fluxinc.moddedadditions.magnet.MagnetController;
 import xyz.fluxinc.moddedadditions.magic.controller.SpellBookController;
 import xyz.fluxinc.moddedadditions.magnet.MagnetExecutor;
 import xyz.fluxinc.moddedadditions.magnet.OldMagnetExecutor;
-import xyz.fluxinc.moddedadditions.common.hooks.JobsRebornHook;
-import xyz.fluxinc.moddedadditions.common.hooks.McMMOHook;
 import xyz.fluxinc.moddedadditions.common.listeners.BookSignListener;
 import xyz.fluxinc.moddedadditions.veinminer.CropHarvestListener;
 import xyz.fluxinc.moddedadditions.veinminer.VeinMinerListener;
@@ -82,9 +78,6 @@ public final class ModdedAdditions extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-
-        try { McMMOHook.registerMcMMO(getPlugin(mcMMO.class)); } catch (NoClassDefFoundError ignored) {}
-        try { JobsRebornHook.registerJobs(getPlugin(Jobs.class)); } catch (NoClassDefFoundError ignored) {}
 
         List<KeyedBossBar> bossBars = new ArrayList<>();
         getServer().getBossBars().forEachRemaining(bossBars::add);

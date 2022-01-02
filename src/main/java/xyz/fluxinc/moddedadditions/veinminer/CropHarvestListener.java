@@ -12,8 +12,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.fluxcore.enums.Direction;
 import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
-import xyz.fluxinc.moddedadditions.common.hooks.JobsRebornHook;
-import xyz.fluxinc.moddedadditions.common.hooks.McMMOHook;
+import xyz.fluxinc.fluxcore.hooks.JobsRebornHook;
+import xyz.fluxinc.fluxcore.hooks.McMMOHook;
 
 import java.util.ArrayList;
 import java.util.Collection;
