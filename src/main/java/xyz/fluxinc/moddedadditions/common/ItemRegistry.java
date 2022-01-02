@@ -23,7 +23,7 @@ public class ItemRegistry {
         defaultItems.put("sonic_screwdriver", SonicScrewdriverController.generateNewSonic());
         defaultItems.put("spellbook", SpellBookController.generateNewSpellBook());
         defaultItems.put("long_fall_boots", SpecialArmorUtils.getLongFallBoots().getNewItem());
-        defaultItems.put("magnet", MagnetController.generateNewMagnet());
+        defaultItems.put("magnet", MagnetController.getMagnet().getNewItem());
         defaultItems.put("elytra_repair_kit", CustomRecipeUtils.generateElytraKit());
         defaultItems.put("honey_chestplate", SpecialArmorUtils.getHoneyChestplate().getNewItem());
         defaultItems.put("slime_chestplate", SpecialArmorUtils.getSlimeChestplate().getNewItem());

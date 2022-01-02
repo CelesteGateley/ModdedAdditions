@@ -24,7 +24,6 @@ import xyz.fluxinc.moddedadditions.magic.SpellBookCommand;
 import xyz.fluxinc.moddedadditions.magnet.MagnetController;
 import xyz.fluxinc.moddedadditions.magic.controller.SpellBookController;
 import xyz.fluxinc.moddedadditions.magnet.MagnetExecutor;
-import xyz.fluxinc.moddedadditions.magnet.OldMagnetExecutor;
 import xyz.fluxinc.moddedadditions.common.listeners.BookSignListener;
 import xyz.fluxinc.moddedadditions.veinminer.CropHarvestListener;
 import xyz.fluxinc.moddedadditions.veinminer.VeinMinerListener;
@@ -127,7 +126,6 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup Magnet Related Tasks
         magnetController = new MagnetController();
         getServer().getPluginManager().registerEvents(new InventoryChecker(this, new MagnetExecutor()), this);
-        getServer().getPluginManager().registerEvents(new InventoryChecker(this, new OldMagnetExecutor()), this);
 
         // Setup Book Handling
         getServer().getPluginManager().registerEvents(new BookSignListener(), this);

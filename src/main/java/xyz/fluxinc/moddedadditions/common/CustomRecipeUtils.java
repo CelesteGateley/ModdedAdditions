@@ -76,15 +76,8 @@ public class CustomRecipeUtils implements Listener {
         makeHammers();
         makeExcavators();
 
-        NamespacedKey magnetKey = new NamespacedKey(instance, "MAGNET");
-        recipeKeys.add(magnetKey);
-
-        ShapedRecipe magnetRecipe = new ShapedRecipe(magnetKey, MagnetController.generateNewMagnet());
-        magnetRecipe.shape("REL", "IEI", "III");
-        magnetRecipe.setIngredient('R', Material.REDSTONE_BLOCK);
-        magnetRecipe.setIngredient('E', Material.EMERALD_BLOCK);
-        magnetRecipe.setIngredient('I', Material.IRON_BLOCK);
-        magnetRecipe.setIngredient('L', Material.LAPIS_BLOCK);
+        ShapedRecipe magnetRecipe = MagnetController.getMagnet().getRecipe();
+        recipeKeys.add(magnetRecipe.getKey());
         getServer().addRecipe(magnetRecipe);
 
         System.out.println("Reached!");

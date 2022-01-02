@@ -2,15 +2,19 @@ package xyz.fluxinc.moddedadditions.magnet;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitScheduler;
+import xyz.fluxinc.moddedadditions.common.storage.CustomItem;
 import xyz.fluxinc.moddedadditions.magnet.MagnetRunnable;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.bukkit.Bukkit.getServer;
 import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
@@ -27,16 +31,20 @@ public class MagnetController {
         vacuumInstances = new HashMap<>();
     }
 
-    public static Material getMagnetMaterial() {
-        return MAGNET_MATERIAL;
-    }
-
-    public static boolean isMagnet(ItemStack item) {
-        return item != null
-                && item.getType() == MAGNET_MATERIAL
-                && item.getItemMeta() != null
-                && item.getItemMeta().hasCustomModelData()
-                && item.getItemMeta().getCustomModelData() == MAGNET_MODEL_KEY;
+    public static CustomItem getMagnet() {
+        return new CustomItem(MAGNET_MODEL_KEY, MAGNET_MATERIAL, "MAGNET", ChatColor.AQUA + "Item " + ChatColor.RED + "Magnet", "mi-magnet") {
+            @Override
+            public ShapedRecipe getRecipe() {
+                NamespacedKey magnetKey = new NamespacedKey(instance, this.getKeyName());
+                ShapedRecipe magnetRecipe = new ShapedRecipe(magnetKey, this.getNewItem());
+                magnetRecipe.shape("REL", "IEI", "III");
+                magnetRecipe.setIngredient('R', Material.REDSTONE_BLOCK);
+                magnetRecipe.setIngredient('E', Material.EMERALD_BLOCK);
+                magnetRecipe.setIngredient('I', Material.IRON_BLOCK);
+                magnetRecipe.setIngredient('L', Material.LAPIS_BLOCK);
+                return magnetRecipe;
+            }
+        };
     }
 
     public static ItemStack generateNewMagnet() {
@@ -46,22 +54,6 @@ public class MagnetController {
         itemMeta.setDisplayName(ChatColor.AQUA + "Item " + ChatColor.RED + "Magnet");
         magnet.setItemMeta(itemMeta);
         return magnet;
-    }
-
-    public static boolean verifyOldMagnet(ItemStack item) {
-        return item != null
-                && item.getType() == Material.COMPASS
-                && item.getItemMeta() != null
-                && item.getItemMeta().getLore() != null
-                && item.getItemMeta().getLore().contains(instance.getLanguageManager().getFormattedString("mi-magnet"));
-    }
-
-    public static ItemStack updateOldMagnet(ItemStack itemStack) {
-        ItemMeta iMeta = itemStack.getItemMeta();
-        itemStack.setType(Material.IRON_NUGGET);
-        iMeta.setCustomModelData(MAGNET_MODEL_KEY);
-        itemStack.setItemMeta(iMeta);
-        return itemStack;
     }
 
     public boolean hasVacuumInstance(Player player) {

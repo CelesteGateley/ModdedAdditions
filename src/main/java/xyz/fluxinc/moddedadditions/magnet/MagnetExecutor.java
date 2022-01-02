@@ -12,20 +12,16 @@ public class MagnetExecutor extends CheckExecutor {
 
     @Override
     public boolean verifyItemStack(ItemStack itemStack) {
-        return MagnetController.isMagnet(itemStack)
-                || MagnetController.verifyOldMagnet(itemStack);
+        return MagnetController.getMagnet().verifyItemStack(itemStack);
     }
 
     @Override
     public Material getMaterial() {
-        return MagnetController.getMagnetMaterial();
+        return MagnetController.getMagnet().getMaterial();
     }
 
     @Override
     public void executeIfTrue(Player player) {
-        if (MagnetController.verifyOldMagnet(player.getInventory().getItemInMainHand())) {
-            player.getInventory().setItemInMainHand(MagnetController.updateOldMagnet(player.getInventory().getItemInMainHand()));
-        }
         instance.getMagnetController().registerVacuumInstance(player);
     }
 
