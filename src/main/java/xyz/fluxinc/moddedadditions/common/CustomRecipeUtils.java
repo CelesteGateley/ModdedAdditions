@@ -80,9 +80,12 @@ public class CustomRecipeUtils implements Listener {
         recipeKeys.add(magnetRecipe.getKey());
         getServer().addRecipe(magnetRecipe);
 
+        ShapedRecipe sonicRecipe = SonicScrewdriverController.getSonic().getRecipe();
+        recipeKeys.add(sonicRecipe.getKey());
+        getServer().addRecipe(sonicRecipe);
+
         addLightsaber();
         makeKyberCrystals();
-        addSonic();
         addLongFallBoots();
         addHoneyChestPlate();
         addSlimeChestPlate();
@@ -199,20 +202,6 @@ public class CustomRecipeUtils implements Listener {
         darkCoreRecipe.setIngredient('S', Material.NETHERITE_SCRAP);
         darkCoreRecipe.setIngredient('L', Material.NETHERITE_SWORD);
         getServer().addRecipe(darkCoreRecipe);
-    }
-
-    private void addSonic() {
-        NamespacedKey sonicKey = new NamespacedKey(instance, "SONIC");
-        recipeKeys.add(sonicKey);
-
-        ShapedRecipe sonicRecipe = new ShapedRecipe(sonicKey, SonicScrewdriverController.generateNewSonic());
-        sonicRecipe.shape("BGB", "IRI", "BEB");
-        sonicRecipe.setIngredient('B', Material.IRON_BLOCK);
-        sonicRecipe.setIngredient('G', Material.LIME_STAINED_GLASS);
-        sonicRecipe.setIngredient('I', Material.IRON_INGOT);
-        sonicRecipe.setIngredient('R', Material.REDSTONE_TORCH);
-        sonicRecipe.setIngredient('E', Material.EMERALD);
-        getServer().addRecipe(sonicRecipe);
     }
 
     private void addLongFallBoots() {

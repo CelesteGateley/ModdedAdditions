@@ -20,7 +20,7 @@ public class ItemRegistry {
 
     static {
         defaultItems = new LinkedHashMap<>();
-        defaultItems.put("sonic_screwdriver", SonicScrewdriverController.generateNewSonic());
+        defaultItems.put("sonic_screwdriver", SonicScrewdriverController.getSonic().getNewItem());
         defaultItems.put("spellbook", SpellBookController.generateNewSpellBook());
         defaultItems.put("long_fall_boots", SpecialArmorUtils.getLongFallBoots().getNewItem());
         defaultItems.put("magnet", MagnetController.getMagnet().getNewItem());

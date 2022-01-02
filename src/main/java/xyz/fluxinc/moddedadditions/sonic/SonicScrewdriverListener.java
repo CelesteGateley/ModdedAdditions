@@ -20,7 +20,7 @@ public class SonicScrewdriverListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
-        if (event.getItem() == null || !SonicScrewdriverController.isSonic(event.getItem())) {
+        if (event.getItem() == null || !SonicScrewdriverController.getSonic().verifyItemStack(event.getItem())) {
             return;
         }
         if (event.getClickedBlock() == null) {
