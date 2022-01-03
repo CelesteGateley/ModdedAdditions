@@ -14,8 +14,10 @@ import xyz.fluxinc.moddedadditions.armor.SpecialArmorUtils;
 import xyz.fluxinc.moddedadditions.armor.items.ArmorSet;
 import xyz.fluxinc.moddedadditions.common.simple.ElytraRepairKit;
 import xyz.fluxinc.moddedadditions.common.storage.CustomItem;
-import xyz.fluxinc.moddedadditions.lightsaber.LightSaberController;
 import xyz.fluxinc.moddedadditions.lightsaber.SaberColor;
+import xyz.fluxinc.moddedadditions.lightsaber.items.DarkSaber;
+import xyz.fluxinc.moddedadditions.lightsaber.items.KyberCrystal;
+import xyz.fluxinc.moddedadditions.lightsaber.items.LightSaber;
 import xyz.fluxinc.moddedadditions.magnet.MagnetController;
 import xyz.fluxinc.moddedadditions.sonic.SonicScrewdriverController;
 
@@ -26,7 +28,6 @@ import java.util.HashMap;
 import static org.bukkit.Bukkit.getServer;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.common.storage.AdditionalRecipeStorage.*;
-import static xyz.fluxinc.moddedadditions.lightsaber.LightSaberController.getDefaultDCLightSaber;
 
 public class CustomRecipeUtils implements Listener {
 
@@ -70,8 +71,6 @@ public class CustomRecipeUtils implements Listener {
             getServer().addRecipe(smeltingRecipe);
         });
 
-        addAreaTools();
-
         addCustomItem(MagnetController.getMagnet());
         addCustomItem(SonicScrewdriverController.getSonic());
         addCustomItem(ElytraRepairKit.getElytraRepairKit());
@@ -85,9 +84,17 @@ public class CustomRecipeUtils implements Listener {
         addCustomItem(SpecialArmorUtils.getLongFallBoots());
         addArmorSet(SpecialArmorUtils.getCopperArmor());
 
-        addLightsaber();
-        makeKyberCrystals();
-        upgradeLightsaber();
+        for (ToolLevel level : ToolLevel.values()) {
+            addCustomItem(AreaToolController.generateExcavator(level));
+            addCustomItem(AreaToolController.generateHammer(level));
+        }
+
+        for (SaberColor color : SaberColor.values()) {
+            addCustomItem(new KyberCrystal(color));
+        }
+
+        addCustomItem(new LightSaber(SaberColor.DEPLETED));
+        addCustomItem(new DarkSaber(SaberColor.DEPLETED));
     }
 
     public void addCustomItem(CustomItem customItem) {
@@ -103,13 +110,6 @@ public class CustomRecipeUtils implements Listener {
         addCustomItem(armorSet.getBoots());
     }
 
-    public void addAreaTools() {
-        for (ToolLevel level : ToolLevel.values()) {
-            addCustomItem(AreaToolController.generateExcavator(level));
-            addCustomItem(AreaToolController.generateHammer(level));
-        }
-    }
-
     private void processDyes(HashMap<Material, Material> dyeMap, ArrayList<Material> blockList) {
         dyeMap.forEach((block, dye) -> {
             for (Material originBlock : blockList) {
@@ -122,52 +122,6 @@ public class CustomRecipeUtils implements Listener {
                 getServer().addRecipe(dyeToBlock);
             }
         });
-    }
-
-    private ShapedRecipe generateKyberCrystalRecipe(SaberColor color, String key) {
-        NamespacedKey nsKey = new NamespacedKey(instance, key);
-        recipeKeys.add(nsKey);
-
-        ShapedRecipe result = new ShapedRecipe(nsKey, LightSaberController.generateNewKyberCrystal(color));
-        result.shape("GEG", "ECE", "GEG");
-        result.setIngredient('G', SaberColor.getStainedGlass(color));
-        result.setIngredient('E', Material.EMERALD);
-        result.setIngredient('C', Material.END_CRYSTAL);
-        result.setGroup("Kyber Crystals");
-        return result;
-    }
-
-    private void makeKyberCrystals() {
-        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.BLUE, "BLUE_KYBER_CRYSTAL"));
-        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.GREEN, "GREEN_KYBER_CRYSTAL"));
-        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.PURPLE, "PURPLE_KYBER_CRYSTAL"));
-        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.RED, "RED_KYBER_CRYSTAL"));
-        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.YELLOW, "YELLOW_KYBER_CRYSTAL"));
-        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.ORANGE, "ORANGE_KYBER_CRYSTAL"));
-        getServer().addRecipe(generateKyberCrystalRecipe(SaberColor.WHITE, "WHITE_KYBER_CRYSTAL"));
-    }
-
-    private void addLightsaber() {
-        NamespacedKey lightSaberKey = new NamespacedKey(instance, "LIGHTSABER");
-        recipeKeys.add(lightSaberKey);
-
-        ShapedRecipe lightSaberRecipe = new ShapedRecipe(lightSaberKey, LightSaberController.getDefaultLightSaber());
-        lightSaberRecipe.shape("IGI", "ICI", "III");
-        lightSaberRecipe.setIngredient('G', Material.GLASS_PANE);
-        lightSaberRecipe.setIngredient('I', Material.IRON_BLOCK);
-        lightSaberRecipe.setIngredient('C', Material.EMERALD);
-        getServer().addRecipe(lightSaberRecipe);
-    }
-
-    private void upgradeLightsaber() {
-        NamespacedKey darkCoreKey = new NamespacedKey(instance, "DCSABER");
-        recipeKeys.add(darkCoreKey);
-
-        ShapedRecipe darkCoreRecipe = new ShapedRecipe(darkCoreKey, getDefaultDCLightSaber());
-        darkCoreRecipe.shape("SSS", "SLS", "SSS");
-        darkCoreRecipe.setIngredient('S', Material.NETHERITE_SCRAP);
-        darkCoreRecipe.setIngredient('L', Material.NETHERITE_SWORD);
-        getServer().addRecipe(darkCoreRecipe);
     }
 
     @EventHandler

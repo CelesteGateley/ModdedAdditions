@@ -5,8 +5,10 @@ import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.areatool.AreaToolController;
 import xyz.fluxinc.moddedadditions.armor.SpecialArmorUtils;
 import xyz.fluxinc.moddedadditions.common.simple.ElytraRepairKit;
-import xyz.fluxinc.moddedadditions.lightsaber.LightSaberController;
 import xyz.fluxinc.moddedadditions.lightsaber.SaberColor;
+import xyz.fluxinc.moddedadditions.lightsaber.items.DarkSaber;
+import xyz.fluxinc.moddedadditions.lightsaber.items.KyberCrystal;
+import xyz.fluxinc.moddedadditions.lightsaber.items.LightSaber;
 import xyz.fluxinc.moddedadditions.magic.controller.SpellBookController;
 import xyz.fluxinc.moddedadditions.magnet.MagnetController;
 import xyz.fluxinc.moddedadditions.sonic.SonicScrewdriverController;
@@ -29,9 +31,9 @@ public class ItemRegistry {
         defaultItems.put("honey_chestplate", SpecialArmorUtils.getHoneyChestplate().getNewItem());
         defaultItems.put("slime_chestplate", SpecialArmorUtils.getSlimeChestplate().getNewItem());
         for (SaberColor color : SaberColor.values()) {
-            defaultItems.put(color.toString().toLowerCase() + "_kyber_crystal", LightSaberController.generateNewKyberCrystal(color));
-            defaultItems.put(color.toString().toLowerCase() + "_lightsaber", LightSaberController.generateNewLightSaber(color));
-            defaultItems.put(color.toString().toLowerCase() + "_dark_core_saber", LightSaberController.generateNewDarkLightSaber(color));
+            defaultItems.put(color.toString().toLowerCase() + "_kyber_crystal",  new KyberCrystal(color).getNewItem());
+            defaultItems.put(color.toString().toLowerCase() + "_lightsaber", new LightSaber(color).getNewItem());
+            defaultItems.put(color.toString().toLowerCase() + "_dark_core_saber", new DarkSaber(color).getNewItem());
         }
 
         for (ToolLevel level : ToolLevel.values()) {

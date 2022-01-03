@@ -1,6 +1,5 @@
 package xyz.fluxinc.moddedadditions.lightsaber;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -14,15 +13,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.utils.ToolUtils;
+import xyz.fluxinc.moddedadditions.lightsaber.items.DarkSaber;
+import xyz.fluxinc.moddedadditions.lightsaber.items.KyberCrystal;
+import xyz.fluxinc.moddedadditions.lightsaber.items.LightSaber;
 
-import java.util.ArrayList;
-
-import static xyz.fluxinc.fluxcore.utils.LoreUtils.addLore;
-import static xyz.fluxinc.fluxcore.utils.StringUtils.toTitleCase;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.KEY_BASE;
-import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
-import static xyz.fluxinc.moddedadditions.lightsaber.LightSaberController.*;
-import static xyz.fluxinc.moddedadditions.lightsaber.SaberColor.getChatColor;
 
 @SuppressWarnings("ConstantConditions")
 public class LightSaberListener implements Listener {
@@ -31,16 +26,14 @@ public class LightSaberListener implements Listener {
     @EventHandler
     public void onLightSaberBlockHit(BlockBreakEvent event) {
         ItemStack iStack = event.getPlayer().getInventory().getItemInMainHand();
-        if (!verifyLightSaber(iStack) && !verifyDCSaber(iStack)) return;
         ItemMeta iMeta = iStack.getItemMeta();
         if (iMeta instanceof Damageable) {
             if (((Damageable) iMeta).getDamage() + 2 >= iStack.getType().getMaxDurability()) {
-                iMeta.setLore(new ArrayList<>());
-                iMeta.setDisplayName(ChatColor.GRAY + "Depleted Saber");
-                iMeta.setUnbreakable(true);
-                iMeta.setCustomModelData(verifyLightSaber(iStack) ? KEY_BASE + LS_KEY_BASE : KEY_BASE + DC_KEY_BASE);
-                iStack.setItemMeta(iMeta);
-                addLore(iStack, instance.getLanguageManager().getFormattedString("mi-depletedsaber"));
+                if (LightSaber.isLightSaber(iStack)) {
+                    LightSaber.depleteSaber(iStack);
+                } else if (DarkSaber.isDarkSaber(iStack)) {
+                    DarkSaber.depleteSaber(iStack);
+                }
             }
         }
     }
@@ -48,24 +41,21 @@ public class LightSaberListener implements Listener {
 
     @EventHandler
     public void onLightSaberHit(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player)) {
-            return;
-        }
+        if (!(event.getDamager() instanceof Player)) return;
         ItemStack itemStack = ((Player) event.getDamager()).getInventory().getItemInMainHand();
-        if (!verifyLightSaber(itemStack) && !verifyDCSaber(itemStack)) return;
+        if (!LightSaber.isLightSaber(itemStack) && !DarkSaber.isDarkSaber(itemStack)) return;
         ItemMeta itemMeta = itemStack.getItemMeta();
-        if (itemMeta.getCustomModelData() == KEY_BASE + LS_KEY_BASE || itemMeta.getCustomModelData() == KEY_BASE + DC_KEY_BASE) {
+        if (itemMeta.getCustomModelData() == KEY_BASE + LightSaber.LIGHT_SABER_BASE || itemMeta.getCustomModelData() == KEY_BASE + DarkSaber.DARK_SABER_BASE) {
             event.setCancelled(true);
             return;
         }
         if (itemMeta instanceof Damageable) {
             if (((Damageable) itemMeta).getDamage() + 1 == itemStack.getType().getMaxDurability()) {
-                itemMeta.setLore(new ArrayList<>());
-                itemMeta.setDisplayName(ChatColor.GRAY + "Depleted " + ChatColor.WHITE + "Saber");
-                itemMeta.setUnbreakable(true);
-                itemMeta.setCustomModelData(verifyLightSaber(itemStack) ? KEY_BASE + LS_KEY_BASE : KEY_BASE + DC_KEY_BASE);
-                itemStack.setItemMeta(itemMeta);
-                addLore(itemStack, instance.getLanguageManager().getFormattedString("mi-depletedsaber"));
+                if (LightSaber.isLightSaber(itemStack)) {
+                    LightSaber.depleteSaber(itemStack);
+                } else if (DarkSaber.isDarkSaber(itemStack)) {
+                    DarkSaber.depleteSaber(itemStack);
+                }
             }
         }
 
@@ -75,10 +65,9 @@ public class LightSaberListener implements Listener {
         }
 
         ItemMeta iMeta = itemStack.getItemMeta();
-        if (iMeta == null || iMeta.getLore() == null) {
-            return;
-        }
-        if (verifyLightSaber(itemStack)) {
+        if (iMeta == null || iMeta.getLore() == null) return;
+
+        if (LightSaber.isLightSaber(itemStack)) {
             if (itemStack.getType() == Material.DIAMOND_SWORD) itemStack.setType(Material.NETHERITE_SWORD);
             ((Player) event.getDamager()).playSound(event.getDamager().getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1, 1);
         }
@@ -87,27 +76,21 @@ public class LightSaberListener implements Listener {
     @EventHandler
     public void onLightSaberRepair(PrepareAnvilEvent event) {
         if (event.getInventory().getItem(0) == null || event.getInventory().getItem(1) == null) return;
-        if (!verifyLightSaber(event.getInventory().getItem(0)) && !verifyDCSaber(event.getInventory().getItem(0)))
+        if (!LightSaber.isLightSaber(event.getInventory().getItem(0)) && !DarkSaber.isDarkSaber(event.getInventory().getItem(0)))
             return;
         if (event.getInventory().getItem(1).getType() == Material.NETHERITE_SWORD) {
             event.setResult(ToolUtils.transferEnchantments(event.getInventory().getItem(1), event.getInventory().getItem(0)));
             return;
         }
         if (event.getInventory().getItem(1).getType() == Material.ENCHANTED_BOOK) return;
-        if (!verifyKyberCrystal(event.getInventory().getItem(1))) return;
-        SaberColor saberColor = SaberColor.getModColor(event.getInventory().getItem(1).getItemMeta().getCustomModelData() - KC_KEY_BASE - KEY_BASE);
+        if (!KyberCrystal.isKyberCrystal(event.getInventory().getItem(1))) return;
+        SaberColor saberColor = SaberColor.getModColor(event.getInventory().getItem(1).getItemMeta().getCustomModelData() - KyberCrystal.KYBER_CRYSTAL_BASE - KEY_BASE);
         ItemStack saber = event.getInventory().getItem(0).clone();
-        event.getInventory().setRepairCost(verifyLightSaber(saber) ? 20 : 30);
-        ItemMeta iMeta = saber.getItemMeta();
-        iMeta.setCustomModelData(verifyLightSaber(saber) ? KEY_BASE + LS_KEY_BASE + SaberColor.getColorMod(saberColor)
-                : KEY_BASE + DC_KEY_BASE + SaberColor.getColorMod(saberColor));
-        iMeta.setDisplayName(verifyLightSaber(saber) ? getChatColor(saberColor) + toTitleCase(saberColor.toString()) + " Saber"
-                : ChatColor.DARK_GRAY + "Black-Cored " + getChatColor(saberColor) + toTitleCase(saberColor.toString()) + " Saber");
-        iMeta.setUnbreakable(false);
-        iMeta.setLore(new ArrayList<>());
-        ((Damageable) iMeta).setDamage(0);
-        saber.setItemMeta(iMeta);
-        addLore(saber, instance.getLanguageManager().getFormattedString("mi-lightsaber"));
+        if (LightSaber.isLightSaber(saber)) {
+            saber = LightSaber.repairSaber(saber, saberColor);
+        } else if (DarkSaber.isDarkSaber(saber)) {
+            saber = DarkSaber.repairSaber(saber, saberColor);
+        }
         event.setResult(saber);
     }
 
@@ -119,13 +102,13 @@ public class LightSaberListener implements Listener {
         if (event.getRecipe() != null
                 && event.getRecipe().getResult().getItemMeta() != null
                 && event.getRecipe().getResult().getItemMeta().hasCustomModelData()
-                && event.getRecipe().getResult().getItemMeta().getCustomModelData() == KEY_BASE + LS_KEY_BASE) {
+                && event.getRecipe().getResult().getItemMeta().getCustomModelData() == KEY_BASE + LightSaber.LIGHT_SABER_BASE) {
             for (ItemStack item : event.getInventory().getMatrix()) {
                 if (item != null && item.getType().equals(Material.EMERALD)) {
                     if (item.getItemMeta() != null && item.getItemMeta().hasCustomModelData()) {
-                        if (verifyKyberCrystal(item)) {
+                        if (KyberCrystal.isKyberCrystal(item)) {
                             containsKyberCrystal = true;
-                            color = SaberColor.getModColor(item.getItemMeta().getCustomModelData() - KC_KEY_BASE - KEY_BASE);
+                            color = SaberColor.getModColor(item.getItemMeta().getCustomModelData() - KyberCrystal.KYBER_CRYSTAL_BASE - KEY_BASE);
                             break;
                         }
                     }
@@ -134,7 +117,7 @@ public class LightSaberListener implements Listener {
             if (!containsKyberCrystal) {
                 event.getInventory().setResult(null);
             } else {
-                event.getInventory().setResult(generateNewLightSaber(color));
+                event.getInventory().setResult(new LightSaber(color).getNewItem());
             }
         }
     }
@@ -146,14 +129,12 @@ public class LightSaberListener implements Listener {
         if (event.getRecipe() != null
                 && event.getRecipe().getResult().getItemMeta() != null
                 && event.getRecipe().getResult().getItemMeta().hasCustomModelData()
-                && event.getRecipe().getResult().getItemMeta().getCustomModelData() == KEY_BASE + DC_KEY_BASE) {
-            if (!verifyLightSaber(event.getInventory().getMatrix()[4])) {
+                && event.getRecipe().getResult().getItemMeta().getCustomModelData() == KEY_BASE + DarkSaber.DARK_SABER_BASE) {
+            if (!LightSaber.isLightSaber(event.getInventory().getMatrix()[4])) {
                 event.getInventory().setResult(null);
                 return;
             }
-            System.out.println("Reached");
-            SaberColor color = SaberColor.getModColor(event.getInventory().getMatrix()[4].getItemMeta().getCustomModelData() - LS_KEY_BASE - KEY_BASE);
-            event.getInventory().setResult(upgradeSaber(event.getInventory().getMatrix()[4], color));
+            event.getInventory().setResult(DarkSaber.upgradeFromLightSaber(event.getInventory().getMatrix()[4]));
         }
     }
 
