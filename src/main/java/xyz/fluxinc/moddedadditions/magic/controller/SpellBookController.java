@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
-import xyz.fluxinc.moddedadditions.magic.spells.Spell;
 import xyz.fluxinc.moddedadditions.magic.SpellRegistry;
+import xyz.fluxinc.moddedadditions.magic.spells.Spell;
 
 import java.util.HashMap;
 import java.util.List;

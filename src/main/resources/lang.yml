@@ -26,6 +26,11 @@ mi-hammer: "&9A Hammer to mine a 3x3 area!"
 mi-excavator: "&9A Excavator to dig a 3x3 area!"
 mi-sonic: "&9Technology far beyond your basic understanding"
 mi-spellbook: "&9A book, containing ancient magical knowledge"
+mi-longfallboots: "&9Boots that prevent the wearer from receiving fall damage!"
+mi-honeychestplate: "&9Leaves a sticky residue on attackers, slowing them down!"
+mi-slimechestplate: "&9A bouncy chestplate, knocking back attackers!"
+mi-copperArmor: "Finally a use for Copper!"
+mi-elytraKit: "A set of materials for repairing damaged elytra"
 
 # Spellbook Keys
 sb-lockedSpell: "&9You do not possess the knowledge to cast this spell"

@@ -75,8 +75,6 @@
                 </configuration>
             </plugin>
         </plugins>
-
-
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -102,6 +100,10 @@
             <id>commandapi</id>
             <url>https://raw.githubusercontent.com/JorelAli/CommandAPI/mvn-repo/</url>
         </repository>
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.org/repository/maven-public</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -112,9 +114,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.CelesteMagisteel</groupId>
+            <groupId>com.github.CelesteGateley</groupId>
             <artifactId>FluxCore</artifactId>
-            <version>v1.2.3</version>
+            <version>1ba72df2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -128,19 +130,6 @@
             <artifactId>maven-assembly-plugin</artifactId>
             <version>3.3.0</version>
             <type>maven-plugin</type>
-        </dependency>
-        <dependency>
-            <groupId>com.github.Zrips</groupId>
-            <artifactId>Jobs</artifactId>
-            <version>4.16.3</version> <!-- Change the LATEST to the current version of jobs -->
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.gmail.nossr50</groupId>
-            <artifactId>McMMO</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${mcmmo.dir}</systemPath>
         </dependency>
     </dependencies>
 </project>

@@ -9,7 +9,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import xyz.fluxinc.fluxcore.configuration.ConfigurationManager;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
-import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
 
 import java.util.HashMap;
 import java.util.Map;

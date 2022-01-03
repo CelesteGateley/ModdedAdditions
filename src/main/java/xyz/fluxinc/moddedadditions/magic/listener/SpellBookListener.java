@@ -16,10 +16,10 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
+import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
 import xyz.fluxinc.moddedadditions.magic.controller.SpellBookController;
 import xyz.fluxinc.moddedadditions.magic.spells.Spell;
 import xyz.fluxinc.moddedadditions.magic.spells.castable.combat.Fireball;
-import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 import static xyz.fluxinc.moddedadditions.magic.controller.SpellBookController.verifySpellBook;

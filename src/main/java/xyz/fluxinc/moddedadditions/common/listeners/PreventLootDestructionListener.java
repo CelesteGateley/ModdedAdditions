@@ -16,8 +16,8 @@ public class PreventLootDestructionListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         if (!(event.getBlock().getState() instanceof Chest)) return;
-        if (((Lootable)event.getBlock().getState()).getLootTable() == null) return;
-        if (event.getPlayer().hasPermission("moddedadditions.lootchest.bypass")){
+        if (((Lootable) event.getBlock().getState()).getLootTable() == null) return;
+        if (event.getPlayer().hasPermission("moddedadditions.lootchest.bypass")) {
             event.getPlayer().sendMessage(instance.getLanguageManager().generateMessage("ma-breakBypass"));
             return;
         }
@@ -28,16 +28,16 @@ public class PreventLootDestructionListener implements Listener {
     @EventHandler
     public void onBlockExplosion(BlockExplodeEvent event) {
         if (!(event.getBlock().getState() instanceof Chest)) return;
-        if (((Lootable)event.getBlock().getState()).getLootTable() == null) return;
+        if (((Lootable) event.getBlock().getState()).getLootTable() == null) return;
         event.setCancelled(true);
     }
 
     @EventHandler
     public void onEnderManMoveEvent(EntityChangeBlockEvent event) {
         if (!(event.getBlock().getState() instanceof Chest)) return;
-        if (((Lootable)event.getBlock().getState()).getLootTable() == null) return;
+        if (((Lootable) event.getBlock().getState()).getLootTable() == null) return;
         if (event.getEntity() instanceof Player) {
-            if (event.getEntity().hasPermission("moddedadditions.lootchest.bypass")){
+            if (event.getEntity().hasPermission("moddedadditions.lootchest.bypass")) {
                 event.getEntity().sendMessage(instance.getLanguageManager().generateMessage("ma-breakBypass"));
                 return;
             }

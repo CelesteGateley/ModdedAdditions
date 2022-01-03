@@ -1,7 +1,5 @@
 package xyz.fluxinc.moddedadditions;
 
-import com.gamingmesh.jobs.Jobs;
-import com.gmail.nossr50.mcMMO;
 import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.event.HandlerList;
@@ -12,42 +10,40 @@ import xyz.fluxinc.fluxcore.configuration.LanguageManager;
 import xyz.fluxinc.fluxcore.inventory.InventoryChecker;
 import xyz.fluxinc.fluxcore.security.BlockAccessController;
 import xyz.fluxinc.moddedadditions.areatool.AreaToolCommand;
-import xyz.fluxinc.moddedadditions.armor.listeners.CopperArmorListener;
-import xyz.fluxinc.moddedadditions.common.commands.*;
-import xyz.fluxinc.moddedadditions.common.commands.legacy.NotifyCommand;
-import xyz.fluxinc.moddedadditions.common.commands.legacy.VoteDayCommand;
-import xyz.fluxinc.moddedadditions.common.listeners.PreventLootDestructionListener;
-import xyz.fluxinc.moddedadditions.magic.controller.ManaController;
-import xyz.fluxinc.moddedadditions.common.storage.PlayerDataController;
-import xyz.fluxinc.moddedadditions.veinminer.VeinMinerCommand;
-import xyz.fluxinc.moddedadditions.veinminer.VeinMinerController;
 import xyz.fluxinc.moddedadditions.areatool.AreaToolController;
-import xyz.fluxinc.moddedadditions.magic.SpellBookCommand;
-import xyz.fluxinc.moddedadditions.magnet.MagnetController;
-import xyz.fluxinc.moddedadditions.magic.controller.SpellBookController;
-import xyz.fluxinc.moddedadditions.magnet.MagnetExecutor;
-import xyz.fluxinc.moddedadditions.magnet.OldMagnetExecutor;
-import xyz.fluxinc.moddedadditions.common.hooks.JobsRebornHook;
-import xyz.fluxinc.moddedadditions.common.hooks.McMMOHook;
-import xyz.fluxinc.moddedadditions.common.listeners.BookSignListener;
-import xyz.fluxinc.moddedadditions.veinminer.CropHarvestListener;
-import xyz.fluxinc.moddedadditions.veinminer.VeinMinerListener;
-import xyz.fluxinc.moddedadditions.common.listeners.chat.PingListener;
-import xyz.fluxinc.moddedadditions.common.listeners.chat.ResponseListener;
-import xyz.fluxinc.moddedadditions.lightsaber.LightSaberListener;
-import xyz.fluxinc.moddedadditions.sonic.SonicScrewdriverListener;
-import xyz.fluxinc.moddedadditions.magic.listener.SpellBookListener;
-import xyz.fluxinc.moddedadditions.magic.listener.SpellControlListener;
 import xyz.fluxinc.moddedadditions.areatool.ExcavatorListener;
 import xyz.fluxinc.moddedadditions.areatool.HammerListener;
+import xyz.fluxinc.moddedadditions.armor.listeners.CopperArmorListener;
 import xyz.fluxinc.moddedadditions.armor.listeners.HoneyChestplateListener;
 import xyz.fluxinc.moddedadditions.armor.listeners.LongFallBootsListener;
 import xyz.fluxinc.moddedadditions.armor.listeners.SlimeChestplateListener;
-import xyz.fluxinc.moddedadditions.magic.listener.spells.*;
+import xyz.fluxinc.moddedadditions.common.CustomRecipeUtils;
+import xyz.fluxinc.moddedadditions.common.commands.ModdedAdditionsCommand;
+import xyz.fluxinc.moddedadditions.common.commands.TauntCommand;
+import xyz.fluxinc.moddedadditions.common.commands.legacy.NotifyCommand;
+import xyz.fluxinc.moddedadditions.common.commands.legacy.VoteDayCommand;
+import xyz.fluxinc.moddedadditions.common.listeners.BookSignListener;
+import xyz.fluxinc.moddedadditions.common.listeners.PreventLootDestructionListener;
+import xyz.fluxinc.moddedadditions.common.listeners.chat.PingListener;
+import xyz.fluxinc.moddedadditions.common.listeners.chat.ResponseListener;
 import xyz.fluxinc.moddedadditions.common.listeners.inventory.AnvilListener;
 import xyz.fluxinc.moddedadditions.common.listeners.inventory.SortChestListener;
 import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
-import xyz.fluxinc.moddedadditions.common.CustomRecipeUtils;
+import xyz.fluxinc.moddedadditions.common.storage.PlayerDataController;
+import xyz.fluxinc.moddedadditions.lightsaber.LightSaberListener;
+import xyz.fluxinc.moddedadditions.magic.SpellBookCommand;
+import xyz.fluxinc.moddedadditions.magic.controller.ManaController;
+import xyz.fluxinc.moddedadditions.magic.controller.SpellBookController;
+import xyz.fluxinc.moddedadditions.magic.listener.SpellBookListener;
+import xyz.fluxinc.moddedadditions.magic.listener.SpellControlListener;
+import xyz.fluxinc.moddedadditions.magic.listener.spells.*;
+import xyz.fluxinc.moddedadditions.magnet.MagnetController;
+import xyz.fluxinc.moddedadditions.magnet.MagnetExecutor;
+import xyz.fluxinc.moddedadditions.sonic.SonicScrewdriverListener;
+import xyz.fluxinc.moddedadditions.veinminer.CropHarvestListener;
+import xyz.fluxinc.moddedadditions.veinminer.VeinMinerCommand;
+import xyz.fluxinc.moddedadditions.veinminer.VeinMinerController;
+import xyz.fluxinc.moddedadditions.veinminer.VeinMinerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,9 +78,6 @@ public final class ModdedAdditions extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-
-        try { McMMOHook.registerMcMMO(getPlugin(mcMMO.class)); } catch (NoClassDefFoundError ignored) {}
-        try { JobsRebornHook.registerJobs(getPlugin(Jobs.class)); } catch (NoClassDefFoundError ignored) {}
 
         List<KeyedBossBar> bossBars = new ArrayList<>();
         getServer().getBossBars().forEachRemaining(bossBars::add);
@@ -134,7 +127,6 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup Magnet Related Tasks
         magnetController = new MagnetController();
         getServer().getPluginManager().registerEvents(new InventoryChecker(this, new MagnetExecutor()), this);
-        getServer().getPluginManager().registerEvents(new InventoryChecker(this, new OldMagnetExecutor()), this);
 
         // Setup Book Handling
         getServer().getPluginManager().registerEvents(new BookSignListener(), this);

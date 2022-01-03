@@ -2,11 +2,11 @@ package xyz.fluxinc.moddedadditions.magic;
 
 import org.bukkit.entity.Player;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
+import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
 import xyz.fluxinc.moddedadditions.magic.spells.Spell;
 import xyz.fluxinc.moddedadditions.magic.spells.SpellRecipe;
 import xyz.fluxinc.moddedadditions.magic.spells.SpellSchool;
 import xyz.fluxinc.moddedadditions.magic.spells.schools.*;
-import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
 
 import java.util.ArrayList;
 import java.util.List;

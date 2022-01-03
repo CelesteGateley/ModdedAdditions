@@ -1,10 +1,10 @@
 package xyz.fluxinc.moddedadditions.common.storage;
 
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import xyz.fluxinc.moddedadditions.magic.SpellRegistry;
 import xyz.fluxinc.moddedadditions.magic.spells.Spell;
 import xyz.fluxinc.moddedadditions.magic.spells.SpellSchool;
 import xyz.fluxinc.moddedadditions.magic.spells.schools.Debug;
-import xyz.fluxinc.moddedadditions.magic.SpellRegistry;
 
 import java.util.HashMap;
 import java.util.Map;

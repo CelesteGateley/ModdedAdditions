@@ -9,10 +9,9 @@ import dev.jorel.commandapi.arguments.StringArgument;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import xyz.fluxinc.moddedadditions.magic.spells.Spell;
 import xyz.fluxinc.moddedadditions.common.storage.ExecutorStorage;
 import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
-import xyz.fluxinc.moddedadditions.magic.SpellRegistry;
+import xyz.fluxinc.moddedadditions.magic.spells.Spell;
 
 import java.io.File;
 import java.io.IOException;

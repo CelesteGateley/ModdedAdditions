@@ -9,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import xyz.fluxinc.moddedadditions.sonic.SonicScrewdriverController;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
@@ -20,7 +19,7 @@ public class SonicScrewdriverListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
-        if (event.getItem() == null || !SonicScrewdriverController.isSonic(event.getItem())) {
+        if (event.getItem() == null || !SonicScrewdriverController.getSonic().verifyItemStack(event.getItem())) {
             return;
         }
         if (event.getClickedBlock() == null) {
