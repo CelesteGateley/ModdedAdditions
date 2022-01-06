@@ -48,8 +48,8 @@ public class DarkSaber extends CustomItem {
     public static SaberColor getColor(ItemStack itemStack) {
         ItemMeta iMeta = itemStack.getItemMeta();
         if (iMeta == null || iMeta.hasCustomModelData()) return null;
-        if (itemStack.getItemMeta().getCustomModelData() >= KEY_BASE + DARK_SABER_BASE
-                && itemStack.getItemMeta().getCustomModelData() < KEY_BASE + DARK_SABER_BASE + 10) return null;
+        if (itemStack.getItemMeta().getCustomModelData() < KEY_BASE + DARK_SABER_BASE
+                && itemStack.getItemMeta().getCustomModelData() > KEY_BASE + DARK_SABER_BASE + 10) return null;
         return SaberColor.getModColor(iMeta.getCustomModelData() - KEY_BASE - DARK_SABER_BASE);
     }
 
