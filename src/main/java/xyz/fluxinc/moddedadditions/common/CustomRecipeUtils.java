@@ -75,10 +75,6 @@ public class CustomRecipeUtils implements Listener {
         addCustomItem(SonicScrewdriverController.getSonic());
         addCustomItem(ElytraRepairKit.getElytraRepairKit());
 
-        ShapedRecipe sonicRecipe = SonicScrewdriverController.getSonic().getRecipe();
-        recipeKeys.add(sonicRecipe.getKey());
-        getServer().addRecipe(sonicRecipe);
-
         addCustomItem(SpecialArmorUtils.getHoneyChestplate());
         addCustomItem(SpecialArmorUtils.getSlimeChestplate());
         addCustomItem(SpecialArmorUtils.getLongFallBoots());
