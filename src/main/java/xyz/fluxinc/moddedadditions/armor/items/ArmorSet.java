@@ -22,7 +22,7 @@ public class ArmorSet {
         this.craftingItem = craftingItem;
         this.keyPrefix = keyPrefix;
         this.displayPrefix = displayPrefix;
-        this.lore = ModdedAdditions.instance.getLanguageManager().getFormattedString(loreKey);
+        this.lore = loreKey;
     }
 
     public CustomItem getHelmet() {
