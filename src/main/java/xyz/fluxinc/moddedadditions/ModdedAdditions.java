@@ -95,9 +95,9 @@ public final class ModdedAdditions extends JavaPlugin {
 
         // Register Language and Configuration Managers
         languageManager = new LanguageManager<>(this, "lang.yml");
-        languageManager.verifyKeys();
+        //languageManager.verifyKeys(); // DISABLED DUE TO SNAKEYAML CHANGES
         configurationManager = new ConfigurationManager<>(this, "config.yml");
-        configurationManager.verifyKeys();
+        //configurationManager.verifyKeys(); // DISABLED DUE TO SNAKEYAML CHANGES
         ModdedAdditionsCommand.registerCommands();
 
         // Register Core Utilities
