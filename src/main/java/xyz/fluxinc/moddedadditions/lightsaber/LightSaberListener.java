@@ -27,6 +27,11 @@ public class LightSaberListener implements Listener {
     public void onLightSaberBlockHit(BlockBreakEvent event) {
         ItemStack iStack = event.getPlayer().getInventory().getItemInMainHand();
         ItemMeta iMeta = iStack.getItemMeta();
+        if (!(LightSaber.isLightSaber(iStack) || DarkSaber.isDarkSaber(iStack))) return;
+        if (LightSaber.getColor(iStack) == SaberColor.DEPLETED || DarkSaber.getColor(iStack) == SaberColor.DEPLETED) {
+            event.setCancelled(true);
+            return;
+        }
         if (iMeta instanceof Damageable) {
             if (((Damageable) iMeta).getDamage() + 2 >= iStack.getType().getMaxDurability()) {
                 if (LightSaber.isLightSaber(iStack)) {
