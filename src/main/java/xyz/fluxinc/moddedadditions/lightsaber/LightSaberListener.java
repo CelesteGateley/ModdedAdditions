@@ -64,18 +64,7 @@ public class LightSaberListener implements Listener {
             }
         }
 
-
-        if (itemStack.getType() != Material.DIAMOND_SWORD) {
-            return;
-        }
-
-        ItemMeta iMeta = itemStack.getItemMeta();
-        if (iMeta == null || iMeta.getLore() == null) return;
-
-        if (LightSaber.isLightSaber(itemStack)) {
-            if (itemStack.getType() == Material.DIAMOND_SWORD) itemStack.setType(Material.NETHERITE_SWORD);
-            ((Player) event.getDamager()).playSound(event.getDamager().getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1, 1);
-        }
+        ((Player) event.getDamager()).playSound(event.getDamager().getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1, 1);
     }
 
     @EventHandler
