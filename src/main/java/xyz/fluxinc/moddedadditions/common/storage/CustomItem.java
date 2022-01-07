@@ -2,6 +2,7 @@ package xyz.fluxinc.moddedadditions.common.storage;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.moddedadditions.ModdedAdditions;
@@ -62,7 +63,7 @@ public abstract class CustomItem {
         return this.material;
     }
 
-    public abstract ShapedRecipe getRecipe();
+    public abstract Recipe getRecipe();
 
     /**
      * Is overwritten by custom items that require additional modification

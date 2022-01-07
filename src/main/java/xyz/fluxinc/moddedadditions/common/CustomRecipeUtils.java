@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions.common;
 
+import org.bukkit.Keyed;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
@@ -7,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import xyz.fluxinc.fluxcore.enums.ToolLevel;
 import xyz.fluxinc.moddedadditions.areatool.AreaToolController;
@@ -94,8 +96,10 @@ public class CustomRecipeUtils implements Listener {
     }
 
     public void addCustomItem(CustomItem customItem) {
-        ShapedRecipe recipe = customItem.getRecipe();
-        recipeKeys.add(recipe.getKey());
+        Recipe recipe = customItem.getRecipe();
+        if (recipe instanceof Keyed) {
+            recipeKeys.add(((Keyed) recipe).getKey());
+        }
         getServer().addRecipe(recipe);
     }
 
