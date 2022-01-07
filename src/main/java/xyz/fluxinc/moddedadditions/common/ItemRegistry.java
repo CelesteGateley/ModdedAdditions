@@ -31,7 +31,7 @@ public class ItemRegistry {
         defaultItems.put("honey_chestplate", SpecialArmorUtils.getHoneyChestplate().getNewItem());
         defaultItems.put("slime_chestplate", SpecialArmorUtils.getSlimeChestplate().getNewItem());
         for (SaberColor color : SaberColor.values()) {
-            defaultItems.put(color.toString().toLowerCase() + "_kyber_crystal",  new KyberCrystal(color).getNewItem());
+            defaultItems.put(color.toString().toLowerCase() + "_kyber_crystal", new KyberCrystal(color).getNewItem());
             defaultItems.put(color.toString().toLowerCase() + "_lightsaber", new LightSaber(color).getNewItem());
             defaultItems.put(color.toString().toLowerCase() + "_dark_core_saber", new DarkSaber(color).getNewItem());
         }

@@ -4,7 +4,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.ItemStack;
 import xyz.fluxinc.fluxcore.enums.ArmorLevel;
-import xyz.fluxinc.moddedadditions.ModdedAdditions;
 import xyz.fluxinc.moddedadditions.common.storage.CustomItem;
 
 public class ArmorSet {
