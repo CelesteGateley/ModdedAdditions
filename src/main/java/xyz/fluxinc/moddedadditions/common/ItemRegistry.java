@@ -13,9 +13,14 @@ import xyz.fluxinc.moddedadditions.magic.controller.SpellBookController;
 import xyz.fluxinc.moddedadditions.magnet.MagnetController;
 import xyz.fluxinc.moddedadditions.sonic.SonicScrewdriverController;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+
+import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class ItemRegistry {
 
@@ -52,5 +57,24 @@ public class ItemRegistry {
 
     public static ItemStack getItem(String key) {
         return defaultItems.getOrDefault(key, null);
+    }
+
+    public static boolean dumpToFile(String fileName) {
+        try {
+            File file = new File(fileName);
+            if (!file.exists()) file.createNewFile();
+            FileWriter fileWriter = new FileWriter(file);
+            for (Map.Entry<String, ItemStack> pair : defaultItems.entrySet()) {
+                ItemStack itemStack = pair.getValue();
+                if (itemStack.getItemMeta() != null && itemStack.getItemMeta().hasCustomModelData()) {
+                    fileWriter.append(pair.getKey()).append(" - ").append(String.valueOf(itemStack.getItemMeta().getCustomModelData())).append("\n");
+                }
+            }
+            fileWriter.close();
+            return true;
+        } catch (Exception e) {
+            instance.getLogger().throwing("ItemRegistry", "dumpToFile", e);
+            return false;
+        }
     }
 }

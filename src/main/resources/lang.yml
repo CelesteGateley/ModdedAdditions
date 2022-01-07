@@ -91,6 +91,8 @@ ma-sortOn: "&9Chests you open will now be sorted!"
 ma-sortOff: "&9Chests you open will no longer be sorted!"
 ma-breakLoot: "&5You cannot break Loot chests. Loot chests refill for other players to access."
 ma-breakBypass: "&9Warning: You have bypassed Loot chest destruction prevention."
+ma-dumpSuccessful: "&9Successfully dumped all items and CustomModelData to a file."
+ma-dumpFailed: "&9Failed to dump to a file. Check the console for more information."
 
 # VoteDay Keys
 dv-dayVote: "&bDo you want day? Please click $ &bor $"

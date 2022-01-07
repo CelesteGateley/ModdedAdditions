@@ -72,6 +72,22 @@ public class ModdedAdditionsCommand {
 
         // Reload Command
         arguments = new ArrayList<>();
+        arguments.add(new LiteralArgument("dump"));
+        returnVal.put("dump", new ExecutorStorage((sender, args) -> {
+            if (!(sender.hasPermission("moddedadditions.dump"))) {
+                sendPermissionDenied(sender);
+                return;
+            }
+            boolean success = ItemRegistry.dumpToFile("items.txt");
+            if (success) {
+                sender.sendMessage(instance.getLanguageManager().generateMessage("ma-dumpSuccessful"));
+            } else {
+                sender.sendMessage(instance.getLanguageManager().generateMessage("ma-dumpFailed"));
+            }
+        }, arguments));
+
+        // Reload Command
+        arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("reload"));
         returnVal.put("reload", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.reload"))) {
