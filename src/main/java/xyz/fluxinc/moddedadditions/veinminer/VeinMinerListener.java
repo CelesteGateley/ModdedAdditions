@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions.veinminer;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -9,10 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import xyz.fluxinc.fluxcore.hooks.JobsRebornHook;
-import xyz.fluxinc.fluxcore.hooks.McMMOHook;
-import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
 import xyz.fluxinc.fluxcore.utils.BlockUtils;
+import xyz.fluxinc.moddedadditions.common.events.SpecialBlockBreakEvent;
 import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
 
 import java.util.List;
@@ -25,6 +24,7 @@ public class VeinMinerListener implements Listener {
 
     @EventHandler
     public void blockBreakListener(BlockBreakEvent event) {
+        if (event instanceof SpecialBlockBreakEvent) return;
         if (!event.getPlayer().isSneaking()) return;
         if (event.getPlayer().getGameMode() == GameMode.CREATIVE && !instance.getVeinMinerController().getAllowInCreative())
             return;
@@ -64,18 +64,11 @@ public class VeinMinerListener implements Listener {
         int remainingDurability = getRemainingDurability(toolUsed);
         int blocksBroken = 0;
         for (Block b : blockList) {
-            if (instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), false)) {
-                try {
-                    JobsRebornHook.addExperienceForBlockBreak(block, player);
-                } catch (NoClassDefFoundError ignored) {
-                }
-                McMMOHook.addBlockExperience(block.getState(), player);
+            if (instance.getBlockAccessController().checkBreakPlace(player, b.getLocation(), false)) {
                 blocksBroken++;
-                CoreProtectLogger.logBlockBreak(player, b);
+                Bukkit.getPluginManager().callEvent(new SpecialBlockBreakEvent(b, player));
                 b.breakNaturally(tool);
-                if (remainingDurability - blocksBroken < 1) {
-                    break;
-                }
+                if (remainingDurability - blocksBroken < 1) break;
             }
         }
         takeDurability(player, toolUsed, blocksBroken);
@@ -86,7 +79,7 @@ public class VeinMinerListener implements Listener {
         blockList.remove(0);
         for (Block b : blockList) {
             if (instance.getBlockAccessController().checkBreakPlace(player, block.getLocation(), false)) {
-                CoreProtectLogger.logBlockBreak(player, b);
+                Bukkit.getPluginManager().callEvent(new SpecialBlockBreakEvent(block, player));
                 b.breakNaturally();
             }
         }

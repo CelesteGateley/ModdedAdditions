@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions.areatool;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -16,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.hooks.JobsRebornHook;
 import xyz.fluxinc.fluxcore.hooks.McMMOHook;
 import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
+import xyz.fluxinc.moddedadditions.common.events.SpecialBlockBreakEvent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +54,7 @@ public class ExcavatorListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        if (event instanceof SpecialBlockBreakEvent) return;
         // Update Excavator to new system
         if (verifyLore(event.getPlayer().getInventory().getItemInMainHand())
                 && !verifyExcavator(event.getPlayer().getInventory().getItemInMainHand())) {
@@ -82,17 +85,12 @@ public class ExcavatorListener implements Listener {
         for (Block block : extraBlocks) {
             // If it is the initial block, ignore
             if (block.getLocation() == event.getBlock().getLocation()) continue;
-            // If the block is not a Excavator material or you do not have access to it, ignore
+            // If the block is not an Excavator material, or you do not have access to it, ignore
             if (!instance.getAreaToolController().checkExcavator(block.getType())) continue;
             if (!instance.getBlockAccessController().checkBreakPlace(event.getPlayer(), block.getLocation(), true))
                 continue;
             // Log the block as broken, then break it
-            try {
-                JobsRebornHook.addExperienceForBlockBreak(block, event.getPlayer());
-            } catch (NoClassDefFoundError ignored) {
-            }
-            McMMOHook.addBlockExperience(block.getState(), event.getPlayer());
-            CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
+            Bukkit.getPluginManager().callEvent(new SpecialBlockBreakEvent(block, event.getPlayer()));
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
             blocksBroken++;
         }

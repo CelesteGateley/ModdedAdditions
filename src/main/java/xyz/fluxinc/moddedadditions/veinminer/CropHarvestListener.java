@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions.veinminer;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
@@ -8,12 +9,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import xyz.fluxinc.fluxcore.enums.BlockFace;
 import xyz.fluxinc.fluxcore.enums.Direction;
 import xyz.fluxinc.fluxcore.hooks.JobsRebornHook;
 import xyz.fluxinc.fluxcore.hooks.McMMOHook;
 import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
+import xyz.fluxinc.fluxcore.utils.BlockUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -82,22 +88,13 @@ public class CropHarvestListener implements Listener {
                 if (!verifyBlock(event.getPlayer(), b)) {
                     continue;
                 }
-                McMMOHook.addBlockExperience(b.getState(), event.getPlayer());
-                try {
-                    JobsRebornHook.addExperienceForBlockBreak(b, event.getPlayer());
-                } catch (NoClassDefFoundError ignored) {
-                }
-                CoreProtectLogger.logBlockBreak(event.getPlayer(), b);
+                Bukkit.getPluginManager().callEvent(new BlockBreakEvent(b, event.getPlayer()));
                 Ageable age = (Ageable) b.getBlockData();
                 Collection<ItemStack> drops = b.getDrops();
                 age.setAge(0);
                 b.setBlockData(age);
-                CoreProtectLogger.logBlockPlace(event.getPlayer(), b);
-                McMMOHook.addBlockExperience(b.getState(), event.getPlayer());
-                try {
-                    JobsRebornHook.addExperienceForBlockPlace(b, event.getPlayer());
-                } catch (NoClassDefFoundError ignored) {
-                }
+                Bukkit.getPluginManager().callEvent(new BlockPlaceEvent(b, b.getState(), BlockUtils.getBlockFace(b, BlockFace.BOTTOM),
+                        event.getPlayer().getInventory().getItemInMainHand(), event.getPlayer(), true, EquipmentSlot.HAND));
                 for (ItemStack i : drops) {
                     event.getClickedBlock().getWorld().dropItemNaturally(event.getClickedBlock().getLocation(), i);
                 }

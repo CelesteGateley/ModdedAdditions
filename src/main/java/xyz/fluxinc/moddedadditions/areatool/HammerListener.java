@@ -1,5 +1,6 @@
 package xyz.fluxinc.moddedadditions.areatool;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -16,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import xyz.fluxinc.fluxcore.hooks.JobsRebornHook;
 import xyz.fluxinc.fluxcore.hooks.McMMOHook;
 import xyz.fluxinc.fluxcore.security.CoreProtectLogger;
+import xyz.fluxinc.moddedadditions.common.events.SpecialBlockBreakEvent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +55,7 @@ public class HammerListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        if (event instanceof SpecialBlockBreakEvent) return;
         // Update Hammer to new system
         if (verifyLore(event.getPlayer().getInventory().getItemInMainHand())
                 && !verifyHammer(event.getPlayer().getInventory().getItemInMainHand())) {
@@ -87,13 +90,7 @@ public class HammerListener implements Listener {
                 continue;
             // If the block is not mineable by the tool, ignore
             if (!verifyBlockMining(event.getPlayer().getInventory().getItemInMainHand(), block.getType())) continue;
-            // Log the block as broken, then break it
-            try {
-                JobsRebornHook.addExperienceForBlockBreak(block, event.getPlayer());
-            } catch (NoClassDefFoundError ignored) {
-            }
-            McMMOHook.addBlockExperience(block.getState(), event.getPlayer());
-            CoreProtectLogger.logBlockBreak(event.getPlayer(), block);
+            Bukkit.getPluginManager().callEvent(new SpecialBlockBreakEvent(block, event.getPlayer()));
             block.breakNaturally(event.getPlayer().getInventory().getItemInMainHand());
             blocksBroken++;
         }
