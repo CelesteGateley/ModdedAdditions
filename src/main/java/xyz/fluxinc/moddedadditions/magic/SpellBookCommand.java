@@ -2,10 +2,7 @@ package xyz.fluxinc.moddedadditions.magic;
 
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPICommand;
-import dev.jorel.commandapi.arguments.Argument;
-import dev.jorel.commandapi.arguments.EntitySelectorArgument;
-import dev.jorel.commandapi.arguments.LiteralArgument;
-import dev.jorel.commandapi.arguments.StringArgument;
+import dev.jorel.commandapi.arguments.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -37,8 +34,8 @@ public class SpellBookCommand {
         // Learn Command
         List<Argument> arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("learn"));
-        arguments.add(new EntitySelectorArgument("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
-        arguments.add(new StringArgument("spell").overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
+        arguments.add(new EntitySelectorArgument<Collection<Player>>("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments.add(new MultiLiteralArgument(getSpellList().toArray(new String[arguments.size()])));
         returnVal.put("learn", new ExecutorStorage((sender, args) -> {
             if (!sender.hasPermission("moddedadditions.spells.learn")) {
                 sendPermissionDenied(sender);
@@ -77,8 +74,8 @@ public class SpellBookCommand {
         // Unlearn Command
         arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("unlearn"));
-        arguments.add(new EntitySelectorArgument("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
-        arguments.add(new StringArgument("spell").overrideSuggestions(getSpellList().toArray(new String[arguments.size()])));
+        arguments.add(new EntitySelectorArgument<Collection<Player>>("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments.add(new MultiLiteralArgument(getSpellList().toArray(new String[arguments.size()])));
         returnVal.put("unlearn", new ExecutorStorage((sender, args) -> {
             if (!sender.hasPermission("moddedadditions.spells.unlearn")) {
                 sendPermissionDenied(sender);
@@ -117,7 +114,7 @@ public class SpellBookCommand {
         // FillMana
         arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("fillmana"));
-        arguments.add(new EntitySelectorArgument("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments.add(new EntitySelectorArgument<Collection<Player>>("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("fillmana", new ExecutorStorage((sender, args) -> {
             if (!sender.hasPermission("moddedadditions.spells.fillmana")) {
                 sendPermissionDenied(sender);
@@ -143,7 +140,7 @@ public class SpellBookCommand {
         // Evaluate
         arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("evaluate"));
-        arguments.add(new EntitySelectorArgument("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments.add(new EntitySelectorArgument<Collection<Player>>("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("evaluate", new ExecutorStorage((sender, args) -> {
             if (!sender.hasPermission("moddedadditions.spells.evaluate")) {
                 sendPermissionDenied(sender);
@@ -170,7 +167,7 @@ public class SpellBookCommand {
         // Evaluate All
         arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("evaluate"));
-        arguments.add(new EntitySelectorArgument("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments.add(new EntitySelectorArgument<Collection<Player>>("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
         returnVal.put("evaluate", new ExecutorStorage((sender, args) -> {
             if (!sender.hasPermission("moddedadditions.spells.evaluateall")) {
                 sendPermissionDenied(sender);
@@ -196,11 +193,12 @@ public class SpellBookCommand {
     public static void registerCommands() {
         HashMap<String, ExecutorStorage> commands = getCommands();
         for (String key : commands.keySet()) {
-            new CommandAPICommand("spellbook")
-                    .withAliases("sb", "sbook", "spellb")
-                    .withArguments(commands.get(key).getArguments())
-                    .executes(commands.get(key).getExecutor())
-                    .register();
+            CommandAPICommand command = new CommandAPICommand("spellbook").withAliases("sb", "sbook", "spellb");
+            for (Argument argument : commands.get(key).getArguments()) {
+                command.withArguments(argument);
+            }
+            command.executes(commands.get(key).getExecutor());
+            command.register();
         }
     }
 

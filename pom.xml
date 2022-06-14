@@ -110,7 +110,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.18.1-R0.1-SNAPSHOT</version>
+            <version>1.19-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -120,9 +120,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>dev.jorel.CommandAPI</groupId>
+            <groupId>dev.jorel</groupId>
             <artifactId>commandapi-core</artifactId>
-            <version>6.0.0</version>
+            <version>8.3.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

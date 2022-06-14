@@ -2,10 +2,7 @@ package xyz.fluxinc.moddedadditions.common.commands;
 
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPICommand;
-import dev.jorel.commandapi.arguments.Argument;
-import dev.jorel.commandapi.arguments.EntitySelectorArgument;
-import dev.jorel.commandapi.arguments.LiteralArgument;
-import dev.jorel.commandapi.arguments.StringArgument;
+import dev.jorel.commandapi.arguments.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -25,8 +22,8 @@ public class ModdedAdditionsCommand {
         // Give Command
         List<Argument> arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("give"));
-        arguments.add(new EntitySelectorArgument("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
-        arguments.add(new StringArgument("item").overrideSuggestions(ItemRegistry.getAllItemNames().toArray(new String[0])));
+        arguments.add(new EntitySelectorArgument<Collection<Player>>("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
+        arguments.add(new MultiLiteralArgument(ItemRegistry.getAllItemNames().toArray(new String[0])));
         returnVal.put("give", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.give"))) {
                 sendPermissionDenied(sender);
@@ -105,11 +102,12 @@ public class ModdedAdditionsCommand {
     public static void registerCommands() {
         HashMap<String, ExecutorStorage> commands = getCommands();
         for (String key : commands.keySet()) {
-            new CommandAPICommand("moddedadditions")
-                    .withAliases("ma", "madditions", "moddeda")
-                    .withArguments(commands.get(key).getArguments())
-                    .executes(commands.get(key).getExecutor())
-                    .register();
+            CommandAPICommand command = new CommandAPICommand("moddedadditions").withAliases("ma", "madditions", "moddeda");
+            for (Argument argument : commands.get(key).getArguments()) {
+                command.withArguments(argument);
+            }
+            command.executes(commands.get(key).getExecutor());
+            command.register();
         }
     }
 

@@ -4,6 +4,7 @@ import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
+import dev.jorel.commandapi.arguments.MultiLiteralArgument;
 import dev.jorel.commandapi.arguments.StringArgument;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -37,8 +38,8 @@ public class VeinMinerCommand {
         // Add Command
         List<Argument> arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("add"));
-        arguments.add(new StringArgument("tool").overrideSuggestions("pickaxe", "axe", "shovel", "hoe", "shears", "hand"));
-        arguments.add(new StringArgument("material").overrideSuggestions(materials));
+        arguments.add(new MultiLiteralArgument("pickaxe", "axe", "shovel", "hoe", "shears", "hand"));
+        arguments.add(new MultiLiteralArgument(materials));
         returnVal.put("add", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.veinminer.add"))) {
                 sendPermissionDenied(sender);
@@ -74,8 +75,8 @@ public class VeinMinerCommand {
         // Remove Command
         arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("remove"));
-        arguments.add(new StringArgument("tool").overrideSuggestions("pickaxe", "axe", "shovel", "hoe", "shears", "hand"));
-        arguments.add(new StringArgument("material").overrideSuggestions(materials));
+        arguments.add(new MultiLiteralArgument("pickaxe", "axe", "shovel", "hoe", "shears", "hand"));
+        arguments.add(new MultiLiteralArgument(materials));
         returnVal.put("remove", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.veinminer.remove"))) {
                 sendPermissionDenied(sender);
@@ -160,11 +161,12 @@ public class VeinMinerCommand {
     public static void registerCommands() {
         HashMap<String, ExecutorStorage> commands = getCommands();
         for (String key : commands.keySet()) {
-            new CommandAPICommand("veinminer")
-                    .withAliases("vm", "vminer", "veinm")
-                    .withArguments(commands.get(key).getArguments())
-                    .executes(commands.get(key).getExecutor())
-                    .register();
+            CommandAPICommand command = new CommandAPICommand("veinminer").withAliases("vm", "vminer", "veinm");
+            for (Argument argument : commands.get(key).getArguments()) {
+                command.withArguments(argument);
+            }
+            command.executes(commands.get(key).getExecutor());
+            command.register();
         }
     }
 

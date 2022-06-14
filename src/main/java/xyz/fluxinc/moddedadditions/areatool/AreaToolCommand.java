@@ -4,6 +4,7 @@ import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
+import dev.jorel.commandapi.arguments.MultiLiteralArgument;
 import dev.jorel.commandapi.arguments.StringArgument;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -36,8 +37,8 @@ public class AreaToolCommand {
         // Add Command
         List<Argument> arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("add"));
-        arguments.add(new StringArgument("tool").overrideSuggestions("hammer", "excavator"));
-        arguments.add(new StringArgument("material").overrideSuggestions(materials));
+        arguments.add(new MultiLiteralArgument("hammer", "excavator"));
+        arguments.add(new MultiLiteralArgument(materials));
         returnVal.put("add", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.add"))) {
                 sendPermissionDenied(sender);
@@ -58,8 +59,8 @@ public class AreaToolCommand {
         // Remove Command
         arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("remove"));
-        arguments.add(new StringArgument("tool").overrideSuggestions("hammer", "excavator"));
-        arguments.add(new StringArgument("material").overrideSuggestions(materials));
+        arguments.add(new MultiLiteralArgument("hammer", "excavator"));
+        arguments.add(new MultiLiteralArgument(materials));
         returnVal.put("remove", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.remove"))) {
                 sendPermissionDenied(sender);
@@ -107,11 +108,12 @@ public class AreaToolCommand {
     public static void registerCommands() {
         HashMap<String, ExecutorStorage> commands = getCommands();
         for (String key : commands.keySet()) {
-            new CommandAPICommand("areatool")
-                    .withAliases("at", "atool", "areat")
-                    .withArguments(commands.get(key).getArguments())
-                    .executes(commands.get(key).getExecutor())
-                    .register();
+            CommandAPICommand command = new CommandAPICommand("areatool").withAliases("at", "atool", "areat");
+            for (Argument argument : commands.get(key).getArguments()) {
+                command.withArguments(argument);
+            }
+            command.executes(commands.get(key).getExecutor());
+            command.register();
         }
     }
 

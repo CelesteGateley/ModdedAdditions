@@ -13,11 +13,8 @@ import java.util.ArrayList;
 public class TauntCommand {
 
     public static void registerCommands() {
-        ArrayList<Argument> arguments = new ArrayList<>();
-
-        arguments.add(new EntitySelectorArgument("Entity", EntitySelectorArgument.EntitySelector.ONE_ENTITY));
         new CommandAPICommand("taunt")
-                .withArguments(arguments)
+                .withArguments(new EntitySelectorArgument("Entity", EntitySelectorArgument.EntitySelector.ONE_ENTITY))
                 .executes((sender, args) -> {
                     Entity selectedEntity = (Entity) args[0];
                     if (selectedEntity instanceof LivingEntity) {
@@ -29,9 +26,8 @@ public class TauntCommand {
                     }
                 }).register();
 
-        arguments.add(new IntegerArgument("Radius"));
         new CommandAPICommand("taunt")
-                .withArguments(arguments)
+                .withArguments(new EntitySelectorArgument("Entity", EntitySelectorArgument.EntitySelector.ONE_ENTITY), new IntegerArgument("Radius"))
                 .executes((sender, args) -> {
                     Entity selectedEntity = (Entity) args[0];
                     int radius = ((Integer) args[1]) * 2;
