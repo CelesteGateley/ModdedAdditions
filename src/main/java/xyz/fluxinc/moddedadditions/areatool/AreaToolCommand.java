@@ -2,10 +2,7 @@ package xyz.fluxinc.moddedadditions.areatool;
 
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPICommand;
-import dev.jorel.commandapi.arguments.Argument;
-import dev.jorel.commandapi.arguments.LiteralArgument;
-import dev.jorel.commandapi.arguments.MultiLiteralArgument;
-import dev.jorel.commandapi.arguments.StringArgument;
+import dev.jorel.commandapi.arguments.*;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import xyz.fluxinc.moddedadditions.common.storage.ExecutorStorage;
@@ -33,12 +30,12 @@ public class AreaToolCommand {
 
     private static HashMap<String, ExecutorStorage> getCommands() {
         HashMap<String, ExecutorStorage> returnVal = new HashMap<>();
-        String[] materials = getAllMaterials().toArray(new String[0]);
+        ListArgument<String> materialArgument = new ListArgumentBuilder<String>("material").withList(getAllMaterials()).withStringMapper().build();
         // Add Command
         List<Argument> arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("add"));
         arguments.add(new MultiLiteralArgument("hammer", "excavator"));
-        arguments.add(new MultiLiteralArgument(materials));
+        arguments.add(materialArgument);
         returnVal.put("add", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.add"))) {
                 sendPermissionDenied(sender);
@@ -60,7 +57,7 @@ public class AreaToolCommand {
         arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("remove"));
         arguments.add(new MultiLiteralArgument("hammer", "excavator"));
-        arguments.add(new MultiLiteralArgument(materials));
+        arguments.add(materialArgument);
         returnVal.put("remove", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.remove"))) {
                 sendPermissionDenied(sender);

@@ -31,11 +31,12 @@ public class SpellBookCommand {
 
     private static HashMap<String, ExecutorStorage> getCommands() {
         HashMap<String, ExecutorStorage> returnVal = new HashMap<>();
+        ListArgument<String> spellList = new ListArgumentBuilder<String>("spells").withList(getSpellList()).withStringMapper().build();
         // Learn Command
         List<Argument> arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("learn"));
         arguments.add(new EntitySelectorArgument<Collection<Player>>("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
-        arguments.add(new MultiLiteralArgument(getSpellList().toArray(new String[arguments.size()])));
+        arguments.add(spellList);
         returnVal.put("learn", new ExecutorStorage((sender, args) -> {
             if (!sender.hasPermission("moddedadditions.spells.learn")) {
                 sendPermissionDenied(sender);
@@ -75,7 +76,7 @@ public class SpellBookCommand {
         arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("unlearn"));
         arguments.add(new EntitySelectorArgument<Collection<Player>>("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
-        arguments.add(new MultiLiteralArgument(getSpellList().toArray(new String[arguments.size()])));
+        arguments.add(spellList);
         returnVal.put("unlearn", new ExecutorStorage((sender, args) -> {
             if (!sender.hasPermission("moddedadditions.spells.unlearn")) {
                 sendPermissionDenied(sender);

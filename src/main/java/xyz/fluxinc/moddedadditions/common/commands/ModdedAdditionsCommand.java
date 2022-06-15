@@ -23,7 +23,7 @@ public class ModdedAdditionsCommand {
         List<Argument> arguments = new ArrayList<>();
         arguments.add(new LiteralArgument("give"));
         arguments.add(new EntitySelectorArgument<Collection<Player>>("player", EntitySelectorArgument.EntitySelector.MANY_PLAYERS));
-        arguments.add(new MultiLiteralArgument(ItemRegistry.getAllItemNames().toArray(new String[0])));
+        arguments.add(new ListArgumentBuilder<String>("item").withList(ItemRegistry.getAllItemNames()).withStringMapper().build());
         returnVal.put("give", new ExecutorStorage((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.give"))) {
                 sendPermissionDenied(sender);
