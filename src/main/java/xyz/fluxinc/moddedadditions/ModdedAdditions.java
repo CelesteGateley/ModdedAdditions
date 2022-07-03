@@ -98,7 +98,7 @@ public final class ModdedAdditions extends JavaPlugin {
         //languageManager.verifyKeys(); // DISABLED DUE TO SNAKEYAML CHANGES
         configurationManager = new ConfigurationManager<>(this, "config.yml");
         //configurationManager.verifyKeys(); // DISABLED DUE TO SNAKEYAML CHANGES
-        ModdedAdditionsCommand.registerCommands();
+        //ModdedAdditionsCommand.registerCommands();
 
         // Register Core Utilities
         blockAccessController = fluxCore.getBlockAccessController();
@@ -116,13 +116,13 @@ public final class ModdedAdditions extends JavaPlugin {
         // Setup VeinMiner Related Tasks
         veinMinerController = new VeinMinerController();
         getServer().getPluginManager().registerEvents(new VeinMinerListener(), this);
-        VeinMinerCommand.registerCommands();
+        //VeinMinerCommand.registerCommands();
 
         // Setup Hammer/Excavator Related Tasks
         areaToolController = new AreaToolController();
         getServer().getPluginManager().registerEvents(new HammerListener(languageManager.getString("mi-hammer")), this);
         getServer().getPluginManager().registerEvents(new ExcavatorListener(languageManager.getString("mi-excavator")), this);
-        AreaToolCommand.registerCommands();
+        //AreaToolCommand.registerCommands();
 
         // Setup Magnet Related Tasks
         magnetController = new MagnetController();
@@ -159,7 +159,7 @@ public final class ModdedAdditions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SlowBallListener(), this);
         getServer().getPluginManager().registerEvents(new LavaWalkListener(), this);
         getServer().getPluginManager().registerEvents(new SpellControlListener(), this);
-        SpellBookCommand.registerCommands();
+        //SpellBookCommand.registerCommands();
         forceFieldListener = new ForceFieldListener();
         getServer().getPluginManager().registerEvents(forceFieldListener, this);
 
@@ -167,7 +167,7 @@ public final class ModdedAdditions extends JavaPlugin {
         //getServer().getPluginManager().registerEvents(new DamageListener(), this);
 
         // Register Taunt Command
-        TauntCommand.registerCommands();
+        //TauntCommand.registerCommands();
 
         // LightSaber Related Functions
         getServer().getPluginManager().registerEvents(new ResponseListener(), this);
