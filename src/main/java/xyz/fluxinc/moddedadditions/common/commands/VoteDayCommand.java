@@ -1,85 +1,99 @@
-package xyz.fluxinc.moddedadditions.common.commands.legacy;
+package xyz.fluxinc.moddedadditions.common.commands;
 
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
+import xyz.fluxinc.fluxcore.command.Command;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
-public class VoteDayCommand implements CommandExecutor, Listener {
+public class VoteDayCommand implements Listener {
 
     private final World dayWorld;
     private DayVote activeVote = null;
     private int taskId = -1;
 
+    private static final String cmd = "voteday";
+    private static final String[] aliases = {"vd", "dayvote",};
+
     public VoteDayCommand(World world) {
         this.dayWorld = world;
+        this.getVoteCommand().register();
+        this.getYesCommand().register();
+        this.getNoCommand().register();
     }
 
-    @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String alias, String[] arguments) {
-        if (Bukkit.getServer().getOnlinePlayers().size() == 1) {
-            dayWorld.setTime(1000);
-        }
-        if (arguments.length < 1) {
+    public Command getVoteCommand() {
+        Command command = new Command(cmd, aliases);
+        return command.executor((sender, args) -> {
+            if (Bukkit.getServer().getOnlinePlayers().size() == 1) {
+                dayWorld.setTime(1000);
+            }
             if (dayWorld.getTime() > 1000 && dayWorld.getTime() < 13000) {
-                commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-alreadyDay"));
-                return true;
+                sender.sendMessage(instance.getLanguageManager().generateMessage("dv-alreadyDay"));
+                return;
             }
             if (Bukkit.getServer().getOnlinePlayers().size() == 1) {
                 dayWorld.setTime(1000);
-                return true;
+                return;
             }
             initiateVote();
-            if (commandSender instanceof Player) {
-                activeVote.votedPlayers.add((Player) commandSender);
+            if (sender instanceof Player) {
+                activeVote.votedPlayers.add((Player) sender);
                 activeVote.yesVotes++;
             }
             checkVote();
-            return true;
-        }
-        if (activeVote == null) {
-            commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-noVoteActive"));
-            return true;
-        }
-        if (commandSender instanceof Player && activeVote.votedPlayers.contains(commandSender)) {
-            commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-alreadyVoted"));
-            return true;
-        }
-        switch (arguments[0].toLowerCase()) {
-            case "yes":
-                activeVote.yesVotes++;
-                if (commandSender instanceof Player) {
-                    activeVote.votedPlayers.add((Player) commandSender);
-                }
-                checkVote();
-                commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-voteRegistered"));
-                return true;
-            case "no":
-                activeVote.noVotes++;
-                if (commandSender instanceof Player) {
-                    activeVote.votedPlayers.add((Player) commandSender);
-                }
-                commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-voteRegistered"));
-                checkVote();
-                return true;
-            default:
-                commandSender.sendMessage(instance.getLanguageManager().generateMessage("dv-unknownOption"));
-        }
-        return true;
+        });
     }
+
+    public Command getYesCommand() {
+        Command command = new Command(cmd, aliases).literal("yes");
+        return command.executor((sender, args) -> {
+            if (verifyVoteSender(sender)) return;
+            activeVote.yesVotes++;
+            if (sender instanceof Player) {
+                activeVote.votedPlayers.add((Player) sender);
+            }
+            checkVote();
+            sender.sendMessage(instance.getLanguageManager().generateMessage("dv-voteRegistered"));
+        });
+    }
+
+    public Command getNoCommand() {
+        Command command = new Command(cmd, aliases).literal("no");
+        return command.executor((sender, args) -> {
+            if (verifyVoteSender(sender)) return;
+            activeVote.noVotes++;
+            if (sender instanceof Player) {
+                activeVote.votedPlayers.add((Player) sender);
+            }
+            checkVote();
+            sender.sendMessage(instance.getLanguageManager().generateMessage("dv-voteRegistered"));
+        });
+    }
+
+    private boolean verifyVoteSender(CommandSender sender) {
+        if (activeVote == null) {
+            sender.sendMessage(instance.getLanguageManager().generateMessage("dv-noVoteActive"));
+            return true;
+        }
+        if (sender instanceof Player && activeVote.votedPlayers.contains(sender)) {
+            sender.sendMessage(instance.getLanguageManager().generateMessage("dv-alreadyVoted"));
+            return true;
+        }
+        return false;
+    }
+
 
     @EventHandler
     public void onSleepEvent(PlayerBedEnterEvent event) {

@@ -19,9 +19,8 @@ import xyz.fluxinc.moddedadditions.armor.listeners.LongFallBootsListener;
 import xyz.fluxinc.moddedadditions.armor.listeners.SlimeChestplateListener;
 import xyz.fluxinc.moddedadditions.common.CustomRecipeUtils;
 import xyz.fluxinc.moddedadditions.common.commands.ModdedAdditionsCommand;
-import xyz.fluxinc.moddedadditions.common.commands.TauntCommand;
+import xyz.fluxinc.moddedadditions.common.commands.VoteDayCommand;
 import xyz.fluxinc.moddedadditions.common.commands.legacy.NotifyCommand;
-import xyz.fluxinc.moddedadditions.common.commands.legacy.VoteDayCommand;
 import xyz.fluxinc.moddedadditions.common.listeners.BookSignListener;
 import xyz.fluxinc.moddedadditions.common.listeners.PreventLootDestructionListener;
 import xyz.fluxinc.moddedadditions.common.listeners.chat.PingListener;
@@ -135,7 +134,6 @@ public final class ModdedAdditions extends JavaPlugin {
         String worldName = configurationManager.getString("dv-dayWorld");
         if (worldName != null && getServer().getWorld(worldName) != null) {
             VoteDayCommand voteDayCommand = new VoteDayCommand(getServer().getWorld(worldName));
-            getCommand("voteday").setExecutor(voteDayCommand);
             getServer().getPluginManager().registerEvents(voteDayCommand, this);
         } else {
             getLogger().warning("No or invalid world defined for DayVote. It will not be enabled");

@@ -12,9 +12,6 @@ commands:
   voteday:
     usage: dayvote <yes/no>
     aliases: [dv, dayvote]
-  votesun:
-    usage: votesun <yes/no>
-    aliases: [vs, sunvote]
 permissions:
   moddedadditions.*:
     description: Grants all permissions from the plugin
