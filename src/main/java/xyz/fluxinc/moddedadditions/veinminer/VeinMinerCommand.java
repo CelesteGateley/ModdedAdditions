@@ -6,6 +6,7 @@ import dev.jorel.commandapi.arguments.*;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import xyz.fluxinc.fluxcore.command.Command;
 import xyz.fluxinc.moddedadditions.common.storage.ExecutorStorage;
 import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
 
@@ -18,6 +19,9 @@ import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class VeinMinerCommand {
 
+    private static final String cmd = "veinminer";
+    private static final String[] aliases = {"vm", "vminer", "veinm",};
+    
     private static List<String> getAllMaterials() {
         List<String> materials = new ArrayList<>();
         for (Material material : Material.values()) {
@@ -29,15 +33,12 @@ public class VeinMinerCommand {
         return materials;
     }
 
-    private static HashMap<String, ExecutorStorage> getCommands() {
-        HashMap<String, ExecutorStorage> returnVal = new HashMap<>();
-        ListArgument<String> materialArgument = new ListArgumentBuilder<String>("material").withList(getAllMaterials()).withStringMapper().build();
-        // Add Command
-        List<Argument> arguments = new ArrayList<>();
-        arguments.add(new LiteralArgument("add"));
-        arguments.add(new MultiLiteralArgument("pickaxe", "axe", "shovel", "hoe", "shears", "hand"));
-        arguments.add(materialArgument);
-        returnVal.put("add", new ExecutorStorage((sender, args) -> {
+    public static Command getAddCommand() {
+        Command command = new Command(cmd, aliases)
+                .literal("add")
+                .raw(new MultiLiteralArgument("pickaxe", "axe", "shovel", "hoe", "shears", "hand"))
+                .string("material", getAllMaterials().toArray(new String[0]));
+        return command.executor((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.veinminer.add"))) {
                 sendPermissionDenied(sender);
                 return;
@@ -67,14 +68,15 @@ public class VeinMinerCommand {
                     return;
             }
             sendBlockAdded(sender, (String) args[1], tool);
-        }, arguments));
-
-        // Remove Command
-        arguments = new ArrayList<>();
-        arguments.add(new LiteralArgument("remove"));
-        arguments.add(new MultiLiteralArgument("pickaxe", "axe", "shovel", "hoe", "shears", "hand"));
-        arguments.add(materialArgument);
-        returnVal.put("remove", new ExecutorStorage((sender, args) -> {
+        });
+    }
+    
+    public static Command getRemoveCommand() {
+        Command command = new Command(cmd, aliases)
+                .literal("remove")
+                .raw(new MultiLiteralArgument("pickaxe", "axe", "shovel", "hoe", "shears", "hand"))
+                .string("material", getAllMaterials().toArray(new String[0]));
+        return command.executor((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.veinminer.remove"))) {
                 sendPermissionDenied(sender);
                 return;
@@ -103,13 +105,13 @@ public class VeinMinerCommand {
                     CommandAPI.fail("Invalid Tool Provided");
                     return;
             }
-            sendBlockRemoved(sender, (String) args[1], tool);
-        }, arguments));
+            sendBlockAdded(sender, (String) args[1], tool);
+        });
+    }
 
-        // Reload Command
-        arguments = new ArrayList<>();
-        arguments.add(new LiteralArgument("toggle"));
-        returnVal.put("toggle", new ExecutorStorage((sender, args) -> {
+    public static Command getToggleCommand() {
+        Command command = new Command(cmd, aliases).literal("toggle");
+        return command.executor((sender, args) -> {
             if (!(sender instanceof Player)) {
                 sendMustBePlayer(sender);
                 return;
@@ -126,45 +128,39 @@ public class VeinMinerCommand {
             } else {
                 sender.sendMessage(instance.getLanguageManager().generateMessage("vm-toggleOff"));
             }
-        }, arguments));
+        });
+    }
 
-        // Save Command
-        arguments = new ArrayList<>();
-        arguments.add(new LiteralArgument("save"));
-        returnVal.put("save", new ExecutorStorage((sender, args) -> {
+    public static Command getSaveCommand() {
+        Command command = new Command(cmd, aliases).literal("save");
+        return command.executor((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.veinminer.save"))) {
                 sendPermissionDenied(sender);
                 return;
             }
             instance.getVeinMinerController().saveConfiguration();
             sender.sendMessage(instance.getLanguageManager().generateMessage("vm-configSaved"));
-        }, arguments));
+        });
+    }
 
-        // Reload Command
-        arguments = new ArrayList<>();
-        arguments.add(new LiteralArgument("reload"));
-        returnVal.put("reload", new ExecutorStorage((sender, args) -> {
+    public static Command getReloadCommand() {
+        Command command = new Command(cmd, aliases).literal("reload");
+        return command.executor((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.veinminer.reload"))) {
                 sendPermissionDenied(sender);
                 return;
             }
             instance.getVeinMinerController().loadFromConfiguration();
             sender.sendMessage(instance.getLanguageManager().generateMessage("vm-configReloaded"));
-        }, arguments));
-
-        return returnVal;
+        });
     }
 
     public static void registerCommands() {
-        HashMap<String, ExecutorStorage> commands = getCommands();
-        for (String key : commands.keySet()) {
-            CommandAPICommand command = new CommandAPICommand("veinminer").withAliases("vm", "vminer", "veinm");
-            for (Argument argument : commands.get(key).getArguments()) {
-                command.withArguments(argument);
-            }
-            command.executes(commands.get(key).getExecutor());
-            command.register();
-        }
+        getAddCommand().register();
+        getRemoveCommand().register();
+        getToggleCommand().register();
+        getSaveCommand().register();
+        getReloadCommand().register();
     }
 
     private static void sendPermissionDenied(CommandSender sender) {

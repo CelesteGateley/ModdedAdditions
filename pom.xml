@@ -116,13 +116,13 @@
         <dependency>
             <groupId>com.github.CelesteGateley</groupId>
             <artifactId>FluxCore</artifactId>
-            <version>1ba72df2</version>
+            <version>32ec28dd</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>dev.jorel</groupId>
             <artifactId>commandapi-core</artifactId>
-            <version>8.3.1</version>
+            <version>8.4.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

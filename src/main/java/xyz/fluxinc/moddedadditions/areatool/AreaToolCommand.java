@@ -5,7 +5,10 @@ import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.*;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import xyz.fluxinc.fluxcore.command.Command;
 import xyz.fluxinc.moddedadditions.common.storage.ExecutorStorage;
+import xyz.fluxinc.moddedadditions.common.storage.PlayerData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +18,9 @@ import java.util.Map;
 import static xyz.fluxinc.moddedadditions.ModdedAdditions.instance;
 
 public class AreaToolCommand {
+
+    private static final String cmd = "areatool";
+    private static final String[] aliases = {"at", "atool", "areat",};
 
     private static List<String> getAllMaterials() {
         List<String> materials = new ArrayList<>();
@@ -27,16 +33,12 @@ public class AreaToolCommand {
         return materials;
     }
 
-
-    private static HashMap<String, ExecutorStorage> getCommands() {
-        HashMap<String, ExecutorStorage> returnVal = new HashMap<>();
-        ListArgument<String> materialArgument = new ListArgumentBuilder<String>("material").withList(getAllMaterials()).withStringMapper().build();
-        // Add Command
-        List<Argument> arguments = new ArrayList<>();
-        arguments.add(new LiteralArgument("add"));
-        arguments.add(new MultiLiteralArgument("hammer", "excavator"));
-        arguments.add(materialArgument);
-        returnVal.put("add", new ExecutorStorage((sender, args) -> {
+    public static Command getAddCommand() {
+        Command command = new Command(cmd, aliases)
+                .literal("add")
+                .raw(new MultiLiteralArgument("hammer", "excavator"))
+                .string("material", getAllMaterials().toArray(new String[0]));
+        return command.executor((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.add"))) {
                 sendPermissionDenied(sender);
                 return;
@@ -51,14 +53,15 @@ public class AreaToolCommand {
                 return;
             }
             sendBlockAdded(sender, (String) args[1], tool);
-        }, arguments));
+        });
+    }
 
-        // Remove Command
-        arguments = new ArrayList<>();
-        arguments.add(new LiteralArgument("remove"));
-        arguments.add(new MultiLiteralArgument("hammer", "excavator"));
-        arguments.add(materialArgument);
-        returnVal.put("remove", new ExecutorStorage((sender, args) -> {
+    public static Command getRemoveCommand() {
+        Command command = new Command(cmd, aliases)
+                .literal("remove")
+                .raw(new MultiLiteralArgument("hammer", "excavator"))
+                .string("material", getAllMaterials().toArray(new String[0]));
+        return command.executor((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.remove"))) {
                 sendPermissionDenied(sender);
                 return;
@@ -73,45 +76,38 @@ public class AreaToolCommand {
                 return;
             }
             sendBlockRemoved(sender, (String) args[1], tool);
-        }, arguments));
+        });
+    }
 
-        // Save Command
-        arguments = new ArrayList<>();
-        arguments.add(new LiteralArgument("save"));
-        returnVal.put("save", new ExecutorStorage((sender, args) -> {
+    public static Command getSaveCommand() {
+        Command command = new Command(cmd, aliases).literal("save");
+        return command.executor((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.save"))) {
                 sendPermissionDenied(sender);
                 return;
             }
             instance.getAreaToolController().saveConfiguration();
             sender.sendMessage(instance.getLanguageManager().generateMessage("vm-configSaved"));
-        }, arguments));
+        });
+    }
 
-        // Reload Command
-        arguments = new ArrayList<>();
-        arguments.add(new LiteralArgument("reload"));
-        returnVal.put("reload", new ExecutorStorage((sender, args) -> {
+    public static Command getReloadCommand() {
+        Command command = new Command(cmd, aliases).literal("reload");
+        return command.executor((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.reload"))) {
                 sendPermissionDenied(sender);
                 return;
             }
             instance.getAreaToolController().loadFromConfiguration();
             sender.sendMessage(instance.getLanguageManager().generateMessage("vm-configReloaded"));
-        }, arguments));
-
-        return returnVal;
+        });
     }
 
     public static void registerCommands() {
-        HashMap<String, ExecutorStorage> commands = getCommands();
-        for (String key : commands.keySet()) {
-            CommandAPICommand command = new CommandAPICommand("areatool").withAliases("at", "atool", "areat");
-            for (Argument argument : commands.get(key).getArguments()) {
-                command.withArguments(argument);
-            }
-            command.executes(commands.get(key).getExecutor());
-            command.register();
-        }
+        getAddCommand().register();
+        getRemoveCommand().register();
+        getSaveCommand().register();
+        getReloadCommand().register();
     }
 
     private static void sendPermissionDenied(CommandSender sender) {
