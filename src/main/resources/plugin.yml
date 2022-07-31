@@ -9,9 +9,6 @@ description: Adds some cool tools/features that aren't in vanilla
 commands:
   notify:
     usage: notify <name>
-  voteday:
-    usage: dayvote <yes/no>
-    aliases: [dv, dayvote]
 permissions:
   moddedadditions.*:
     description: Grants all permissions from the plugin
