@@ -120,6 +120,7 @@ public class Smite extends Spell {
                 caster.getWorld().strikeLightning(targetBlock.getLocation());
                 for (Entity entity : caster.getWorld().getNearbyEntities(targetBlock.getLocation(), 10, 5, 10)) {
                     if (entity instanceof LivingEntity) {
+                        if (entity instanceof Player && entity.equals(caster)) continue;
                         entity.getWorld().strikeLightning(entity.getLocation());
                     }
                 }
