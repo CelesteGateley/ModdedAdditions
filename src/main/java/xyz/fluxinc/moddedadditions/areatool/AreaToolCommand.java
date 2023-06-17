@@ -36,46 +36,46 @@ public class AreaToolCommand {
     public static Command getAddCommand() {
         Command command = new Command(cmd, aliases)
                 .literal("add")
-                .raw(new MultiLiteralArgument("hammer", "excavator"))
+                .raw(new MultiLiteralArgument("tool", List.of("hammer", "excavator")))
                 .string("material", getAllMaterials().toArray(new String[0]));
         return command.executor((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.add"))) {
                 sendPermissionDenied(sender);
                 return;
             }
-            String tool = (String) args[0];
+            String tool = (String) args.get(0);
             if (tool.equals("hammer")) {
-                instance.getAreaToolController().addHammerBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                instance.getAreaToolController().addHammerBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
             } else if (tool.equals("excavator")) {
-                instance.getAreaToolController().addExcavatorBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                instance.getAreaToolController().addExcavatorBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
             } else {
-                CommandAPI.fail("Invalid Tool Provided");
+                CommandAPI.failWithString("Invalid Tool Provided");
                 return;
             }
-            sendBlockAdded(sender, (String) args[1], tool);
+            sendBlockAdded(sender, (String) args.get(1), tool);
         });
     }
 
     public static Command getRemoveCommand() {
         Command command = new Command(cmd, aliases)
                 .literal("remove")
-                .raw(new MultiLiteralArgument("hammer", "excavator"))
+                .raw(new MultiLiteralArgument("tool", List.of("hammer", "excavator")))
                 .string("material", getAllMaterials().toArray(new String[0]));
         return command.executor((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.areatool.remove"))) {
                 sendPermissionDenied(sender);
                 return;
             }
-            String tool = (String) args[0];
+            String tool = (String) args.get(0);
             if (tool.equals("hammer")) {
-                instance.getAreaToolController().removeHammerBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                instance.getAreaToolController().removeHammerBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
             } else if (tool.equals("excavator")) {
-                instance.getAreaToolController().removeExcavatorBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                instance.getAreaToolController().removeExcavatorBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
             } else {
-                CommandAPI.fail("Invalid Tool Provided");
+                CommandAPI.failWithString("Invalid Tool Provided");
                 return;
             }
-            sendBlockRemoved(sender, (String) args[1], tool);
+            sendBlockRemoved(sender, (String) args.get(1), tool);
         });
     }
 

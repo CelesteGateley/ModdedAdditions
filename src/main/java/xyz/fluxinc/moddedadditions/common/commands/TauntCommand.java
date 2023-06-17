@@ -1,10 +1,5 @@
 package xyz.fluxinc.moddedadditions.common.commands;
 
-import dev.jorel.commandapi.CommandAPICommand;
-import dev.jorel.commandapi.arguments.Argument;
-import dev.jorel.commandapi.arguments.EntitySelector;
-import dev.jorel.commandapi.arguments.EntitySelectorArgument;
-import dev.jorel.commandapi.arguments.IntegerArgument;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
@@ -19,8 +14,11 @@ public class TauntCommand {
             .entity("entity")
             .integer("radius")
             .executor((sender, args) -> {
-                Entity selectedEntity = (Entity) args[0];
-                int radius = (args[1] == null ? 16 : ((Integer) args[1])) * 2;
+                Entity selectedEntity = (Entity) args.get(0);
+                int radius = 16;
+                try {
+                    radius = (args.get(1) == null ? 16 : ((Integer) args.get(1))) * 2;
+                } catch (NullPointerException ignored) {}
                 if (selectedEntity instanceof LivingEntity) {
                     for (Entity entity : selectedEntity.getNearbyEntities(radius, radius, radius)) {
                         if (entity instanceof Mob) {

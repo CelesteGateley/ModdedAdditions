@@ -36,76 +36,76 @@ public class VeinMinerCommand {
     public static Command getAddCommand() {
         Command command = new Command(cmd, aliases)
                 .literal("add")
-                .raw(new MultiLiteralArgument("pickaxe", "axe", "shovel", "hoe", "shears", "hand"))
+                .raw(new MultiLiteralArgument("tool", List.of("pickaxe", "axe", "shovel", "hoe", "shears", "hand")))
                 .string("material", getAllMaterials().toArray(new String[0]));
         return command.executor((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.veinminer.add"))) {
                 sendPermissionDenied(sender);
                 return;
             }
-            String tool = (String) args[0];
+            String tool = (String) args.get(0);
             switch (tool) {
                 case "pickaxe":
-                    instance.getVeinMinerController().addPickaxeBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                    instance.getVeinMinerController().addPickaxeBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
                     break;
                 case "axe":
-                    instance.getVeinMinerController().addAxeBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                    instance.getVeinMinerController().addAxeBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
                     break;
                 case "shovel":
-                    instance.getVeinMinerController().addShovelBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                    instance.getVeinMinerController().addShovelBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
                     break;
                 case "hoe":
-                    instance.getVeinMinerController().addHoeBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                    instance.getVeinMinerController().addHoeBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
                     break;
                 case "shears":
-                    instance.getVeinMinerController().addShearsBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                    instance.getVeinMinerController().addShearsBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
                     break;
                 case "hand":
-                    instance.getVeinMinerController().addHandBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                    instance.getVeinMinerController().addHandBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
                     break;
                 default:
-                    CommandAPI.fail("Invalid Tool Provided");
+                    CommandAPI.failWithString("Invalid Tool Provided");
                     return;
             }
-            sendBlockAdded(sender, (String) args[1], tool);
+            sendBlockAdded(sender, (String) args.get(1), tool);
         });
     }
     
     public static Command getRemoveCommand() {
         Command command = new Command(cmd, aliases)
                 .literal("remove")
-                .raw(new MultiLiteralArgument("pickaxe", "axe", "shovel", "hoe", "shears", "hand"))
+                .raw(new MultiLiteralArgument("tool", List.of("pickaxe", "axe", "shovel", "hoe", "shears", "hand")))
                 .string("material", getAllMaterials().toArray(new String[0]));
         return command.executor((sender, args) -> {
             if (!(sender.hasPermission("moddedadditions.veinminer.remove"))) {
                 sendPermissionDenied(sender);
                 return;
             }
-            String tool = (String) args[0];
+            String tool = (String) args.get(0);
             switch (tool) {
                 case "pickaxe":
-                    instance.getVeinMinerController().removePickaxeBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                    instance.getVeinMinerController().removePickaxeBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
                     break;
                 case "axe":
-                    instance.getVeinMinerController().removeAxeBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                    instance.getVeinMinerController().removeAxeBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
                     break;
                 case "shovel":
-                    instance.getVeinMinerController().removeShovelBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                    instance.getVeinMinerController().removeShovelBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
                     break;
                 case "hoe":
-                    instance.getVeinMinerController().removeHoeBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                    instance.getVeinMinerController().removeHoeBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
                     break;
                 case "shears":
-                    instance.getVeinMinerController().removeShearsBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                    instance.getVeinMinerController().removeShearsBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
                     break;
                 case "hand":
-                    instance.getVeinMinerController().removeHandBlock(Material.valueOf(((String) args[1]).toUpperCase()));
+                    instance.getVeinMinerController().removeHandBlock(Material.valueOf(((String) args.get(1)).toUpperCase()));
                     break;
                 default:
-                    CommandAPI.fail("Invalid Tool Provided");
+                    CommandAPI.failWithString("Invalid Tool Provided");
                     return;
             }
-            sendBlockAdded(sender, (String) args[1], tool);
+            sendBlockAdded(sender, (String) args.get(1), tool);
         });
     }
 

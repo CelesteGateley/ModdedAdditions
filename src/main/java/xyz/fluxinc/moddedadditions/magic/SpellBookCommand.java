@@ -44,16 +44,16 @@ public class SpellBookCommand {
                 return;
             }
             Collection<Player> targets = new ArrayList<>();
-            if (args[0] == null && sender instanceof Player) {
+            if (args.get(0) == null && sender instanceof Player) {
                 targets.add((Player) sender);
-            } else if (args[0] == null) {
-                CommandAPI.fail("Sender must be a player");
-            } else if (args[0] instanceof List) {
-                targets = (Collection<Player>) args[0];
+            } else if (args.get(0) == null) {
+                CommandAPI.failWithString("Sender must be a player");
+            } else if (args.get(0) instanceof List) {
+                targets = (Collection<Player>) args.get(0);
             } else {
-                CommandAPI.fail("Invalid List of Players");
+                CommandAPI.failWithString("Invalid List of Players");
             }
-            if (args[1].equals("all")) {
+            if (args.get(1).equals("all")) {
                 for (Player player : targets) {
                     PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
                     for (String spell : getSpellList()) {
@@ -66,8 +66,8 @@ public class SpellBookCommand {
             } else {
                 for (Player player : targets) {
                     PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
-                    playerData.setSpell((String) args[1], LEARN_SPELL_LEVEL);
-                    sendLearnSpell(sender, (String) args[1]);
+                    playerData.setSpell((String) args.get(1), LEARN_SPELL_LEVEL);
+                    sendLearnSpell(sender, (String) args.get(1));
                     instance.getPlayerDataController().setPlayerData(player, playerData);
                 }
             }
@@ -84,16 +84,16 @@ public class SpellBookCommand {
                 return;
             }
             Collection<Player> targets = new ArrayList<>();
-            if (args[0] == null && sender instanceof Player) {
+            if (args.get(0) == null && sender instanceof Player) {
                 targets.add((Player) sender);
-            } else if (args[0] == null) {
-                CommandAPI.fail("Sender must be a player");
-            } else if (args[0] instanceof List) {
-                targets = (Collection<Player>) args[0];
+            } else if (args.get(0) == null) {
+                CommandAPI.failWithString("Sender must be a player");
+            } else if (args.get(0) instanceof List) {
+                targets = (Collection<Player>) args.get(0);
             } else {
-                CommandAPI.fail("Invalid List of Players");
+                CommandAPI.failWithString("Invalid List of Players");
             }
-            if (args[1].equals("all")) {
+            if (args.get(1).equals("all")) {
                 for (Player player : targets) {
                     PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
                     for (String spell : getSpellList()) {
@@ -106,8 +106,8 @@ public class SpellBookCommand {
             } else {
                 for (Player player : targets) {
                     PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
-                    playerData.setSpell((String) args[1], 0);
-                    sendUnlearnSpell(sender, (String) args[1]);
+                    playerData.setSpell((String) args.get(1), 0);
+                    sendUnlearnSpell(sender, (String) args.get(1));
                     instance.getPlayerDataController().setPlayerData(player, playerData);
                 }
             }
@@ -124,14 +124,14 @@ public class SpellBookCommand {
                 return;
             }
             Collection<Player> targets = new ArrayList<>();
-            if (args[0] == null && sender instanceof Player) {
+            if (args.get(0) == null && sender instanceof Player) {
                 targets.add((Player) sender);
-            } else if (args[0] == null) {
-                CommandAPI.fail("Sender must be a player");
-            } else if (args[0] instanceof List) {
-                targets = (Collection<Player>) args[0];
+            } else if (args.get(0) == null) {
+                CommandAPI.failWithString("Sender must be a player");
+            } else if (args.get(0) instanceof List) {
+                targets = (Collection<Player>) args.get(0);
             } else {
-                CommandAPI.fail("Invalid List of Players");
+                CommandAPI.failWithString("Invalid List of Players");
             }
             for (Player player : targets) {
                 PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);
@@ -151,14 +151,14 @@ public class SpellBookCommand {
                 return;
             }
             Collection<Player> targets = new ArrayList<>();
-            if (args[0] == null && sender instanceof Player) {
+            if (args.get(0) == null && sender instanceof Player) {
                 targets.add((Player) sender);
-            } else if (args[0] == null) {
-                CommandAPI.fail("Sender must be a player");
-            } else if (args[0] instanceof List) {
-                targets = (Collection<Player>) args[0];
+            } else if (args.get(0) == null) {
+                CommandAPI.failWithString("Sender must be a player");
+            } else if (args.get(0) instanceof List) {
+                targets = (Collection<Player>) args.get(0);
             } else {
-                CommandAPI.fail("Invalid List of Players");
+                CommandAPI.failWithString("Invalid List of Players");
             }
             for (Player player : targets) {
                 PlayerData playerData = instance.getPlayerDataController().getPlayerData(player);

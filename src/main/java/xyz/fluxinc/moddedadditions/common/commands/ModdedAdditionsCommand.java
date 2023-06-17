@@ -28,19 +28,19 @@ public class ModdedAdditionsCommand {
                 return;
             }
             Collection<Player> targets = new ArrayList<>();
-            if (args[0] == null && sender instanceof Player) {
+            if (args.get(0) == null && sender instanceof Player) {
                 targets.add((Player) sender);
-            } else if (args[0] == null) {
-                CommandAPI.fail("Sender must be a player");
-            } else if (args[0] instanceof List) {
-                targets = (Collection<Player>) args[0];
+            } else if (args.get(0) == null) {
+                CommandAPI.failWithString("Sender must be a player");
+            } else if (args.get(0) instanceof List) {
+                targets = (Collection<Player>) args.get(0);
             } else {
-                CommandAPI.fail("Invalid List of Players");
+                CommandAPI.failWithString("Invalid List of Players");
             }
 
-            ItemStack itemStack = ItemRegistry.getItem((String) args[1]);
+            ItemStack itemStack = ItemRegistry.getItem((String) args.get(1));
             if (itemStack == null) {
-                sendInvalidItem(sender, (String) args[1]);
+                sendInvalidItem(sender, (String) args.get(1));
             } else {
                 for (Player target : targets) {
                     target.getInventory().addItem(itemStack);
